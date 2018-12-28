@@ -15,29 +15,31 @@ export class AuthProvider{
   }
 
   async getUser(){
-    return firebase.auth().currentUser
+    return ''
+  }
+
+  async validateId(id: Number){
+    if(id === 9876543){
+      return true
+    }else{
+      return false
+    }
   }
 
   async login(user: User){    
     try{  
-      const result =  '' 
-      return result      
+      if(user.id === 9876543 && user.password === '123456') {
+        return true
+      }else{
+        return false
+      }            
     }catch(e){      
       throw e
     } 
   }
 
   async logout(){    
-    return firebase.auth().signOut()
+    return true
   }  
 
-   recoveryPassword(email){
-     return new Promise((resolve, reject) =>{
-      firebase.auth().sendPasswordResetEmail(email).then(()=>{
-        resolve()
-      }).catch(e =>{
-        reject(e)
-      })
-     })   
-  }
 }

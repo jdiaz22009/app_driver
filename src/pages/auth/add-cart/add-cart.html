@@ -5,7 +5,46 @@
 </ion-header>
 
 <ion-content padding>
+    <img src="./assets/imgs/img-top-nuevo-vehiculo.png">
 
+    <ion-grid>
+            <ion-row>
+                <ion-col col-12>
+    
+                    <form [formGroup]="cartForm">
+                        <ion-item class=l-item>
+                            <ion-label stacked>Placa <sup>*</sup></ion-label>
+                            <ion-input [formControl]="cartForm.controls['license_plate']" type="text"></ion-input>
+                        </ion-item>         
+                
+                        <ion-item class=l-item>
+                            <ion-label stacked>Clase de vehículo</ion-label>
+                            <ion-input [formControl]="cartForm.controls['type']" type="text"></ion-input>
+                        </ion-item>
+    
+                        <ion-item class=l-item>
+                            <ion-label stacked>Tipo de carroceria</ion-label>
+                            <ion-input [formControl]="cartForm.controls['bodywork']" type="text"></ion-input>
+                        </ion-item>
+    
+                        <ion-item class=l-item>
+                            <ion-label stacked>Modelo </ion-label>
+                            <ion-input [formControl]="cartForm.controls['model']" type="text"></ion-input>
+                        </ion-item>
+    
+                        <ion-item class=l-item>
+                            <ion-label stacked>Marca</ion-label>
+                            <ion-input [formControl]="cartForm.controls['brand']" type="text"></ion-input>
+                        </ion-item>
+    
+                      </form>
+                
+                
+                    <button margin-top (click)="addCart()" [disabled]="!cartForm.valid" ion-button full color="btn">Crear Cuenta</button>
+    
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     
   
 </ion-content>

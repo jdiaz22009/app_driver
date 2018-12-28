@@ -22,7 +22,7 @@ export class LoginPage {
 
   email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   password_validator = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
-  id_validator =  /^\d+$/ // /^\d{9}[V|v|X|x]{6,}$/
+  id_validator =  /^\d+$/ 
 
   sectionSelected: number = 0
 

@@ -1,5 +1,60 @@
-<ion-content padding>      
-       
+<ion-header>
+    <ion-navbar>        
+        <ion-title>Creación de Cuenta</ion-title>
+    </ion-navbar>
+</ion-header>
 
+<ion-content padding>             
+    <img src="./assets/imgs/img-top-crear-cuenta.png">
+    
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+
+                <form [formGroup]="registerForm">
+                    <ion-item class=l-item>
+                        <ion-label stacked>Confirmar número de cédula</ion-label>
+                        <ion-input [formControl]="registerForm.controls['id']" type="text"></ion-input>
+                    </ion-item>         
+            
+                    <ion-item class=l-item>
+                        <ion-label stacked>Primer Nombre</ion-label>
+                        <ion-input [formControl]="registerForm.controls['first_name']" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item class=l-item>
+                        <ion-label stacked>Segundo Nombre</ion-label>
+                        <ion-input [formControl]="registerForm.controls['second_name']" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item class=l-item>
+                        <ion-label stacked>Primer Apellido</ion-label>
+                        <ion-input [formControl]="registerForm.controls['first_lastname']" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item class=l-item>
+                        <ion-label stacked>Segundo Apellido</ion-label>
+                        <ion-input [formControl]="registerForm.controls['second_lastname']" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item class=l-item>
+                        <ion-label stacked>Número Celular</ion-label>
+                        <ion-input [formControl]="registerForm.controls['phone']" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item class=l-item>
+                        <ion-label stacked>Email</ion-label>
+                        <ion-input [formControl]="registerForm.controls['email']" type="text"></ion-input>
+                    </ion-item>
+
+                  </form>
+            
+            
+                <button margin-top (click)="register()" [disabled]="!registerForm.valid" ion-button full color="btn">Crear Cuenta</button>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    
 </ion-content>
 

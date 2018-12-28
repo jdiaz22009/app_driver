@@ -11,6 +11,7 @@ import 'firebase/auth'
 import { LoginPage } from '../pages/auth/login/login'
 import { HomePage } from '../pages/app/home/home'
 import { MainPage } from '../pages/auth/main/main'
+import { RegisterPage } from '../pages/auth/register/register'
 
 @Component({
   templateUrl: 'app.html'
