@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-navbar>        
+        <ion-title>Inicio de sesión</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <img class="logo" src="./assets/imgs/logo-cargaya.png">
+
+    <p class="l-title">Ingresar como {{user_type}}</p>
+
+    <section class="form" *ngIf="sectionSelected === 1">
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-12>
+                        <form [formGroup]="idForm">
+                            <ion-item class=l-item>
+                                <ion-label stacked>Cédula</ion-label>
+                                <ion-input [formControl]="idForm.controls['id']" type="text"></ion-input>
+                            </ion-item>         
+                            
+                            <div *ngIf="!idForm.controls.id.valid && idForm.controls.id.dirty">
+                                    <p class="tx-d">Ingrese un usuario válido.</p>
+                            </div>
+                
+                        </form>
+                
+                        <p class="tx-l">cédula de ciudadanía</p>
+                
+                        <button (click)="validateId()" [disabled]="!idForm.valid" ion-button full color="btn">Continuar</button>
+
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            
+    </section>
+
+    
+    <section class="form" *ngIf="sectionSelected === 2">
+
+        <ion-grid>
+            <ion-row>
+                <ion-col col-12>
+                        <form [formGroup]="passwordForm">
+                                <ion-item>
+                                    <ion-label stacked>Contraseña</ion-label>
+                                    <ion-input [formControl]="passwordForm.controls['password']" type="password"></ion-input>
+                                </ion-item>
+                    
+                                <div *ngIf="!passwordForm.controls.password.valid && passwordForm.controls.password.dirty">
+                                       <p class="tx-d">Ingrese una contraseña válida.</p> 
+                                </div>
+                            </form>
+                    
+                            <p class="tx-l">ingresa tu contraseña</p>
+                    
+                            <button (click)="login()" [disabled]="!passwordForm.valid" ion-button full color="btn">Iniciar Sesión</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+            
+    </section>
+  
+</ion-content>
+
+<ion-footer>
+    <p class="tx-l" text-center>¿No puede iniciar sesión? <span class="contact" (click)="getSupport()">Contáctenos aquí</span></p>
+</ion-footer>
+

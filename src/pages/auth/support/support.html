@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>        
+        <ion-title>Soporte Técnico</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <img src="./assets/imgs/img-top-soporte.png">
+  <p class="sp-title">Nuestro equipo de soporte está atento a cualquier dudad o necesidad, contáctenos</p>
+
+  <ion-grid class="content-controls">
+      <ion-row justify-content-center>
+        <ion-col col-4 (click)="whatsapp()">
+            <a href="https://api.whatsapp.com/send?phone=">
+              <img class="h-actions" src="./assets/imgs/whatsapp-logo.png">
+            </a>           
+            <p class="h-summary">Vía Whatsapp</p>
+        </ion-col>
+        <ion-col col-4 offset-2 (click)="call()">
+            <img class="h-actions" src="./assets/imgs/call-icon.png">
+            <p class="h-summary">Realizar LLamada</p>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+
+  <hr/>
+  <p text-right class="email">info<span>@</span>cargaya.com</p>
+  
+</ion-content>
+

@@ -1,0 +1,27 @@
+page-support {
+
+  .sp-title{
+    text-align: center;
+    color: color($colors, summary) !important;
+  }
+
+
+  .h-actions{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%; 
+  }
+  .h-summary{
+    color: color($colors, txt1);
+    text-align: center
+  }
+
+  .email{
+    color: color($colors, txt1);
+    span{
+      color: color($colors, green1) !important;
+    }
+  }
+  
+}
