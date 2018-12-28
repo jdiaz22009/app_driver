@@ -8,7 +8,32 @@
 </ion-header>
 
 <ion-content>
-<p>home</p> 
+    <ion-grid class="content-controls">
+        <ion-row justify-content-center>
+          <ion-col col-3 (click)="myCarts()">
+            <img class="h-actions" src="./assets/imgs/icon-mis-vehiculos.png">
+            <p class="h-summary">Mis vehículos</p>
+          </ion-col>
+          <ion-col col-3 offset-3 (click)="jobs()">
+              <img class="h-actions" src="./assets/imgs/icon-mis-fletes.png">
+            <p class="h-summary">Mis fletes</p>
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-col col-3 (click)="profile()">
+                <img class="h-actions" src="./assets/imgs/icon-mi-perfil.png">
+                <p class="h-summary">Mi perfil</p>
+            </ion-col>
+            <ion-col col-3 offset-3 (click)="availability()">
+                <img class="h-actions" src="./assets/imgs/icon-disponibilidad.png">
+                <p class="h-summary">Mi disponibilidad</p>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+
+      <h2 text-center>Buscar Cargas</h2>
    
   
 </ion-content>
