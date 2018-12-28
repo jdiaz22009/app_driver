@@ -9,6 +9,7 @@ import { AuthProvider } from '../../../providers/auth'
 
 import { HomePage } from '../../app/home/home'
 import { SupportPage } from '../support/support'
+import { RegisterPage } from '../register/register'
 
 @Component({
   selector: 'page-login',
@@ -69,7 +70,16 @@ export class LoginPage {
   }
 
   validateId(){
-    this.sectionSelected = 2
+    const id = parseInt(this.idForm.controls['id'].value)
+    this.auth.validateId(id).then(res =>{
+      console.log('validateId ' + res)
+      if(res){
+        this.sectionSelected = 2
+      }else{
+        this.navCtrl.push(RegisterPage)
+      }
+    })
+    
   }
 
   login(){    
@@ -77,24 +87,23 @@ export class LoginPage {
     const loader = this.loadingCtrl.create({})
     loader.present()
 
-    this.user.id = this.idForm.controls['id'].value
+    this.user.id = parseInt(this.idForm.controls['id'].value)
     this.user.password = this.passwordForm.controls['password'].value
-
-    // this.auth.login(this.user).then(result =>{
-    //   console.log(result)
-    //   if(result){
-    //     loader.dismiss()
-    //     this.navCtrl.setRoot(HomePage)
-    //   }      
-    // }).catch(e =>{
-    //   console.log(e)
-    //   loader.dismiss()
-    //   if(e.code === 'auth/user-not-found'){
-    //     this.alert.showAlert('error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')
-    //   }else if(e.code === 'auth/wrong-password'){
-    //     this.alert.showAlert('error', 'La contraseña es incorrecta')
-    //   }      
-    // })
+    console.log(this.user)
+    this.auth.login(this.user).then(result =>{
+      console.log(result)
+      if(result){
+        loader.dismiss()
+        this.navCtrl.setRoot(HomePage)
+      }else{
+        loader.dismiss()      
+        this.alert.showAlert('error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+      }      
+    }).catch(e =>{
+      console.log(e)
+      loader.dismiss()      
+      this.alert.showAlert('error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+    })
  
   }
  

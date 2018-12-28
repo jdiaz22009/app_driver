@@ -17,7 +17,7 @@ import { RegisterPage } from '../pages/auth/register/register'
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = HomePage
+  rootPage: any = MainPage
 
   constructor(
     public platform: Platform, 

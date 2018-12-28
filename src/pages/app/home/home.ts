@@ -17,6 +17,20 @@ export class HomePage {
     this.menu.enable(true)
   }
 
-  
+  myCarts(){
+
+  }
+
+  jobs(){
+
+  }
+
+  profile(){
+
+  }
+
+  availability(){
+    
+  }
 
 }
