@@ -44,6 +44,10 @@ export class RegisterPage {
           Validators.pattern(this.email_validator),          
           Validators.required
         ])],
+        password: ['', Validators.compose([
+          Validators.minLength(6),        
+          Validators.required
+        ])],
       });
       
     }  

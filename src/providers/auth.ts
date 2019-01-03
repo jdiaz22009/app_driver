@@ -48,7 +48,16 @@ export class AuthProvider{
   }
 
   async register(register: Register){
-
+    const url = this.api_url + this.register_driver_path
+    const params = qs.stringify({
+      email: register.email,
+      contrasena: register.password,
+      nombres: register.first_name + ' ' + register.second_name,
+      apellidos: register.first_lastname + ' ' + register.second_lastname,
+      documento: register.id,
+      firetoken: 0,
+      type: 0      
+    })
   }
 
   async logout(){    

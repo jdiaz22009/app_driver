@@ -6,4 +6,5 @@ export interface Register{
   second_lastname: string; 
   phone: number;
   email: string;
+  password: string;
 }
