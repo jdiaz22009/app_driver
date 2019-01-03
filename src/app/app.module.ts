@@ -13,10 +13,12 @@ import { AlertsProvider } from '../providers/alerts'
 import { AuthProvider } from '../providers/auth'
 import { NetworkProvider } from '../providers/network'
 import { StorageDb } from '../providers/storageDb'
+import { ApiProvider } from '../providers/api'
 
 import { MyApp } from './app.component'
 import { AUTH_MODULE } from '../pages/auth/index'
 import { APP_MODULE } from '../pages/app'
+
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { APP_MODULE } from '../pages/app'
     NetworkProvider,
     StorageDb,
     CallNumber,
-    SocialSharing
+    SocialSharing,
+    ApiProvider
   ]
 })
 export class AppModule {}

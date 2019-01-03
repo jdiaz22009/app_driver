@@ -92,12 +92,15 @@ export class LoginPage {
     console.log(this.user)
     this.auth.login(this.user).then(result =>{
       console.log(result)
-      if(result){
+      const code = result['data'].code
+      const msg = result['data'].message
+
+      if(code === 100){
         loader.dismiss()
         this.navCtrl.setRoot(HomePage)
       }else{
         loader.dismiss()      
-        this.alert.showAlert('error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+        this.alert.showAlert('Error', msg)         
       }      
     }).catch(e =>{
       console.log(e)
