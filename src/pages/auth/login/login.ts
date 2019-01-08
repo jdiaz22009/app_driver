@@ -73,13 +73,13 @@ export class LoginPage {
     const id = parseInt(this.idForm.controls['id'].value)
     this.auth.validateId(id).then(res =>{
       console.log('validateId ' + res)
-      if(res){
+      const code = res['data'].code
+      if(code === 100){
         this.sectionSelected = 2
-      }else{
+      }else if(code === 101){
         this.navCtrl.push(RegisterPage)
-      }
-    })
-    
+      }    
+    })    
   }
 
   login(){    
