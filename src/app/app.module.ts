@@ -10,10 +10,9 @@ import { SocialSharing } from '@ionic-native/social-sharing'
 import { IonicStorageModule } from '@ionic/storage'
 
 import { AlertsProvider } from '../providers/alerts'
-import { AuthProvider } from '../providers/auth'
 import { NetworkProvider } from '../providers/network'
 import { StorageDb } from '../providers/storageDb'
-import { ApiProvider } from '../providers/api'
+import { API_MODULE } from '../providers/api/index'
 
 import { MyApp } from './app.component'
 import { AUTH_MODULE } from '../pages/auth/index'
@@ -42,13 +41,12 @@ import { APP_MODULE } from '../pages/app'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Network,
-    AlertsProvider,
-    AuthProvider,
+    AlertsProvider,    
     NetworkProvider,
     StorageDb,
     CallNumber,
     SocialSharing,
-    ApiProvider
+    API_MODULE    
   ]
 })
 export class AppModule {}

@@ -3,8 +3,9 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { RegisterDriver } from '../../../models/registerDriver'
+import { User } from '../../../models/user'
 
-import { AuthProvider } from '../../../providers/auth'
+import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 import { AlertsProvider } from '../../../providers/alerts'
 
 import { AddCartPage } from '../add-cart/add-cart'
@@ -16,6 +17,7 @@ import { AddCartPage } from '../add-cart/add-cart'
 export class RegisterPage {
 
   user = {} as RegisterDriver
+  login = {} as User
 
   email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   password_validator = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
@@ -27,7 +29,7 @@ export class RegisterPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public alert: AlertsProvider,  
-    private auth: AuthProvider,
+    private auth: DriverAuthProvider,
     private formBuilder: FormBuilder,  
     public loadingCtrl: LoadingController    
     ) {
@@ -73,10 +75,30 @@ export class RegisterPage {
       this.auth.register(this.user).then(res =>{
         console.log(res)
         const code = res['data'].code
-        loader.dismiss()
+        
         if(code === 100){
-          this.navCtrl.push(AddCartPage) 
+          
+          this.login.id = this.user.id
+          this.login.password = this.user.password
+
+          this.auth.login(this.login).then(res =>{
+            console.log(res)
+            const code = res['data'].code
+            loader.dismiss()
+            if(code === 100){        
+              this.navCtrl.push(AddCartPage)
+            }else{              
+              const msg = res['data'].message
+              this.alert.showAlert('Error', msg)         
+            }  
+             
+          }).catch(e =>{
+            loader.dismiss()      
+            this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+          })
+          
         }else{
+          loader.dismiss()
           const msg = res['data'].message
           this.alert.showAlert('Error', msg)
         }

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { User } from '../../../models/user'
 
 import { AlertsProvider } from '../../../providers/alerts'
-import { AuthProvider } from '../../../providers/auth'
+import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 
 import { HomePage } from '../../app/home/home'
 import { SupportPage } from '../support/support'
@@ -34,7 +34,7 @@ export class LoginPage {
     public navParams: NavParams,
     public alert: AlertsProvider,
     private formBuilder: FormBuilder,
-    private auth: AuthProvider,
+    private auth: DriverAuthProvider,
     public loadingCtrl: LoadingController,
     public menu: MenuController
     ) {
