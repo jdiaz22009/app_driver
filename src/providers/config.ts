@@ -1,6 +1,6 @@
 export const CONFIG = {
-  db:{
-    SERVER_KEY: 'server_config'
+  localdb:{
+    USER_KEY: 'user_key',    
   },
   api:{
     url: 'http://142.93.52.217',
