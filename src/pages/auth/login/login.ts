@@ -77,7 +77,7 @@ export class LoginPage {
       if(code === 100){
         this.sectionSelected = 2
       }else if(code === 101){
-        this.navCtrl.push(RegisterPage)
+        this.navCtrl.push(RegisterPage, {id: id})
       }    
     })    
   }
@@ -90,22 +90,20 @@ export class LoginPage {
     this.user.id = parseInt(this.idForm.controls['id'].value)
     this.user.password = this.passwordForm.controls['password'].value
     console.log(this.user)
-    this.auth.login(this.user).then(result =>{
-      console.log(result)
-      const code = result['data'].code
-      const msg = result['data'].message
-
-      if(code === 100){
-        loader.dismiss()
+    this.auth.login(this.user).then(res =>{
+      console.log(res)
+      const code = res['data'].code
+      loader.dismiss()
+      if(code === 100){        
         this.navCtrl.setRoot(HomePage)
-      }else{
-        loader.dismiss()      
+      }else{              
+        const msg = res['data'].message
         this.alert.showAlert('Error', msg)         
       }      
     }).catch(e =>{
       console.log(e)
       loader.dismiss()      
-      this.alert.showAlert('error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+      this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
     })
  
   }

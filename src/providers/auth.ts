@@ -7,7 +7,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 import { User } from '../models/user'
-import { Register } from '../models/register'
+import { RegisterDriver } from '../models/registerDriver'
 import { CONFIG } from './config';
 
 
@@ -49,17 +49,28 @@ export class AuthProvider{
     }
   }
 
-  async register(register: Register){
+  async register(register: RegisterDriver){
     const url = this.api_url + this.register_driver_path
     const params = qs.stringify({
-      email: register.email,
-      contrasena: register.password,
-      nombres: register.first_name + ' ' + register.second_name,
-      apellidos: register.first_lastname + ' ' + register.second_lastname,
+      primer_nombre: register.first_name,
+      segundo_nombre: register.second_name,
+      primer_apellido: register.first_lastname,
+      segundo_apellido: register.second_lastname,
       documento: register.id,
+      celular: register.mobil,
+      direccion: register.address,
+      telefono_1: register.phone,
+      email: register.email,
+      contrasena: register.password,            
       firetoken: 0,
       type: 0      
     })
+
+    try{
+      return await this.post(url, params)
+    }catch(e){
+      throw e
+    }
   }
 
   async logout(){    
