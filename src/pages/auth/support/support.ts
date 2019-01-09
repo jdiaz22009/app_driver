@@ -42,5 +42,14 @@ export class SupportPage {
     .catch(err => console.log('Error launching dialer', err));
   }
 
+  email(){
+
+    this.socialSharing.shareViaEmail('Cordial Saludo, necesito soporte para acceder a mi cuenta, mis datos son: ', 'Soporte app móvil', ['info@cargaya.com']).then(() => {
+      console.log('Success!')
+    }).catch((e) => {
+      console.error('Error! ' + e)
+    });
+  }
+
   
 }

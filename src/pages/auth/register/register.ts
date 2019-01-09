@@ -47,15 +47,10 @@ export class RegisterPage {
         email: ['', Validators.compose([
           Validators.pattern(this.email_validator),          
           Validators.required
-        ])],
-        // password: ['', Validators.compose([
-        //   Validators.minLength(6),        
-        //   Validators.required
-        // ])],
+        ])]        
       });
 
-      this.registerForm.controls['id'].setValue(navParams.get('id'))
-      
+      this.registerForm.controls['id'].setValue(navParams.get('id'))      
     }  
 
     register(){
@@ -89,10 +84,8 @@ export class RegisterPage {
         console.log(e)
         loader.dismiss()      
         this.alert.showAlert('Error', 'No se pudo registrar el usuario, verifique los datos e intente de nuevo')
-      })
+      })     
       
-      
-    } 
-  
+    }  
 
 }

@@ -8,7 +8,8 @@ import qs from 'qs'
 
 import { User } from '../models/user'
 import { RegisterDriver } from '../models/registerDriver'
-import { CONFIG } from './config';
+
+import { CONFIG } from './config'
 
 
 @Injectable()
@@ -24,7 +25,6 @@ export class AuthProvider{
   ){
 
   }
-
   async validateId(id: Number){
     const url = this.api_url + this.validateId_path + '/' + id
     try{
@@ -48,7 +48,6 @@ export class AuthProvider{
       throw e
     }
   }
-
   async register(register: RegisterDriver){
     const url = this.api_url + this.register_driver_path
     const params = qs.stringify({
@@ -65,7 +64,7 @@ export class AuthProvider{
       firetoken: 0,
       type: 0      
     })
-
+    console.log(params)
     try{
       return await this.post(url, params)
     }catch(e){
