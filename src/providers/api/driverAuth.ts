@@ -11,6 +11,7 @@ import { User } from '../../models/user'
 import { RegisterDriver } from '../../models/registerDriver'
 
 import { ApiClientProvider } from './apiClient'
+import { StorageDb } from '../storageDb';
 
 @Injectable()
 export class DriverAuthProvider{
@@ -22,7 +23,8 @@ export class DriverAuthProvider{
   register_driver_path: string = CONFIG.api.drivers.register
 
   constructor(
-    public apiClient: ApiClientProvider
+    public apiClient: ApiClientProvider,
+    public db: StorageDb
   ){
 
   }
@@ -74,6 +76,6 @@ export class DriverAuthProvider{
   }
 
   async logout(){    
-    return true
+    return await this.db.deleteDB()    
   }  
 }

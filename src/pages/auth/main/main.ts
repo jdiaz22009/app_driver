@@ -32,10 +32,10 @@ export class MainPage {
 
   checkForSession(){
     this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
-      console.log(res)
-      console.log(JSON.stringify(res))
-      if(res != undefined){
-        if(typeof(res) === 'object'){
+      console.log(res)      
+      if(res != null){
+        // if(typeof(res) === 'object'){
+        if(res['user'] != ''){
           this.navCtrl.setRoot(HomePage)
         }
       }

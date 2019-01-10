@@ -1,31 +1,54 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>{{title}}</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
+
+  <ion-grid class="nav-home">
+    <ion-row align-items-center>
+      <ion-col col-2>
+        <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/>
+      </ion-col>
+      <ion-col col-8>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4>
+                <p class="nav-tx-available">Disponible</p>
+            </ion-col>
+            <ion-col col-4>
+                <ion-item >              
+                    <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange(driver_available)"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col col-3>
+              <p class="nav-tx-available">Wer-987</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col col-1>
+          <img class="nav-actions" src="./assets/imgs/icon-chat.png"/>
+      </ion-col>
+      <ion-col col-1 (click)="logout()">
+          <img src="./assets/imgs/btn_logout.png"/>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
     <ion-grid class="content-controls">
         <ion-row justify-content-center>
           <ion-col col-3 (click)="myCarts()">
-            <img class="h-actions" src="./assets/imgs/icon-mis-vehiculos.png">
+            <img class="h-actions" src="./assets/imgs/action_carts.png">
             <p class="h-summary">Mis vehículos</p>
           </ion-col>
           <ion-col col-3 offset-3 (click)="jobs()">
-              <img class="h-actions" src="./assets/imgs/icon-mis-fletes.png">
+              <img class="h-actions" src="./assets/imgs/action_loads.png">
             <p class="h-summary">Mis fletes</p>
           </ion-col>
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-3 (click)="profile()">
-                <img class="h-actions" src="./assets/imgs/icon-mi-perfil.png">
+                <img class="h-actions" src="./assets/imgs/action_profile.png">
                 <p class="h-summary">Mi perfil</p>
             </ion-col>
             <ion-col col-3 offset-3 (click)="availability()">
-                <img class="h-actions" src="./assets/imgs/icon-disponibilidad.png">
+                <img class="h-actions" src="./assets/imgs/action_availability.png">
                 <p class="h-summary">Mi disponibilidad</p>
             </ion-col>
         </ion-row>
