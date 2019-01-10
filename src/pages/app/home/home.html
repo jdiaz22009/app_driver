@@ -22,7 +22,7 @@
           </ion-row>
         </ion-grid>
       </ion-col>
-      <ion-col col-1>
+      <ion-col col-1 (click)="chat()">
           <img class="nav-actions" src="./assets/imgs/icon-chat.png"/>
       </ion-col>
       <ion-col col-1 (click)="logout()">
@@ -37,7 +37,7 @@
             <img class="h-actions" src="./assets/imgs/action_carts.png">
             <p class="h-summary">Mis vehículos</p>
           </ion-col>
-          <ion-col col-3 offset-3 (click)="jobs()">
+          <ion-col col-3 offset-3 (click)="myFreight()">
               <img class="h-actions" src="./assets/imgs/action_loads.png">
             <p class="h-summary">Mis fletes</p>
           </ion-col>

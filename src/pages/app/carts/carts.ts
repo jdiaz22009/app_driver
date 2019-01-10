@@ -2,14 +2,15 @@ import { Component } from '@angular/core'
 import { NavController, NavParams } from 'ionic-angular'
 
 @Component({
-  selector: 'page-chat',
-  templateUrl: 'chat.html'
+  selector: 'page-carts',
+  templateUrl: 'carts.html'
 })
-export class ChatPage {
- 
+export class CartsPage {  
+  
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams) {      
+    public navParams: NavParams) {
+     
 
   }
 

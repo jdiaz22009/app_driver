@@ -2,14 +2,15 @@ import { Component } from '@angular/core'
 import { NavController, NavParams } from 'ionic-angular'
 
 @Component({
-  selector: 'page-chat',
-  templateUrl: 'chat.html'
+  selector: 'page-driver-profile',
+  templateUrl: 'driver-profile.html'
 })
-export class ChatPage {
- 
+export class DriveProfilePage {  
+  
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams) {      
+    public navParams: NavParams) {
+     
 
   }
 

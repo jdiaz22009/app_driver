@@ -5,6 +5,10 @@ import { AlertsProvider } from '../../../providers/alerts'
 import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 
 import { MainPage } from '../../auth/main/main'
+import { ChatPage } from '../chat/chat';
+import { CartsPage } from '../carts/carts'
+import { DriveProfilePage } from '../driver-profile/driver-profile';
+import { DetailsFreightPage } from '../freight/details-freight/details-freight';
 
 @Component({
   selector: 'page-home',
@@ -28,19 +32,23 @@ export class HomePage {
   }
 
   myCarts(){
-
+    this.navCtrl.push(CartsPage)
   }
 
-  jobs(){
-
+  myFreight(){
+    this.navCtrl.push(DetailsFreightPage)
   }
 
   profile(){
-
+    this.navCtrl.push(DriveProfilePage)
   }
 
   availability(){
     
+  }
+
+  chat(){
+    this.navCtrl.push(ChatPage)
   }
 
   availabilityChange(availability){
