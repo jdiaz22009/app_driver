@@ -1,8 +1,12 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, MenuController, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, LoadingController } from 'ionic-angular'
 
 import { AlertsProvider } from '../../../providers/alerts'
+import { StorageDb } from '../../../providers/storageDb'
+import { CONFIG } from '../../../providers/config'
+
 import { LoginPage } from '../login/login'
+import { HomePage } from '../../app/home/home'
 
 @Component({
   selector: 'page-main',
@@ -15,14 +19,27 @@ export class MainPage {
     public navParams: NavParams,
     public alert: AlertsProvider,    
     public loadingCtrl: LoadingController,
-    public menu: MenuController
+    public db: StorageDb    
     ) {
 
       
     }
 
-  ionViewDidLoad() {
-    this.menu.enable(false)
+  ionViewDidLoad() {    
+    this.checkForSession()
+
+  }
+
+  checkForSession(){
+    this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+      console.log(res)
+      console.log(JSON.stringify(res))
+      if(res != undefined){
+        if(typeof(res) === 'object'){
+          this.navCtrl.setRoot(HomePage)
+        }
+      }
+    })
   }
 
   openPage(page){

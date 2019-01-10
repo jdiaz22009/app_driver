@@ -8,14 +8,15 @@ export class StorageDb{
         
     }        
 
-    setItem(key, value){
-        this.storage.set(key, value);
+    async setItem(key, value){
+        return await this.storage.set(key, value)
     }
 
-    getItem(key){
-        return this.storage.get(key);
+    async getItem(key){
+        return await this.storage.get(key)
     }
-    deleteDB(){
-        this.storage.clear();
+
+    async deleteDB(){
+        return await this.storage.clear()
     }
 }

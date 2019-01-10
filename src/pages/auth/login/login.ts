@@ -6,10 +6,13 @@ import { User } from '../../../models/user'
 
 import { AlertsProvider } from '../../../providers/alerts'
 import { DriverAuthProvider } from '../../../providers/api/driverAuth'
+import { StorageDb } from '../../../providers/storageDb'
 
 import { HomePage } from '../../app/home/home'
 import { SupportPage } from '../support/support'
 import { RegisterPage } from '../register/register'
+import { CONFIG } from '../../../providers/config';
+
 
 @Component({
   selector: 'page-login',
@@ -36,6 +39,7 @@ export class LoginPage {
     private formBuilder: FormBuilder,
     private auth: DriverAuthProvider,
     public loadingCtrl: LoadingController,
+    public db: StorageDb,
     public menu: MenuController
     ) {
 
@@ -94,8 +98,19 @@ export class LoginPage {
       console.log(res)
       const code = res['data'].code
       loader.dismiss()
-      if(code === 100){        
-        this.navCtrl.setRoot(HomePage)
+      if(code === 100){
+        const sessionData = { 
+          user: this.user.id, 
+          password: this.user.password,
+          token: res['data'].token
+        }
+        this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
+          this.navCtrl.setRoot(HomePage)
+        }).catch(e =>{
+          console.log(e)
+          this.alert.showAlert('Error', 'Error al crear la sesión')         
+        })        
+        
       }else{              
         const msg = res['data'].message
         this.alert.showAlert('Error', msg)         
