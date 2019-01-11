@@ -21,7 +21,9 @@ export class FreightProvider{
 
   async getOffert(){
     const url = this.api_url + this.get_path
-    const params = { headers: {"Authorization" : `Bearer ${this.getToken()}`} }
+    const token = await this.getToken();
+    console.log(token.token)
+    const params = { headers: {"Authorization" : token.token} }
     try{
       return await this.apiClient.get(url, params)
     }catch(e){
@@ -34,7 +36,7 @@ export class FreightProvider{
   }
 
   async getToken(){
-    const data = this.db.getItem(CONFIG.localdb.USER_KEY)
-    return data['token']
+    const data = await this.db.getItem(CONFIG.localdb.USER_KEY)
+    return data;
   }
 }

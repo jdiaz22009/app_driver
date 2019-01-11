@@ -9,13 +9,13 @@ import { DetailsFreightPage } from '../details-freight/details-freight'
   templateUrl: 'find-freight.html'
 })
 export class FindFreightPage {
-  
+
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public apiFreight: FreightProvider,
     public navParams: NavParams) {
-      
-      
+
+
   }
 
   ionViewDidLoad(){
@@ -23,13 +23,14 @@ export class FindFreightPage {
   }
 
   getFreights(){
-    this.apiFreight.getOffert().then(res =>{
-      console.log(res)
+    this.apiFreight.getOffert()
+    .then(res =>{
+      console.log(res, 'PERAFO')
       console.log(JSON.stringify(res))
     }).catch(e =>{
       console.error(e)
     })
-  }  
+  }
 
   freightDetails(freight){
     this.navCtrl.push(DetailsFreightPage, { details: freight})
