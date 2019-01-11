@@ -5,10 +5,11 @@ import { AlertsProvider } from '../../../providers/alerts'
 import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 
 import { MainPage } from '../../auth/main/main'
-import { ChatPage } from '../chat/chat';
+import { ChatPage } from '../chat/chat'
 import { CartsPage } from '../carts/carts'
-import { DriveProfilePage } from '../driver-profile/driver-profile';
-import { DetailsFreightPage } from '../freight/details-freight/details-freight';
+import { DriveProfilePage } from '../driver-profile/driver-profile'
+import { FindFreightPage } from '../freight/find-freight/find-freight'
+import { MyFreightPage } from '../freight/my-freight/my-freight';
 
 @Component({
   selector: 'page-home',
@@ -36,7 +37,7 @@ export class HomePage {
   }
 
   myFreight(){
-    this.navCtrl.push(DetailsFreightPage)
+    this.navCtrl.push(MyFreightPage)
   }
 
   profile(){
@@ -45,6 +46,10 @@ export class HomePage {
 
   availability(){
     
+  }
+
+  findFreight(){
+    this.navCtrl.push(FindFreightPage)
   }
 
   chat(){

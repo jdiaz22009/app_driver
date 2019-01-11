@@ -1,3 +1,23 @@
 page-details-freight{
 
+  .c-date{
+    color: color($colors, txwhite);
+    font-size: 1rem;
+  }
+
+  .tx-title{
+    color: color($colors, title) !important;
+    font-weight: 500 !important;
+  }
+
+  .tx-share{
+    color: color($colors, btn) !important;
+    font-weight: 500 !important;
+  }
+
+  .button-md{
+    margin: 0 !important;
+    height: 5rem !important;
+  }
+
 }

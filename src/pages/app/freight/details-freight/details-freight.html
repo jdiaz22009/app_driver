@@ -1,10 +1,89 @@
 <ion-header>
   <ion-navbar>    
-    <ion-title>Mis Fletes</ion-title>
+    <ion-title>Carga</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    
+<ion-content>
+
+  <ion-card>
+      <ion-card-content>
+          <ion-grid>       
+                <ion-row>
+                    <ion-col col-6>
+                        <p class="c-date" text-start>CY674653 </p>
+                    </ion-col>
+                    <ion-col col-6>
+                        <p class="c-date" text-end>Publicado </p>
+                    </ion-col>
+                </ion-row>                  
+              <ion-row justify-content-center>              
+                  <ion-col col-8>
+                      <p class="tx-title"><ion-icon name="md-pin" color="statusbar"></ion-icon> Origen</p>
+                      <br>
+                      <p class="tx-title"><ion-icon name="md-pin" color="btn"></ion-icon> Destino</p>
+                  </ion-col>
+                  <ion-col col-4>
+                      <button ion-fab mini color="btn">
+                        <ion-icon name="md-share">                        
+                      </ion-icon></button>
+                      <p class="tx-share">Compartir</p>
+                  </ion-col>
+              </ion-row> 
+
+              <ion-row margin-top justify-content-center>
+                  <ion-col col-5>
+                    <p class="tx-title">Tipo</p>
+                    <br>
+                    <p class="tx-title">Peso</p>
+                    <br>
+                    <p class="tx-title">Fecha de Cargue</p>                    
+                    <br>
+                    <p class="tx-title">Flete</p>
+                    <br>
+                    <p class="tx-title">Cargue Conductor</p>
+                    <br>
+                    <p class="tx-title">Anticipo</p>
+                    <br>
+                    <p class="tx-title">Contra Entrega</p>
+                    <br>
+                    <p class="tx-title">Clientes a Entregar</p>
+                  </ion-col>
+                  <ion-col col-5>
+                    <p class="tx-title">Carrocería</p>
+                    <br>
+                    <p class="tx-title">Volumen</p>
+                    <br>
+                    <p class="tx-title">Fecha Descargue</p>
+                    <br>
+                    <p class="tx-title">x Tonelada</p>
+                    <br>
+                    <p class="tx-title">Descargue Conductor</p>
+                    <br>
+                    <p class="tx-title">Saldo</p>
+                    <br>
+                    <p class="tx-title">Tiempo Saldo</p>
+  
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+      <ion-card-content>
+        <h3 class="tx-title">Observaciones</h3>
+      </ion-card-content>
+  </ion-card>
    
+
+  <ion-card>
+      <ion-card-content>
+        <h3 class="tx-title">Requisitos</h3>
+      </ion-card-content>
+  </ion-card>
+
+  <button color="btn" ion-button full>Estoy Interesado</button>
+
 </ion-content>

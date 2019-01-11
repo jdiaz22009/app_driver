@@ -1,12 +1,54 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>{{title}}</ion-title>
+  <ion-navbar>    
+    <ion-title>Cargas</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content> 
+
+    <!-- <ion-card *ngFor="let item of cards"> -->
+    <ion-card>        
+        <ion-card-content>
+          <p class="c-date" text-end>Publicado </p>
+
+          <ion-grid>              
+            <ion-row justify-content-center>              
+                <ion-col col-8>
+                    <p class="tx-title"><ion-icon name="md-pin" color="statusbar"></ion-icon> Origen</p>
+                    <br>
+                    <p class="tx-title"><ion-icon name="md-pin" color="btn"></ion-icon> Destino</p>
+                </ion-col>
+                <ion-col col-4>
+                    <button ion-fab mini color="btn">
+                      <ion-icon name="md-share">                        
+                    </ion-icon></button>
+                    <p class="tx-share">Compartir</p>
+                </ion-col>
+            </ion-row>    
+
+            <ion-row margin-top justify-content-center>
+                <ion-col col-5>
+                  <p class="tx-title">Tipo</p>
+                  <br>
+                  <p class="tx-title">Peso</p>
+                  <br>
+                  <p class="tx-title">Flete</p>
+                </ion-col>
+                <ion-col col-5>
+                  <p class="tx-title">Carrocería</p>
+                  <br>
+                  <p class="tx-title">Fecha de Carga</p>
+                  <br>
+                  <img (click)="freightDetails('carga')" class="f-next" src="./assets/imgs/find_next.png">
+
+                </ion-col>
+            </ion-row>
+
+          </ion-grid>        
+
+        </ion-card-content>      
+    </ion-card>
+
+    <hr class="c-divider">
    
 </ion-content>
