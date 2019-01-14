@@ -14,7 +14,7 @@
                     <form [formGroup]="cartForm">
                         <ion-item class=l-item>
                             <ion-label stacked>Placa <sup>*</sup></ion-label>
-                            <ion-input [formControl]="cartForm.controls['license_plate']" type="text"></ion-input>
+                            <ion-input [formControl]="cartForm.controls['license_plate']" type="text" maxlength="7" (ionChange)="onChangePlate($event)"></ion-input>
                         </ion-item>         
                 
                         <ion-item class=l-item>
@@ -37,8 +37,7 @@
                             <ion-input [formControl]="cartForm.controls['brand']" type="text"></ion-input>
                         </ion-item>
     
-                      </form>
-                
+                      </form>                
                 
                     <button margin-top (click)="addCart()" [disabled]="!cartForm.valid" ion-button full color="btn">Crear Cuenta</button>
     

@@ -17,6 +17,7 @@ export class AddCartPage {
 
   cart = {} as Cart
   cartForm: FormGroup
+  prevPlate: boolean = false
 
   constructor(
     public navCtrl: NavController, 
@@ -28,7 +29,10 @@ export class AddCartPage {
     ) {
 
       this.cartForm = this.formBuilder.group({
-        license_plate: ['', Validators.required],
+        license_plate: ['', Validators.compose([
+          Validators.required,
+          Validators.maxLength(7)
+        ])],
         type: ['', Validators.required], 
         bodywork: ['', Validators.required],
         model: ['', Validators.required],
@@ -73,9 +77,26 @@ export class AddCartPage {
         console.log(e)
         loader.dismiss()      
         this.alert.showAlert('Error', 'No se pudo registrar el vehículo, verifique los datos e intente de nuevo')
-      })
-
-      
+      })      
     } 
+
+    onChangePlate(v){     
+      let plate = v._value.toString().toUpperCase()      
+      const prev = this.cartForm.controls['license_plate'].value
+      
+      console.log(plate + ' ' + plate.length +' ' + prev)
+
+      if(plate.length < 3){
+        this.prevPlate = false
+      }
+
+      if(plate.length === 3 && !this.prevPlate){        
+        this.prevPlate = true
+        plate += '-'
+      }     
+
+      this.cartForm.controls['license_plate'].setValue(plate)
+      
+    }
 
 }
