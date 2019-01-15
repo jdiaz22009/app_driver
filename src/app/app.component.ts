@@ -33,7 +33,7 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       //firebase.initializeApp(FIREBASE_CONFIG)
-      this.statusBar.styleLightContent()
+      this.statusBar.backgroundColorByHexString('#0154a0')
       this.splashScreen.hide() 
       
     })

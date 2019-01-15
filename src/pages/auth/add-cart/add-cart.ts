@@ -67,12 +67,14 @@ export class AddCartPage {
         console.log(res)
         const code = res['data'].code
         loader.dismiss()
-        if(code === 100){
           this.navCtrl.setRoot(HomePage)
-        }else{
-          const msg = res['data'].message
-          this.alert.showAlert('Error', msg)
-        }        
+          
+        // if(code === 100){
+        //   this.navCtrl.setRoot(HomePage)
+        // }else{
+        //   const msg = res['data'].message
+        //   this.alert.showAlert('Error', msg)
+        // }        
       }).catch(e =>{
         console.log(e)
         loader.dismiss()      
