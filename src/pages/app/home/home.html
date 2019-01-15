@@ -15,15 +15,12 @@
                 <ion-item >              
                     <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange(driver_available)"></ion-toggle>
                 </ion-item>
-            </ion-col>
-            <!-- <ion-col col-3>
-              <p class="nav-tx-available">Wer-987</p>
-            </ion-col> -->
+            </ion-col>            
           </ion-row>
         </ion-grid>
       </ion-col>
       <ion-col col-1 (click)="chat()">
-          <img class="nav-actions" src="./assets/imgs/chat.png"/>
+          <img src="./assets/imgs/chat.png"/>
       </ion-col>
       <ion-col col-1 (click)="logout()">
           <img src="./assets/imgs/logout.png"/>
@@ -31,31 +28,35 @@
     </ion-row>
   </ion-grid>
 
-    <ion-grid class="content-controls">
-        <ion-row justify-content-center>
-          <ion-col col-3 (click)="myCarts()">
-            <img class="h-actions" src="./assets/imgs/action_carts.png">
-            <p class="h-summary">Mis vehículos</p>
+  <ion-grid class="content-controls">
+      <ion-row justify-content-center>
+        <ion-col col-3 (click)="myCarts()">
+          <img class="h-actions" src="./assets/imgs/action_carts.png">
+          <p class="h-summary">Mis vehículos</p>
+        </ion-col>
+        <ion-col col-3 offset-3 (click)="myFreight()">
+            <img class="h-actions" src="./assets/imgs/action_loads.png">
+          <p class="h-summary">Mis fletes</p>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center>
+          <ion-col col-3 (click)="profile()">
+              <img class="h-actions" src="./assets/imgs/action_profile.png">
+              <p class="h-summary">Mi perfil</p>
           </ion-col>
-          <ion-col col-3 offset-3 (click)="myFreight()">
-              <img class="h-actions" src="./assets/imgs/action_loads.png">
-            <p class="h-summary">Mis fletes</p>
+          <ion-col col-3 offset-3 (click)="availability()">
+              <img class="h-actions" src="./assets/imgs/action_availability.png">
+              <p class="h-summary">Mi disponibilidad</p>
           </ion-col>
-        </ion-row>
-        <ion-row justify-content-center>
-            <ion-col col-3 (click)="profile()">
-                <img class="h-actions" src="./assets/imgs/action_profile.png">
-                <p class="h-summary">Mi perfil</p>
-            </ion-col>
-            <ion-col col-3 offset-3 (click)="availability()">
-                <img class="h-actions" src="./assets/imgs/action_availability.png">
-                <p class="h-summary">Mi disponibilidad</p>
-            </ion-col>
-        </ion-row>
-      </ion-grid>      
+      </ion-row>
+    </ion-grid>      
 
-      <img (click)="findFreight()" class="money-logo" src="./assets/imgs/money.png">
-      <h2 class="find-tx">Buscar Cargas</h2>   
+      
   
 </ion-content>
+
+<ion-footer>
+    <img (click)="findFreight()" class="money-logo" src="./assets/imgs/money.png">
+    <h2 class="find-tx">Buscar Cargas</h2>   
+</ion-footer>
 

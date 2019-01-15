@@ -1,5 +1,9 @@
 page-home {
 
+  .footer-md::before{
+    height: 0!important;
+  }
+
   .nav-home{
     background-color: color($colors, statusbar);
     padding: 0px !important;
@@ -39,7 +43,7 @@ page-home {
   }
 
   .content-controls{
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
   
   .h-actions{
