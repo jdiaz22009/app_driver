@@ -8,7 +8,7 @@ export class ApiClientProvider{
 
   }
   async get(url, params){
-    console.log(url + 'params: ' + params)
+    console.log(url + '  params: ' + params)
     try{
       if(params != null) {
         return axios.get(url, params)
@@ -20,7 +20,7 @@ export class ApiClientProvider{
     }
   }
   async post(url, params){
-    console.log(url + 'params: ' + params)
+    console.log(url + '  params: ' + params)
     try{
       return await axios.post(url, params)      
     }catch(e){

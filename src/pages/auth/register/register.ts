@@ -86,7 +86,7 @@ export class RegisterPage {
             const code = res['data'].code
             loader.dismiss()
             if(code === 100){        
-              this.navCtrl.push(AddCartPage)
+              this.navCtrl.setRoot(AddCartPage)
             }else{              
               const msg = res['data'].message
               this.alert.showAlert('Error', msg)         

@@ -12,13 +12,14 @@ import { LoginPage } from '../pages/auth/login/login'
 import { HomePage } from '../pages/app/home/home'
 import { MainPage } from '../pages/auth/main/main'
 import { RegisterPage } from '../pages/auth/register/register'
-import { AddCartPage } from '../pages/auth/add-cart/add-cart';
+import { AddCartPage } from '../pages/auth/add-cart/add-cart'
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = AddCartPage
+
+  rootPage: any = MainPage
 
   constructor(
     public platform: Platform, 
@@ -33,18 +34,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       //firebase.initializeApp(FIREBASE_CONFIG)
       this.statusBar.styleLightContent()
-      this.splashScreen.hide()
-  
-      // const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      //   console.log('user Subscribe ' + user)
-      //   if (!user) {
-      //     this.rootPage = LoginPage
-      //     unsubscribe()
-      //   } else {
-      //     this.rootPage = HomePage
-      //     unsubscribe()
-      //   }
-      // });
+      this.splashScreen.hide() 
+      
     })
   }
 }

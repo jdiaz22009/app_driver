@@ -68,7 +68,7 @@ export class AddCartPage {
         const code = res['data'].code
         loader.dismiss()
         if(code === 100){
-          this.navCtrl.push(HomePage)
+          this.navCtrl.setRoot(HomePage)
         }else{
           const msg = res['data'].message
           this.alert.showAlert('Error', msg)

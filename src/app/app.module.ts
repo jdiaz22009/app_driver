@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar'
 import { Network } from '@ionic-native/network'
 import { CallNumber } from '@ionic-native/call-number'
 import { SocialSharing } from '@ionic-native/social-sharing'
+import { Keyboard } from '@ionic-native/keyboard'
 import { IonicStorageModule } from '@ionic/storage'
 
 import { AlertsProvider } from '../providers/alerts'
@@ -41,6 +42,7 @@ import { APP_MODULE } from '../pages/app'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Network,
+    Keyboard,
     AlertsProvider,    
     NetworkProvider,
     StorageDb,
