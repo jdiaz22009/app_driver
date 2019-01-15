@@ -23,3 +23,41 @@
 .toolbar-title, .back-button{
   color: white;
 }
+
+// Alert style
+
+.alert-md {
+
+  .alert-wrapper {
+    border-radius: 6px;
+  }
+
+  .alert-button{
+    color: white
+  } 
+
+  .alert-button-group{
+    justify-content: space-evenly;
+
+    .alert-button:first-child{
+      background-color: color($colors, btnd);
+    }
+
+    .alert-button{
+      background-color: color($colors, btn);
+      font-weight: 600 !important;
+      padding: 5px !important;
+    }
+
+  }
+
+  .alert-title {
+    font-size: 1.7rem !important;
+    font-weight: 500;
+  }
+}
+
+
+.alert-title{
+  text-align: center
+}

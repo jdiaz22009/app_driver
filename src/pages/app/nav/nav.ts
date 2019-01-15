@@ -42,7 +42,7 @@ export class NavPage {
   logout(){
     const loader = this.loadingCtrl.create({})
     loader.present()
-    this.alert.showConfirm('Cerrar sesión', 'Deseas salir?', 'Salir', 'cancelar').then(res =>{
+    this.alert.showConfirm('Confirmar cerrar sesión', '', 'Aceptar', 'cancelar').then(res =>{
       loader.dismiss()
       if(res === 1){
         this.apiDriver.logout().then(res =>{
