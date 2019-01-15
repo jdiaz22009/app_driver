@@ -17,6 +17,7 @@ import { MyFreightPage } from '../freight/my-freight/my-freight';
 })
 export class HomePage {
 
+  tx_available: string = ''
   driver_available: boolean = true
 
   constructor(
@@ -30,6 +31,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.menu.enable(true)
+    this.driver_available ? this.tx_available = 'Disponible': this.tx_available = 'Activar'
   }
 
   myCarts(){
@@ -58,6 +60,8 @@ export class HomePage {
 
   availabilityChange(availability){
     console.log(availability + ' ' + this.driver_available)
+    this.driver_available = availability
+    this.driver_available ? this.tx_available = 'Disponible': this.tx_available = 'Activar'
   }
 
   logout(){

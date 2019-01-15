@@ -5,9 +5,10 @@ import { DetailsFreightPage } from './freight/details-freight/details-freight'
 import { CartsPage } from './carts/carts'
 import { DriveProfilePage } from './driver-profile/driver-profile'
 import { MyFreightPage } from './freight/my-freight/my-freight'
-
+import { NavPage } from './nav/nav'
 
 export const APP_MODULE = [
+  NavPage,
   HomePage,
   ChatPage,
   FindFreightPage,
