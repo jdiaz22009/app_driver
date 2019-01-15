@@ -8,7 +8,7 @@ import { MainPage } from '../../auth/main/main'
 import { ChatPage } from '../chat/chat'
 
 @Component({
-  selector: 'page-nav',
+  selector: 'nav-component',
   templateUrl: 'nav.html'
 })
 export class NavPage {
