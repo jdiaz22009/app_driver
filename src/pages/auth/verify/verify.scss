@@ -1,0 +1,24 @@
+page-verify{
+
+  .img-top{
+    margin-top: 6rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+    width: 80%; 
+  }
+
+  .counter{
+    text-align: center;
+    color: color($colors, statusbar);
+    font-size: 2.6rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .sp-title{
+    text-align: center;
+    color: color($colors, summary) !important;
+  }
+  
+}

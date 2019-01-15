@@ -13,13 +13,14 @@ import { HomePage } from '../pages/app/home/home'
 import { MainPage } from '../pages/auth/main/main'
 import { RegisterPage } from '../pages/auth/register/register'
 import { AddCartPage } from '../pages/auth/add-cart/add-cart'
+import { VerifyPage } from '../pages/auth/verify/verify';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
 
-  rootPage: any = MainPage
+  rootPage: any = VerifyPage
 
   constructor(
     public platform: Platform, 
