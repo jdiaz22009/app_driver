@@ -34,11 +34,11 @@ export class VerifyPage {
 
     this.timer = setInterval(()=>{
       
-      let minutes = parseInt(prevTime / 60, 10) 
+      let minutes = prevTime / 60
       let seconds = prevTime % 60    
       let seconds_s = seconds < 10 ? "0" + seconds : seconds
 
-      this.counter_time =  minutes + ':' + seconds_s
+      this.counter_time =  parseInt(minutes.toString(), 10) + ':' + seconds_s
       
       prevTime --
 

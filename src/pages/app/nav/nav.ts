@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { NavController, NavParams, LoadingController } from 'ionic-angular'
 
 import { AlertsProvider } from '../../../providers/alerts'
@@ -13,6 +13,11 @@ import { ChatPage } from '../chat/chat'
 })
 export class NavPage {
 
+  @Input('title') navTitle
+
+  title: string
+  modeTitle: boolean = false
+
   tx_available: string = ''
   driver_available: boolean = true
 
@@ -26,6 +31,12 @@ export class NavPage {
       this.setAvailabilityTx()
   }
 
+  ngAfterViewInit(){
+    this.title = this.navTitle
+    this.title === undefined ? this.modeTitle = true : this.modeTitle = false
+    console.log(this.title + ' ' + this.modeTitle)
+  }
+
   setAvailabilityTx(){
     this.driver_available ? this.tx_available = 'Disponible': this.tx_available = 'Activar'
   }
@@ -37,6 +48,10 @@ export class NavPage {
 
   chat(){
     this.navCtrl.push(ChatPage)
+  }
+
+  goBack(){
+    this.navCtrl.pop()
   }
 
   logout(){

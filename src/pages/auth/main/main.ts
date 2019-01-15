@@ -26,8 +26,8 @@ export class MainPage {
     }
 
   ionViewDidLoad() {    
-    // this.checkForSession()
-    this.navCtrl.setRoot(HomePage)
+    this.checkForSession()
+    // this.navCtrl.setRoot(HomePage)
 
   }
 
