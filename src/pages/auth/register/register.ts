@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { RegisterDriver } from '../../../models/registerDriver'
@@ -9,6 +9,7 @@ import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 import { AlertsProvider } from '../../../providers/alerts'
 
 import { AddCartPage } from '../add-cart/add-cart'
+import { ModalIdComponent } from '../../components/modal-id/modal-id'
 
 @Component({
   selector: 'page-register',
@@ -25,12 +26,15 @@ export class RegisterPage {
 
   registerForm: FormGroup
 
+  prevId: number
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public alert: AlertsProvider,  
     private auth: DriverAuthProvider,
     private formBuilder: FormBuilder,  
+    public modalCtrl: ModalController,
     public loadingCtrl: LoadingController    
     ) {
 
@@ -52,8 +56,19 @@ export class RegisterPage {
         ])]        
       });
 
-      this.registerForm.controls['id'].setValue(navParams.get('id'))      
+      this.prevId = navParams.get('id')
+      // this.registerForm.controls['id'].setValue(navParams.get('id'))      
     }  
+
+    checkId(){
+      this.user.id = parseInt(this.registerForm.controls['id'].value)
+      console.log(this.user.id + ' ' + this.prevId)
+      if(this.user.id != this.prevId){
+        const modal = this.modalCtrl.create(ModalIdComponent, null, { cssClass: "modal-id" })
+        modal.present()        
+        return
+      }
+    }
 
     register(){
 

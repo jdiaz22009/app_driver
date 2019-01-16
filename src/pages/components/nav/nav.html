@@ -3,10 +3,7 @@
         <ion-row align-items-center>
           <ion-col col-2 *ngIf="modeTitle">
             <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/>
-          </ion-col>
-          <!-- <ion-col col-1 *ngIf="!modeTitle">                
-                <ion-icon name="arrow-back" (click)="goBack()"></ion-icon>
-          </ion-col> -->
+          </ion-col>          
           <ion-col col-2 *ngIf="!modeTitle">                
             <p class="title"><ion-icon name="arrow-back" (click)="goBack()"></ion-icon>  {{title}}</p>      
           </ion-col>

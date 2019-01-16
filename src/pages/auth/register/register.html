@@ -14,7 +14,11 @@
                 <form [formGroup]="registerForm">
                     <ion-item class=l-item>
                         <ion-label stacked>Confirmar número de cédula</ion-label>
-                        <ion-input [formControl]="registerForm.controls['id']" type="tel"></ion-input>
+                        <ion-input 
+                            [formControl]="registerForm.controls['id']" 
+                            (ionBlur)="checkId()"
+                            type="tel">
+                        </ion-input>
                     </ion-item>         
             
                     <ion-item class=l-item>
@@ -49,14 +53,9 @@
 
                     <div *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.dirty">
                         Please enter a valid email.
-                    </div>
-                    <!-- <ion-item class=l-item>
-                        <ion-label stacked>Contraseña</ion-label>
-                        <ion-input [formControl]="registerForm.controls['password']" type="text"></ion-input>
-                    </ion-item> -->
+                    </div>                   
 
-                  </form>
-            
+                  </form>           
             
                 <button margin-top (click)="register()" [disabled]="!registerForm.valid" ion-button full color="btn">Crear Cuenta</button>
 

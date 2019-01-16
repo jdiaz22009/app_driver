@@ -21,13 +21,15 @@ import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { MyApp } from './app.component'
 import { AUTH_MODULE } from '../pages/auth/index'
 import { APP_MODULE } from '../pages/app'
+import { COMPONENTS_MODULE } from '../pages/components/index'
 
 
 @NgModule({
   declarations: [
     MyApp,
     ...AUTH_MODULE,
-    ...APP_MODULE
+    ...APP_MODULE,
+    ...COMPONENTS_MODULE
   ],
   imports: [
     BrowserModule,

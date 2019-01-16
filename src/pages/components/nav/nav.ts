@@ -5,13 +5,13 @@ import { AlertsProvider } from '../../../providers/alerts'
 import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 
 import { MainPage } from '../../auth/main/main'
-import { ChatPage } from '../chat/chat'
+import { ChatPage } from '../../app/chat/chat'
 
 @Component({
   selector: 'nav-component',
   templateUrl: 'nav.html'
 })
-export class NavPage {
+export class NavComponent {
 
   @Input('title') navTitle
 
