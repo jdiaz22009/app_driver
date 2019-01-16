@@ -2,15 +2,14 @@ import { Component } from '@angular/core'
 import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { RegisterDriver } from '../../../models/registerDriver'
-import { User } from '../../../models/user'
+import { RegisterDriver } from '../../../../models/registerDriver'
+import { User } from '../../../../models/user'
 
-import { DriverAuthProvider } from '../../../providers/api/driverAuth'
-import { AlertsProvider } from '../../../providers/alerts'
+import { DriverAuthProvider } from '../../../../providers/api/driverAuth'
+import { AlertsProvider } from '../../../../providers/alerts'
 
 import { AddCartPage } from '../add-cart/add-cart'
-import { ModalRegisterComponent } from '../../components/modal-register/modal-register';
-import { TitleCasePipe } from '@angular/common';
+import { ModalRegisterComponent } from '../../components/modal-register/modal-register'
 
 
 @Component({
@@ -24,20 +23,20 @@ export class RegisterPage {
 
   email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   password_validator = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
-  id_validator =  /^\d+$/ 
+  id_validator =  /^\d+$/
 
   registerForm: FormGroup
 
   prevId: number
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    public alert: AlertsProvider,  
+    public alert: AlertsProvider,
     private auth: DriverAuthProvider,
-    private formBuilder: FormBuilder,  
+    private formBuilder: FormBuilder,
     public modalCtrl: ModalController,
-    public loadingCtrl: LoadingController    
+    public loadingCtrl: LoadingController
     ) {
 
 
@@ -53,14 +52,14 @@ export class RegisterPage {
         second_lastname: [''],
         mobil: ['', Validators.required],
         email: ['', Validators.compose([
-          Validators.pattern(this.email_validator),          
+          Validators.pattern(this.email_validator),
           Validators.required
-        ])]        
+        ])]
       });
 
       this.prevId = navParams.get('id')
-      // this.registerForm.controls['id'].setValue(navParams.get('id'))      
-    }  
+      // this.registerForm.controls['id'].setValue(navParams.get('id'))
+    }
 
     checkId(){
       this.user.id = parseInt(this.registerForm.controls['id'].value)
@@ -70,7 +69,7 @@ export class RegisterPage {
         modal.onDidDismiss(() =>{
           this.navCtrl.pop()
         })
-        modal.present()        
+        modal.present()
         return
       }
     }
@@ -95,9 +94,9 @@ export class RegisterPage {
       this.auth.register(this.user).then(res =>{
         console.log(res)
         const code = res['data'].code
-        
+
         if(code === 100){
-          
+
           this.login.id = this.user.id
           this.login.password = this.user.password
 
@@ -105,18 +104,18 @@ export class RegisterPage {
             console.log(res)
             const code = res['data'].code
             loader.dismiss()
-            if(code === 100){        
+            if(code === 100){
               this.navCtrl.setRoot(AddCartPage)
-            }else{              
+            }else{
               const msg = res['data'].message
-              this.alert.showAlert('Error', msg)         
-            }  
-             
+              this.alert.showAlert('Error', msg)
+            }
+
           }).catch(e =>{
-            loader.dismiss()      
-            this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+            loader.dismiss()
+            this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')
           })
-          
+
         }else{
           loader.dismiss()
           const msg = res['data'].message
@@ -124,10 +123,10 @@ export class RegisterPage {
         }
       }).catch(e =>{
         console.log(e)
-        loader.dismiss()      
+        loader.dismiss()
         this.alert.showAlert('Error', 'No se pudo registrar el usuario, verifique los datos e intente de nuevo')
-      })     
-      
-    }  
+      })
+
+    }
 
 }

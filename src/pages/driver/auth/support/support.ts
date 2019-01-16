@@ -4,7 +4,7 @@ import { NavController, NavParams, MenuController } from 'ionic-angular'
 import { CallNumber } from '@ionic-native/call-number'
 import { SocialSharing } from '@ionic-native/social-sharing'
 
-import { AlertsProvider } from '../../../providers/alerts'
+import { AlertsProvider } from '../../../../providers/alerts'
 
 
 @Component({
@@ -14,18 +14,18 @@ import { AlertsProvider } from '../../../providers/alerts'
 export class SupportPage {
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private callNumber: CallNumber,
-    public alert: AlertsProvider,    
+    public alert: AlertsProvider,
     public menu: MenuController,
     private socialSharing: SocialSharing
     ) {
 
-      
+
     }
   ionViewDidLoad() {
-  
+
   }
 
   whatsapp(){
@@ -51,5 +51,5 @@ export class SupportPage {
     });
   }
 
-  
+
 }

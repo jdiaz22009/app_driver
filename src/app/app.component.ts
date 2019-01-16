@@ -8,12 +8,7 @@ import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 
-import { LoginPage } from '../pages/auth/login/login'
-import { HomePage } from '../pages/app/home/home'
-import { MainPage } from '../pages/auth/main/main'
-import { RegisterPage } from '../pages/auth/register/register'
-import { AddCartPage } from '../pages/auth/add-cart/add-cart'
-import { VerifyPage } from '../pages/auth/verify/verify'
+import { MainPage } from './../pages/driver/auth/main/main'
 
 @Component({
   templateUrl: 'app.html'
@@ -23,11 +18,11 @@ export class MyApp {
   rootPage: any = MainPage
 
   constructor(
-    public platform: Platform, 
-    public statusBar: StatusBar, 
+    public platform: Platform,
+    public statusBar: StatusBar,
     public splashScreen: SplashScreen) {
 
-    this.initializeApp()    
+    this.initializeApp()
   }
 
 
@@ -35,8 +30,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       //firebase.initializeApp(FIREBASE_CONFIG)
       this.statusBar.backgroundColorByHexString('#0154a0')
-      this.splashScreen.hide() 
-      
+      this.splashScreen.hide()
+
     })
   }
 }

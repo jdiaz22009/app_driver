@@ -5,7 +5,7 @@ import { RegisterPage } from './register/register'
 import { AddCartPage } from './add-cart/add-cart'
 import { VerifyPage } from './verify/verify'
 
-export const AUTH_MODULE = [
+export const DRIVER_AUTH_MODULE = [
   MainPage,
   LoginPage,
   RegisterPage,

@@ -1,3 +1,4 @@
+import { COMPANY_AUTH_MODULE } from './../pages/company/auth/index';
 import { BrowserModule } from '@angular/platform-browser'
 import { ErrorHandler, NgModule } from '@angular/core'
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular'
@@ -19,17 +20,24 @@ import { CitiesProvider } from '../providers/cities'
 import { HttpClientModule, HttpClient } from '@angular/common/http'
 
 import { MyApp } from './app.component'
-import { AUTH_MODULE } from '../pages/auth/index'
-import { APP_MODULE } from '../pages/app'
-import { COMPONENTS_MODULE } from '../pages/components/index'
+
+import { DRIVER_APP_MODULE } from '../pages/driver/app'
+import { DRIVER_AUTH_MODULE } from '../pages/driver/auth'
+import { DRIVER_COMPONENTS_MODULE } from '../pages/driver/components'
+import { COMPANY_APP_MODULE } from '../pages/company/app'
+import { COMPANY_COMPONENTS_MODULE } from '../pages/company/components'
+
 
 
 @NgModule({
   declarations: [
     MyApp,
-    ...AUTH_MODULE,
-    ...APP_MODULE,
-    ...COMPONENTS_MODULE
+    ...DRIVER_APP_MODULE,
+    ...DRIVER_AUTH_MODULE,
+    ...DRIVER_COMPONENTS_MODULE,
+    ...COMPANY_APP_MODULE,
+    ...COMPANY_AUTH_MODULE,
+    ...COMPANY_COMPONENTS_MODULE
   ],
   imports: [
     BrowserModule,
@@ -40,9 +48,12 @@ import { COMPONENTS_MODULE } from '../pages/components/index'
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ...AUTH_MODULE,
-    ...APP_MODULE,
-    ...COMPONENTS_MODULE
+    ...DRIVER_APP_MODULE,
+    ...DRIVER_AUTH_MODULE,
+    ...DRIVER_COMPONENTS_MODULE,
+    ...COMPANY_APP_MODULE,
+    ...COMPANY_AUTH_MODULE,
+    ...COMPANY_COMPONENTS_MODULE
   ],
   providers: [
     StatusBar,
@@ -50,13 +61,13 @@ import { COMPONENTS_MODULE } from '../pages/components/index'
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Network,
     Keyboard,
-    AlertsProvider,    
+    AlertsProvider,
     NetworkProvider,
     StorageDb,
     CallNumber,
     SocialSharing,
     API_MODULE,
-    CitiesProvider    
+    CitiesProvider
   ]
 })
 export class AppModule {}

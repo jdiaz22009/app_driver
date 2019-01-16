@@ -7,7 +7,7 @@ import { DriveProfilePage } from './driver-profile/driver-profile'
 import { MyFreightPage } from './freight/my-freight/my-freight'
 import { AvailabilityPage } from './availability/availability'
 
-export const APP_MODULE = [  
+export const DRIVER_APP_MODULE = [
   HomePage,
   ChatPage,
   FindFreightPage,

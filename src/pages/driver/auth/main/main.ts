@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { NavController, NavParams, LoadingController } from 'ionic-angular'
 
-import { AlertsProvider } from '../../../providers/alerts'
-import { StorageDb } from '../../../providers/storageDb'
-import { CONFIG } from '../../../providers/config'
+import { AlertsProvider } from '../../../../providers/alerts'
+import { StorageDb } from '../../../../providers/storageDb'
+import { CONFIG } from '../../../../providers/config'
 
 import { LoginPage } from '../login/login'
 import { HomePage } from '../../app/home/home'
@@ -15,17 +15,17 @@ import { HomePage } from '../../app/home/home'
 export class MainPage {
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    public alert: AlertsProvider,    
+    public alert: AlertsProvider,
     public loadingCtrl: LoadingController,
-    public db: StorageDb    
+    public db: StorageDb
     ) {
 
-      
+
     }
 
-  ionViewDidLoad() {    
+  ionViewDidLoad() {
     this.checkForSession()
     // this.navCtrl.setRoot(HomePage)
 
@@ -33,7 +33,7 @@ export class MainPage {
 
   checkForSession(){
     this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
-      console.log(res)      
+      console.log(res)
       if(res != null){
         // if(typeof(res) === 'object'){
         if(res['user'] != ''){

@@ -2,16 +2,16 @@ import { Component } from '@angular/core'
 import { NavController, NavParams, MenuController, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { User } from '../../../models/user'
+import { User } from '../../../../models/user'
 
-import { AlertsProvider } from '../../../providers/alerts'
-import { DriverAuthProvider } from '../../../providers/api/driverAuth'
-import { StorageDb } from '../../../providers/storageDb'
+import { AlertsProvider } from '../../../../providers/alerts'
+import { DriverAuthProvider } from '../../../../providers/api/driverAuth'
+import { StorageDb } from '../../../../providers/storageDb'
 
 import { HomePage } from '../../app/home/home'
 import { SupportPage } from '../support/support'
 import { RegisterPage } from '../register/register'
-import { CONFIG } from '../../../providers/config';
+import { CONFIG } from '../../../../providers/config'
 
 
 @Component({
@@ -26,14 +26,14 @@ export class LoginPage {
 
   email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   password_validator = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
-  id_validator =  /^\d+$/ 
+  id_validator =  /^\d+$/
 
   sectionSelected: number = 0
 
   user_type: string = ''
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public alert: AlertsProvider,
     private formBuilder: FormBuilder,
@@ -62,7 +62,7 @@ export class LoginPage {
         this.user_type = 'Conductor'
       }else if(this.navParams.get('mode') === 'dispatcher'){
         this.user_type = 'Empresa'
-      } 
+      }
     }
 
   ionViewDidLoad() {
@@ -82,11 +82,11 @@ export class LoginPage {
         this.sectionSelected = 2
       }else if(code === 101){
         this.navCtrl.push(RegisterPage, {id: id})
-      }    
-    })    
+      }
+    })
   }
 
-  login(){    
+  login(){
 
     const loader = this.loadingCtrl.create({})
     loader.present()
@@ -99,8 +99,8 @@ export class LoginPage {
       const code = res['data'].code
       loader.dismiss()
       if(code === 100){
-        const sessionData = { 
-          user: this.user.id, 
+        const sessionData = {
+          user: this.user.id,
           password: this.user.password,
           token: res['data'].token
         }
@@ -108,21 +108,21 @@ export class LoginPage {
           this.navCtrl.setRoot(HomePage)
         }).catch(e =>{
           console.log(e)
-          this.alert.showAlert('Error', 'Error al crear la sesión')         
-        })        
-        
-      }else{              
+          this.alert.showAlert('Error', 'Error al crear la sesión')
+        })
+
+      }else{
         const msg = res['data'].message
-        this.alert.showAlert('Error', msg)         
-      }      
+        this.alert.showAlert('Error', msg)
+      }
     }).catch(e =>{
       console.log(e)
-      loader.dismiss()      
-      this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')         
+      loader.dismiss()
+      this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')
     })
- 
+
   }
- 
+
   getSupport(){
     this.navCtrl.push(SupportPage)
   }

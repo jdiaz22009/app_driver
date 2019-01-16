@@ -5,7 +5,7 @@ import { CartsPage } from '../carts/carts'
 import { DriveProfilePage } from '../driver-profile/driver-profile'
 import { FindFreightPage } from '../freight/find-freight/find-freight'
 import { MyFreightPage } from '../freight/my-freight/my-freight'
-import { AvailabilityPage } from '../availability/availability';
+import { AvailabilityPage } from '../availability/availability'
 
 @Component({
   selector: 'page-home',
@@ -14,7 +14,7 @@ import { AvailabilityPage } from '../availability/availability';
 export class HomePage {
 
   constructor(
-    public navCtrl: NavController,    
+    public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController
     ) {
@@ -22,7 +22,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-        
+
   }
 
   myCarts(){
