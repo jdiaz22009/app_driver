@@ -6,6 +6,7 @@ import { CartsPage } from './carts/carts'
 import { DriveProfilePage } from './driver-profile/driver-profile'
 import { MyFreightPage } from './freight/my-freight/my-freight'
 import { NavPage } from './nav/nav'
+import { AvailabilityPage } from './availability/availability'
 
 export const APP_MODULE = [
   NavPage,
@@ -15,5 +16,6 @@ export const APP_MODULE = [
   DetailsFreightPage,
   MyFreightPage,
   CartsPage,
-  DriveProfilePage
+  DriveProfilePage,
+  AvailabilityPage
 ]

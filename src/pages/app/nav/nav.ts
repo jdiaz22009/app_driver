@@ -33,8 +33,7 @@ export class NavPage {
 
   ngAfterViewInit(){
     this.title = this.navTitle
-    this.title === undefined ? this.modeTitle = true : this.modeTitle = false
-    console.log(this.title + ' ' + this.modeTitle)
+    this.title === undefined ? this.modeTitle = true : this.modeTitle = false    
   }
 
   setAvailabilityTx(){
@@ -60,8 +59,7 @@ export class NavPage {
     this.alert.showConfirm('Confirmar cerrar sesión', '', 'Aceptar', 'cancelar').then(res =>{
       loader.dismiss()
       if(res === 1){
-        this.apiDriver.logout().then(res =>{
-          console.log('logout')
+        this.apiDriver.logout().then(res =>{          
           this.navCtrl.setRoot(MainPage)
         })  
       }

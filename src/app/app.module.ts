@@ -14,6 +14,9 @@ import { AlertsProvider } from '../providers/alerts'
 import { NetworkProvider } from '../providers/network'
 import { StorageDb } from '../providers/storageDb'
 import { API_MODULE } from '../providers/api/index'
+import { CitiesProvider } from '../providers/cities'
+
+import { HttpClientModule, HttpClient } from '@angular/common/http'
 
 import { MyApp } from './app.component'
 import { AUTH_MODULE } from '../pages/auth/index'
@@ -28,6 +31,7 @@ import { APP_MODULE } from '../pages/app'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -48,7 +52,8 @@ import { APP_MODULE } from '../pages/app'
     StorageDb,
     CallNumber,
     SocialSharing,
-    API_MODULE    
+    API_MODULE,
+    CitiesProvider    
   ]
 })
 export class AppModule {}

@@ -1,0 +1,60 @@
+<ion-content padding>
+  <p>Hola Conductor</p>
+  <p>¿Qué vehículo conduce hoy?</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <p>Placa</p>
+      </ion-col>
+      <ion-col>
+        <ion-item>          
+          <ion-select>
+              <ion-option value="Carry">WFR-345 - Turbo</ion-option>
+              <ion-option value="Estacas">UIO-678 - Camión</ion-option>              
+            </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-3>
+        <p>Fecha de disponibilidad</p>
+      </ion-col>
+      <ion-col>
+        <ion-item>          
+          <ion-select>
+              <ion-option value="Carry">WFR-345 - Turbo</ion-option>
+              <ion-option value="Estacas">UIO-678 - Camión</ion-option>              
+            </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-3>
+        <p>Municipio</p>
+      </ion-col>
+      <ion-col>        
+        
+          <div class="autocomplete">
+            <ion-item>          
+              <ion-input 
+                type="text" 
+                [(ngModel)]="citySelected" 
+                (ionChange)="getItems()"
+                (ionBlur)="removeFocus()"></ion-input>
+            </ion-item>
+
+            <ion-list>
+              <ion-item *ngFor="let item of citiesFilter" (click)="selectCity(item)">
+                {{ item }}
+              </ion-item>
+            </ion-list>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
