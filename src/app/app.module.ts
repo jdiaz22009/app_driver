@@ -41,7 +41,8 @@ import { COMPONENTS_MODULE } from '../pages/components/index'
   entryComponents: [
     MyApp,
     ...AUTH_MODULE,
-    ...APP_MODULE
+    ...APP_MODULE,
+    ...COMPONENTS_MODULE
   ],
   providers: [
     StatusBar,

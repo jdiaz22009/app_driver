@@ -9,7 +9,9 @@ import { DriverAuthProvider } from '../../../providers/api/driverAuth'
 import { AlertsProvider } from '../../../providers/alerts'
 
 import { AddCartPage } from '../add-cart/add-cart'
-import { ModalIdComponent } from '../../components/modal-id/modal-id'
+import { ModalRegisterComponent } from '../../components/modal-register/modal-register';
+import { TitleCasePipe } from '@angular/common';
+
 
 @Component({
   selector: 'page-register',
@@ -64,7 +66,10 @@ export class RegisterPage {
       this.user.id = parseInt(this.registerForm.controls['id'].value)
       console.log(this.user.id + ' ' + this.prevId)
       if(this.user.id != this.prevId){
-        const modal = this.modalCtrl.create(ModalIdComponent, null, { cssClass: "modal-id" })
+        const modal = this.modalCtrl.create(ModalRegisterComponent, null, { cssClass: "modal-id" })
+        modal.onDidDismiss(() =>{
+          this.navCtrl.pop()
+        })
         modal.present()        
         return
       }

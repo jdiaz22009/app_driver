@@ -3,7 +3,6 @@ import { NavController, NavParams, Keyboard } from 'ionic-angular'
 
 import { CitiesProvider } from '../../../providers/cities'
 
-
 @Component({
   selector: 'page-availability',
   templateUrl: 'availability.html'
