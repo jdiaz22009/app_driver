@@ -38,7 +38,7 @@ export class HomePage {
   }
 
   availability(){
-    const modal = this.modalCtrl.create(AvailabilityPage)
+    const modal = this.modalCtrl.create(AvailabilityPage, null, { cssClass: "modal-availability" })
     modal.present()
   }
 

@@ -47,17 +47,7 @@ export class AvailabilityPage {
       return
     }
     this.citiesFilter = this.citiesList
-    this.citiesFilter = this.citiesFilter.filter(item => item.toUpperCase().includes(this.citySelected.toUpperCase()));
-    
-    // this.citiesFilter = this.citiesList
-
-    // var val = ev._value.toString()
-
-    // if (val && val.trim() != '') {
-    //   this.citiesFilter = this.citiesFilter.filter((item) => {
-    //     return (item.toLowerCase().indexOf(val.toLowerCase()) > -1)
-    //   })
-    // }    
+    this.citiesFilter = this.citiesFilter.filter(item => item.toUpperCase().includes(this.citySelected.toUpperCase()))
   }
 
   selectCity(city){

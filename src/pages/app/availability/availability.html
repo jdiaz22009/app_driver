@@ -1,41 +1,45 @@
 <ion-content padding>
-  <p>Hola Conductor</p>
-  <p>¿Qué vehículo conduce hoy?</p>
+  <p class="tx">Hola Conductor</p>
+  <p class="tx">¿Qué vehículo conduce hoy?</p>
 
   <ion-grid>
     <ion-row>
-      <ion-col col-3>
-        <p>Placa</p>
+      <ion-col col-4>
+        <p class="lt">Placa</p>
       </ion-col>
-      <ion-col>
-        <ion-item>          
-          <ion-select>
-              <ion-option value="Carry">WFR-345 - Turbo</ion-option>
-              <ion-option value="Estacas">UIO-678 - Camión</ion-option>              
-            </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-3>
-        <p>Fecha de disponibilidad</p>
-      </ion-col>
-      <ion-col>
-        <ion-item>          
-          <ion-select>
-              <ion-option value="Carry">WFR-345 - Turbo</ion-option>
-              <ion-option value="Estacas">UIO-678 - Camión</ion-option>              
-            </ion-select>
-        </ion-item>
+      <ion-col col-8>
+          <ion-list>
+            <ion-item>          
+              <ion-select>
+                  <ion-option value="Carry">WFR-345 - Turbo</ion-option>
+                  <ion-option value="Estacas">UIO-678 - Camión</ion-option>              
+                </ion-select>
+            </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col col-3>
-        <p>Municipio</p>
+      <ion-col col-4>
+        <p class="lt">Fecha de disponibilidad</p>
       </ion-col>
-      <ion-col>        
+      <ion-col col-8>
+            <ion-item>
+              <ion-label>Seleccione</ion-label>
+              <ion-datetime 
+                  displayFormat="MMM/DD" 
+                  monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Noviembre, Diciembre"
+                  monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
+                  [(ngModel)]="myDate"></ion-datetime>
+            </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-4>
+        <p class="lt">Municipio</p>
+      </ion-col>
+      <ion-col col-8>        
         
           <div class="autocomplete">
             <ion-item>          
@@ -55,6 +59,10 @@
 
       </ion-col>
     </ion-row>
-
   </ion-grid>
+
+  <div class="btn-container">
+      <button color="statusbar" class="btn-add" ion-button full>Agregar nuevo vehículo</button>
+  </div>
+  
 </ion-content>

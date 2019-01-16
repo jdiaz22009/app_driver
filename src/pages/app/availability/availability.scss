@@ -1,3 +1,29 @@
 page-availability {
 
+  .tx{
+    font-size: 1.3rem;
+    color: color($colors, title);
+    font-weight: 500;
+    margin-top: 0 !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .lt{
+    font-size: 1.4rem;
+    color: color($colors, title);
+    font-weight: 500;
+  }
+
+  ion-select {
+    max-width: 100% !important;
+  }
+
+  .btn-container{
+    margin: 1rem 2rem 1rem 2rem;
+  }
+  .btn-add{
+    .button{
+      text-transform: none!important;
+    }
+  }
 }
