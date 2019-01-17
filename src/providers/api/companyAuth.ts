@@ -41,7 +41,7 @@ export class CompanyAuthProvider{
   }
 
   async logout(){
-    return ''
+    return await this.db.deleteDB() 
   }
 
 

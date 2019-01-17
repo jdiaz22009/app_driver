@@ -1,0 +1,24 @@
+<ion-toolbar>
+    <ion-grid class="nav-home">    
+        <ion-row align-items-center>
+          <ion-col col-2 *ngIf="modeTitle">
+            <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/>
+          </ion-col>          
+          <ion-col col-2 *ngIf="!modeTitle">                
+              <ion-icon name="arrow-back" (click)="goBack()"></ion-icon> 
+          </ion-col>
+          <ion-col col-2 *ngIf="!modeTitle">                
+            <p class="title"> {{title}}</p>      
+          </ion-col>                   
+          <ion-col col-1 offset-7 class="col-chat" (click)="chat()">
+              <img src="./assets/imgs/chat.png"/>
+          </ion-col>
+          <ion-col col-1 (click)="logout()">
+              <img class="logout" src="./assets/imgs/logout.png"/>
+          </ion-col>
+        </ion-row>    
+      </ion-grid>
+
+</ion-toolbar>
+
+
