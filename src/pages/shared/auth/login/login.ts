@@ -2,12 +2,12 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { User } from '../../../../models/user'
+import { User } from '@models/user'
 
-import { AlertsProvider } from '../../../../providers/alerts'
-import { DriverAuthProvider } from '../../../../providers/api/driverAuth'
-import { StorageDb } from '../../../../providers/storageDb'
-import { CONFIG } from '../../../../providers/config'
+import { AlertsProvider } from '@providers/alerts'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { StorageDb } from '@providers/storageDb'
+import { CONFIG } from '@providers/config'
 
 @IonicPage()
 @Component({

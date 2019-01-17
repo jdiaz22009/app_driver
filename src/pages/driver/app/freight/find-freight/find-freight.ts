@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
-import { FreightProvider } from '../../../../../providers/api/freight'
+import { FreightProvider } from '@providers/api/freight'
 
 @IonicPage()
 @Component({

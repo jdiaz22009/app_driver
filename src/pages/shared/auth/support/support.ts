@@ -4,8 +4,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { CallNumber } from '@ionic-native/call-number'
 import { SocialSharing } from '@ionic-native/social-sharing'
 
-import { AlertsProvider } from '../../../../providers/alerts'
-import { CONFIG } from '../../../../providers/config'
+import { AlertsProvider } from '@providers/alerts'
+import { CONFIG } from '@providers/config'
 
 @IonicPage()
 @Component({

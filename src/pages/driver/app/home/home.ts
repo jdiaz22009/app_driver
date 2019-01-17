@@ -36,7 +36,7 @@ export class HomeDriverPage {
   }
 
   availability(){
-    const modal = this.modalCtrl.create('AvailabilityDriverPage', null, { cssClass: "modal-availability" })
+    const modal = this.modalCtrl.create('AvailabilityDriverPage', null, { cssClass: 'modal-availability' })
     modal.present()
   }
 

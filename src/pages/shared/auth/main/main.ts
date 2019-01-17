@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 
-import { AlertsProvider } from '../../../../providers/alerts'
-import { StorageDb } from '../../../../providers/storageDb'
-import { CONFIG } from '../../../../providers/config'
+import { AlertsProvider } from '@providers/alerts'
+import { StorageDb } from '@providers/storageDb'
+import { CONFIG } from '@providers/config'
 
 @IonicPage()
 @Component({

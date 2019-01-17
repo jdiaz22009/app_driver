@@ -2,11 +2,11 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { RegisterDriver } from '../../../../models/registerDriver'
-import { User } from '../../../../models/user'
+import { RegisterDriver } from '@models/registerDriver'
+import { User } from '@models/user'
 
-import { DriverAuthProvider } from '../../../../providers/api/driverAuth'
-import { AlertsProvider } from '../../../../providers/alerts'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { AlertsProvider } from '@providers/alerts'
 
 @IonicPage()
 @Component({

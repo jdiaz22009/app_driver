@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core'
 import { NavController, NavParams, LoadingController } from 'ionic-angular'
 
-import { AlertsProvider } from '../../../../providers/alerts'
-import { DriverAuthProvider } from '../../../../providers/api/driverAuth'
-
+import { AlertsProvider } from '@providers/alerts'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 @Component({
   selector: 'nav-driver-component',

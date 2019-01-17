@@ -2,10 +2,10 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { AlertsProvider } from '../../../../providers/alerts'
-import { CartProvider } from '../../../../providers/api/cart'
+import { AlertsProvider } from '@providers/alerts'
+import { CartProvider } from '@providers/api/cart'
 
-import { Cart } from '../../../../models/cart'
+import { Cart } from '@models/cart'
 
 
 @IonicPage()

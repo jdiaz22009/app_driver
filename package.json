@@ -9,7 +9,7 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
-  },
+  },  
   "dependencies": {
     "@angular/animations": "5.2.11",
     "@angular/common": "5.2.11",
@@ -74,5 +74,9 @@
     "platforms": [
       "android"
     ]
+  },
+  "config": {
+    "ionic_source_map_type": "source-map",
+    "ionic_webpack": "./webpack.config.js"
   }
 }

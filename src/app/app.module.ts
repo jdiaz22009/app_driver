@@ -10,16 +10,12 @@ import { SocialSharing } from '@ionic-native/social-sharing'
 import { Keyboard } from '@ionic-native/keyboard'
 import { IonicStorageModule } from '@ionic/storage'
 
-import { AlertsProvider } from '../providers/alerts'
-import { NetworkProvider } from '../providers/network'
-import { StorageDb } from '../providers/storageDb'
-import { API_MODULE } from '../providers/api/index'
-import { CitiesProvider } from '../providers/cities'
-
 import { HttpClientModule } from '@angular/common/http'
 
-import { MyApp } from './app.component'
+import { API_MODULE } from '../providers/api/index'
+import { PROVIDERS_MODULE } from '../providers/index'
 
+import { MyApp } from './app.component'
 
 @NgModule({
   declarations: [
@@ -40,14 +36,11 @@ import { MyApp } from './app.component'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Network,
-    Keyboard,
-    AlertsProvider,
-    NetworkProvider,
-    StorageDb,
+    Keyboard,    
     CallNumber,
     SocialSharing,
     API_MODULE,
-    CitiesProvider
+    PROVIDERS_MODULE
   ]
 })
 export class AppModule {}

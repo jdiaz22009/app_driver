@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, Keyboard } from 'ionic-angular'
 
-import { CitiesProvider } from '../../../../providers/cities'
+import { CitiesProvider } from '@providers/cities'
 
 @IonicPage()
 @Component({
