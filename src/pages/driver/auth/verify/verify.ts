@@ -1,12 +1,12 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
-
+@IonicPage()
 @Component({
-  selector: 'page-verify',
+  selector: 'verify-drive',
   templateUrl: 'verify.html',
 })
-export class VerifyPage {
+export class VerifyDriverPage {
 
   counter_time: string = '5:00'
   fiveMinutes: number = 60 * 5

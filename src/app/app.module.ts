@@ -1,4 +1,3 @@
-import { COMPANY_AUTH_MODULE } from './../pages/company/auth/index';
 import { BrowserModule } from '@angular/platform-browser'
 import { ErrorHandler, NgModule } from '@angular/core'
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular'
@@ -17,27 +16,14 @@ import { StorageDb } from '../providers/storageDb'
 import { API_MODULE } from '../providers/api/index'
 import { CitiesProvider } from '../providers/cities'
 
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 
 import { MyApp } from './app.component'
-
-import { DRIVER_APP_MODULE } from '../pages/driver/app'
-import { DRIVER_AUTH_MODULE } from '../pages/driver/auth'
-import { DRIVER_COMPONENTS_MODULE } from '../pages/driver/components'
-import { COMPANY_APP_MODULE } from '../pages/company/app'
-import { COMPANY_COMPONENTS_MODULE } from '../pages/company/components'
-
 
 
 @NgModule({
   declarations: [
-    MyApp,
-    ...DRIVER_APP_MODULE,
-    ...DRIVER_AUTH_MODULE,
-    ...DRIVER_COMPONENTS_MODULE,
-    ...COMPANY_APP_MODULE,
-    ...COMPANY_AUTH_MODULE,
-    ...COMPANY_COMPONENTS_MODULE
+    MyApp        
   ],
   imports: [
     BrowserModule,
@@ -47,13 +33,7 @@ import { COMPANY_COMPONENTS_MODULE } from '../pages/company/components'
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    ...DRIVER_APP_MODULE,
-    ...DRIVER_AUTH_MODULE,
-    ...DRIVER_COMPONENTS_MODULE,
-    ...COMPANY_APP_MODULE,
-    ...COMPANY_AUTH_MODULE,
-    ...COMPANY_COMPONENTS_MODULE
+    MyApp    
   ],
   providers: [
     StatusBar,

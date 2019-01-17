@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
+@IonicPage()
 @Component({
-  selector: 'page-carts',
+  selector: 'carts-drive',
   templateUrl: 'carts.html'
 })
-export class CartsPage {  
+export class CartsDriverPage {  
   
   constructor(
     public navCtrl: NavController,

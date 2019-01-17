@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { AlertsProvider } from '../../../../providers/alerts'
@@ -7,13 +7,13 @@ import { CartProvider } from '../../../../providers/api/cart'
 
 import { Cart } from '../../../../models/cart'
 
-import { HomePage } from '../../app/home/home'
 
+@IonicPage()
 @Component({
-  selector: 'page-add-cart',
+  selector: 'add-cart-driver',
   templateUrl: 'add-cart.html',
 })
-export class AddCartPage {
+export class AddCartDriverPage {
 
   cart = {} as Cart
   cartForm: FormGroup
@@ -67,7 +67,7 @@ export class AddCartPage {
         console.log(res)
         const code = res['data'].code
         loader.dismiss()
-          this.navCtrl.setRoot(HomePage)
+          this.navCtrl.setRoot('HomeDriverPage')
 
         // if(code === 100){
         //   this.navCtrl.setRoot(HomePage)

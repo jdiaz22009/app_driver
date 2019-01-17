@@ -4,14 +4,12 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular'
 import { AlertsProvider } from '../../../../providers/alerts'
 import { DriverAuthProvider } from '../../../../providers/api/driverAuth'
 
-import { MainPage } from '../../auth/main/main'
-import { ChatPage } from '../../app/chat/chat'
 
 @Component({
-  selector: 'nav-component',
+  selector: 'nav-driver-component',
   templateUrl: 'nav.html'
 })
-export class NavComponent {
+export class NavDriverComponent {
 
   @Input('title') navTitle
 
@@ -46,7 +44,7 @@ export class NavComponent {
   }
 
   chat(){
-    this.navCtrl.push(ChatPage)
+    this.navCtrl.push('ChatGlobalDriverPage')
   }
 
   goBack(){
@@ -60,7 +58,7 @@ export class NavComponent {
       loader.dismiss()
       if(res === 1){
         this.apiDriver.logout().then(res =>{
-          this.navCtrl.setRoot(MainPage)
+          this.navCtrl.setRoot('MainSharedPage')
         })
       }
     })

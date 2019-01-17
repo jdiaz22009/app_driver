@@ -1,14 +1,14 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
 import { FreightProvider } from '../../../../../providers/api/freight'
-import { DetailsFreightPage } from '../details-freight/details-freight'
 
+@IonicPage()
 @Component({
-  selector: 'page-find-freight',
+  selector: 'find-freight-driver',
   templateUrl: 'find-freight.html'
 })
-export class FindFreightPage {
+export class FindFreightDriverPage {
 
   constructor(
     public navCtrl: NavController,
@@ -24,8 +24,7 @@ export class FindFreightPage {
 
   getFreights(){
     this.apiFreight.getOffert()
-    .then(res =>{
-      console.log(res, 'PERAFO')
+    .then(res =>{      
       console.log(JSON.stringify(res))
     }).catch(e =>{
       console.error(e)
@@ -33,6 +32,6 @@ export class FindFreightPage {
   }
 
   freightDetails(freight){
-    this.navCtrl.push(DetailsFreightPage, { details: freight})
+    this.navCtrl.push('DetailsFreightDriverPage', { details: freight})
   }
 }

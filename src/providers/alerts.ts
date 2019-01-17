@@ -35,7 +35,8 @@ export class AlertsProvider{
               resolve(1)
             }
           }
-        ]
+        ],
+        enableBackdropDismiss: false
       });
       confirm.present();
     })    

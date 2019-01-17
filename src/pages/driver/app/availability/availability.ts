@@ -1,13 +1,14 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, Keyboard } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, Keyboard } from 'ionic-angular'
 
 import { CitiesProvider } from '../../../../providers/cities'
 
+@IonicPage()
 @Component({
-  selector: 'page-availability',
+  selector: 'availability-drive',
   templateUrl: 'availability.html'
 })
-export class AvailabilityPage {
+export class AvailabilityDriverPage {
 
   citiesList: any = []
   citiesFilter: any = []

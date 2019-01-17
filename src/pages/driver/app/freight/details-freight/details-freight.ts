@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
+@IonicPage()
 @Component({
-  selector: 'page-details-freight',
+  selector: 'details-freight-driver',
   templateUrl: 'details-freight.html'
 })
-export class DetailsFreightPage {
+export class DetailsFreightDriverPage {
 
   title: string = ''
 

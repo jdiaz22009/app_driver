@@ -1,17 +1,15 @@
 import { Component } from '@angular/core'
-import { NavController, LoadingController, ModalController } from 'ionic-angular'
+import { IonicPage, NavController, LoadingController, ModalController } from 'ionic-angular'
 
-import { CartsPage } from '../carts/carts'
-import { DriveProfilePage } from '../driver-profile/driver-profile'
-import { FindFreightPage } from '../freight/find-freight/find-freight'
-import { MyFreightPage } from '../freight/my-freight/my-freight'
-import { AvailabilityPage } from '../availability/availability'
-
+@IonicPage({
+  name: 'home-drive',
+  segment: 'home-drive'
+})
 @Component({
-  selector: 'page-home',
+  selector: 'home-driver',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomeDriverPage {
 
   constructor(
     public navCtrl: NavController,
@@ -26,24 +24,24 @@ export class HomePage {
   }
 
   myCarts(){
-    this.navCtrl.push(CartsPage)
+    this.navCtrl.push('CartsDriverPage')
   }
 
   myFreight(){
-    this.navCtrl.push(MyFreightPage)
+    this.navCtrl.push('MyFreightDriverPage')
   }
 
   profile(){
-    this.navCtrl.push(DriveProfilePage)
+    this.navCtrl.push('ProfileDriverPage')
   }
 
   availability(){
-    const modal = this.modalCtrl.create(AvailabilityPage, null, { cssClass: "modal-availability" })
+    const modal = this.modalCtrl.create('AvailabilityDriverPage', null, { cssClass: "modal-availability" })
     modal.present()
   }
 
   findFreight(){
-    this.navCtrl.push(FindFreightPage)
+    this.navCtrl.push('FindFreightDriverPage')
   }
 
 }

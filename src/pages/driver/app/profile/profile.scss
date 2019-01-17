@@ -1,0 +1,37 @@
+profile-driver {
+
+  .g-info{
+    padding: 0!important;
+  } 
+
+  .c-user{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .img-profile{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;    
+  }
+
+  .tx-green{
+    color: color($colors, btn);
+  }
+
+  .tx-title{
+    color: color($colors, title);
+    font-weight: 500;
+  }
+
+  .tx-points{
+    color: color($colors, title);
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .c-info{
+    background-color: #d0d6da;    
+  }
+
+}

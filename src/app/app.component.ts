@@ -8,14 +8,12 @@ import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 
-import { MainPage } from './../pages/driver/auth/main/main'
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
 
-  rootPage: any = MainPage
+  rootPage: any = 'MainSharedPage'
 
   constructor(
     public platform: Platform,

@@ -2,6 +2,10 @@ export const CONFIG = {
   localdb:{
     USER_KEY: 'user_key',    
   },
+  support:{
+    whatsapp: '+573194131358',
+    phone: '18001010101'
+  },
   api:{
     url: 'http://142.93.52.217',
     port: '5000',
