@@ -7,11 +7,11 @@ import qs from 'qs'
 
 import { CONFIG } from '../config'
 
-import { User } from '../../models/user'
-import { RegisterDriver } from '../../models/registerDriver'
+import { User } from '@models/user'
+import { RegisterDriver } from '@models/registerDriver'
 
 import { ApiClientProvider } from './apiClient'
-import { StorageDb } from '../storageDb';
+import { StorageDb } from '../storageDb'
 
 @Injectable()
 export class DriverAuthProvider{

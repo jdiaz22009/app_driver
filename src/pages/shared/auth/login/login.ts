@@ -6,8 +6,10 @@ import { User } from '@models/user'
 
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { CompanyAuthProvider } from '@providers/api/companyAuth'
 import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
+
 
 @IonicPage()
 @Component({
@@ -34,7 +36,8 @@ export class LoginSharedPage {
     public navParams: NavParams,
     public alert: AlertsProvider,
     private formBuilder: FormBuilder,
-    private auth: DriverAuthProvider,
+    private driverAuth: DriverAuthProvider,
+    private companyAuth: CompanyAuthProvider,
     public loadingCtrl: LoadingController,
     public db: StorageDb,
     public menu: MenuController
@@ -74,58 +77,105 @@ export class LoginSharedPage {
 
   validateId(){
     const id = parseInt(this.idForm.controls['id'].value)
-    this.auth.validateId(id).then(res =>{
-      console.log('validateId ' + res)
-      const code = res['data'].code
-      if(code === 100){
-        this.sectionSelected = 2
-      }else if(code === 101){
-        this.navCtrl.push('RegisterSharedPage', { id: id })
-      }
+    if(this.mode === 'driver'){
+      this.validateDriver(id)
+    }else if(this.mode === 'company'){
+      this.validateCompany(id)
+    }
+  }
+
+  validateDriver(id){
+    this.driverAuth.validateId(id).then(res =>{      
+      this.checkValidate(id, res)
     })
   }
 
-  login(){
+  validateCompany(id){
+    this.companyAuth.validateId(id).then(res =>{
+      this.checkValidate(id, res)
+    })
+  }
+
+  checkValidate(id, res){    
+    console.log(res)
+    const code = res['data'].code
+    if(code === 100){
+      this.sectionSelected = 2
+    }else if(code === 101){
+      this.navCtrl.push('RegisterSharedPage', { id: id, mode: this.mode })
+    }
+  }
+
+  login(){    
+
+    this.user.id = parseInt(this.idForm.controls['id'].value)
+    this.user.password = this.passwordForm.controls['password'].value
+    
+    if(this.mode === 'driver'){
+      this.loginDriver()
+    }else if(this.mode === 'company'){
+      this.loginCompany()
+    }
+
+  }
+
+  loginDriver(){
 
     const loader = this.loadingCtrl.create({})
     loader.present()
 
-    this.user.id = parseInt(this.idForm.controls['id'].value)
-    this.user.password = this.passwordForm.controls['password'].value
-    console.log(this.user)
-    this.auth.login(this.user).then(res =>{
-      console.log(res)
-      const code = res['data'].code
+    this.driverAuth.login(this.user).then(res =>{
       loader.dismiss()
-      if(code === 100){
-        const sessionData = {
-          user: this.user.id,
-          password: this.user.password,
-          token: res['data'].token,
-          type: this.mode
-        }
-        this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
-          if(this.mode === 'driver'){
-            this.navCtrl.setRoot('home-drive')
-          }else if(this.mode === 'company'){
-            this.navCtrl.setRoot('home-company')
-          }          
-        }).catch(e =>{
-          console.log(e)
-          this.alert.showAlert('Error', 'Error al crear la sesión')
-        })
-
-      }else{
-        const msg = res['data'].message
-        this.alert.showAlert('Error', msg)
-      }
+      this.checkResponse(res)
     }).catch(e =>{
       console.log(e)
       loader.dismiss()
       this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')
     })
-
   }
+
+  loginCompany(){
+
+    const loader = this.loadingCtrl.create({})
+    loader.present()
+
+    this.companyAuth.login(this.user).then(res =>{
+      loader.dismiss()
+      this.checkResponse(res)
+    }).catch(e =>{
+      console.log(e)
+      loader.dismiss()
+      this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')
+    })
+  }
+
+  checkResponse(res){
+    console.log(res)
+    const code = res['data'].code
+    
+    if(code === 100){
+      const sessionData = {
+        user: this.user.id,
+        password: this.user.password,
+        token: res['data'].token,
+        type: this.mode
+      }
+      this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
+        if(this.mode === 'driver'){
+          this.navCtrl.setRoot('home-drive')
+        }else if(this.mode === 'company'){
+          this.navCtrl.setRoot('home-company')
+        }          
+      }).catch(e =>{
+        console.log(e)
+        this.alert.showAlert('Error', 'Error al crear la sesión')
+      })
+
+    }else{
+      const msg = res['data'].message
+      this.alert.showAlert('Error', msg)
+    }
+  } 
 
   getSupport(){
     this.navCtrl.push('SupportSharedPage')
