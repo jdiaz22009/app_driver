@@ -39,7 +39,7 @@ export class SupportSharedPage {
   call(){
     this.callNumber.callNumber(CONFIG.support.phone, true)
     .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+    .catch(err => console.log('Error launching dialer', err))
   }
 
   email(){
@@ -47,7 +47,7 @@ export class SupportSharedPage {
       console.log('Success!')
     }).catch((e) => {
       console.error('Error! ' + e)
-    });
+    })
   }
 
 

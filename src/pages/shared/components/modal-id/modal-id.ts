@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
-import { ViewController } from 'ionic-angular'
+import { IonicPage, ViewController } from 'ionic-angular'
 
+@IonicPage()
 @Component({
   selector: 'modal-id-shared',
   templateUrl: 'modal-id.html'

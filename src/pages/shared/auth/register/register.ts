@@ -61,9 +61,9 @@ export class RegisterSharedPage {
       this.user.id = parseInt(this.registerForm.controls['id'].value)
       console.log(this.user.id + ' ' + this.prevId)
       if(this.user.id != this.prevId){
-        const modal = this.modalCtrl.create('ModalIdSharedComponent', null, { cssClass: "modal-id" })
+        const modal = this.modalCtrl.create('ModalIdSharedComponent', null, { cssClass: 'modal-id' })
         modal.onDidDismiss(() =>{
-          this.navCtrl.pop()
+          //this.navCtrl.pop()
         })
         modal.present()
         return

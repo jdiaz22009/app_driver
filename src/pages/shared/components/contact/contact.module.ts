@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core'
 import { IonicModule } from 'ionic-angular'
-import { NavCompanyComponent } from './nav'
+import { ContactSharedComponent } from './contact'
+
 
 @NgModule({
   declarations: [ 
-    NavCompanyComponent 
+     ContactSharedComponent
   ],
   imports: [
     IonicModule
   ],
   exports: [
-    NavCompanyComponent
+    ContactSharedComponent
   ]
 })
-export class NavCompanyComponentModule { }
+export class ContactSharedModule { }
