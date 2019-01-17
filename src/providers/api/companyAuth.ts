@@ -23,11 +23,17 @@ export class CompanyAuthProvider{
   }
 
   async validateId(id: Number){
-    return ''
+    if(id === 123456){
+    return {data:  {code: 100}}
+    }      
+    return {data:  {code: 101}}
   }
 
   async login(user: User){   
-    return ''
+    if(user.id === 123456 && user.password === '123456'){
+      return {data:  {code: 100}}
+    }
+    return {data:  {code: 101}}
   }
 
   async register(register){
