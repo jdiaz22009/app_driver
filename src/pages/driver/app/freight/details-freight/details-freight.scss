@@ -1,13 +1,33 @@
 details-freight-driver{
 
+  .card-offert{
+
+    margin-top: 1rem;
+
+    .card-content-md {
+      padding: 13px 0px  0px 5px!important;
+    }
+    .grid{
+      padding: 0 !important;
+    }
+  }
+
   .c-date{
     color: color($colors, txwhite);
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    font-weight: 500;
   }
 
   .tx-title{
     color: color($colors, title) !important;
     font-weight: 500 !important;
+  }
+
+  .tx-summary{
+    color: color($colors, title) !important;
+    font-size: 1.2rem;
+    font-weight: 500;
   }
 
   .tx-share{
@@ -18,6 +38,10 @@ details-freight-driver{
   .button-md{
     margin: 0 !important;
     height: 5rem !important;
+  }
+  
+  .c-req{
+    margin-bottom: 3rem;
   }
 
 }

@@ -2,37 +2,49 @@
   
   <nav-driver-component title="Cargas"></nav-driver-component>
 
-    <ion-card>
+  <div *ngFor="let item of offers">
+
+  
+    <ion-card class="card-offert">
         <ion-card-content>
-          <p class="c-date" text-end>Publicado </p>
+          <p class="c-date" text-end>Publicado 08/24/2019 09:08</p>
 
           <ion-grid>
-            <ion-row justify-content-center>
-                <ion-col col-8>
-                    <p class="tx-title"><ion-icon name="md-pin" color="statusbar"></ion-icon> Origen</p>
+            <ion-row>
+                <ion-col col-9>
+                    <p class="tx-title">
+                      <ion-icon name="md-pin" color="statusbar"></ion-icon> 
+                      Origen
+                      <span>{{item.ciudad_origen}}</span>
+                    </p>
                     <br>
-                    <p class="tx-title"><ion-icon name="md-pin" color="btn"></ion-icon> Destino</p>
+                    <p class="tx-title">
+                      <ion-icon name="md-pin" color="btn"></ion-icon> 
+                      Destino
+                      <span>{{item.ciudad_destino}}</span>
+                    </p>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col col-3 class="c-shared">                  
                     <button ion-fab mini color="btn">
-                      <ion-icon name="md-share">
-                    </ion-icon></button>
+                        <ion-icon name="md-share"></ion-icon>
+                    </button>
                     <p class="tx-share">Compartir</p>
                 </ion-col>
             </ion-row>
 
-            <ion-row margin-top justify-content-center>
-                <ion-col col-5>
+            <ion-row>
+                <ion-col col-7>
                   <p class="tx-title">Tipo</p>
                   <br>
                   <p class="tx-title">Peso</p>
                   <br>
                   <p class="tx-title">Flete</p>
                 </ion-col>
-                <ion-col col-5>
+                <ion-col col-5 class="no-padding">
                   <p class="tx-title">Carrocería</p>
                   <br>
                   <p class="tx-title">Fecha de Carga</p>
+                  <br>
                   <br>
                   <img (click)="freightDetails('carga')" class="f-next" src="./assets/imgs/find_next.png">
 
@@ -45,5 +57,7 @@
     </ion-card>
 
     <hr class="c-divider">
+
+  </div>
 
 </ion-content>

@@ -10,11 +10,12 @@ import { FreightProvider } from '@providers/api/freight'
 })
 export class FindFreightDriverPage {
 
+  offers: any = []
+
   constructor(
     public navCtrl: NavController,
     public apiFreight: FreightProvider,
     public navParams: NavParams) {
-
 
   }
 
@@ -24,8 +25,15 @@ export class FindFreightDriverPage {
 
   getFreights(){
     this.apiFreight.getOffert()
-    .then(res =>{      
-      console.log(JSON.stringify(res))
+    .then(res =>{            
+      const data = res['data']
+      for(let offer of data){        
+        console.log(offer['region'])
+        if(offer['region'] != undefined){
+          this.offers.push(offer)
+        }
+      }
+      console.log(this.offers)      
     }).catch(e =>{
       console.error(e)
     })

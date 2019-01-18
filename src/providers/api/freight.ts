@@ -21,8 +21,7 @@ export class FreightProvider{
 
   async getOffert(){
     const url = this.api_url + this.get_path
-    const token = await this.getToken();
-    console.log(token.token)
+    const token = await this.getToken()    
     const params = { headers: {"Authorization" : token.token} }
     try{
       return await this.apiClient.get(url, params)

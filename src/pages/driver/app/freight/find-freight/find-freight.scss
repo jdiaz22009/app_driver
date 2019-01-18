@@ -1,8 +1,31 @@
 find-freight-driver{
 
+  .card-offert{
+
+    margin-top: 1rem;
+
+    .card-content-md {
+      padding: 13px 0px  0px 5px!important;
+    }
+    .grid{
+      padding: 0 !important;
+    }
+
+    .c-shared{      
+      align-content: flex-end;
+      align-items: flex-end;
+    }
+
+    .no-padding{
+      padding: 0!important;
+    }
+  }
+
   .c-date{
     color: color($colors, txwhite);
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    font-weight: 500;
   }
 
   .tx-title{
@@ -18,7 +41,7 @@ find-freight-driver{
   .c-divider{
     background-color: color($colors, title);
     width: calc(100% - 20px);
-    height: 2px;
+    height: 3px;
     margin: 10px;
 
   }
