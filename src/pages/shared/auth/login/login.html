@@ -4,9 +4,11 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding scroll="false">
 
     <img class="logo" src="./assets/imgs/logo-cargaya.png">
+
+    <img class="b-static" src="../assets/imgs/truck-background.png">
 
     <p class="l-title">Ingresar como {{user_type}}</p>
 
@@ -17,7 +19,7 @@
                     <ion-col col-12>
                         <form [formGroup]="idForm">                                
                             <ion-item class=l-item>
-                                <ion-label stacked>Cédula</ion-label>
+                                <ion-label floating>Cédula</ion-label>
                                 <ion-input [formControl]="idForm.controls['id']" type="tel"></ion-input>
                             </ion-item>         
                             
@@ -66,6 +68,6 @@
   
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!hideFooter">
     <p class="tx-l" text-center>¿No puede iniciar sesión? <span class="contact" (click)="getSupport()">Contáctenos aquí</span></p>
 </ion-footer>

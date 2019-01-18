@@ -2,6 +2,9 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
+import { Keyboard } from '@ionic-native/keyboard'
+
+
 import { User } from '@models/user'
 
 import { AlertsProvider } from '@providers/alerts'
@@ -28,6 +31,7 @@ export class LoginSharedPage {
 
   sectionSelected: number = 0
 
+  hideFooter: boolean = false
   user_type: string = ''
   mode: string
 
@@ -40,7 +44,8 @@ export class LoginSharedPage {
     private companyAuth: CompanyAuthProvider,
     public loadingCtrl: LoadingController,
     public db: StorageDb,
-    public menu: MenuController
+    public menu: MenuController,
+    public keyboard: Keyboard
     ) {
 
       this.idForm = this.formBuilder.group({
@@ -69,6 +74,9 @@ export class LoginSharedPage {
 
   ionViewDidLoad() {
     this.menu.enable(false)
+    this.keyboard.onKeyboardShow().subscribe(data =>{
+      this.hideFooter = true
+    })
   }
 
   ionViewDidEnter() {

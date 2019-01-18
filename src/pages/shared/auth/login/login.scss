@@ -1,10 +1,18 @@
 login-shared {
 
   ion-content{    
-    background-image: url('../assets/imgs/truck-background.png');
-    background-repeat: no-repeat;
-    background-size: 30%;
-    background-position: 105% 23%;
+    // background-image: url('../assets/imgs/truck-background.png');
+    // background-repeat: no-repeat;
+    // background-size: 30%;
+    // background-position: 105% 23%;    
+  }
+
+  .b-static{
+    position: absolute;
+    width: 30%;
+    top: 0;
+    right: 0;
+    margin-top: 7rem;
   }
 
   .footer-md::before{
@@ -43,5 +51,9 @@ login-shared {
   
   .tx-d{
     color: red;
+  }
+
+  ion-content > .scroll-content{
+    padding-bottom: 56px;
   }
 }
