@@ -25,6 +25,7 @@ export class RegisterSharedPage {
   registerForm: FormGroup
 
   prevId: number
+  mode: String
 
   constructor(
     public navCtrl: NavController,
@@ -37,6 +38,7 @@ export class RegisterSharedPage {
     ) {
 
       this.prevId = navParams.get('id')
+      this.mode = navParams.get('mode')
 
       this.registerForm = this.formBuilder.group({
         id: ['', Validators.compose([
@@ -62,8 +64,8 @@ export class RegisterSharedPage {
       console.log(this.user.id + ' ' + this.prevId)
       if(this.user.id != this.prevId){
         const modal = this.modalCtrl.create('ModalIdSharedComponent', null, { cssClass: 'modal-id' })
-        modal.onDidDismiss(() =>{
-          //this.navCtrl.pop()
+        modal.onDidDismiss(() =>{          
+          this.navCtrl.pop()
         })
         modal.present()
         return
