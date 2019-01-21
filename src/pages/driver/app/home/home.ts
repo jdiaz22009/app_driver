@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, LoadingController, ModalController } from 'ionic-angular'
+import { IonicPage, NavController, ModalController } from 'ionic-angular'
 
 @IonicPage({
   name: 'home-drive',
@@ -12,36 +12,19 @@ import { IonicPage, NavController, LoadingController, ModalController } from 'io
 export class HomeDriverPage {
 
   constructor(
-    public navCtrl: NavController,
-    public loadingCtrl: LoadingController,
+    public navCtrl: NavController,    
     public modalCtrl: ModalController
     ) {
 
-  }
+  }  
 
-  ionViewDidLoad() {
-
-  }
-
-  myCarts(){
-    this.navCtrl.push('CartsDriverPage')
-  }
-
-  myFreight(){
-    this.navCtrl.push('MyFreightDriverPage')
-  }
-
-  profile(){
-    this.navCtrl.push('ProfileDriverPage')
-  }
+  goPage(page){
+    this.navCtrl.push(page)
+  }  
 
   availability(){
     const modal = this.modalCtrl.create('AvailabilityDriverPage', null, { cssClass: 'modal-availability' })
     modal.present()
-  }
-
-  findFreight(){
-    this.navCtrl.push('FindFreightDriverPage')
-  }
+  }  
 
 }

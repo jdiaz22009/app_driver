@@ -3,10 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
 @IonicPage()
 @Component({
-  selector: 'carts-drive',
-  templateUrl: 'carts.html'
+  selector: 'list-vehicles',
+  templateUrl: 'list-vehicles.html'
 })
-export class CartsDriverPage {  
+export class ListVehiclesDriverPage {  
   
   constructor(
     public navCtrl: NavController,

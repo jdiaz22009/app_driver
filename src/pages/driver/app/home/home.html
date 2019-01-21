@@ -4,17 +4,17 @@
 
     <ion-grid class="content-controls">
         <ion-row justify-content-center>
-            <ion-col col-4 (click)="myCarts()">
+            <ion-col col-4 (click)="goPage('ListVehiclesDriverPage')">
             <img class="h-actions" src="./assets/imgs/action_carts.png">
             <p class="h-summary">Mis vehículos</p>
             </ion-col>
-            <ion-col col-4 offset-3 (click)="myFreight()">
+            <ion-col col-4 offset-3 (click)="goPage('MyFreightDriverPage')">
                 <img class="h-actions" src="./assets/imgs/action_loads.png">
             <p class="h-summary">Mis fletes</p>
             </ion-col>
         </ion-row>
         <ion-row justify-content-center margin-top>
-            <ion-col col-4 (click)="profile()">
+            <ion-col col-4 (click)="goPage('ProfileDriverPage')">
                 <img class="h-actions" src="./assets/imgs/action_profile.png">
                 <p class="h-summary">Mi perfil</p>
             </ion-col>
@@ -28,7 +28,7 @@
 </ion-content>
 
 <ion-footer>
-    <img (click)="findFreight()" class="money-logo" src="./assets/imgs/money.png">
+    <img (click)="goPage('FindFreightDriverPage')" class="money-logo" src="./assets/imgs/money.png">
     <h2 class="find-tx">Buscar Cargas</h2>   
 </ion-footer>
 
