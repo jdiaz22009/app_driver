@@ -5,11 +5,29 @@ details-freight-driver{
     margin-top: 1rem;
 
     .card-content-md {
-      padding: 13px 0px  0px 5px!important;
+      padding: 1px 0px  0px 5px!important;
     }
     .grid{
       padding: 0 !important;
     }
+
+    .location{      
+
+      .tx-title{        
+        height:2rem;
+        display: table-cell;
+        vertical-align: middle;  
+      }
+      .city{
+        margin-left: 1rem;
+      }
+  
+      .map-icon{      
+        font-size: 1.6rem;
+        vertical-align: middle;
+      }
+    }
+    
   }
 
   .c-date{
@@ -26,8 +44,13 @@ details-freight-driver{
 
   .tx-summary{
     color: color($colors, title) !important;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 500;
+  }
+
+  .nt{
+    font-size: 1.6rem !important;
+    margin-bottom: 1rem;
   }
 
   .tx-share{
@@ -42,6 +65,11 @@ details-freight-driver{
   
   .c-req{
     margin-bottom: 3rem;
+  }
+
+  .icon-info{
+    color: #cdcdcd;    
+    font-size: 1.1rem;
   }
 
 }
