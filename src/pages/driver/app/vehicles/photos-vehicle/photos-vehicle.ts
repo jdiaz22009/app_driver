@@ -3,20 +3,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
 @IonicPage()
 @Component({
-  selector: 'list-vehicles',
-  templateUrl: 'list-vehicles.html'
+  selector: 'photos-vehicle',
+  templateUrl: 'photos-vehicle.html'
 })
-export class ListVehiclesDriverPage {  
+export class PhotosVehiclesDriverPage {  
   
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams) {
      
 
-  }
-
-  vehicleDetails(){
-    this.navCtrl.push('DetailsVehiclesDriverPage')
   }
 
 }

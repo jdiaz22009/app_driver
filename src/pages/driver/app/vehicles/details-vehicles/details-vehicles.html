@@ -1,0 +1,31 @@
+<ion-content>
+
+    <nav-driver-component title="Detalle Vehículo"></nav-driver-component>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+            <img src="./assets/imgs/carts/camioneta-icon.png"> 
+        </ion-col>
+        <ion-col offset-1>
+            <p class="tx-title">Placa: <span class="tx-summary">YUI-567</span></p>            
+            <p class="tx-title">Tipo: <span class="tx-summary">Turbo</span></p>            
+            <p class="tx-title">Estado: <span class="tx-y">Diponible</span></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-list margin-top>
+
+        <ion-item class="details-item" *ngFor="let item of data" (click)="goPage(item.page)">
+            <ion-thumbnail item-start>
+              <img class="item-thumb" [src]="item.thumb">
+            </ion-thumbnail>
+            <h2 class="tx-title">{{item.title}}</h2>
+            <p class="tx-lite">{{item.summary}}</p>            
+          </ion-item>
+
+    </ion-list>
+    
+ 
+</ion-content>
