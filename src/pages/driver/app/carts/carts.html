@@ -1,14 +1,52 @@
-<ion-header>
-  <ion-navbar>    
-    <ion-title>Vehículos</ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only color="royal">
-          <ion-icon color="white" name="more"></ion-icon>
-        </button>
-      </ion-buttons>
-  </ion-navbar>
-</ion-header>
+<ion-content>
 
-<ion-content padding>
+    <nav-driver-component title="Vehículos"></nav-driver-component>
+
+    <ion-card class="card-carts">
+        <ion-card-content>   
+                <div class="rc" float-right>      
+                    <img class="btn-remove" src="./assets/imgs/cancel-btn.png">
+                </div>
+          <ion-grid>
+            <ion-row>
+                <ion-col col-3>                   
+                     <img src="./assets/imgs/carts/camioneta-icon.png"> 
+                </ion-col>
+                <ion-col col-4>                  
+                    <p class="tx-title">Placa</p>
+                    <br>
+                    <p class="tx-title">Tipo</p>
+                    <br>
+                    <p class="tx-title">Carrocería</p>
+                    <br>
+                    <p class="tx-title">Disponible</p>                    
+                </ion-col>
+                <ion-col>
+                    <p class="tx-summary">GFC-123</p>
+                    <br>
+                    <p class="tx-summary">Turbo</p>
+                    <br>
+                    <p class="tx-summary">Estacas</p>
+                    <br>
+                    <p class="tx-n">No</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="btn-next">                
+                <ion-col>
+                    <img (click)="freightDetails('carga')" class="f-next" src="./assets/imgs/find_next.png">
+                </ion-col>                
+            </ion-row>
+
+          </ion-grid>
+
+        </ion-card-content>
+
+    </ion-card>
+
+    <ion-fab bottom right>
+        <img class="fab-add" src="./assets/imgs/btn-add.png">
+        <!-- <button ion-fab color="btn"><ion-icon name="add"></ion-icon></button> -->
+    </ion-fab>
  
 </ion-content>

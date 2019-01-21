@@ -1,4 +1,56 @@
 carts-drive {
+
+  .card-carts{
+
+    .card-content-md {
+      padding: 1px 0px  0px 2px!important;
+    }
+    .grid{
+      padding: 0 !important;
+    }
+  }
+
+  .tx-title{
+    color: color($colors, title) !important;
+    font-weight: 500 !important;
+  }
+
+  .tx-summary{
+    color: color($colors, title) !important;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .tx-n{
+    color: red;
+  } 
+  .tx-y{
+    color: green;
+  }
+
+  .f-next{
+      width: 45%;
+      float: right;
+  }
+
+  .rc{
+    width: 2rem;
+
+    .btn-remove{
+      width: 95%;
+    }
+  }
+
+  .btn-next{
+    .col{
+      padding: 0 !important;
+    }
+  }
+
+  .fab-add{
+      width: 40%;
+      float: right;
+  }
   
 
 }
