@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { IonicPageModule } from 'ionic-angular'
 import { OwnerDataVehiclesDriverPage } from './owner-data'
+import { NavDriverComponentModule } from '../../../components/nav/nav.module'
 
 
 @NgModule({
@@ -8,6 +9,7 @@ import { OwnerDataVehiclesDriverPage } from './owner-data'
     OwnerDataVehiclesDriverPage
   ],
   imports: [    
+    NavDriverComponentModule,
     IonicPageModule.forChild(OwnerDataVehiclesDriverPage)    
   ],
 })

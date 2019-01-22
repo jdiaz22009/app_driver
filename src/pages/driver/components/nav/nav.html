@@ -7,7 +7,7 @@
           <ion-col col-2 *ngIf="!modeTitle">                
             <p class="title"><ion-icon name="arrow-back" (click)="goBack()"></ion-icon>  {{title}}</p>      
           </ion-col>
-          <ion-col col-7 class="col-toogle">
+          <ion-col col-7 *ngIf="!nav_ava" class="col-toogle">
             <ion-grid>
               <ion-row align-items-center>
                 <ion-col col-7>
@@ -21,10 +21,16 @@
               </ion-row>
             </ion-grid>
           </ion-col>
-          <ion-col col-1 class="col-chat" (click)="chat()">
+          <ion-col col-1 *ngIf="!nav_ava" class="col-chat" (click)="chat()">
               <img src="./assets/imgs/chat.png"/>
           </ion-col>
-          <ion-col col-1 (click)="logout()">
+          <ion-col col-1 *ngIf="!nav_ava" (click)="logout()">
+              <img class="logout" src="./assets/imgs/logout.png"/>
+          </ion-col>
+          <ion-col col-1 offset-7 *ngIf="nav_ava" class="col-chat" (click)="chat()">
+              <img src="./assets/imgs/chat.png"/>
+          </ion-col>
+          <ion-col col-1 *ngIf="nav_ava" (click)="logout()">
               <img class="logout" src="./assets/imgs/logout.png"/>
           </ion-col>
         </ion-row>    

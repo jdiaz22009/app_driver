@@ -11,12 +11,14 @@ import { DriverAuthProvider } from '@providers/api/driverAuth'
 export class NavDriverComponent {
 
   @Input('title') navTitle
+  @Input('availability') navAvailability
 
   title: string
   modeTitle: boolean = false
 
   tx_available: string = ''
   driver_available: boolean = true
+  nav_ava = false
 
   constructor(
     public navCtrl: NavController,
@@ -31,6 +33,12 @@ export class NavDriverComponent {
   ngAfterViewInit(){
     this.title = this.navTitle
     this.title === undefined ? this.modeTitle = true : this.modeTitle = false
+    
+    if(this.navAvailability != undefined && this.navAvailability === 'none'){
+      this.nav_ava = true    
+    }
+
+    console.log(this.navAvailability +  ' ' + this.nav_ava)
   }
 
   setAvailabilityTx(){
