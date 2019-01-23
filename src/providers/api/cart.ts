@@ -55,7 +55,7 @@ export class CartProvider{
   async getVehicleClass(){
     const url = this.api_url + this.getClass_path
     try{
-      return await this.apiClient.get(url, null)
+      return await this.apiClient.get(url, null, null)
     }catch(e){
       throw e
     }

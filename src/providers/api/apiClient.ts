@@ -7,11 +7,13 @@ export class ApiClientProvider{
   constructor(){
 
   }
-  async get(url, params){
-    console.log(url + '  params: ' + params)
+  async get(url, params, headers){
+    console.log(url + '  params: ' + params + ' headers: ' + headers)
     try{
-      if(params != null) {
+      if(params !== null && headers === null) {
         return axios.get(url, params)
+      }else if(params === null && headers !== null){
+        return axios.get(url, headers)
       }else{
         return axios.get(url)
       }

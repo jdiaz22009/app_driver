@@ -1,4 +1,24 @@
 add-cart-driver {
 
+  ion-content .scroll-content {
+    overflow : hidden !important;
+}
+  
+//   .scroll-content{
+//     overflow-y: auto !important;
+// }
+  //   .alert-radio-group::-webkit-scrollbar {
+  //     -webkit-appearance: none;
+  //   }
+  
+  //     .alert-radio-group:-webkit-scrollbar:vertical {
+  //     width: 11px;  
+  //   }
+
+  //   .alert-radio-group::-webkit-scrollbar-thumb {
+  //     border-radius: 8px;
+  //     border: 1px solid white; /* should match background, can't be transparent */
+  //     background-color: rgba(0, 0, 0, .5);
+  // }
   
 }

@@ -19,12 +19,20 @@ export class FreightProvider{
 
   }
 
+  async getToken(){
+    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+      return res.token
+    })
+    return token
+  }
+
   async getOffert(){
     const url = this.api_url + this.get_path
     const token = await this.getToken()    
-    const params = { headers: {"Authorization" : token.token} }
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+    // const params = { headers: {"Authorization" : token.token} }
     try{
-      return await this.apiClient.get(url, params)
+      return await this.apiClient.get(url, null, headers)
     }catch(e){
       throw e
     }
@@ -33,9 +41,5 @@ export class FreightProvider{
   newOffert(){
 
   }
-
-  async getToken(){
-    const data = await this.db.getItem(CONFIG.localdb.USER_KEY)
-    return data;
-  }
+  
 }
