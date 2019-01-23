@@ -67,7 +67,7 @@ export class AddCartDriverPage {
         console.log(res)
         const code = res['data'].code
         loader.dismiss()
-          this.navCtrl.setRoot('HomeDriverPage')
+        this.navCtrl.setRoot('home-drive')
 
         // if(code === 100){
         //   this.navCtrl.setRoot(HomePage)
