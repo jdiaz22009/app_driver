@@ -19,10 +19,16 @@ export class ApiClientProvider{
       throw e
     }
   }
-  async post(url, params){
-    console.log(url + '  params: ' + params)
+  async post(url, params, headers){
+
+    const options = {
+      method: 'POST',
+      headers: headers,
+      data: params,
+      url,
+    }
     try{
-      return await axios.post(url, params)      
+      return await axios(options)      
     }catch(e){
       throw e
     }

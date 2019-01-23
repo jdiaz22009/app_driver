@@ -4,9 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { AlertsProvider } from '@providers/alerts'
 import { CartProvider } from '@providers/api/cart'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 import { Cart } from '@models/cart'
-
+import { StorageDb } from '../../../../providers/storageDb';
+import { CONFIG } from '../../../../providers/config';
 
 @IonicPage()
 @Component({
@@ -18,15 +20,20 @@ export class AddCartDriverPage {
   cart = {} as Cart
   cartForm: FormGroup
   prevPlate: boolean = false
+  id: number
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alert: AlertsProvider,
     public cartApi: CartProvider,
+    public driverAuth: DriverAuthProvider,
     private formBuilder: FormBuilder,
+    public db: StorageDb,
     public loadingCtrl: LoadingController
     ) {
+
+      this.id = navParams.get('id')
 
       this.cartForm = this.formBuilder.group({
         license_plate: ['', Validators.compose([
@@ -63,14 +70,21 @@ export class AddCartDriverPage {
       this.cart.model = this.cartForm.controls['model'].value
       this.cart.brand = this.cartForm.controls['brand'].value
 
+
       this.cartApi.add(this.cart).then(res =>{
         console.log(res)
-        const code = res['data'].code
-        loader.dismiss()
-        this.navCtrl.setRoot('home-drive')
+        const data = res['data']
+        this.db.setItem(CONFIG.localdb.USER_DATA_KEY, data).then(res =>{
+          loader.dismiss()  
+          this.navCtrl.setRoot('home-drive')
+        })
+
+        // loader.dismiss()
+
+        // this.navCtrl.setRoot('home-drive')
 
         // if(code === 100){
-        //   this.navCtrl.setRoot(HomePage)
+        //   this.navCtrl.setRoot('home-drive')
         // }else{
         //   const msg = res['data'].message
         //   this.alert.showAlert('Error', msg)

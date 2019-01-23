@@ -1,6 +1,7 @@
 export const CONFIG = {
   localdb:{
     USER_KEY: 'user_key',    
+    USER_DATA_KEY: 'user_data_key',   
   },
   support:{
     whatsapp: '+573194131358',

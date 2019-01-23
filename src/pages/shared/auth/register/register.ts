@@ -7,6 +7,8 @@ import { User } from '@models/user'
 
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { AlertsProvider } from '@providers/alerts'
+import { StorageDb } from '@providers/storageDb'
+import { CONFIG } from '@providers/config'
 
 @IonicPage()
 @Component({
@@ -34,6 +36,7 @@ export class RegisterSharedPage {
     private auth: DriverAuthProvider,
     private formBuilder: FormBuilder,
     public modalCtrl: ModalController,
+    public db: StorageDb,
     public loadingCtrl: LoadingController
     ) {
 
@@ -100,11 +103,25 @@ export class RegisterSharedPage {
 
           this.auth.login(this.login).then(res =>{
             console.log(res)
-            const code = res['data'].code
-            loader.dismiss()
-            if(code === 100){
-              this.navCtrl.setRoot('AddCartDriverPage')
+            const code = res['data'].code            
+            if(code === 100){              
+
+              const sessionData = {
+                user: this.login.id,
+                password: this.login.password,
+                token: res['data'].token,
+                type: 'driver'
+              }
+              this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
+                loader.dismiss()
+                this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id}) 
+              }).catch(e =>{
+                console.log(e)
+                this.alert.showAlert('Error', 'Error al crear la sesión')
+              })
+
             }else{
+              loader.dismiss()
               const msg = res['data'].message
               this.alert.showAlert('Error', msg)
             }

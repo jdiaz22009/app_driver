@@ -45,8 +45,9 @@ export class DriverAuthProvider{
       firetoken: 0,
       type: 0
     })
+    const headers = {'content-type': 'application/x-www-form-urlencoded' }
     try{
-      return await this.apiClient.post(url, params)
+      return await this.apiClient.post(url, params, headers)
     }catch(e){
       throw e
     }
@@ -67,9 +68,9 @@ export class DriverAuthProvider{
       firetoken: 0,
       type: 0      
     })
-    console.log(params)
+    const headers = {'content-type': 'application/x-www-form-urlencoded' }
     try{
-      return await this.apiClient.post(url, params)
+      return await this.apiClient.post(url, params, headers)
     }catch(e){
       throw e
     }

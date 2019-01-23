@@ -7,6 +7,7 @@ import { ApiClientProvider } from './apiClient'
 import { CONFIG } from '../config'
 
 import { Cart } from '../../models/cart'
+import { StorageDb } from '../storageDb';
 
 @Injectable()
 export class CartProvider{
@@ -16,21 +17,36 @@ export class CartProvider{
   add_path: string = CONFIG.api.cart.add
   getClass_path: string = CONFIG.api.cart.getClass
 
-  constructor(public apiClient: ApiClientProvider){
+  constructor(
+    public apiClient: ApiClientProvider,
+    public db: StorageDb
+    ){
     
+  }
+
+  async getToken(){
+    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+      return res.token
+    })
+    return token
   }
 
   async add(cart: Cart){
     const url = this.api_url + this.add_path
+        
+    const token = await this.getToken()
+
     const params = qs.stringify({
       placa: cart.license_plate,
       clase_vehiculo: cart.type,
       tipo_carroceria: cart.bodywork,
       modelo: cart.model,
-      marca: cart.model
+      marca: cart.model,      
     })
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+
     try{
-      return await this.apiClient.post(url, params)
+      return await this.apiClient.post(url, params, headers)
     }catch(e){
       throw e
     }
