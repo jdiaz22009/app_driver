@@ -5,10 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AlertsProvider } from '@providers/alerts'
 import { CartProvider } from '@providers/api/cart'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { StorageDb } from '@providers/storageDb'
+import { CONFIG } from '@providers/config'
 
 import { Cart } from '@models/cart'
-import { StorageDb } from '../../../../providers/storageDb';
-import { CONFIG } from '../../../../providers/config';
 
 @IonicPage()
 @Component({
@@ -89,6 +89,7 @@ export class AddCartDriverPage {
         //   const msg = res['data'].message
         //   this.alert.showAlert('Error', msg)
         // }
+
       }).catch(e =>{
         console.log(e)
         loader.dismiss()
