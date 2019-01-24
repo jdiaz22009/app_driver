@@ -19,17 +19,20 @@ export class FreightProvider{
 
   }
 
-  async getToken(){
-    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
-      return res.token
-    })
-    return token
-  }
+  // async getToken(){
+  //   const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+  //     return res.token
+  //   })
+  //   return token
+  // }
+
+  getToken =async()=>await localStorage.getItem('dataUser');  
 
   async getOffert(){
     const url = this.api_url + this.get_path
-    const token = await this.getToken()    
-    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+    const dataUser = await this.getToken();    
+    const dataUserJson = JSON.parse(dataUser);
+    const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }
     // const params = { headers: {"Authorization" : token.token} }
     try{
       return await this.apiClient.get(url, null, headers)

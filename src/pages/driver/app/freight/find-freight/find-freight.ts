@@ -26,13 +26,14 @@ export class FindFreightDriverPage {
   getFreights(){
     this.apiFreight.getOffert()
     .then(res =>{            
-      const data = res['data']
-      for(let offer of data){        
-        console.log(offer['region'])
-        if(offer['region'] != undefined){
-          this.offers.push(offer)
-        }
-      }
+      const data = res['data'];
+      console.log('=========data',data)
+       for(let offer of data){        
+         console.log('===========ofer',offer);
+         if(offer['region'] != undefined){
+           this.offers.push(offer)
+         }
+       }
       console.log(this.offers)      
     }).catch(e =>{
       console.error(e)

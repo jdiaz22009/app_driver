@@ -178,6 +178,9 @@ export class LoginSharedPage {
         console.log(e)
         this.alert.showAlert('Error', 'Error al crear la sesión')
       })
+      console.log('===============DATA',sessionData);
+      localStorage.setItem('dataUser',JSON.stringify(sessionData));
+
 
     }else{
       const msg = res['data'].message
