@@ -1,9 +1,9 @@
 <ion-toolbar>
     <ion-grid class="nav-home">    
         <ion-row align-items-center>
-          <ion-col col-2 *ngIf="modeTitle">
-            <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/>
-          </ion-col>          
+          <!-- <ion-col col-2 *ngIf="modeTitle">
+            <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/> 
+          </ion-col>           -->
           <ion-col col-2 *ngIf="!modeTitle">                
             <p class="title"><ion-icon name="arrow-back" (click)="goBack()"></ion-icon>  {{title}}</p>      
           </ion-col>
@@ -22,17 +22,19 @@
             </ion-grid>
           </ion-col>
           <ion-col col-1 *ngIf="!nav_ava" class="col-chat" (click)="chat()">
-              <img src="./assets/imgs/chat.png"/>
+              <img class="img" src="./assets/imgs/chat.png"/>
           </ion-col>
           <ion-col col-1 *ngIf="!nav_ava" (click)="logout()">
               <img class="logout" src="./assets/imgs/logout.png"/>
           </ion-col>
+          
           <ion-col col-1 offset-7 *ngIf="nav_ava" class="col-chat" (click)="chat()">
               <img src="./assets/imgs/chat.png"/>
           </ion-col>
           <ion-col col-1 *ngIf="nav_ava" (click)="logout()">
               <img class="logout" src="./assets/imgs/logout.png"/>
           </ion-col>
+        
         </ion-row>    
       </ion-grid>
 

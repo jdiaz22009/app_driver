@@ -19,6 +19,8 @@ nav-driver-component {
       }
     }
 
+    
+
     .nav-actions{
       display: block;
       margin-left: auto;
@@ -28,6 +30,7 @@ nav-driver-component {
 
     .logout{
       width: 75%; 
+
     } 
 
     .item-md{
@@ -62,7 +65,17 @@ nav-driver-component {
 
     .col-chat{
       margin-right: 1.5rem;
+
     }
+
   }
+
+
+  .title{
+    display: flex;
+    justify-content: center;
+  }
+
+ 
 
 }

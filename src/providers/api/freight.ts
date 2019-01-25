@@ -32,7 +32,7 @@ export class FreightProvider{
     const url = this.api_url + this.get_path
     const dataUser = await this.getToken();    
     const dataUserJson = JSON.parse(dataUser);
-    const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }
+    const headers = { headers: {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }}
     // const params = { headers: {"Authorization" : token.token} }
     try{
       return await this.apiClient.get(url, null, headers)

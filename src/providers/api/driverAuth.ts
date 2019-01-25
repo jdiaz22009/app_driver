@@ -17,11 +17,13 @@ import { StorageDb } from '../storageDb'
 export class DriverAuthProvider{
 
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
-  
+  getDrivers:String = CONFIG.api.drivers.getDrivers;
   login_path: string = CONFIG.api.drivers.login
   validateId_path: string = CONFIG.api.drivers.validateId
   register_driver_path: string = CONFIG.api.drivers.register
   inService_path: string = CONFIG.api.drivers.setInServices
+
+
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -34,7 +36,29 @@ export class DriverAuthProvider{
     const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
       return res.token
     })
+    console.log(token);
     return token
+  }
+  async getDriver (){
+    const url = this.api_url + this.getDrivers
+    const tokenUser =  await this.getToken()
+    .then(resp => {
+      return resp;
+    })
+
+  
+    const headers = { headers:{'Authorization' : tokenUser, 'content-type': 'application/json' }}
+    try {
+      return  this.apiClient.get(url, null, headers)
+      .then(result => {console.log('RESULT TRY GETDRIVER',result)})
+      .catch(error => {console.log('ERROR TRYGETDRIVER',error)});
+    } catch (error) {
+      throw error;
+    }
+    
+  
+    
+      
   }
 
   async validateId(id: Number){
@@ -103,5 +127,6 @@ export class DriverAuthProvider{
 
   async logout(){    
     return await this.db.deleteDB()    
-  }  
+  }
+
 }

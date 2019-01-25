@@ -21,7 +21,8 @@ export const CONFIG = {
       login: '/api/v1/auth/conductores/login',
       register: '/api/v1/auth/conductores/register-user',      
       validateId: '/api/v1/auth/conductores/checkdocument',
-      setInServices: '/api/v1/auth/conductores/set-in-service'
+      setInServices: '/api/v1/auth/conductores/set-in-service',
+      getDrivers: '/api/v1/auth/conductores/get-driver'
     },
     cart:{
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',

@@ -9,8 +9,8 @@
                 </div>
           <ion-grid>
             <ion-row>
-                <ion-col col-3>                   
-                     <img src="./assets/imgs/carts/camioneta-icon.png"> 
+                <ion-col col-3 class="ion-col">                   
+                     <img src="./assets/imgs/carts/truck.png"> 
                 </ion-col>
                 <ion-col col-4>                  
                     <p class="tx-title">Placa</p>
@@ -21,8 +21,8 @@
                     <br>
                     <p class="tx-title">Disponible</p>                    
                 </ion-col>
-                <ion-col>
-                    <p class="tx-summary">GFC-123</p>
+                <ion-col *ngFor="let item of driver">
+                    <p class="tx-summary">{{item.placa}}</p>
                     <br>
                     <p class="tx-summary">Turbo</p>
                     <br>

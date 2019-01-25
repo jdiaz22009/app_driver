@@ -31,14 +31,15 @@
     "axios": "^0.18.0",
     "call-number": "1.0.1",
     "cordova-android": "7.1.4",
+    "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
-    "cordova-plugin-ionic-webview": "^2.3.1",
+    "cordova-plugin-ionic-webview": "^2.3.2",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-plugin-x-socialsharing": "^5.4.3",
+    "cordova-plugin-x-socialsharing": "^5.4.4",
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^5.7.1",
     "ionic-angular": "3.9.2",
@@ -69,7 +70,8 @@
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
       },
-      "call-number": {}
+      "call-number": {},
+      "cordova-plugin-console": {}
     },
     "platforms": [
       "android"

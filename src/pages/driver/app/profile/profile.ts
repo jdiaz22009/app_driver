@@ -28,7 +28,7 @@ export class ProfileDriverPage {
     this.db.getItem(CONFIG.localdb.USER_DATA_KEY).then(res =>{
       this.dataUser = res
       console.log(res)
-      this.driver_name = this.dataUser.primer_nombre + ' ' + this.dataUser.primer_apellido
+     // this.driver_name = this.dataUser.primer_nombre + ' ' + this.dataUser.primer_apellido
     })
 
     
