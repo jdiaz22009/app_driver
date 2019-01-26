@@ -37,6 +37,19 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-list margin-top>
+
+    <ion-item class="details-item" *ngFor="let item of data" (click)="goPage(item.page)">
+        <ion-thumbnail item-start>
+          <img class="item-thumb" [src]="item.thumb">
+        </ion-thumbnail>
+        <h2 class="tx-title">{{item.title}}</h2>
+        <p class="tx-lite">{{item.summary}}</p>            
+      </ion-item>
+
+</ion-list>
+
  
     
 </ion-content>

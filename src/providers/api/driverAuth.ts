@@ -32,32 +32,27 @@ export class DriverAuthProvider{
 
   }
 
-  async getToken(){
-    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
-      return res.token
-    })
-    console.log(token);
-    return token
-  }
+  // async getToken(){
+  //   const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+  //     return res.token
+  //   })
+  //   console.log(token);
+  //   return token
+  // }
+
+  getToken =async()=>await localStorage.getItem('dataUser');  
+
   async getDriver (){
     const url = this.api_url + this.getDrivers
-    const tokenUser =  await this.getToken()
-    .then(resp => {
-      return resp;
-    })
-
-  
-    const headers = { headers:{'Authorization' : tokenUser, 'content-type': 'application/json' }}
-    try {
-      return  this.apiClient.get(url, null, headers)
-      .then(result => {console.log('RESULT TRY GETDRIVER',result)})
-      .catch(error => {console.log('ERROR TRYGETDRIVER',error)});
-    } catch (error) {
-      throw error;
+    const dataUser = await this.getToken();    
+    const dataUserJson = JSON.parse(dataUser);
+    const headers = { headers: {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }}
+    // const params = { headers: {"Authorization" : token.token} }
+    try{
+      return await this.apiClient.get(url, null, headers)
+    }catch(e){
+      throw e
     }
-    
-  
-    
       
   }
 

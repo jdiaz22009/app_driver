@@ -8,7 +8,7 @@ import { DriverAuthProvider } from "@providers/api/driverAuth";
 })
 export class ListVehiclesDriverPage {
 
-  driver:any = [];
+  drivers:any = [];
   
   constructor(
     public navCtrl: NavController,
@@ -21,6 +21,8 @@ export class ListVehiclesDriverPage {
 
   ionViewDidLoad(){
     this.getConductor();
+   // console.log('=========ionview',this.driveAuthProvider.getDriver()
+    //);
   }
 
 
@@ -30,13 +32,19 @@ export class ListVehiclesDriverPage {
 
   getConductor(){
   this.driveAuthProvider.getDriver()
-  .then(resp =>{
-    console.log('========VISIBLE WEY AQUIIIIII', resp['data']);
-    this.driver = resp
+  .then(res =>{            
+    const data = res['data'];
+    console.log('=========data',data);
+      for(let driver of data){        
+        console.log('===========DRIVERS',driver);
+         if(driver['documento'] != undefined){
+          this.drivers.push(driver);
+         }
+      }
+    //console.log(this.offers)      
+  }).catch(e =>{
+    console.error(e)
   })
-  .catch((error)=>{
-    return error;
-  })
-  }
+}
 
 }
