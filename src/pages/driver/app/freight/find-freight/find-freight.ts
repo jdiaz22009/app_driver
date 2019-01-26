@@ -11,7 +11,6 @@ import { FreightProvider } from '@providers/api/freight'
 export class FindFreightDriverPage {
 
   offers: any = []
-
   constructor(
     public navCtrl: NavController,
     public apiFreight: FreightProvider,
