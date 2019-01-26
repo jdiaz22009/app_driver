@@ -15,6 +15,14 @@ export class ProfileDriverPage {
 
   dataUser = {}  as DataUser
   driver_name: string
+  data: any = [
+    {thumb: './assets/imgs/perfil4.png', title: 'Mis datos basicos', summary: 'Edita datos del conductor', page: 'InformationVehiclesDriverPage'},
+    {thumb: './assets/imgs/perfil4.png', title: 'Mis datos Complementarios', summary: 'Edita datos complementarios del conductor', page: 'AdditionalInfoVehiclesDriverPage'},
+    {thumb: './assets/imgs/perfil3.png', title: 'Mis fotos', summary: ' Sube fotos de documentos', page: 'OwnerDataVehiclesDriverPage'},
+    {thumb: './assets/imgs/perfil2.png', title: 'Mis datos bancarios', summary: 'Para recibir pagos de la empresa', page: 'PhotosVehiclesDriverPage'},
+    {thumb: './assets/imgs/perfil.png', title: 'Mis referencias', summary: 'Te ayudara con las empresas', page: 'PhotosVehiclesDriverPage'}
+  ]
+  
   
   constructor(
     public navCtrl: NavController,
@@ -32,6 +40,10 @@ export class ProfileDriverPage {
     })
 
     
+  }
+
+  goPage(page){
+    this.navCtrl.push(page);
   }
 
 }

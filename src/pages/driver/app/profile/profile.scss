@@ -34,4 +34,50 @@ profile-driver {
     background-color: #d0d6da;    
   }
 
+  .tx-title{
+    color: color($colors, title) !important;
+    font-weight: 500 !important;
+  }
+
+  .tx-summary{
+    color: color($colors, title) !important;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .tx-lite{
+    color: color($colors, title) !important;
+    font-size: 1.2rem;
+  }
+
+  .tx-n{
+    color: red;
+  } 
+  .tx-y{
+    color: green;
+  }
+
+  .item-md ion-thumbnail[item-start] {
+    margin: 0!important;
+  }
+
+  .item-md ion-thumbnail{
+    min-width: 0 !important;
+    min-height: 0!important;
+  }
+
+  .details-item{    
+
+    .item-thumb{
+      width: 30% !important;
+      height: 10% !important;
+      margin: 1rem !important;
+    }
+
+  }
+
+  .item ion-thumbnail[item-start] {
+    width: 29% !important;
+  }
+
 }
