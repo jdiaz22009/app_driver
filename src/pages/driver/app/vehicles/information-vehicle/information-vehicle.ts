@@ -7,15 +7,16 @@ import { DriverAuthProvider } from "@providers/api/driverAuth";
   selector: 'information-vehicle',
   templateUrl: 'information-vehicle.html'
 })
-export class InformationVehiclesDriverPage {  
+export class InformationVehiclesDriverPage {
   drive:any = [];
-  document: String = 'prueba'
+  document: String = 'final'
+  obj: object={};
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public driverAuthProvider: DriverAuthProvider) {
-     
+
 
   }
 
@@ -27,11 +28,14 @@ export class InformationVehiclesDriverPage {
     this.driverAuthProvider.getDriver()
     .then(resp => {
       const data = resp['data'];
-      console.log('=========data',data)
-        return data;
+      console.log('=========data',data.id_driver)
+      this.document = data['id_driver']['documento'];
+      this.obj=data['id_driver'];
+      console.log(this.document);
+      return  this.obj;
     })
     .catch(error => {console.log(error)});
-    
+
   }
 
 }
