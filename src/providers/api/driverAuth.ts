@@ -29,6 +29,7 @@ export class DriverAuthProvider{
   inService_path: string = CONFIG.api.drivers.setInServices
   inService_path_dev:string = CONFIG.dev.setInServices
   updatedrivers_dev:string = CONFIG.dev.updateConductor
+  updatedrivers_path:string = CONFIG.api.drivers.updateConductor
   
 
 
@@ -131,7 +132,7 @@ export class DriverAuthProvider{
   }
   
    async upatedrivers(driver){
-     const url = this.api_url_dev + '/api/v1/auth/conductores/update-datosB';
+     const url = this.api_url + '/api/v1/auth/conductores/update-datosB';
      console.log(url);
      const token = await this.getToken()
      console.log('token',token);
@@ -143,7 +144,7 @@ export class DriverAuthProvider{
        segundo_apellido: driver.second_lastname,
        celular: driver.mobil
      }
-     const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }
+     const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
      console.log(driver,'update drivers');
      try {
        return await this.apiClient.put(url,params,headers);
