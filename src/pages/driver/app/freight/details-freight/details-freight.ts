@@ -8,11 +8,14 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 })
 export class DetailsFreightDriverPage {
   
+  offer: any = []
+
   constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController,
     public navParams: NavParams) {      
      
+     this.offer = this.navParams.get('details')
   }
 
   accept(){

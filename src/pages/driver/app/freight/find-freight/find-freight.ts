@@ -25,10 +25,9 @@ export class FindFreightDriverPage {
   getFreights(){
     this.apiFreight.getOffert()
     .then(res =>{            
-      const data = res['data'];
-      console.log('=========data',data)
-       
-      }).catch(e =>{
+      const data = res['data']      
+      this.offers = data       
+    }).catch(e =>{
       console.error(e)
     })
   }
