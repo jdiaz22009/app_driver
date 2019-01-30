@@ -17,11 +17,13 @@ import { StorageDb } from '../storageDb'
 export class DriverAuthProvider{
 
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
-  
+  getDrivers:String = CONFIG.api.drivers.getDrivers;
   login_path: string = CONFIG.api.drivers.login
   validateId_path: string = CONFIG.api.drivers.validateId
   register_driver_path: string = CONFIG.api.drivers.register
   inService_path: string = CONFIG.api.drivers.setInServices
+
+
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -30,11 +32,28 @@ export class DriverAuthProvider{
 
   }
 
-  async getToken(){
-    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
-      return res.token
-    })
-    return token
+  // async getToken(){
+  //   const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+  //     return res.token
+  //   })
+  //   console.log(token);
+  //   return token
+  // }
+
+  getToken =async()=>await localStorage.getItem('dataUser');  
+
+  async getDriver (){
+    const url = this.api_url + this.getDrivers
+    const dataUser = await this.getToken();    
+    const dataUserJson = JSON.parse(dataUser);
+    const headers = { headers: {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }}
+    // const params = { headers: {"Authorization" : token.token} }
+    try{
+      return await this.apiClient.get(url, null, headers)
+    }catch(e){
+      throw e
+    }
+      
   }
 
   async validateId(id: Number){
@@ -103,5 +122,6 @@ export class DriverAuthProvider{
 
   async logout(){    
     return await this.db.deleteDB()    
-  }  
+  }
+
 }

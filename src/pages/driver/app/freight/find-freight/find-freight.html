@@ -35,15 +35,20 @@
             <ion-row>
                 <ion-col col-7>
                   <p class="tx-title">Tipo</p>
+                  <p>{{item.tipo_carroceria}}</p>
                   <br>
                   <p class="tx-title">Peso</p>
+                  <p>{{item.peso_carga_max}}</p>
                   <br>
                   <p class="tx-title">Flete</p>
+                  <p>{{item.flete}}</p>
                 </ion-col>
                 <ion-col col-5 class="no-padding">
                   <p class="tx-title">Carrocería</p>
+                  <p> {{item.clase_vehiculo}}</p>
                   <br>
                   <p class="tx-title">Fecha de Carga</p>
+                  <p>{{item.inicio}}</p>
                   <br>
                   <br>
                   <img (click)="freightDetails('carga')" class="f-next" src="./assets/imgs/find_next.png">

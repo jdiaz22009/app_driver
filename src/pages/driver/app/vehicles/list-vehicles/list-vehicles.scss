@@ -3,7 +3,7 @@ list-vehicles {
   .card-carts{
 
     .card-content-md {
-      padding: 1px 0px  0px 2px!important;
+      padding: 10px!important;
     }
     .grid{
       padding: 0 !important;
@@ -50,6 +50,12 @@ list-vehicles {
   .fab-add{
       width: 40%;
       float: right;
+  }
+
+  .ion-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
 

@@ -13,8 +13,10 @@ export class ApiClientProvider{
       if(params !== null && headers === null) {
         return axios.get(url, params)
       }else if(params === null && headers !== null){
+        console.log('headers que recibe: ',headers)
         return axios.get(url, headers)
       }else{
+        console.log('tambien entro aqui', url)
         return axios.get(url)
       }
     }catch(e){
@@ -29,6 +31,7 @@ export class ApiClientProvider{
       data: params,
       url,
     }
+     console.log('optionssssss', options);
     try{
       return await axios(options)      
     }catch(e){
