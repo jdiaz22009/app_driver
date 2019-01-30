@@ -27,14 +27,8 @@ export class FindFreightDriverPage {
     .then(res =>{            
       const data = res['data'];
       console.log('=========data',data)
-       for(let offer of data){        
-         console.log('===========ofer',offer);
-         if(offer['region'] != undefined){
-           this.offers.push(offer)
-         }
-       }
-      console.log(this.offers)      
-    }).catch(e =>{
+       
+      }).catch(e =>{
       console.error(e)
     })
   }
