@@ -67,7 +67,7 @@ export class DriverAuthProvider{
 
 
   async validateId(id: Number){
-    const url = this.api_url_dev + this.validateId_path_dev + '/' + id
+    const url = this.api_url + this.validateId_path + '/' + id
     try{
        return await this.apiClient.get(url, null, null) 
     }catch(e){
@@ -76,7 +76,7 @@ export class DriverAuthProvider{
   }
 
   async login(user: User){   
-    const url = this.api_url_dev + this.login_path_dev
+    const url = this.api_url + this.login_path
     const params = qs.stringify({
       documento: user.id,
       contrasena: user.password,
@@ -91,7 +91,7 @@ export class DriverAuthProvider{
     }
   }
   async register(register: RegisterDriver){
-    const url = this.api_url_dev + this.register_driver_parth_dev
+    const url = this.api_url + this.register_driver_path
     const params = qs.stringify({
       primer_nombre: register.first_name,
       segundo_nombre: register.second_name,
@@ -114,7 +114,7 @@ export class DriverAuthProvider{
     }
   }
   async setInService(state, vehicle){
-    const url = this.api_url_dev + this.inService_path_dev
+    const url = this.api_url + this.inService_path
     
     const token = await this.getToken()
     const dataUserJson = JSON.parse(token);
