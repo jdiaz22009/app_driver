@@ -38,4 +38,23 @@ export class ApiClientProvider{
       throw e
     }
   }
+
+
+  async put(url, params, headers){
+
+    console.log(params);
+
+    const options = {
+      method: 'PUT',
+      headers: headers,
+      data: params,
+      url,
+    }
+     console.log('optionssssss', options);
+    try{
+      return await axios(options)      
+    }catch(e){
+      throw e
+    }
+  }
 }
