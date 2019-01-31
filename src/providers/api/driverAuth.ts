@@ -52,10 +52,13 @@ export class DriverAuthProvider{
   getToken =async()=>await localStorage.getItem('dataUser');  
 
   async getDriver (){
-    const url = this.api_url_dev + this.getDevDrivers
+    const url = this.api_url + '/api/v1/auth/conductores/get-driver';
+    console.log(url)
     const token = await this.getToken();    
     const dataUserJson = JSON.parse(token);
-    const headers = { headers: {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }}
+    console.log(dataUserJson.token)
+    console.log('token verificar: ', dataUserJson)
+    const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
     // const params = { headers: {"Authorization" : token.token} }
     try{
       return await this.apiClient.get(url, null, headers)
