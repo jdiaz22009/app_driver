@@ -21,6 +21,7 @@ export class AddCartDriverPage {
   cartForm: FormGroup
   prevPlate: boolean = false
   id: number
+  plate: string
 
   constructor(
     public navCtrl: NavController,
@@ -75,7 +76,7 @@ export class AddCartDriverPage {
         console.log(res)
         const data = res['data']
         this.db.setItem(CONFIG.localdb.USER_DATA_KEY, data).then(res =>{
-          loader.dismiss()  
+          loader.dismiss()
           this.navCtrl.setRoot('home-drive')
         })
 
@@ -100,19 +101,24 @@ export class AddCartDriverPage {
     onChangePlate(v){
       let plate = v._value.toString().toUpperCase()
       const prev = this.cartForm.controls['license_plate'].value
+      if(plate.length <= 7){
 
-      console.log(plate + ' ' + plate.length +' ' + prev)
+        console.log(plate + ' ' + plate.length +' ' + prev)
 
-      if(plate.length < 3){
-        this.prevPlate = false
+        if(plate.length < 3){
+          this.prevPlate = false
+        }
+
+        if(plate.length === 3 && !this.prevPlate){
+          this.prevPlate = true
+          plate += '-'
+        }
+        this.plate = plate
+        this.cartForm.controls['license_plate'].setValue(plate)
+      }else{
+        this.cartForm.controls['license_plate'].setValue(this.plate)
       }
 
-      if(plate.length === 3 && !this.prevPlate){
-        this.prevPlate = true
-        plate += '-'
-      }
-
-      this.cartForm.controls['license_plate'].setValue(plate)
 
     }
 

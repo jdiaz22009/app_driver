@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core'
 
-import * as firebase from 'firebase/app'
-import 'firebase/auth'
-
 import qs from 'qs'
 
 import { CONFIG } from '../config'
@@ -46,7 +43,17 @@ export class DriverAuthProvider{
   //    return token
   //  }
 
-  getToken =async()=>await localStorage.getItem('dataUser');
+  getToken = async() => await localStorage.getItem('dataUser')
+
+  async getFireToken(){
+    try{
+      const token = await this.db.getItem(CONFIG.localdb.USER_FIRETOKEN)
+      return token != null ? token : 'no token'
+    }catch(e){
+      throw e
+    }
+
+  }
 
   async getDriver (){
     const url = this.api_url + '/api/v1/auth/conductores/get-driver';
@@ -80,16 +87,21 @@ export class DriverAuthProvider{
       documento: user.id,
       contrasena: user.password,
       firetoken: 0,
-      type: 0
+      type: 4
     })
     const headers = {headers:{'content-type': 'application/x-www-form-urlencoded'} }
     try{
-      return await this.apiClient.post(url, params, headers)
+      return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
       throw e
     }
   }
+
   async register(register: RegisterDriver){
+    const firetoken = await this.getFireToken()
+
+    console.log('FireToken .... ' + firetoken)
+
     const url = this.api_url + this.register_driver_path
     const params = qs.stringify({
       primer_nombre: register.first_name,
@@ -102,16 +114,18 @@ export class DriverAuthProvider{
       telefono_1: register.phone,
       email: register.email,
       contrasena: register.password,
-      firetoken: 0,
-      type: 0
+      firetoken: firetoken,
+      type: 0,
+      rol: 4
     })
     const headers = {'content-type': 'application/x-www-form-urlencoded' }
     try{
-      return await this.apiClient.post(url, params, headers)
+      return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
       throw e
     }
   }
+
   async setInService(state, vehicle){
     const url = this.api_url + this.inService_path
 
@@ -123,14 +137,15 @@ export class DriverAuthProvider{
     })
     const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/x-www-form-urlencoded' }
     try{
-      return await this.apiClient.post(url, params, headers)
+      return await this.apiClient.request('POST' ,url, params, headers)
     }catch(e){
       throw e
     }
   }
 
    async upatedrivers(driver){
-     const url = this.api_url + '/api/v1/auth/conductores/update-datosB';
+     const url = this.api_url + '/api/v1/auth/conductores/update-datosB'
+
      console.log(url);
      const token = await this.getToken()
      console.log('token',token);
@@ -145,14 +160,14 @@ export class DriverAuthProvider{
      const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
      console.log(driver,'update drivers');
      try {
-       return await this.apiClient.put(url,params,headers);
-
-     } catch (error) {
-       throw error
+       return await this.apiClient.request('PUT', url,params,headers)
+     } catch (e) {
+       throw e
      }
 
 
   }
+
   async logout(){
     return await this.db.deleteDB()
   }

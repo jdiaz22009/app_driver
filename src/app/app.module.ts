@@ -9,6 +9,8 @@ import { CallNumber } from '@ionic-native/call-number'
 import { SocialSharing } from '@ionic-native/social-sharing'
 import { Keyboard } from '@ionic-native/keyboard'
 import { IonicStorageModule } from '@ionic/storage'
+import { FCM } from "@ionic-native/fcm"
+import { LocalNotifications } from '@ionic-native/local-notifications'
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -19,7 +21,7 @@ import { MyApp } from './app.component'
 
 @NgModule({
   declarations: [
-    MyApp        
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -31,16 +33,18 @@ import { MyApp } from './app.component'
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp    
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Network,
-    Keyboard,    
+    Keyboard,
     CallNumber,
     SocialSharing,
+    FCM,
+    LocalNotifications,
     API_MODULE,
     PROVIDERS_MODULE
   ]

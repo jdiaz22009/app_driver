@@ -58,8 +58,8 @@ export class RegisterSharedPage {
           Validators.pattern(this.email_validator),
           Validators.required
         ])]
-      })     
-      
+      })
+
     }
 
     checkId(){
@@ -67,7 +67,7 @@ export class RegisterSharedPage {
       console.log(this.user.id + ' ' + this.prevId)
       if(this.user.id != this.prevId){
         const modal = this.modalCtrl.create('ModalIdSharedComponent', null, { cssClass: 'modal-id' })
-        modal.onDidDismiss(() =>{          
+        modal.onDidDismiss(() =>{
           this.navCtrl.pop()
         })
         modal.present()
@@ -93,7 +93,7 @@ export class RegisterSharedPage {
       this.user.address = ''
 
       this.auth.register(this.user).then(res =>{
-        console.log(res)
+        console.log('register response ' + res)
         const code = res['data'].code
 
         if(code === 100){
@@ -103,8 +103,8 @@ export class RegisterSharedPage {
 
           this.auth.login(this.login).then(res =>{
             console.log(res)
-            const code = res['data'].code            
-            if(code === 100){              
+            const code = res['data'].code
+            if(code === 100){
 
               const sessionData = {
                 user: this.login.id,
@@ -114,7 +114,7 @@ export class RegisterSharedPage {
               }
               this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
                 loader.dismiss()
-                this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id}) 
+                this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id})
               }).catch(e =>{
                 console.log(e)
                 this.alert.showAlert('Error', 'Error al crear la sesión')

@@ -13,48 +13,29 @@ export class ApiClientProvider{
       if(params !== null && headers === null) {
         return axios.get(url, params)
       }else if(params === null && headers !== null){
-        console.log('headers que recibe: ',headers)
         return axios.get(url, headers)
       }else{
-        console.log('tambien entro aqui', url)
         return axios.get(url)
       }
     }catch(e){
       throw e
     }
   }
-  async post(url, params, headers){
 
+  async request(method, url, params, headers){
+    console.log(url + ' method: ' + method + ' params: ' + params)
     const options = {
-      method: 'POST',
+      method: method,
       headers: headers,
       data: params,
       url,
     }
-     console.log('optionssssss', options);
+
     try{
-      return await axios(options)      
+      return await axios(options)
     }catch(e){
       throw e
     }
   }
 
-
-  async put(url, params, headers){
-
-    console.log(params);
-
-    const options = {
-      method: 'PUT',
-      headers: headers,
-      data: params,
-      url,
-    }
-     console.log('optionssssss', options);
-    try{
-      return await axios(options)      
-    }catch(e){
-      throw e
-    }
-  }
 }

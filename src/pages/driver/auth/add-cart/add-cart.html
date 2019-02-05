@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>        
+    <ion-navbar>
         <ion-title>Nuevo Vehículo</ion-title>
     </ion-navbar>
 </ion-header>
@@ -10,13 +10,13 @@
     <ion-grid>
             <ion-row>
                 <ion-col col-12>
-    
+
                     <form [formGroup]="cartForm">
                         <ion-item class=l-item>
                             <ion-label stacked>Placa <sup>*</sup></ion-label>
                             <ion-input [formControl]="cartForm.controls['license_plate']" type="text" maxlength="7" (ionChange)="onChangePlate($event)"></ion-input>
-                        </ion-item>         
-                
+                        </ion-item>
+
                         <ion-item class=l-item>
                             <!-- <ion-label stacked>Clase de vehículo</ion-label>
                             <ion-input [formControl]="cartForm.controls['type']" type="text"></ion-input> -->
@@ -29,10 +29,10 @@
                               <ion-option value="Cuatro Manos">Cuatro Manos</ion-option>
                               <ion-option value="Minimula">Minimula</ion-option>
                               <ion-option value="Tracto Camión">Tracto Camión</ion-option>
-                            </ion-select>                         
-                            
+                            </ion-select>
+
                         </ion-item>
-    
+
                         <ion-item class=l-item>
                             <ion-label stacked>Tipo de carroceria <sup>*</sup></ion-label>
                             <!-- <ion-input [formControl]="cartForm.controls['bodywork']" type="text"></ion-input> -->
@@ -51,26 +51,26 @@
                                 <ion-option value="Niñera">Niñera</ion-option>
                               </ion-select>
                         </ion-item>
-    
+
                         <ion-item class=l-item>
                             <ion-label stacked>Modelo <sup>*</sup></ion-label>
                             <ion-input [formControl]="cartForm.controls['model']" type="number"></ion-input>
                         </ion-item>
-    
+
                         <ion-item class=l-item>
                             <ion-label stacked>Marca <sup>*</sup></ion-label>
                             <ion-input [formControl]="cartForm.controls['brand']" type="text"></ion-input>
                         </ion-item>
-    
-                      </form>                
-                
-                    <button margin-top (click)="addCart()" [disabled]="!cartForm.valid" ion-button full color="btn">Crear Cuenta</button>
-    
+
+                      </form>
+
+                    <button margin-top (click)="addCart()" [disabled]="!cartForm.valid" ion-button full color="btn">Crear Vehículo</button>
+
                 </ion-col>
             </ion-row>
         </ion-grid>
-    
-  
+
+
 </ion-content>
 
 

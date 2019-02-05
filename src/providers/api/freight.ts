@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 
 import { ApiClientProvider } from './apiClient'
 
-import { CONFIG } from '../config';
-import { StorageDb } from '../storageDb';
+import { CONFIG } from '@providers/config'
+import { StorageDb } from '@providers/storageDb'
 
 @Injectable()
 export class FreightProvider{
@@ -20,17 +20,17 @@ export class FreightProvider{
   }
 
   // async getToken(){
-  //   const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+  //   const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
   //     return res.token
   //   })
   //   return token
   // }
 
-  getToken =async()=>await localStorage.getItem('dataUser');  
+  getToken =async()=>await localStorage.getItem('dataUser');
 
   async getOffert(){
     const url = this.api_url + this.get_path
-    const dataUser = await this.getToken();    
+    const dataUser = await this.getToken();
     const dataUserJson = JSON.parse(dataUser);
     const headers = { headers: {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }}
     // const params = { headers: {"Authorization" : token.token} }
@@ -44,5 +44,5 @@ export class FreightProvider{
   newOffert(){
 
   }
-  
+
 }

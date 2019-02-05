@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core'
 
-import * as firebase from 'firebase/app'
-import 'firebase/auth'
-
 import qs from 'qs'
 
 import { CONFIG } from '../config'
@@ -11,7 +8,7 @@ import { User } from '@models/user'
 
 
 import { ApiClientProvider } from './apiClient'
-import { StorageDb } from '../storageDb'
+import { StorageDb } from '@providers/storageDb'
 
 @Injectable()
 export class CompanyAuthProvider{
@@ -19,17 +16,17 @@ export class CompanyAuthProvider{
   constructor(
     public apiClient: ApiClientProvider,
     public db: StorageDb){
-    
+
   }
 
   async validateId(id: Number){
     if(id === 123456){
     return {data:  {code: 100}}
-    }      
+    }
     return {data:  {code: 101}}
   }
 
-  async login(user: User){   
+  async login(user: User){
     if(user.id === 123456 && user.password === '123456'){
       return {data:  {code: 100}}
     }
@@ -41,7 +38,7 @@ export class CompanyAuthProvider{
   }
 
   async logout(){
-    return await this.db.deleteDB() 
+    return await this.db.deleteDB()
   }
 
 

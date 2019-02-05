@@ -4,14 +4,14 @@ import qs from 'qs'
 
 import { ApiClientProvider } from './apiClient'
 
-import { CONFIG } from '../config'
+import { Cart } from '@models/cart'
 
-import { Cart } from '../../models/cart'
-import { StorageDb } from '../storageDb'
+import { CONFIG } from '@providers/config'
+import { StorageDb } from '@providers/storageDb'
 
 @Injectable()
 export class CartProvider{
-  
+
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
 
   add_path: string = CONFIG.api.cart.add
@@ -21,11 +21,11 @@ export class CartProvider{
     public apiClient: ApiClientProvider,
     public db: StorageDb
     ){
-    
+
   }
 
   async getToken(){
-    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
+    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
       return res.token
     })
     return token
@@ -33,7 +33,7 @@ export class CartProvider{
 
   async add(cart: Cart){
     const url = this.api_url + this.add_path
-        
+
     const token = await this.getToken()
 
     const params = qs.stringify({
@@ -41,12 +41,12 @@ export class CartProvider{
       clase_vehiculo: cart.type,
       tipo_carroceria: cart.bodywork,
       modelo: cart.model,
-      marca: cart.model,      
+      marca: cart.model,
     })
     const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
 
     try{
-      return await this.apiClient.post(url, params, headers)
+      return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
       throw e
     }
@@ -60,5 +60,5 @@ export class CartProvider{
       throw e
     }
   }
-  
+
 }
