@@ -1,73 +1,63 @@
 <ion-header>
-        <ion-navbar>
-          <ion-title>Mis datos básicos</ion-title>
-          <ion-buttons end>
-              <button ion-button icon-only color="royal">
-                <ion-icon color="white" name="more"></ion-icon>
-              </button>
-            </ion-buttons>
-        </ion-navbar>
-      </ion-header>
+  <ion-navbar>
+    <ion-title>Mis datos básicos</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only color="royal">
+          <ion-icon color="white" name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
+<ion-content padding>
+    <img src="./assets/imgs/img-top-crear-cuenta.png">
 
-<ion-content>
-        <ion-content padding>
-                <img src="./assets/imgs/img-top-crear-cuenta.png">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <form>
+                    <ion-item class=l-item>
+                        <ion-label stacked>Nro documento</ion-label>
+                        <ion-input  type="text" value="{{obj.documento}}"></ion-input>
+                    </ion-item>
 
-                <ion-grid>
-                    <ion-row>
+                    <ion-item class=l-item>
+                            <ion-label stacked>Primer Nombre </ion-label>
+                            <ion-input  type="text" value="{{obj.primer_nombre}}"></ion-input>
+                    </ion-item>
 
-                        <ion-col col-12 >
+                    <ion-item class=l-item>
+                        <ion-label stacked>Segundo Nombre</ion-label>
+                        <ion-input  type="text" value="{{obj.segundo_nombre}}"></ion-input>
+                    </ion-item>
 
-                            <form>
-                                <ion-item class=l-item>
-                                    <ion-label stacked>Nro documento</ion-label>
-                                    <ion-input  type="text" value="{{obj.documento}}"></ion-input>
-                                </ion-item>
+                    <ion-item class=l-item>
+                        <ion-label stacked>Primer Apellido </ion-label>
+                        <ion-input  type="text" value="{{obj.primer_apellido}}"></ion-input>
+                    </ion-item>
 
-                                <ion-item class=l-item>
-                                        <ion-label stacked>Primer Nombre </ion-label>
-                                        <ion-input  type="text" value="{{obj.primer_nombre}}"></ion-input>
-                                </ion-item>
+                    <ion-item class=l-item>
+                        <ion-label stacked>Segundo Apellido</ion-label>
+                        <ion-input  type="text" value="{{obj.segundo_apellido}}"></ion-input>
+                    </ion-item>
 
-                                <ion-item class=l-item>
-                                    <ion-label stacked>Segundo Nombre</ion-label>
-                                    <ion-input  type="text" value="{{obj.segundo_nombre}}"></ion-input>
-                                </ion-item>
+                    <ion-item class=l-item>
+                        <ion-label stacked>Número Celular </ion-label>
+                        <ion-input  type="tel" value="{{obj.celular}}"></ion-input>
+                    </ion-item>
 
-                                <ion-item class=l-item>
-                                    <ion-label stacked>Primer Apellido </ion-label>
-                                    <ion-input  type="text" value="{{obj.primer_apellido}}"></ion-input>
-                                </ion-item>
+                    <ion-item class=l-item>
+                        <ion-label stacked>Email</ion-label>
+                        <ion-input  type="email" value="{{obj.email}}"></ion-input>
 
-                                <ion-item class=l-item>
-                                    <ion-label stacked>Segundo Apellido</ion-label>
-                                    <ion-input  type="text" value="{{obj.segundo_apellido}}"></ion-input>
-                                </ion-item>
+                    </ion-item>
+                  </form>
 
-                                <ion-item class=l-item>
-                                    <ion-label stacked>Número Celular </ion-label>
-                                    <ion-input  type="tel" value="{{obj.celular}}"></ion-input>
-                                </ion-item>
+                <button margin-top  ion-button full color="btn">Guardar</button>
 
-                                <ion-item class=l-item>
-                                    <ion-label stacked>Email</ion-label>
-                                    <ion-input  type="email" value="{{obj.email}}"></ion-input>
-
-                                </ion-item>
-
-
-
-                              </form>
-
-                            <button margin-top  ion-button full color="btn">Guardar</button>
-
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-
-            </ion-content>
-
-
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>
+

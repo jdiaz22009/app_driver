@@ -5,25 +5,31 @@ import 'firebase/auth'
 
 import qs from 'qs'
 
-import { CONFIG } from '../config';
+import { CONFIG } from '../config'
 
 import { User } from '@models/user'
 import { RegisterDriver } from '@models/registerDriver'
 
 import { ApiClientProvider } from './apiClient'
-import { StorageDb } from '../storageDb'
+import { StorageDb } from '@providers/storageDb'
 
 @Injectable()
 export class DriverAuthProvider{
 
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
   getDrivers:String = CONFIG.api.drivers.getDrivers;
+  getDevDrivers:string = CONFIG.dev.getDrivers;
   login_path: string = CONFIG.api.drivers.login
+  login_path_dev: string = CONFIG.dev.login
   validateId_path: string = CONFIG.api.drivers.validateId
+  validateId_path_dev:string = CONFIG.dev.validateId
   register_driver_path: string = CONFIG.api.drivers.register
+  register_driver_parth_dev: string = CONFIG.dev.register;
   inService_path: string = CONFIG.api.drivers.setInServices
-
-
+  inService_path_dev:string = CONFIG.dev.setInServices
+  updatedrivers_dev:string = CONFIG.dev.updateConductor
+  updatedrivers_path:string = CONFIG.api.drivers.updateConductor
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -33,39 +39,42 @@ export class DriverAuthProvider{
   }
 
   // async getToken(){
-  //   const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{      
-  //     return res.token
-  //   })
-  //   console.log(token);
-  //   return token
-  // }
+  //    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+  //      return res.token
+  //    })
+  //    console.log(token);
+  //    return token
+  //  }
 
-  getToken =async()=>await localStorage.getItem('dataUser');  
+  getToken =async()=>await localStorage.getItem('dataUser');
 
   async getDriver (){
-    const url = this.api_url + this.getDrivers
-    const dataUser = await this.getToken();    
-    const dataUserJson = JSON.parse(dataUser);
-    const headers = { headers: {'Authorization' : dataUserJson.token, 'content-type': 'application/json' }}
+    const url = this.api_url + '/api/v1/auth/conductores/get-driver';
+    console.log(url)
+    const token = await this.getToken();
+    const dataUserJson = JSON.parse(token);
+    console.log(dataUserJson.token)
+    console.log('token verificar: ', dataUserJson)
+    const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
     // const params = { headers: {"Authorization" : token.token} }
     try{
       return await this.apiClient.get(url, null, headers)
     }catch(e){
       throw e
     }
-      
+
   }
 
   async validateId(id: Number){
     const url = this.api_url + this.validateId_path + '/' + id
     try{
-       return await this.apiClient.get(url, null, null) 
+       return await this.apiClient.get(url, null, null)
     }catch(e){
       throw e
-    }    
+    }
   }
 
-  async login(user: User){   
+  async login(user: User){
     const url = this.api_url + this.login_path
     const params = qs.stringify({
       documento: user.id,
@@ -73,7 +82,7 @@ export class DriverAuthProvider{
       firetoken: 0,
       type: 0
     })
-    const headers = {'content-type': 'application/x-www-form-urlencoded' }
+    const headers = {headers:{'content-type': 'application/x-www-form-urlencoded'} }
     try{
       return await this.apiClient.post(url, params, headers)
     }catch(e){
@@ -92,9 +101,9 @@ export class DriverAuthProvider{
       direccion: register.address,
       telefono_1: register.phone,
       email: register.email,
-      contrasena: register.password,            
+      contrasena: register.password,
       firetoken: 0,
-      type: 0      
+      type: 0
     })
     const headers = {'content-type': 'application/x-www-form-urlencoded' }
     try{
@@ -105,14 +114,14 @@ export class DriverAuthProvider{
   }
   async setInService(state, vehicle){
     const url = this.api_url + this.inService_path
-    
-    const token = await this.getToken()
 
+    const token = await this.getToken()
+    const dataUserJson = JSON.parse(token);
     const params = qs.stringify({
       inservice: state,
-      inservice_vehicle: vehicle,      
+      inservice_vehicle: vehicle,
     })
-    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+    const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/x-www-form-urlencoded' }
     try{
       return await this.apiClient.post(url, params, headers)
     }catch(e){
@@ -120,8 +129,32 @@ export class DriverAuthProvider{
     }
   }
 
-  async logout(){    
-    return await this.db.deleteDB()    
+   async upatedrivers(driver){
+     const url = this.api_url + '/api/v1/auth/conductores/update-datosB';
+     console.log(url);
+     const token = await this.getToken()
+     console.log('token',token);
+     const dataUserJson = JSON.parse(token);
+     const params = {
+       primer_nombre: driver.first_name,
+       segundo_nombre: driver.second_name,
+       primer_apellido: driver.first_lastname,
+       segundo_apellido: driver.second_lastname,
+       celular: driver.mobil
+     }
+     const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
+     console.log(driver,'update drivers');
+     try {
+       return await this.apiClient.put(url,params,headers);
+
+     } catch (error) {
+       throw error
+     }
+
+
+  }
+  async logout(){
+    return await this.db.deleteDB()
   }
 
 }

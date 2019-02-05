@@ -24,7 +24,9 @@ import { MyApp } from './app.component'
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      backButtonText: 'Atras'
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

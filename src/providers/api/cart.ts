@@ -7,7 +7,7 @@ import { ApiClientProvider } from './apiClient'
 import { CONFIG } from '../config'
 
 import { Cart } from '../../models/cart'
-import { StorageDb } from '../storageDb';
+import { StorageDb } from '../storageDb'
 
 @Injectable()
 export class CartProvider{
