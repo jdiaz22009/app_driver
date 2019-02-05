@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Platform } from 'ionic-angular'
 
 import qs from 'qs'
 
@@ -14,36 +15,37 @@ import { StorageDb } from '@providers/storageDb'
 export class DriverAuthProvider{
 
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
-  api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
-  getDrivers:String = CONFIG.api.drivers.getDrivers;
-  getDevDrivers:string = CONFIG.dev.getDrivers;
+
+  getDriver_path: string = CONFIG.api.drivers.getDrivers
   login_path: string = CONFIG.api.drivers.login
-  login_path_dev: string = CONFIG.dev.login
+  verify_token_path: string = CONFIG.api.path.verify
   validateId_path: string = CONFIG.api.drivers.validateId
-  validateId_path_dev:string = CONFIG.dev.validateId
   register_driver_path: string = CONFIG.api.drivers.register
-  register_driver_parth_dev: string = CONFIG.dev.register;
   inService_path: string = CONFIG.api.drivers.setInServices
+  updatedrivers_path:string = CONFIG.api.drivers.updateConductor
+
+  api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
+  getDevDrivers:string = CONFIG.dev.getDrivers
+  login_path_dev: string = CONFIG.dev.login
+  validateId_path_dev:string = CONFIG.dev.validateId
+  register_driver_parth_dev: string = CONFIG.dev.register
   inService_path_dev:string = CONFIG.dev.setInServices
   updatedrivers_dev:string = CONFIG.dev.updateConductor
-  updatedrivers_path:string = CONFIG.api.drivers.updateConductor
 
   constructor(
     public apiClient: ApiClientProvider,
-    public db: StorageDb
+    public db: StorageDb,
+    public plt: Platform
   ){
 
   }
 
-  // async getToken(){
-  //    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
-  //      return res.token
-  //    })
-  //    console.log(token);
-  //    return token
-  //  }
-
-  getToken = async() => await localStorage.getItem('dataUser')
+  async getToken(){
+     const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+       return res.token
+     })
+     return token != null ? token : ''
+  }
 
   async getFireToken(){
     try{
@@ -52,12 +54,35 @@ export class DriverAuthProvider{
     }catch(e){
       throw e
     }
+  }
+
+  async verifyToken(){
+    const token = await this.getToken()
+    console.log('token to verify ' + token)
+    const url = this.api_url +  this.verify_token_path
+    const headers = { headers: {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'} }
+    try{
+      return await this.apiClient.request('POST', url, null, headers )
+    }catch(e){
+      throw e
+    }
 
   }
 
+  async getOSType(){
+    if (this.plt.is('ios')) {
+      return 'ios'
+    }else if(this.plt.is('android')){
+      return 'android'
+    }else if(this.plt.is('mobileweb')){
+      return 'web'
+    }else{
+      return 'unknown'
+    }
+  }
+
   async getDriver (){
-    const url = this.api_url + '/api/v1/auth/conductores/get-driver';
-    console.log(url)
+    const url =  this.api_url + this.getDriver_path
     const token = await this.getToken();
     const dataUserJson = JSON.parse(token);
     console.log(dataUserJson.token)
@@ -82,14 +107,21 @@ export class DriverAuthProvider{
   }
 
   async login(user: User){
+
+    const firetoken = await this.getFireToken()
+    const osType = await this.getOSType()
+
     const url = this.api_url + this.login_path
+
     const params = qs.stringify({
       documento: user.id,
       contrasena: user.password,
-      firetoken: 0,
-      type: 4
+      firetoken: firetoken,
+      type: osType
     })
+
     const headers = {headers:{'content-type': 'application/x-www-form-urlencoded'} }
+
     try{
       return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
@@ -97,12 +129,13 @@ export class DriverAuthProvider{
     }
   }
 
-  async register(register: RegisterDriver){
-    const firetoken = await this.getFireToken()
+  async register(register: RegisterDriver, rol: number){
 
-    console.log('FireToken .... ' + firetoken)
+    const firetoken = await this.getFireToken()
+    const osType = await this.getOSType()
 
     const url = this.api_url + this.register_driver_path
+
     const params = qs.stringify({
       primer_nombre: register.first_name,
       segundo_nombre: register.second_name,
@@ -115,10 +148,12 @@ export class DriverAuthProvider{
       email: register.email,
       contrasena: register.password,
       firetoken: firetoken,
-      type: 0,
-      rol: 4
+      type: osType,
+      rol
     })
+
     const headers = {'content-type': 'application/x-www-form-urlencoded' }
+
     try{
       return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
@@ -130,11 +165,13 @@ export class DriverAuthProvider{
     const url = this.api_url + this.inService_path
 
     const token = await this.getToken()
-    const dataUserJson = JSON.parse(token);
+    const dataUserJson = JSON.parse(token)
+
     const params = qs.stringify({
       inservice: state,
       inservice_vehicle: vehicle,
     })
+
     const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/x-www-form-urlencoded' }
     try{
       return await this.apiClient.request('POST' ,url, params, headers)

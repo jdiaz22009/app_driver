@@ -29,6 +29,9 @@ export class RegisterSharedPage {
   prevId: number
   mode: String
 
+  driver_rol: number = 4
+  company_rol: number = 1
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -77,9 +80,6 @@ export class RegisterSharedPage {
 
     register(){
 
-      const loader = this.loadingCtrl.create({})
-      loader.present()
-
       this.user.id = parseInt(this.registerForm.controls['id'].value)
       this.user.first_name = this.registerForm.controls['first_name'].value
       this.user.second_name = this.registerForm.controls['second_name'].value
@@ -92,43 +92,37 @@ export class RegisterSharedPage {
       this.user.phone = 0
       this.user.address = ''
 
-      this.auth.register(this.user).then(res =>{
-        console.log('register response ' + res)
+      if(this.mode === 'driver'){
+          this.driverRegister()
+      }else if(this.mode === 'company'){
+
+      }
+
+    }
+
+    driverRegister(){
+      const loader = this.loadingCtrl.create({})
+      loader.present()
+
+      this.auth.register(this.user, this.driver_rol).then(res =>{
+
         const code = res['data'].code
 
         if(code === 100){
 
-          this.login.id = this.user.id
-          this.login.password = this.user.password
+          const sessionData = {
+            user: this.user.id,
+            token: res['data'].token,
+            type: 'driver'
+          }
 
-          this.auth.login(this.login).then(res =>{
-            console.log(res)
-            const code = res['data'].code
-            if(code === 100){
-
-              const sessionData = {
-                user: this.login.id,
-                password: this.login.password,
-                token: res['data'].token,
-                type: 'driver'
-              }
-              this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
-                loader.dismiss()
-                this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id})
-              }).catch(e =>{
-                console.log(e)
-                this.alert.showAlert('Error', 'Error al crear la sesión')
-              })
-
-            }else{
-              loader.dismiss()
-              const msg = res['data'].message
-              this.alert.showAlert('Error', msg)
-            }
-
+          this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
+            loader.dismiss()
+            this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id})
           }).catch(e =>{
             loader.dismiss()
-            this.alert.showAlert('Error', 'No se encuentra el usuario, verifique los datos e intente de nuevo')
+            console.log(e)
+            this.alert.showAlert('Error', 'Error al crear la sesión')
           })
 
         }else{
@@ -141,7 +135,6 @@ export class RegisterSharedPage {
         loader.dismiss()
         this.alert.showAlert('Error', 'No se pudo registrar el usuario, verifique los datos e intente de nuevo')
       })
-
     }
 
 }

@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 
-
 import { FIREBASE_CONFIG } from './app.firebase.config'
 import firebase from 'firebase/app'
 
@@ -19,7 +18,7 @@ import { CONFIG } from '@providers/config'
 })
 export class MyApp {
 
-  rootPage: any = 'AddCartDriverPage' // 'MainSharedPage'
+  rootPage: any = 'MainSharedPage'
 
   constructor(
     public platform: Platform,
@@ -78,10 +77,7 @@ export class MyApp {
         console.log("Received in foreground ", JSON.stringify(data))
         this.alerts.showAlert(data.title , data.body)
       }
-
     }
-
-
   }
 }
 

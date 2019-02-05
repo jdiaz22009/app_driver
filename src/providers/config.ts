@@ -16,6 +16,7 @@ export const CONFIG = {
     path:{
       login: '/api/v1/auth/login',
       register: '/api/v1/auth/register',
+      verify: '/api/v1/auth/verify',
       me: '/api/v1/auth/me'
     },
     drivers:{

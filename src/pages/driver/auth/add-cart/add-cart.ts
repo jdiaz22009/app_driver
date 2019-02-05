@@ -74,23 +74,15 @@ export class AddCartDriverPage {
 
       this.cartApi.add(this.cart).then(res =>{
         console.log(res)
-        const data = res['data']
-        this.db.setItem(CONFIG.localdb.USER_DATA_KEY, data).then(res =>{
+        const code = res['data'].code
+        if(code === 100){
           loader.dismiss()
           this.navCtrl.setRoot('home-drive')
-        })
-
-        // loader.dismiss()
-
-        // this.navCtrl.setRoot('home-drive')
-
-        // if(code === 100){
-        //   this.navCtrl.setRoot('home-drive')
-        // }else{
-        //   const msg = res['data'].message
-        //   this.alert.showAlert('Error', msg)
-        // }
-
+        }else{
+          loader.dismiss()
+          const msg = res['data'].message
+          this.alert.showAlert('Error', msg)
+        }
       }).catch(e =>{
         console.log(e)
         loader.dismiss()
@@ -118,7 +110,6 @@ export class AddCartDriverPage {
       }else{
         this.cartForm.controls['license_plate'].setValue(this.plate)
       }
-
 
     }
 
