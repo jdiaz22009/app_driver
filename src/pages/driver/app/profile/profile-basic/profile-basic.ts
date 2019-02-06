@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterDriver } from '@models/registerDriver';
-import { DriverAuthProvider } from "@providers/api/driverAuth";
+import { Component } from "@angular/core"
+import { IonicPage, NavController, NavParams } from "ionic-angular"
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+
+import { RegisterDriver } from '@models/registerDriver'
+import { DriverAuthProvider } from "@providers/api/driverAuth"
 
 @IonicPage()
 @Component({
@@ -15,7 +16,7 @@ export class ProfileBasicPage {
   updateForm: FormGroup;
   document: String = 'final'
   obj: object = {}
-  userUpdate = {} as RegisterDriver;
+  userUpdate = {} as RegisterDriver
 
   constructor(
     public navCtrl: NavController,
@@ -56,13 +57,13 @@ export class ProfileBasicPage {
   }
 
   async update(){
+
     this.userUpdate.first_name = this.updateForm.controls['primer_nombre'].value
     this.userUpdate.second_name = this.updateForm.controls['segundo_nombre'].value
     this.userUpdate.first_lastname = this.updateForm.controls['primer_apellido'].value
     this.userUpdate.second_lastname = this.updateForm.controls['segundo_apellido'].value
     this.userUpdate.mobil = this.updateForm.controls['celular'].value
 
-    console.log(this.userUpdate,'hp');
     this.driverAuthProvider.upatedrivers(this.userUpdate)
     .then(resp => {
       const data = resp

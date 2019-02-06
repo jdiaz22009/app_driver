@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core'
 import { IonicPageModule } from 'ionic-angular'
-import { ProfileDriverPage } from './profile'
+import { ProfileDriverPage } from './profile-view'
 
 @NgModule({
   declarations: [
     ProfileDriverPage
   ],
   imports: [
-    IonicPageModule.forChild(ProfileDriverPage)    
+    IonicPageModule.forChild(ProfileDriverPage)
   ],
 })
 export class ProfileDriverModule {}
