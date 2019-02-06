@@ -110,7 +110,10 @@ export class RegisterSharedPage {
 
         if(code === 100){
 
+          const id = res['data'].id_conductor
+
           const sessionData = {
+            userId: id,
             user: this.user.id,
             token: res['data'].token,
             type: 'driver'

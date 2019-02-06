@@ -23,6 +23,13 @@ export class FreightProvider{
 
   }
 
+  async getSessionData(){
+    const sessionData = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+      return res
+    })
+    return sessionData
+  }
+
   async getToken(){
     const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
       return res.token
@@ -35,6 +42,13 @@ export class FreightProvider{
       return res.user
     })
     return user
+  }
+
+  async getUserId(){
+    const userId = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+      return res.userId
+    })
+    return userId
   }
 
   async getOffert(){
@@ -66,12 +80,12 @@ export class FreightProvider{
   async postulateToOffer(id){
     const url = this.api_url + this.postulate_path
     const token = await this.getToken()
-    const user = await this.getUser()
-    const headers = { headers: {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }}
+    const userId = await this.getUserId()
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
 
     const params = qs.stringify({
       id_offers: id,
-      id: user
+      id: userId
     })
 
     try{

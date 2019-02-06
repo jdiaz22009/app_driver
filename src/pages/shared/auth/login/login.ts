@@ -104,7 +104,6 @@ export class LoginSharedPage {
   }
 
   checkValidate(id, res){
-    console.log(res)
     const code = res['data'].code
     if(code === 100){
       this.sectionSelected = 2
@@ -157,15 +156,20 @@ export class LoginSharedPage {
   }
 
   checkResponse(res){
-    console.log(res)
+    console.log('login response ' + JSON.stringify(res))
     const code = res['data'].code
 
     if(code === 100){
+
+      const id = res['data'].id_conductor
+
       const sessionData = {
+        userId: id,
         user: this.user.id,
         token: res['data'].token,
         type: this.mode
       }
+
       this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
         if(this.mode === 'driver'){
           this.navCtrl.setRoot('home-drive')

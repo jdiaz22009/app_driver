@@ -29,6 +29,7 @@ export class MyFreightDriverPage {
 
   getMyOffers(){
     this.offer.getMyOffers().then(res =>{
+      console.log(JSON.stringify(res))
       this.myOffers = res['data']
     })
   }

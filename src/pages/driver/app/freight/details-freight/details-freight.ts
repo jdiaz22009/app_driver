@@ -24,21 +24,28 @@ export class DetailsFreightDriverPage {
 
   accept(){
     this.postulateToOffer()
-    // const modal = this.modalCtrl.create('ModalPostulationDriverComponent', null, { cssClass: 'modal-id' })
-    // modal.onDidDismiss((data) =>{
-    //     if(data['mode'] === 'find'){
-    //       this.navCtrl.popTo('FindFreightDriverPage')
-    //     }else if(data['mode'] === 'home'){
-    //       this.navCtrl.setRoot('home-drive')
-    //     }
-    // })
-    // modal.present()
-}
+
+  }
+
+  showModalAccept(){
+    const modal = this.modalCtrl.create('ModalPostulationDriverComponent', null, { cssClass: 'modal-id' })
+    modal.onDidDismiss((data) =>{
+      if(data['mode'] === 'find'){
+        this.navCtrl.popTo('FindFreightDriverPage')
+      }else if(data['mode'] === 'home'){
+        this.navCtrl.setRoot('home-drive')
+      }
+    })
+    modal.present()
+  }
 
   postulateToOffer(){
     this.freight.postulateToOffer(this.offer._id).then(res =>{
      const data = res['data']
      console.log(JSON.stringify(data))
+     if(data){
+       this.showModalAccept()
+     }
     }).catch(e =>{
      console.error(e)
     })
