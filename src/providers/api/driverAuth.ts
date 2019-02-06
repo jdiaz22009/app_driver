@@ -81,19 +81,6 @@ export class DriverAuthProvider{
     }
   }
 
-  async getDriver(){
-    const url =  this.api_url + this.getDriver_path
-    const token = await this.getToken()
-    const headers = { headers:{'Authorization': token , 'content-type': 'application/json'} }
-
-    try{
-      return await this.apiClient.get(url, null, headers)
-    }catch(e){
-      throw e
-    }
-
-  }
-
   async validateId(id: Number){
     const url = this.api_url + this.validateId_path + '/' + id
     try{
@@ -175,6 +162,18 @@ export class DriverAuthProvider{
     }catch(e){
       throw e
     }
+  }
+
+  async getDriver(){
+    const url =  this.api_url + this.getDriver_path
+    const token = await this.getToken()
+    const headers = { headers:{'Authorization': token , 'content-type': 'application/json'} }
+    try{
+      return await this.apiClient.get(url, null, headers)
+    }catch(e){
+      throw e
+    }
+
   }
 
    async upatedrivers(driver){

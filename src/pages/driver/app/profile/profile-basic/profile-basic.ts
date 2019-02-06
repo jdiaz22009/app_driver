@@ -13,15 +13,14 @@ import { DriverAuthProvider } from "@providers/api/driverAuth"
 
 export class ProfileBasicPage {
 
-  updateForm: FormGroup;
-  document: String = 'final'
+  updateForm: FormGroup
   obj: object = {}
   userUpdate = {} as RegisterDriver
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public driverAuthProvider: DriverAuthProvider,
+    public auth: DriverAuthProvider,
     private formBuilder: FormBuilder) {
 
       this.updateForm = this.formBuilder.group({
@@ -36,23 +35,15 @@ export class ProfileBasicPage {
   }
 
   ionViewDidLoad(){
-    this.getperfilConductor()
+    this.getDriverProfile()
   }
 
-  getperfilConductor(){
-    this.driverAuthProvider.getDriver()
-    .then(resp => {
-      //const drive = resp['data'];
-      const data = resp['data'];
-      console.log('=========data',data)
-      //this.document = data['id_driver']['documento'];
-      //this.obj=data['id_driver'];
-      this.obj=data;
-      console.log('lllll',this.obj);
-      //return  this.obj; console.log('drivers', drive);
-      return  this.obj;
+  getDriverProfile(){
+    this.auth.getDriver().then(res => {
+      const data = res['data']
+      console.log(JSON.stringify(data))
     })
-    .catch(error => {console.log(error)});
+    .catch(e => {console.error(e)})
 
   }
 
@@ -64,9 +55,8 @@ export class ProfileBasicPage {
     this.userUpdate.second_lastname = this.updateForm.controls['segundo_apellido'].value
     this.userUpdate.mobil = this.updateForm.controls['celular'].value
 
-    this.driverAuthProvider.upatedrivers(this.userUpdate)
-    .then(resp => {
-      const data = resp
+    this.auth.upatedrivers(this.userUpdate).then(res=> {
+      const data = res
       console.log(data)
     })
     .catch(e => console.error(e))

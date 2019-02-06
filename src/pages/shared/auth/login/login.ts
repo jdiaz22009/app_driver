@@ -156,7 +156,7 @@ export class LoginSharedPage {
   }
 
   checkResponse(res){
-    console.log('login response ' + JSON.stringify(res))
+    // console.log('login response ' + JSON.stringify(res))
     const code = res['data'].code
 
     if(code === 100){

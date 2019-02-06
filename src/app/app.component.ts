@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { Platform } from 'ionic-angular'
+import { Component, ViewChild } from '@angular/core'
+import { Platform, NavController } from 'ionic-angular'
 
 import { StatusBar } from '@ionic-native/status-bar'
 import { SplashScreen } from '@ionic-native/splash-screen'
@@ -19,6 +19,8 @@ import { CONFIG } from '@providers/config'
 export class MyApp {
 
   rootPage: any = 'MainSharedPage'
+
+  @ViewChild('myNav') nav: NavController
 
   constructor(
     public platform: Platform,
@@ -67,15 +69,21 @@ export class MyApp {
   buildNotification(data, mode){
     if(data){
       if(mode){
-        console.log("Received in background ", JSON.stringify(data))
+        console.log('Received in background ', JSON.stringify(data))
         this.localNotifications.schedule({
           id: 1,
           title: data.title,
           text: data.body
-        });
+        })
+
       }else{
-        console.log("Received in foreground ", JSON.stringify(data))
-        this.alerts.showAlert(data.title , data.body)
+        console.log('Received in foreground ', JSON.stringify(data))
+        const id = data.id
+        this.alerts.showConfirm(data.title , data.body, 'ver', 'cancelar').then(res =>{
+          if(res === 1){
+            this.nav.push('DetailsFreightDriverPage', { id: id })
+          }
+        })
       }
     }
   }

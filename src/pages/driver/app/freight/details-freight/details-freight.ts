@@ -12,6 +12,7 @@ import { FreightProvider } from '@providers/api/freight'
 export class DetailsFreightDriverPage {
 
   offer: any = []
+  id: string;
 
   constructor(
     public navCtrl: NavController,
@@ -19,12 +20,28 @@ export class DetailsFreightDriverPage {
     public freight: FreightProvider,
     public navParams: NavParams) {
 
-     this.offer = this.navParams.get('details')
+
+     this.id = this.navParams.get('id')
+
+     //5c5b08f841aa84724f3698fc
+    // this.getOfferById('5c5b08f841aa84724f3698fc')
+
+     console.log(this.id)
+     if(this.id != undefined){
+        this.getOfferById(this.id)
+     }else{
+        this.offer = this.navParams.get('details')
+     }
+  }
+
+  getOfferById(id){
+    this.freight.getOfferById(id).then(res =>{
+      this.offer = res['data'].data
+    })
   }
 
   accept(){
     this.postulateToOffer()
-
   }
 
   showModalAccept(){
@@ -45,7 +62,7 @@ export class DetailsFreightDriverPage {
      console.log(JSON.stringify(data))
 
      if(data){
-      //  this.freight.updateOfferState(this.offer._id).then(res => console.log(JSON.stringify(res)))
+       this.freight.updateOfferState(this.offer._id).then(res => console.log(JSON.stringify(res)))
       //  this.freight.pushToOffer().then(res => console.log(JSON.stringify(res)))
        this.showModalAccept()
      }

@@ -13,6 +13,7 @@ export class FreightProvider{
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
 
   get_path: string = CONFIG.api.offer.get
+  getById_path: string = CONFIG.api.offer.getById
   get_new_path: string = CONFIG.api.offer.new
   getMy_offers_path: string = CONFIG.api.offer.myOffers
   postulate_path: string = CONFIG.api.offer.postulate
@@ -98,6 +99,18 @@ export class FreightProvider{
 
   }
 
+  async getOfferById(id){
+    const url = this.api_url + this.getById_path + '/' + id
+    const token = await this.getToken()
+    const headers = { headers:{'Authorization' : token, 'content-type': 'application/json'} }
+
+    try{
+      return await this.apiClient.request('GET', url, null, headers)
+    }catch(e){
+      throw e
+    }
+  }
+
   async pushToOffer(){
     const url = this.api_url + this.push_path
     const token = await this.getToken()
@@ -121,16 +134,15 @@ export class FreightProvider{
 
     const url = this.api_url + this.updateOffert_path
     const token = await this.getToken()
-    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+    const headers = { headers:{'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'} }
 
-
-    const params = {
-      type: 4 ,
-      offerid: id + '/conductor postulado',
-    }
+    const params = qs.stringify({
+      type: 'conductor postulado',
+      offerid: id,
+    })
 
     try{
-      return await this.apiClient.get( url, params, headers)
+      return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
       throw e
     }

@@ -35,6 +35,7 @@ export const CONFIG = {
     },
     offer:{
       get: '/api/v1/offers/get-offers',
+      getById: '/api/v1/offers/get-offer-detail',
       new: '/api/v1/offers/new-offer',
       myOffers: '/api/v1/offers/get-my-offers',
       postulate: '/api/v1/offers/postulate',
