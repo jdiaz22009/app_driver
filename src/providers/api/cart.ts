@@ -16,6 +16,8 @@ export class CartProvider{
 
   add_path: string = CONFIG.api.cart.add
   getClass_path: string = CONFIG.api.cart.getClass
+  getVehicles_path: string = CONFIG.api.cart.getVehicles
+  getMyVehicle_path: string = CONFIG.api.cart.getMyVehicle
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -56,6 +58,17 @@ export class CartProvider{
     const url = this.api_url + this.getClass_path
     try{
       return await this.apiClient.get(url, null, null)
+    }catch(e){
+      throw e
+    }
+  }
+
+  async getVehiclesList(){
+    const url = this.api_url + this.getVehicles_path
+    const token = await this.getToken()
+    const headers = {'Authorization' : token, 'content-type': 'application/json' }
+    try{
+      return await this.apiClient.get(url, null, headers)
     }catch(e){
       throw e
     }

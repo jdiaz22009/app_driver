@@ -29,11 +29,15 @@ export const CONFIG = {
     },
     cart:{
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',
-      add: '/api/v1/auth/conductores/add-vehicle'
+      add: '/api/v1/auth/conductores/add-vehicle',
+      getVehicles: '/api/v1/conductores/get-vehicles',
+      getMyVehicle: '/api/v1/conductores/get-my-vehicle'
     },
     offer:{
       get: '/api/v1/offers/get-offers',
-      new: '/api/v1/offers/new-offer'
+      new: '/api/v1/offers/new-offer',
+      myOffers: '/api/v1/offers/get-my-offers',
+      postulate: '/api/v1/offers/postulate'
     }
 
   },

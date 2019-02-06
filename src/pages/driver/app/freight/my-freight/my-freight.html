@@ -1,10 +1,16 @@
 <ion-header>
-  <ion-navbar>    
+  <ion-navbar>
     <ion-title>Mis Fletes</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    
-   
+
+      <div *ngIf="myOffers.length === 0">
+          <p text-center>No Tienes Ofertas</p>
+      </div>
+
+
+
+
 </ion-content>
