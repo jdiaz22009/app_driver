@@ -16,6 +16,8 @@ export class FreightProvider{
   get_new_path: string = CONFIG.api.offer.new
   getMy_offers_path: string = CONFIG.api.offer.myOffers
   postulate_path: string = CONFIG.api.offer.postulate
+  push_path: string = CONFIG.api.push.postPush
+  updateOffert_path: string = CONFIG.api.offer.updateOfferState
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -96,4 +98,42 @@ export class FreightProvider{
 
   }
 
+  async pushToOffer(){
+    const url = this.api_url + this.push_path
+    const token = await this.getToken()
+    const userId = await this.getUserId()
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+
+    const params = {
+      rol: 4 ,
+      titulo: 'Nuevo Oferente',
+      cuerpo: userId
+    }
+
+    try{
+      return await this.apiClient.request('POST', url, params, headers)
+    }catch(e){
+      throw e
+    }
+  }
+
+  async updateOfferState(id){
+
+    const url = this.api_url + this.updateOffert_path
+    const token = await this.getToken()
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+
+
+    const params = {
+      type: 4 ,
+      offerid: id + '/conductor postulado',
+    }
+
+    try{
+      return await this.apiClient.get( url, params, headers)
+    }catch(e){
+      throw e
+    }
+
+  }
 }

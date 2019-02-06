@@ -43,7 +43,10 @@ export class DetailsFreightDriverPage {
     this.freight.postulateToOffer(this.offer._id).then(res =>{
      const data = res['data']
      console.log(JSON.stringify(data))
+
      if(data){
+      //  this.freight.updateOfferState(this.offer._id).then(res => console.log(JSON.stringify(res)))
+      //  this.freight.pushToOffer().then(res => console.log(JSON.stringify(res)))
        this.showModalAccept()
      }
     }).catch(e =>{

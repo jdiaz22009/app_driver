@@ -37,9 +37,12 @@ export const CONFIG = {
       get: '/api/v1/offers/get-offers',
       new: '/api/v1/offers/new-offer',
       myOffers: '/api/v1/offers/get-my-offers',
-      postulate: '/api/v1/offers/postulate'
+      postulate: '/api/v1/offers/postulate',
+      updateOfferState: '/api/v1/offers/set-step-offer'
+    },
+    push:{
+      postPush: '/api/v1/auth/push'
     }
-
   },
   dev:{
     getOffers: '/api/v1/offers/get-offers',
