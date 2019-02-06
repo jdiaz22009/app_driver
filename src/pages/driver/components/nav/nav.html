@@ -1,11 +1,18 @@
 <ion-toolbar>
-    <ion-grid class="nav-home">    
+    <ion-grid class="nav-home">
         <ion-row align-items-center>
           <!-- <ion-col col-2 *ngIf="modeTitle">
-            <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/> 
+            <img class="nav-actions" src="./assets/imgs/favicomcargaya.png"/>
           </ion-col>           -->
-          <ion-col col-2 *ngIf="!modeTitle">                
-            <p class="title"><ion-icon name="arrow-back" (click)="goBack()"></ion-icon>  {{title}}</p>      
+          <ion-col col-2 *ngIf="!modeTitle">
+
+              <button ion-button clear color="white" icon-only (click)="goBack()">
+                  <ion-icon name="arrow-back"></ion-icon>
+                </button>
+            <!-- <p class="title">
+              <ion-icon name="arrow-back" (click)="goBack()"></ion-icon>
+                {{title}}
+              </p> -->
           </ion-col>
           <ion-col col-7 *ngIf="!nav_ava" class="col-toogle">
             <ion-grid>
@@ -14,10 +21,10 @@
                     <p class="nav-tx-available">{{tx_available}} - WFG-385</p>
                 </ion-col>
                 <ion-col col-4>
-                    <ion-item >              
+                    <ion-item >
                         <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange(driver_available)"></ion-toggle>
                     </ion-item>
-                </ion-col>            
+                </ion-col>
               </ion-row>
             </ion-grid>
           </ion-col>
@@ -27,15 +34,15 @@
           <ion-col col-1 *ngIf="!nav_ava" (click)="logout()">
               <img class="logout" src="./assets/imgs/logout.png"/>
           </ion-col>
-          
+
           <ion-col col-1 offset-7 *ngIf="nav_ava" class="col-chat" (click)="chat()">
               <img src="./assets/imgs/chat.png"/>
           </ion-col>
           <ion-col col-1 *ngIf="nav_ava" (click)="logout()">
               <img class="logout" src="./assets/imgs/logout.png"/>
           </ion-col>
-        
-        </ion-row>    
+
+        </ion-row>
       </ion-grid>
 
 </ion-toolbar>

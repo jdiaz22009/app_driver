@@ -1,30 +1,30 @@
 <ion-content>
-  
+
   <nav-driver-component title="Cargas"></nav-driver-component>
 
   <div *ngFor="let item of offers">
 
-  
+
     <ion-card class="card-offert">
         <ion-card-content>
-          <p class="c-date" text-end>Publicado 08/24/2019 09:08</p>
+          <p class="c-date" text-end>Publicado {{item.fecha_creacion | date: 'dd/MM/yy , h:mm a' }}</p>
 
           <ion-grid>
             <ion-row>
                 <ion-col col-9>
                     <p class="tx-title">
-                      <ion-icon name="md-pin" color="statusbar"></ion-icon> 
+                      <ion-icon name="md-pin" color="statusbar"></ion-icon>
                       Origen
                       <span>{{item.ciudad_origen}}</span>
                     </p>
                     <br>
                     <p class="tx-title">
-                      <ion-icon name="md-pin" color="btn"></ion-icon> 
+                      <ion-icon name="md-pin" color="btn"></ion-icon>
                       Destino
                       <span>{{item.ciudad_destino}}</span>
                     </p>
                 </ion-col>
-                <ion-col col-3 class="c-shared">                  
+                <ion-col col-3 class="c-shared">
                     <button ion-fab mini color="btn">
                         <ion-icon name="md-share"></ion-icon>
                     </button>
@@ -41,14 +41,14 @@
                   <p>{{item.peso_carga_max}}</p>
                   <br>
                   <p class="tx-title">Flete</p>
-                  <p>{{item.flete}}</p>
+                  <p>{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
                 </ion-col>
                 <ion-col col-5 class="no-padding">
                   <p class="tx-title">Carrocería</p>
                   <p> {{item.clase_vehiculo}}</p>
                   <br>
                   <p class="tx-title">Fecha de Carga</p>
-                  <p>{{item.inicio}}</p>
+                  <p>{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
                   <br>
                   <br>
                   <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">

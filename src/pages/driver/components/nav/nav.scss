@@ -12,26 +12,27 @@ nav-driver-component {
       color: white;
       font-size: 1.3rem;
       font-weight: 500;
-      
+
       .ion-icon{
         font-size: 1.5rem !important;
         padding: 0.3rem !important;
+        color: white;
       }
     }
 
-    
+
 
     .nav-actions{
       display: block;
       margin-left: auto;
       margin-right: auto;
-      width: 75%;    
+      width: 75%;
     }
 
     .logout{
-      width: 75%; 
+      width: 75%;
 
-    } 
+    }
 
     .item-md{
       background-color: transparent !important;
@@ -47,7 +48,7 @@ nav-driver-component {
     }
 
     .item-md.item-block .item-inner{
-      border-bottom: none !important;      
+      border-bottom: none !important;
     }
     .item-block{
       min-height: 0.5rem !important;
@@ -76,6 +77,6 @@ nav-driver-component {
     justify-content: center;
   }
 
- 
+
 
 }

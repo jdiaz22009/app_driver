@@ -27,7 +27,7 @@ import { MyApp } from './app.component'
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp,{
-      backButtonText: 'Atras'
+
     }),
     IonicStorageModule.forRoot()
   ],
