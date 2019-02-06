@@ -111,17 +111,16 @@ export class FreightProvider{
     }
   }
 
-  async pushToOffer(){
-    const url = this.api_url + this.push_path
+  async pushToOffer(authod_id, offer_id){
+    const url = this.api_url + this.push_path + '/' + 2 + '/' + authod_id
     const token = await this.getToken()
-    const userId = await this.getUserId()
     const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
 
-    const params = {
-      rol: 4 ,
+    const params = qs.stringify({
+      id: offer_id,
       titulo: 'Nuevo Oferente',
-      cuerpo: userId
-    }
+      cuerpo: 'conductor postulado'
+    })
 
     try{
       return await this.apiClient.request('POST', url, params, headers)
