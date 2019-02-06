@@ -18,7 +18,7 @@ export class FreightProvider{
   getMy_offers_path: string = CONFIG.api.offer.myOffers
   postulate_path: string = CONFIG.api.offer.postulate
   push_path: string = CONFIG.api.push.postPush
-  updateOffert_path: string = CONFIG.api.offer.updateOfferState
+  updateOffert_path: string = CONFIG.api.offer.updateOffer
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -131,17 +131,17 @@ export class FreightProvider{
 
   async updateOfferState(id){
 
-    const url = this.api_url + this.updateOffert_path
+    const url = this.api_url + this.updateOffert_path + '/' + id
     const token = await this.getToken()
-    const headers = { headers:{'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'} }
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}
 
     const params = qs.stringify({
-      type: 'conductor postulado',
-      offerid: id,
+      id: '2',
+      type: 2
     })
 
     try{
-      return await this.apiClient.request('POST', url, params, headers)
+      return await this.apiClient.request('PUT', url, params, headers)
     }catch(e){
       throw e
     }

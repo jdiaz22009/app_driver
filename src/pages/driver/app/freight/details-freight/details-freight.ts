@@ -57,7 +57,7 @@ export class DetailsFreightDriverPage {
      console.log(JSON.stringify(data))
 
      if(data){
-      //  this.freight.updateOfferState(this.offer._id).then(res => console.log(JSON.stringify(res)))
+       this.freight.updateOfferState(this.offer._id).then(res => console.log(JSON.stringify(res)))
        this.freight.pushToOffer(this.author_id, this.offer._id).then(res => console.log(JSON.stringify(res)))
        this.showModalAccept()
      }
