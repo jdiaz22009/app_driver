@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>    
+  <ion-navbar>
     <ion-title>Mi Perfil</ion-title>
     <ion-buttons end>
         <button ion-button icon-only color="royal">
@@ -18,7 +18,7 @@
       </ion-col>
       <ion-col>
         <p class="tx-title">Name: </p>
-        <!-- {{driver_name}} -->
+        {{userData.primer_nombre}} {{userData.segundo_nombre}}
         <p class="tx-title">Estado: <span class="tx-green">Verificado</span></p>
       </ion-col>
     </ion-row>
@@ -45,11 +45,11 @@
           <img class="item-thumb" [src]="item.thumb">
         </ion-thumbnail>
         <h2 class="tx-title">{{item.title}}</h2>
-        <p class="tx-lite">{{item.summary}}</p>            
+        <p class="tx-lite">{{item.summary}}</p>
       </ion-item>
 
 </ion-list>
 
- 
-    
+
+
 </ion-content>

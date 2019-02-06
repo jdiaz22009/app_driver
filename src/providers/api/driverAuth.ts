@@ -81,14 +81,11 @@ export class DriverAuthProvider{
     }
   }
 
-  async getDriver (){
+  async getDriver(){
     const url =  this.api_url + this.getDriver_path
-    const token = await this.getToken();
-    const dataUserJson = JSON.parse(token);
-    console.log(dataUserJson.token)
-    console.log('token verificar: ', dataUserJson)
-    const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
-    // const params = { headers: {"Authorization" : token.token} }
+    const token = await this.getToken()
+    const headers = { headers:{'Authorization': token , 'content-type': 'application/json'} }
+
     try{
       return await this.apiClient.get(url, null, headers)
     }catch(e){

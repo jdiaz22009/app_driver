@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
 
+import { DriverAuthProvider } from '@providers/api/driverAuth'
+
 import { DataUser } from '@models/dataUser'
 
 @IonicPage()
@@ -23,18 +25,30 @@ export class ProfileDriverPage {
     {thumb: './assets/imgs/perfil.png', title: 'Mis referencias', summary: 'Te ayudara con las empresas', page: 'ProfileReferenceDriverPage'}
   ]
 
+  userData: any = []
 
   constructor(
     public navCtrl: NavController,
     public db: StorageDb,
+    public auth: DriverAuthProvider,
     public navParams: NavParams) {
 
 
   }
 
   ionViewDidLoad(){
+    this.getProfile()
+  }
+
+  getProfile(){
+    this.auth.getDriver().then(res =>{
+      console.log('user ' + JSON.stringify(res))
+      this.userData = res['data'].id_driver
+    })
+
 
   }
+
 
   goPage(page){
     this.navCtrl.push(page)
