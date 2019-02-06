@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Keyboard } from '@ionic-native/keyboard'
 
-
 import { User } from '@models/user'
 
 import { AlertsProvider } from '@providers/alerts'
@@ -93,7 +92,7 @@ export class LoginSharedPage {
   }
 
   validateDriver(id){
-    this.driverAuth.validateId(id).then(res =>{      
+    this.driverAuth.validateId(id).then(res =>{
       this.checkValidate(id, res)
     })
   }
@@ -104,7 +103,7 @@ export class LoginSharedPage {
     })
   }
 
-  checkValidate(id, res){    
+  checkValidate(id, res){
     console.log(res)
     const code = res['data'].code
     if(code === 100){
@@ -114,11 +113,11 @@ export class LoginSharedPage {
     }
   }
 
-  login(){    
+  login(){
 
     this.user.id = parseInt(this.idForm.controls['id'].value)
     this.user.password = this.passwordForm.controls['password'].value
-    
+
     if(this.mode === 'driver'){
       this.loginDriver()
     }else if(this.mode === 'company'){
@@ -160,11 +159,10 @@ export class LoginSharedPage {
   checkResponse(res){
     console.log(res)
     const code = res['data'].code
-    
+
     if(code === 100){
       const sessionData = {
         user: this.user.id,
-        password: this.user.password,
         token: res['data'].token,
         type: this.mode
       }
@@ -173,20 +171,16 @@ export class LoginSharedPage {
           this.navCtrl.setRoot('home-drive')
         }else if(this.mode === 'company'){
           this.navCtrl.setRoot('home-company')
-        }          
+        }
       }).catch(e =>{
         console.log(e)
         this.alert.showAlert('Error', 'Error al crear la sesión')
       })
-      console.log('===============DATA',sessionData);
-      localStorage.setItem('dataUser',JSON.stringify(sessionData));
-
-
     }else{
       const msg = res['data'].message
       this.alert.showAlert('Error', msg)
     }
-  } 
+  }
 
   getSupport(){
     this.navCtrl.push('SupportSharedPage')

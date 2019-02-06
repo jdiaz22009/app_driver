@@ -182,11 +182,9 @@ export class DriverAuthProvider{
 
    async upatedrivers(driver){
      const url = this.api_url + '/api/v1/auth/conductores/update-datosB'
-
-     console.log(url);
      const token = await this.getToken()
-     console.log('token',token);
-     const dataUserJson = JSON.parse(token);
+
+     const dataUserJson = JSON.parse(token)
      const params = {
        primer_nombre: driver.first_name,
        segundo_nombre: driver.second_name,
@@ -195,7 +193,7 @@ export class DriverAuthProvider{
        celular: driver.mobil
      }
      const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
-     console.log(driver,'update drivers');
+
      try {
        return await this.apiClient.request('PUT', url,params,headers)
      } catch (e) {
