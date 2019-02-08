@@ -6,7 +6,6 @@ import { AlertsProvider } from '@providers/alerts'
 import { CartProvider } from '@providers/api/cart'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { StorageDb } from '@providers/storageDb'
-import { CONFIG } from '@providers/config'
 
 import { Cart } from '@models/cart'
 
@@ -21,6 +20,7 @@ export class AddCartDriverPage {
   cartForm: FormGroup
   prevPlate: boolean = false
   id: number
+  mode: number
   plate: string
 
   constructor(
@@ -35,6 +35,7 @@ export class AddCartDriverPage {
     ) {
 
       this.id = navParams.get('id')
+      this.mode = navParams.get('mode')
 
       this.cartForm = this.formBuilder.group({
         license_plate: ['', Validators.compose([
@@ -77,7 +78,11 @@ export class AddCartDriverPage {
         const code = res['data'].code
         if(code === 100){
           loader.dismiss()
-          this.navCtrl.setRoot('home-drive')
+          if(this.mode === 0){
+            this.navCtrl.setRoot('home-drive')
+          }else if(this.mode === 1){
+            this.navCtrl.pop()
+          }
         }else{
           loader.dismiss()
           const msg = res['data'].message

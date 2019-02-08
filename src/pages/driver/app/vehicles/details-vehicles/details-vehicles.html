@@ -1,6 +1,16 @@
-<ion-content>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Detalle Vehículo</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only color="royal">
+          <ion-icon color="white" name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
-    <nav-driver-component title="Detalle Vehículo" availability="none"></nav-driver-component>
+<ion-content>
+    <!-- <nav-driver-component title="Detalle Vehículo" availability="none"></nav-driver-component> -->
 
     <ion-grid>
       <ion-row>
@@ -17,15 +27,13 @@
     </ion-grid>
 
     <ion-list margin-top>
-
-        <ion-item class="details-item" *ngFor="let item of data" (click)="goPage(item.page)">
-            <ion-thumbnail item-start>
-              <img class="item-thumb" [src]="item.thumb">
-            </ion-thumbnail>
-            <h2 class="tx-title">{{item.title}}</h2>
-            <p class="tx-lite">{{item.summary}}</p>
-          </ion-item>
-
+      <ion-item class="details-item" *ngFor="let item of data" (click)="goPage(item.page)">
+          <ion-thumbnail item-start>
+            <img class="item-thumb" [src]="item.thumb">
+          </ion-thumbnail>
+          <h2 class="tx-title">{{item.title}}</h2>
+          <p class="tx-lite">{{item.summary}}</p>
+      </ion-item>
     </ion-list>
 
 

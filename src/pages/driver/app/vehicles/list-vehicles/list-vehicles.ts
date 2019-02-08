@@ -11,6 +11,7 @@ import { CartProvider } from '@providers/api/cart'
 export class ListVehiclesDriverPage {
 
   vehicles : any = []
+  userId: string
 
   constructor(
     public navCtrl: NavController,
@@ -21,10 +22,9 @@ export class ListVehiclesDriverPage {
 
   }
 
-  ionViewDidLoad(){
+  ionViewWillEnter(){
     this.getVehicles()
   }
-
 
   vehicleDetails(data){
     this.navCtrl.push('DetailsVehiclesDriverPage', { vehicle: data })
@@ -33,8 +33,14 @@ export class ListVehiclesDriverPage {
   getVehicles(){
     this.cart.getVehiclesList().then(res =>{
       this.vehicles = res['data']['data']
-      console.log('vehicles ' + JSON.stringify(this.vehicles))
+      if(this.vehicles.length > 0){
+        this.userId = this.vehicles[0].conductor
+      }
     })
+  }
+
+  addVehicle(){
+    this.navCtrl.push('AddCartDriverPage', {id: this.userId , mode: 1 })
   }
 
 }

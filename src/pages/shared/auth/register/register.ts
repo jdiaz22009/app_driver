@@ -121,7 +121,7 @@ export class RegisterSharedPage {
 
           this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
             loader.dismiss()
-            this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id})
+            this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id, mode: 0})
           }).catch(e =>{
             loader.dismiss()
             console.log(e)

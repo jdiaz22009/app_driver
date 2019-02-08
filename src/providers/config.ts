@@ -31,7 +31,8 @@ export const CONFIG = {
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',
       add: '/api/v1/auth/conductores/add-vehicle',
       getVehicles: '/api/v1/auth/conductores/get-vehicles',
-      getMyVehicle: '/api/v1/auth/conductores/get-my-vehicle'
+      getMyVehicle: '/api/v1/auth/conductores/get-my-vehicle',
+      updateVehicle: '/api/v1/auth/conductores/'
     },
     offer:{
       get: '/api/v1/offers/get-offers',

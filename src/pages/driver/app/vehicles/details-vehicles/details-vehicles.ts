@@ -26,7 +26,7 @@ export class DetailsVehiclesDriverPage {
   }
 
   goPage(page){
-    this.navCtrl.push(page)
+    this.navCtrl.push(page, {vehicle: this.vehicle})
   }
 
 }
