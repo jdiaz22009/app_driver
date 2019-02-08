@@ -1,6 +1,19 @@
 owner-data {
 
-  
-  
+  .tx-title{
+    color: color($colors, title) !important;
+    font-weight: 500 !important;
+    margin: 0.3rem !important;
+  }
+
+  .button-md{
+    margin: 3rem 0 0 0 !important;
+    height: 5rem !important;
+  }
+
+  .label{
+    color: color($colors, title) !important;
+    font-weight: 400 !important;
+  }
 
 }
