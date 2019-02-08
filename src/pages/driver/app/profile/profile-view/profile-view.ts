@@ -16,7 +16,6 @@ import { DataUser } from '@models/dataUser'
 export class ProfileDriverPage {
 
   dataUser = {}  as DataUser
-  driver_name: string
   data: any = [
     {thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Edita datos del conductor', page: 'ProfileBasicPage'},
     {thumb: './assets/imgs/perfil4.png', title: 'Mis datos Complementarios', summary: 'Edita datos complementarios del conductor', page: 'ProfileAdditionalDriverPage'},
@@ -42,16 +41,18 @@ export class ProfileDriverPage {
 
   getProfile(){
     this.auth.getDriver().then(res =>{
-      console.log('user ' + JSON.stringify(res))
+      // console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
     })
-
-
   }
 
-
   goPage(page){
-    this.navCtrl.push(page)
+    console.log(page)
+    if(page === 'ProfileBasicPage'){
+      this.navCtrl.push(page, { profile: this.userData})
+    }else{
+      this.navCtrl.push(page)
+    }
   }
 
 }

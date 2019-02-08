@@ -13,9 +13,12 @@ import { DriverAuthProvider } from "@providers/api/driverAuth"
 
 export class ProfileBasicPage {
 
-  updateForm: FormGroup
-  obj: object = {}
-  userUpdate = {} as RegisterDriver
+  profileForm: FormGroup
+  userProfile = {} as RegisterDriver
+
+  email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  id_validator =  /^\d+$/
 
   constructor(
     public navCtrl: NavController,
@@ -23,44 +26,67 @@ export class ProfileBasicPage {
     public auth: DriverAuthProvider,
     private formBuilder: FormBuilder) {
 
-      this.updateForm = this.formBuilder.group({
-        primer_nombre:'',
-        segundo_nombre:'',
-        primer_apellido:'',
-        segundo_apellido:'',
-        celular:'',
+      this.profileForm = this.formBuilder.group({
+        id: ['', Validators.compose([
+          Validators.pattern(this.id_validator),
+          Validators.minLength(6),
+          Validators.required
+        ])],
+        first_name: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        second_name: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        first_lastname: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        second_lastname: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        mobil: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        email: ['', Validators.compose([
+          Validators.pattern(this.email_validator),
+          Validators.required
+        ])]
        })
 
 
+      const user = this.navParams.get('profile')
+      if(user != undefined){
+        this.loadProfile(user)
+      }
   }
 
-  ionViewDidLoad(){
-    this.getDriverProfile()
-  }
-
-  getDriverProfile(){
-    this.auth.getDriver().then(res => {
-      const data = res['data']
-      console.log(JSON.stringify(data))
-    })
-    .catch(e => {console.error(e)})
-
+  loadProfile(user){
+    this.profileForm.controls['id'].setValue(user.documento)
+    this.profileForm.controls['first_name'].setValue(user.primer_nombre)
+    this.profileForm.controls['second_name'].setValue(user.segundo_nombre)
+    this.profileForm.controls['first_lastname'].setValue(user.primer_apellido)
+    this.profileForm.controls['second_lastname'].setValue(user.segundo_apellido)
+    this.profileForm.controls['mobil'].setValue(user.celular)
+    this.profileForm.controls['email'].setValue(user.email)
   }
 
   async update(){
+    this.userProfile.id = this.profileForm.controls['id'].value
+    this.userProfile.first_name = this.profileForm.controls['first_name'].value
+    this.userProfile.second_name = this.profileForm.controls['second_name'].value
+    this.userProfile.first_lastname = this.profileForm.controls['first_lastname'].value
+    this.userProfile.second_lastname = this.profileForm.controls['second_lastname'].value
+    this.userProfile.mobil = this.profileForm.controls['mobil'].value
+    this.userProfile.email = this.profileForm.controls['email'].value
 
-    this.userUpdate.first_name = this.updateForm.controls['primer_nombre'].value
-    this.userUpdate.second_name = this.updateForm.controls['segundo_nombre'].value
-    this.userUpdate.first_lastname = this.updateForm.controls['primer_apellido'].value
-    this.userUpdate.second_lastname = this.updateForm.controls['segundo_apellido'].value
-    this.userUpdate.mobil = this.updateForm.controls['celular'].value
-
-    this.auth.upatedrivers(this.userUpdate).then(res=> {
-      const data = res
-      console.log(data)
-    })
-    .catch(e => console.error(e))
-
+    this.auth.upatedrivers(this.userProfile).then(res=> {
+      console.log(JSON.stringify(res))
+    }).catch(e => console.error(e))
   }
 
 }

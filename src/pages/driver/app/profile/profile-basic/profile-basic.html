@@ -4,57 +4,53 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
       <img src="./assets/imgs/img-top-crear-cuenta.png">
 
       <ion-grid>
           <ion-row>
               <ion-col col-12 >
-                  <form [formGroup]="updateForm">
+                  <form [formGroup]="profileForm">
                       <ion-item class=l-item>
                           <ion-label stacked>Nro documento</ion-label>
-                          <ion-input disabled="true" type="text" value="{{obj.documento}}" ></ion-input>
+                          <ion-input [formControl]="profileForm.controls['id']" type="tel"></ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                               <ion-label stacked>Primer Nombre </ion-label>
-                              <ion-input  type="text" value="{{obj.primer_nombre}}" [formControl]="updateForm.controls['primer_nombre']"  name='primer_nombre'></ion-input>
+                              <ion-input type="text" [formControl]="profileForm.controls['first_name']"></ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Segundo Nombre</ion-label>
-                          <ion-input  type="text" value="{{obj.segundo_nombre}}" [formControl]="updateForm.controls['segundo_nombre']" name='segundo_nombre' ></ion-input>
+                          <ion-input type="text" [formControl]="profileForm.controls['second_name']"></ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Primer Apellido </ion-label>
-                          <ion-input  type="text" value="{{obj.primer_apellido}}" [formControl]="updateForm.controls['primer_apellido']" ></ion-input>
+                          <ion-input type="text" [formControl]="profileForm.controls['first_lastname']" ></ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Segundo Apellido</ion-label>
-                          <ion-input  type="text" value="{{obj.segundo_apellido}}"  [formControl]="updateForm.controls['segundo_apellido']"></ion-input>
+                          <ion-input type="text" [formControl]="profileForm.controls['second_lastname']"></ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Número Celular </ion-label>
-                          <ion-input  type="tel" value="{{obj.celular}}" [formControl]="updateForm.controls['celular']" ></ion-input>
+                          <ion-input type="tel" [formControl]="profileForm.controls['mobil']" ></ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Email</ion-label>
-                          <ion-input  disabled="true"  type="email" value="{{obj.email}}"></ion-input>
+                          <ion-input type="email" [formControl]="profileForm.controls['email']"></ion-input>
                       </ion-item>
                     </form>
-
-                  <button margin-top (click)="update()" [disabled]="!updateForm.valid" ion-button full color="btn">Guardar</button>
 
               </ion-col>
           </ion-row>
       </ion-grid>
 
+      <button margin-top (click)="update()" [disabled]="!profileForm.valid" ion-button full color="btn">Guardar</button>
+
 </ion-content>
-
-
-
-
