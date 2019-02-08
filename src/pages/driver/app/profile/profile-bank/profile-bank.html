@@ -10,7 +10,73 @@
 </ion-header>
 
 <ion-content>
+  <p text-center>Recibir mis pagos En</p>
 
+  <ion-row justify-content-center>
+      <ion-col col-4>
+          <p>Celular (NEQUI)</p>
+          <ion-item>
+            <ion-radio checked="false" value="nequi"></ion-radio>
+          </ion-item>
+
+      </ion-col>
+      <ion-col col-5 offset-2>
+          <p>Cuenta bancaria</p>
+          <ion-item>
+            <ion-radio checked="false" value="bank"></ion-radio>
+          </ion-item>
+      </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-12>
+        <form [formGroup]="bankForm">
+            <ion-item class=l-item>
+                <ion-label stacked>Número celular</ion-label>
+                <ion-input [formControl]="bankForm.controls['phone']" type="tel"></ion-input>
+            </ion-item>
+
+            <ion-item class=l-item>
+                <ion-label stacked>Nombre banco </ion-label>
+                <ion-input type="text" [formControl]="bankForm.controls['bank']"></ion-input>
+            </ion-item>
+
+            <ion-item class=l-item>
+                <ion-label stacked>Número de cuenta</ion-label>
+                <ion-input type="text" [formControl]="bankForm.controls['account']"></ion-input>
+            </ion-item>
+
+            <ion-item class=l-item>
+                <ion-label stacked>Nombre titular</ion-label>
+                <ion-input type="text" [formControl]="bankForm.controls['name']" ></ion-input>
+            </ion-item>
+
+            <ion-item class=l-item>
+                <ion-label stacked>Cédula titular</ion-label>
+                <ion-input type="text" [formControl]="bankForm.controls['id']"></ion-input>
+            </ion-item>
+
+            <ion-item class=l-item>
+                <ion-label stacked>Tipo cuenta</ion-label>
+                <ion-input type="tel" [formControl]="bankForm.controls['account_type']" ></ion-input>
+            </ion-item>
+          </form>
+    </ion-col>
+  </ion-row>
+
+  <ion-row justify-content-center>
+      <ion-col col-4>
+          <p class="tx-title">Certificación Bancaria</p>
+          <img class="p-photos" src="./assets/imgs/no_photo.png">
+
+      </ion-col>
+      <ion-col col-4 offset-3>
+          <p class="tx-title">Carta de Tenencia</p>
+          <img class="p-photos" src="./assets/imgs/no_photo.png">
+      </ion-col>
+</ion-row>
+
+<button margin-top ion-button full color="btn">Guardar</button>
 
 
 </ion-content>
