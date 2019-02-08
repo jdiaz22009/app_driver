@@ -11,7 +11,107 @@
 
 <ion-content padding>
 
-  <img margin-top src="./assets/imgs/step-1-2.png">
+  <img margin-top [src]="step_img">
+
+  <ion-grid>
+    <ion-row>
+        <ion-col col-12 >
+
+          <div *ngIf="step_form === 0">
+              <form [formGroup]="profileForm">
+                  <ion-item class=l-item>
+                      <ion-label stacked>Fecha expedición documento</ion-label>
+                      <ion-input [formControl]="profileForm.controls['date']" type="tel"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                          <ion-label stacked>Lugar expedición documento </ion-label>
+                          <ion-input type="text" [formControl]="profileForm.controls['place']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>País de residencia</ion-label>
+                      <ion-input type="text" [formControl]="profileForm.controls['country']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Departamento de residencia </ion-label>
+                      <ion-input type="text" [formControl]="profileForm.controls['state']" ></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Ciudad de residencia</ion-label>
+                      <ion-input type="text" [formControl]="profileForm.controls['city']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Dirección de residencia </ion-label>
+                      <ion-input type="text" [formControl]="profileForm.controls['address']" ></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Teléfono residencia</ion-label>
+                      <ion-input type="email" [formControl]="profileForm.controls['phone']"></ion-input>
+                  </ion-item>
+                </form>
+          </div>
+
+          <div *ngIf="step_form === 1">
+              <form [formGroup]="profileForm_0">
+                  <ion-item class=l-item>
+                      <ion-label stacked>Fecha de nacimiento</ion-label>
+                      <ion-input [formControl]="profileForm_0.controls['date']" type="tel"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                          <ion-label stacked>Lugar de nacimiento </ion-label>
+                          <ion-input type="text" [formControl]="profileForm_0.controls['place']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Nombre ARL</ion-label>
+                      <ion-input type="text" [formControl]="profileForm_0.controls['arl']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Nombre EPS </ion-label>
+                      <ion-input type="text" [formControl]="profileForm_0.controls['eps']" ></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Número licencia conducción</ion-label>
+                      <ion-input type="text" [formControl]="profileForm_0.controls['license_plate']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Categoría Licencia</ion-label>
+                      <ion-input type="tel" [formControl]="profileForm_0.controls['license_category']" ></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Vencimiento Licencia</ion-label>
+                      <ion-input type="email" [formControl]="profileForm_0.controls['license_expiration']"></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Tipo de Sangre</ion-label>
+                      <ion-input type="tel" [formControl]="profileForm_0.controls['license_category']" ></ion-input>
+                  </ion-item>
+
+                  <ion-item class=l-item>
+                      <ion-label stacked>Género</ion-label>
+                      <ion-input type="tel" [formControl]="profileForm_0.controls['license_category']" ></ion-input>
+                  </ion-item>
+                </form>
+          </div>
+
+
+        </ion-col>
+    </ion-row>
+</ion-grid>
+
+<button margin-top (click)="save()" [disabled]="!profileForm.valid" ion-button full color="btn">Guardar</button>
+
 
 
 </ion-content>
