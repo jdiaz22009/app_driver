@@ -10,7 +10,7 @@ import { CartProvider } from '@providers/api/cart'
 })
 export class ListVehiclesDriverPage {
 
-  drivers: any = []
+  vehicles : any = []
 
   constructor(
     public navCtrl: NavController,
@@ -26,13 +26,14 @@ export class ListVehiclesDriverPage {
   }
 
 
-  vehicleDetails(){
-    this.navCtrl.push('DetailsVehiclesDriverPage')
+  vehicleDetails(data){
+    this.navCtrl.push('DetailsVehiclesDriverPage', { vehicle: data })
   }
 
   getVehicles(){
     this.cart.getVehiclesList().then(res =>{
-      console.log(JSON.stringify(res))
+      this.vehicles = res['data']['data']
+      console.log('vehicles ' + JSON.stringify(this.vehicles))
     })
   }
 

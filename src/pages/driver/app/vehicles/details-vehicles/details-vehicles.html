@@ -5,12 +5,13 @@
     <ion-grid>
       <ion-row>
         <ion-col col-4>
-            <img src="./assets/imgs/carts/truck.png"> 
+            <img src="./assets/imgs/carts/truck.png">
         </ion-col>
         <ion-col offset-1>
-            <p class="tx-title">Placa: <span class="tx-summary">YUI-567</span></p>            
-            <p class="tx-title">Tipo: <span class="tx-summary">Turbo</span></p>            
-            <p class="tx-title">Estado: <span class="tx-y">Diponible</span></p>
+            <p class="tx-title">Placa: <span class="tx-summary">{{vehicle.placa}}</span></p>
+            <p class="tx-title">Tipo: <span class="tx-summary">{{vehicle.clase_vehiculo}}</span></p>
+            <p *ngIf="vehicle.state" class="tx-title">Estado: <span class="tx-y">Disponible</span></p>
+            <p *ngIf="!vehicle.state" class="tx-title">Estado: <span class="tx-n">No Disponible</span></p>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -22,10 +23,10 @@
               <img class="item-thumb" [src]="item.thumb">
             </ion-thumbnail>
             <h2 class="tx-title">{{item.title}}</h2>
-            <p class="tx-lite">{{item.summary}}</p>            
+            <p class="tx-lite">{{item.summary}}</p>
           </ion-item>
 
     </ion-list>
-    
- 
+
+
 </ion-content>

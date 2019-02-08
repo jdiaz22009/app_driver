@@ -66,9 +66,9 @@ export class CartProvider{
   async getVehiclesList(){
     const url = this.api_url + this.getVehicles_path
     const token = await this.getToken()
-    const headers = {'Authorization' : token, 'content-type': 'application/json' }
+    const headers = { 'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}
     try{
-      return await this.apiClient.get(url, null, headers)
+      return await this.apiClient.request('GET', url, null, headers)
     }catch(e){
       throw e
     }

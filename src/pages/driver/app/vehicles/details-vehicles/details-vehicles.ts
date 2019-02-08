@@ -6,7 +6,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
   selector: 'details-vehicles',
   templateUrl: 'details-vehicles.html'
 })
-export class DetailsVehiclesDriverPage {  
+export class DetailsVehiclesDriverPage {
 
   data: any = [
     {thumb: './assets/imgs/truck1.png', title: 'Información Básica', summary: 'Edite tipo de vehículo', page: 'InformationVehiclesDriverPage'},
@@ -14,12 +14,15 @@ export class DetailsVehiclesDriverPage {
     {thumb: './assets/imgs/truck-card.png', title: 'Datos del propietario/Tenedor', summary: 'Edita datos del propietario', page: 'OwnerDataVehiclesDriverPage'},
     {thumb: './assets/imgs/profile-card.png', title: 'Fotos', summary: 'Edita SOAT, tecnicomecánica...', page: 'PhotosVehiclesDriverPage'}
   ]
-  
+
+  vehicle: any
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams) {
-     
 
+      this.vehicle = this.navParams.get('vehicle')
+      console.log(this.vehicle)
   }
 
   goPage(page){

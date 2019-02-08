@@ -30,8 +30,8 @@ export const CONFIG = {
     cart:{
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',
       add: '/api/v1/auth/conductores/add-vehicle',
-      getVehicles: '/api/v1/conductores/get-vehicles',
-      getMyVehicle: '/api/v1/conductores/get-my-vehicle'
+      getVehicles: '/api/v1/auth/conductores/get-vehicles',
+      getMyVehicle: '/api/v1/auth/conductores/get-my-vehicle'
     },
     offer:{
       get: '/api/v1/offers/get-offers',
