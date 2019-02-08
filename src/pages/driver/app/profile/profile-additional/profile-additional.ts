@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { DriverAuthProvider } from '@providers/api/driverAuth'
-import { CONFIG } from '@providers/config'
 
 @IonicPage()
 @Component({

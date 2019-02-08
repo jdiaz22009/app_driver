@@ -1,12 +1,10 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
-import { StorageDb } from '@providers/storageDb'
-import { CONFIG } from '@providers/config'
-
-import { DriverAuthProvider } from '@providers/api/driverAuth'
-
 import { DataUser } from '@models/dataUser'
+
+import { StorageDb } from '@providers/storageDb'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 @IonicPage()
 @Component({
