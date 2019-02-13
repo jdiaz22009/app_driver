@@ -76,6 +76,10 @@ export class LoginSharedPage {
     this.keyboard.onKeyboardShow().subscribe(data =>{
       this.hideFooter = true
     })
+
+    this.keyboard.onKeyboardHide().subscribe(data =>{
+      this.hideFooter = false
+    })
   }
 
   ionViewDidEnter() {
