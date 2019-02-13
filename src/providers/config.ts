@@ -25,7 +25,8 @@ export const CONFIG = {
       validateId: '/api/v1/auth/conductores/checkdocument',
       setInServices: '/api/v1/auth/conductores/set-in-service',
       getDrivers: '/api/v1/auth/conductores/get-driver',
-      updateConductor: '/api/v1/auth/conductores/update-datosB'
+      updateConductor: '/api/v1/auth/conductores/update-datosB',
+      updateDriverC: '/api/v1/auth/conductores/update-datos',
     },
     cart:{
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',

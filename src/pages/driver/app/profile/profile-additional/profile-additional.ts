@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core'
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
+import { DataUserC } from '@models/dataUserC'
+
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 @IonicPage()
@@ -16,6 +18,7 @@ export class ProfileAdditionalDriverPage {
   profileForm: FormGroup
   profileForm_0: FormGroup
 
+  driver = {} as DataUserC
   profile: any
   step_form: number = 0
   step_images: any = [
@@ -24,6 +27,7 @@ export class ProfileAdditionalDriverPage {
   ]
   step_img: string = this.step_images[0]
 
+  user: any
 
   constructor(
     public navCtrl: NavController,
@@ -32,6 +36,30 @@ export class ProfileAdditionalDriverPage {
     public navParams: NavParams) {
 
       this.setForms()
+
+      this.user = this.navParams.get('profile')
+
+      if(this.user != null){
+        this.profileForm.controls['date'].setValue(this.user.fecha_expedicion_cedula)
+        this.profileForm.controls['place'].setValue(this.user.lugar_expedicion_cedula)
+        this.profileForm.controls['country'].setValue(this.user.pais)
+        this.profileForm.controls['state'].setValue(this.user.departamento)
+        this.profileForm.controls['city'].setValue(this.user.ciudad)
+        this.profileForm.controls['address'].setValue(this.user.direccion)
+        this.profileForm.controls['phone'].setValue(this.user.telefono_1)
+
+        this.profileForm_0.controls['date'].setValue(this.user.fecha_nacimiento)
+        this.profileForm_0.controls['place'].setValue(this.user.lugar_nacimiento)
+        this.profileForm_0.controls['arl'].setValue(this.user.nombre_arl)
+        this.profileForm_0.controls['eps'].setValue(this.user.nombre_eps)
+        this.profileForm_0.controls['license_plate'].setValue(this.user.numero_licencia_conducir)
+        this.profileForm_0.controls['license_category'].setValue(this.user.categoria_licencia)
+        this.profileForm_0.controls['license_expiration'].setValue(this.user.vencimiento_licencia)
+        this.profileForm_0.controls['rh'].setValue(this.user.tipo_sangre)
+        this.profileForm_0.controls['gender'].setValue(this.user.genero)
+
+
+      }
   }
 
   ionViewDidLoad(){
@@ -118,6 +146,31 @@ export class ProfileAdditionalDriverPage {
       this.scrollToTop()
     }else if(this.step_form === 1){
 
+      this.driver.fecha_expedicion_cedula = this.profileForm.controls['date'].value
+      this.driver.lugar_expedicion_cedula = this.profileForm.controls['place'].value
+      this.driver.pais = this.profileForm.controls['country'].value
+      this.driver.departamento = this.profileForm.controls['state'].value
+      this.driver.ciudad = this.profileForm.controls['city'].value
+      this.driver.direccion = this.profileForm.controls['address'].value
+      this.driver.telefono_1 = this.profileForm.controls['phone'].value
+
+      this.driver.fecha_nacimiento = this.profileForm_0.controls['date'].value
+      this.driver.lugar_nacimiento = this.profileForm_0.controls['place'].value
+      this.driver.nombre_arl = this.profileForm_0.controls['arl'].value
+      this.driver.nombre_eps = this.profileForm_0.controls['eps'].value
+      this.driver.numero_licencia_conducir = this.profileForm_0.controls['license_plate'].value
+      this.driver.categoria_licencia = this.profileForm_0.controls['license_category'].value
+      this.driver.vencimiento_licencia = this.profileForm_0.controls['license_expiration'].value
+      this.driver.tipo_sangre = this.profileForm_0.controls['rh'].value
+      this.driver.genero = this.profileForm_0.controls['gender'].value
+
+
+      this.auth.updateDriverC(this.driver).then(res =>{
+        console.log(res)
+        console.log(JSON.stringify(res))
+      }).catch(e =>{
+        console.error(e)
+      })
     }
   }
 

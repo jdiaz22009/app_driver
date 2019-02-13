@@ -18,7 +18,7 @@ import { CONFIG } from '@providers/config'
 })
 export class MyApp {
 
-  rootPage: any =  'AddCartDriverPage' //'MainSharedPage'
+  rootPage: any =  'MainSharedPage'
 
   @ViewChild('myNav') nav: NavController
 

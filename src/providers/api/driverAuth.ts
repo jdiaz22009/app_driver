@@ -7,6 +7,7 @@ import { CONFIG } from '../config'
 
 import { User } from '@models/user'
 import { RegisterDriver } from '@models/registerDriver'
+import { DataUserC } from '@models/dataUserC'
 
 import { ApiClientProvider } from './apiClient'
 import { StorageDb } from '@providers/storageDb'
@@ -23,6 +24,7 @@ export class DriverAuthProvider{
   register_driver_path: string = CONFIG.api.drivers.register
   inService_path: string = CONFIG.api.drivers.setInServices
   updatedrivers_path:string = CONFIG.api.drivers.updateConductor
+  updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
 
   api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
   getDevDrivers:string = CONFIG.dev.getDrivers
@@ -177,7 +179,7 @@ export class DriverAuthProvider{
   }
 
    async upatedrivers(driver){
-     const url = this.api_url + '/api/v1/auth/conductores/update-datosB'
+     const url = this.api_url + this.updatedrivers_path
      const token = await this.getToken()
 
      const dataUserJson = JSON.parse(token)
@@ -195,8 +197,36 @@ export class DriverAuthProvider{
      } catch (e) {
        throw e
      }
+  }
 
+  async updateDriverC(driver: DataUserC){
+      const url = this.api_url + this.updateDriverC_path
+      const token = await this.getToken()
 
+      const params = {
+        fecha_expedicion_cedula: driver.fecha_expedicion_cedula,
+        lugar_expedicion_cedula: driver.lugar_expedicion_cedula,
+        pais: driver.pais,
+        departamento: driver.departamento,
+        ciudad: driver.ciudad,
+        fecha_nacimiento: driver.fecha_nacimiento,
+        lugar_nacimiento: driver.lugar_nacimiento,
+        nombre_arl: driver.nombre_arl,
+        nombre_eps: driver.nombre_eps,
+        numero_licencia_conducir: driver.numero_licencia_conducir,
+        categoria_licencia: driver.categoria_licencia,
+        vencimiento_licencia: driver.vencimiento_licencia,
+        tipo_sangre: driver.tipo_sangre,
+        genero: driver.genero
+      }
+
+      const headers = {'Authorization' : token, 'content-type': 'application/json'}
+
+      try {
+        return await this.apiClient.request('PUT', url, params, headers)
+      } catch (e) {
+        throw e
+      }
   }
 
   async logout(){

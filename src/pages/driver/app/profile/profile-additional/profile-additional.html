@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
   <img margin-top [src]="step_img">
 
@@ -95,12 +95,12 @@
 
                   <ion-item class=l-item>
                       <ion-label stacked>Tipo de Sangre</ion-label>
-                      <ion-input type="tel" [formControl]="profileForm_0.controls['license_category']" ></ion-input>
+                      <ion-input type="tel" [formControl]="profileForm_0.controls['rh']" ></ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Género</ion-label>
-                      <ion-input type="tel" [formControl]="profileForm_0.controls['license_category']" ></ion-input>
+                      <ion-input type="tel" [formControl]="profileForm_0.controls['gender']" ></ion-input>
                   </ion-item>
                 </form>
           </div>
