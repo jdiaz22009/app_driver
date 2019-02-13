@@ -17,24 +17,26 @@
                             <ion-input [formControl]="cartForm.controls['license_plate']" type="text" maxlength="7" (ionChange)="onChangePlate($event)"></ion-input>
                         </ion-item>
 
-                        <ion-item class=l-item>
+                        <ion-item class=l-item (click)="showModal(0)">
                             <ion-label stacked>Clase de vehículo <sup>*</sup></ion-label>
-                            <ion-select [formControl]="cartForm.controls['type']">
-                              <ion-option value="Camioneta">Camioneta</ion-option>
+                            <ion-input [formControl]="cartForm.controls['type']" disabled="true"></ion-input>
+                            <!-- <ion-select [formControl]="cartForm.controls['type']" disabled="true"> -->
+                              <!-- <ion-option value="Camioneta">Camioneta</ion-option>
                               <ion-option value="Mini turbo">Mini turbo</ion-option>
                               <ion-option value="Sencillo">Sencillo</ion-option>
                               <ion-option value="Doble Troque">Doble Troque</ion-option>
                               <ion-option value="Cuatro Manos">Cuatro Manos</ion-option>
                               <ion-option value="Minimula">Minimula</ion-option>
-                              <ion-option value="Tracto Camión">Tracto Camión</ion-option>
-                            </ion-select>
+                              <ion-option value="Tracto Camión">Tracto Camión</ion-option> -->
+                            <!-- </ion-select> -->
 
                         </ion-item>
 
-                        <ion-item class=l-item>
+                        <ion-item class=l-item (click)="showModal(1)">
                             <ion-label stacked>Tipo de carroceria <sup>*</sup></ion-label>
-                            <ion-select [formControl]="cartForm.controls['bodywork']">
-                                <ion-option value="Carry">Carry</ion-option>
+                            <ion-input [formControl]="cartForm.controls['bodywork']" disabled="true"></ion-input>
+                            <!-- <ion-select [formControl]="cartForm.controls['bodywork']" disabled="true"> -->
+                                <!-- <ion-option value="Carry">Carry</ion-option>
                                 <ion-option value="Estacas">Estacas</ion-option>
                                 <ion-option value="Furgón">Furgón</ion-option>
                                 <ion-option value="Furgón Refrigerado">Furgón Refrigerado</ion-option>
@@ -45,8 +47,8 @@
                                 <ion-option value="Volco">Volco</ion-option>
                                 <ion-option value="Contenedor">Contenedor</ion-option>
                                 <ion-option value="Cama Baja">Cama Baja</ion-option>
-                                <ion-option value="Niñera">Niñera</ion-option>
-                              </ion-select>
+                                <ion-option value="Niñera">Niñera</ion-option> -->
+                              <!-- </ion-select> -->
                         </ion-item>
 
                         <ion-item class=l-item>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { AlertsProvider } from '@providers/alerts'
@@ -23,6 +23,38 @@ export class AddCartDriverPage {
   mode: number
   plate: string
 
+  vehicle_class = {
+    title: 'Clase de vehículo',
+    options: [
+      {value: 'Camioneta', name: 'Camioneta', checked: false},
+      {value: 'Mini turbo', name: 'Mini turbo', checked: false},
+      {value: 'Sencillo', name:'Sencillo', checked: false},
+      {value: 'Doble Troque', name:'Doble Troque', checked: false},
+      {value: 'Cuatro Manos', name:'Cuatro Manos', checked: false},
+      {value: 'Minimula', name:'Minimula', checked: false},
+      {value: 'Tracto Camión', name:'Tracto Camión', checked: false}
+    ]
+  }
+
+  vehicle_bodywork = {
+    title: 'Tipo de carrocería',
+    options: [
+      {value: 'Carry', name: 'Carry', checked: false},
+      {value: 'Estacas', name: 'Estacas', checked: false},
+      {value: 'Furgón', name:'Furgón', checked: false},
+      {value: 'Furgón Refrigerado', name:'Furgón Refrigerado', checked: false},
+      {value: 'Platón', name:'Platón', checked: false},
+      {value: 'Plancha', name:'Plancha', checked: false},
+      {value: 'Cisterna', name:'Cisterna', checked: false},
+      {value: 'Tanque', name:'Tanque', checked: false},
+      {value: 'Volco', name:'Volco', checked: false},
+      {value: 'Contenedor', name:'Contenedor', checked: false},
+      {value: 'Cama Baja', name:'Cama Baja', checked: false},
+      {value: 'Niñera', name:'Niñera', checked: false}
+    ]
+  }
+
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,6 +63,7 @@ export class AddCartDriverPage {
     public driverAuth: DriverAuthProvider,
     private formBuilder: FormBuilder,
     public db: StorageDb,
+    public modalCtrl: ModalController,
     public loadingCtrl: LoadingController
     ) {
 
@@ -72,6 +105,7 @@ export class AddCartDriverPage {
       this.cart.model = this.cartForm.controls['model'].value
       this.cart.brand = this.cartForm.controls['brand'].value
 
+      console.log(JSON.stringify(this.cart))
 
       this.cartApi.add(this.cart).then(res =>{
         console.log(res)
@@ -116,6 +150,34 @@ export class AddCartDriverPage {
         this.cartForm.controls['license_plate'].setValue(this.plate)
       }
 
+    }
+
+    showModal(mode){
+      console.log('show modal radio ' + mode)
+      let options
+      let radio
+      if(mode === 0){
+          options = this.vehicle_class
+          radio = this.cartForm.controls['type'].value
+      }else if(mode === 1){
+          options = this.vehicle_bodywork
+          radio = this.cartForm.controls['bodywork'].value
+      }
+      const modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
+      modal.present()
+
+      modal.onDidDismiss((data) =>{
+        console.log('onDismiss ' + JSON.stringify(data) + ' MODE ' + mode + " " + data)
+        if(mode === 0){
+          if(data != null){
+            this.cartForm.controls['type'].setValue(data.radio)
+          }
+        }else if(mode === 1){
+          if(data != null){
+            this.cartForm.controls['bodywork'].setValue(data.radio)
+          }
+        }
+      })
     }
 
 }

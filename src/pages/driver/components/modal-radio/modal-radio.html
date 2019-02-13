@@ -1,0 +1,31 @@
+<ion-content padding>
+
+ <h3 class="tx">{{title}}</h3>
+
+ <ion-scroll zooming="true" direction="xy" style="width:100%;height:500px">
+
+
+ <ion-list radio-group margin-top [(ngModel)]="selected">
+  <ion-item *ngFor="let item of data">
+    <ion-label>{{item.name}}</ion-label>
+    <ion-radio value="{{item.value}}" (ionSelect)="onItemSelected(item)"></ion-radio>
+  </ion-item>
+ </ion-list>
+
+ </ion-scroll>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-5>
+        <button ion-button color="btnd" (click)="goBack(0)">Cancelar</button>
+      </ion-col>
+      <ion-col col-5>
+        <button ion-button color="btn" (click)="goBack(1)">Seleccionar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
