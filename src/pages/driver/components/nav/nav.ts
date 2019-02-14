@@ -54,27 +54,17 @@ export class NavDriverComponent {
     this.driver_available ? this.tx_available = 'Disponible': this.tx_available = 'Activar'
   }
 
-  // async getActiveCart(){
-  //   const cart = await this.db.getItem(CONFIG.localdb.USER_DATA_KEY).then(res =>{
-  //     return (res !== null) ? res.vehiculos[0]: null
-  //   })
-  //   return cart
-  // }
-
-  async availabilityChange(availability){
-
-    // const cart = await this.getActiveCart()
-    // console.log('availabilityChange ' + availability)
+  availabilityChange(availability){
     this.apiDriver.setInService(availability, this.vehicle_id).then(res =>{
-      console.log('setInService' + JSON.stringify(res))
+      // console.log('setInService' + JSON.stringify(res))
       this.driver_available = availability
       this.setAvailabilityTx()
     })
   }
 
-  async getMySelectedVehicle(){
+  getMySelectedVehicle(){
     this.cart.getMySelected().then(res =>{
-      console.log(JSON.stringify(res))
+      // console.log(JSON.stringify(res))
       this.plate = res['data']['data'].placa
       this.driver_available = res['data']['data'].state
       this.vehicle_id = res['data']['data']._id
