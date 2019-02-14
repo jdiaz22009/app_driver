@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, Keyboard } from 'ionic-angular'
 
 import { CitiesProvider } from '@providers/cities'
+import { CartProvider } from '@providers/api/cart'
 
 @IonicPage()
 @Component({
@@ -13,11 +14,13 @@ export class AvailabilityDriverPage {
   citiesList: any = []
   citiesFilter: any = []
   citySelected: string = ''
+  vehicles : any = []
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public cities: CitiesProvider,
+    public cart: CartProvider,
     public keyboard: Keyboard
     ) {
 
@@ -26,6 +29,7 @@ export class AvailabilityDriverPage {
 
   ionViewDidLoad(){
     this.getCities()
+    this.getVehicles()
   }
 
   getCities(){
@@ -54,6 +58,13 @@ export class AvailabilityDriverPage {
     console.log(city)
     this.citySelected = city
     this.citiesFilter = []
+  }
+
+  getVehicles(){
+    this.cart.getVehiclesList().then(res =>{
+      this.vehicles = res['data']['data']
+      console.log(JSON.stringify(this.vehicles))
+    })
   }
 
 }

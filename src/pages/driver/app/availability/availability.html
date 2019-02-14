@@ -9,11 +9,10 @@
       </ion-col>
       <ion-col col-8>
           <ion-list>
-            <ion-item>          
+            <ion-item>
               <ion-select>
-                  <ion-option value="Carry">WFR-345 - Turbo</ion-option>
-                  <ion-option value="Estacas">UIO-678 - Camión</ion-option>              
-                </ion-select>
+                  <ion-option *ngFor="let item of vehicles" value="{{item.clase_vehiculo}}">{{item.placa}} - {{item.clase_vehiculo}}</ion-option>
+              </ion-select>
             </ion-item>
         </ion-list>
       </ion-col>
@@ -26,8 +25,8 @@
       <ion-col col-8>
             <ion-item>
               <ion-label>Seleccione</ion-label>
-              <ion-datetime 
-                  displayFormat="MMM/DD" 
+              <ion-datetime
+                  displayFormat="MMM/DD"
                   doneText="Seleccionar"
                   monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Noviembre, Diciembre"
                   monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
@@ -40,13 +39,13 @@
       <ion-col col-4>
         <p class="lt">Municipio</p>
       </ion-col>
-      <ion-col col-8>        
-        
+      <ion-col col-8>
+
           <div class="autocomplete">
-            <ion-item>          
-              <ion-input 
-                type="text" 
-                [(ngModel)]="citySelected" 
+            <ion-item>
+              <ion-input
+                type="text"
+                [(ngModel)]="citySelected"
                 (ionChange)="getItems()"
                 (ionBlur)="removeFocus()"></ion-input>
             </ion-item>
@@ -65,5 +64,5 @@
   <div class="btn-container">
       <button color="statusbar" class="btn-add" ion-button full>Agregar nuevo vehículo</button>
   </div>
-  
+
 </ion-content>
