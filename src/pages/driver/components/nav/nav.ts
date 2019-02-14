@@ -54,11 +54,10 @@ export class NavDriverComponent {
     this.driver_available ? this.tx_available = 'Disponible': this.tx_available = 'Activar'
   }
 
-  availabilityChange(availability){
-    this.apiDriver.setInService(availability, this.vehicle_id).then(res =>{
-      // console.log('setInService' + JSON.stringify(res))
-      this.driver_available = availability
-      this.setAvailabilityTx()
+  availabilityChange(e, availability){
+
+    this.cart.setInService(availability, this.vehicle_id).then(res =>{
+      console.log('setInService' + JSON.stringify(res))
     })
   }
 

@@ -14,7 +14,7 @@
                 </ion-col>
                 <ion-col col-4>
                     <ion-item >
-                        <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange(driver_available)"></ion-toggle>
+                        <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange($event, driver_available)"></ion-toggle>
                     </ion-item>
                 </ion-col>
               </ion-row>

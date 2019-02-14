@@ -33,7 +33,7 @@ export const CONFIG = {
       add: '/api/v1/auth/conductores/add-vehicle',
       getVehicles: '/api/v1/auth/conductores/get-vehicles',
       getMyVehicle: '/api/v1/auth/conductores/get-my-vehicle',
-      updateVehicle: '/api/v1/auth/conductores/',
+      updateVehicle: '/api/v1/auth/conductores/update-my-vehicle',
       getMySelect: '/api/v1/auth/conductores/get-my-vehicle-select'
     },
     offer:{

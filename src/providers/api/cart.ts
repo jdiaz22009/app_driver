@@ -19,6 +19,7 @@ export class CartProvider{
   getVehicles_path: string = CONFIG.api.cart.getVehicles
   getMyVehicle_path: string = CONFIG.api.cart.getMyVehicle
   getMySelected_path: string = CONFIG.api.cart.getMySelect
+  inService_path: string = CONFIG.api.cart.updateVehicle
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -85,7 +86,23 @@ export class CartProvider{
     }catch(e){
       throw e
     }
+  }
 
+  async setInService(state, id){
+    const url = this.api_url + this.inService_path + '/'+ id
+
+    const token = await this.getToken()
+
+    const params = {
+      state: state,
+    }
+
+    const headers = { 'Authorization': token , 'content-type': 'application/json'}
+    try{
+      return await this.apiClient.request('PUT' ,url, params, headers)
+    }catch(e){
+      throw e
+    }
   }
 
 }
