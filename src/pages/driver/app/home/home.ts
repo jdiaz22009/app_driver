@@ -12,19 +12,19 @@ import { IonicPage, NavController, ModalController } from 'ionic-angular'
 export class HomeDriverPage {
 
   constructor(
-    public navCtrl: NavController,    
+    public navCtrl: NavController,
     public modalCtrl: ModalController
     ) {
 
-  }  
+  }
 
   goPage(page){
     this.navCtrl.push(page)
-  }  
+  }
 
   availability(){
     const modal = this.modalCtrl.create('AvailabilityDriverPage', null, { cssClass: 'modal-availability' })
     modal.present()
-  }  
+  }
 
 }

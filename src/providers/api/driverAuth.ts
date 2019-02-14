@@ -151,14 +151,13 @@ export class DriverAuthProvider{
     const url = this.api_url + this.inService_path
 
     const token = await this.getToken()
-    const dataUserJson = JSON.parse(token)
 
-    const params = qs.stringify({
+    const params = {
       inservice: state,
       inservice_vehicle: vehicle,
-    })
+    }
 
-    const headers = {'Authorization' : dataUserJson.token, 'content-type': 'application/x-www-form-urlencoded' }
+    const headers = { 'Authorization': token , 'content-type': 'application/json'}
     try{
       return await this.apiClient.request('POST' ,url, params, headers)
     }catch(e){

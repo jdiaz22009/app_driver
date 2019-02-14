@@ -18,6 +18,7 @@ export class CartProvider{
   getClass_path: string = CONFIG.api.cart.getClass
   getVehicles_path: string = CONFIG.api.cart.getVehicles
   getMyVehicle_path: string = CONFIG.api.cart.getMyVehicle
+  getMySelected_path: string = CONFIG.api.cart.getMySelect
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -72,6 +73,19 @@ export class CartProvider{
     }catch(e){
       throw e
     }
+  }
+
+  async getMySelected(){
+    const url = this.api_url + this.getMySelected_path
+    const token = await this.getToken()
+    const headers = { 'Authorization' : token, 'content-type': 'application/json'}
+
+    try{
+      return await this.apiClient.request('GET', url, null, headers)
+    }catch(e){
+      throw e
+    }
+
   }
 
 }
