@@ -44,7 +44,7 @@ export const CONFIG = {
       postulate: '/api/v1/offers/postulate',
       updateOfferState: '/api/v1/offers/set-step-offer',
       updateOffer: '/api/v1/offers/update-offer-state',
-      getDriverMyOffers: '/api/v1/offers/'
+      getDriverMyOffers: '/api/v1/offers/get-my-offers-conductor'
     },
     push:{
       postPush: '/api/v1/auth/push'

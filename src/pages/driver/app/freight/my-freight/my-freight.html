@@ -4,78 +4,100 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-      <div *ngIf="myOffers.length === 0">
-          <p text-center>No Tienes Ofertas</p>
+    <div padding>
+        <ion-segment [(ngModel)]="listType">
+          <ion-segment-button value="all">
+            Viajes que me interesan
+          </ion-segment-button>
+          <ion-segment-button value="assigned">
+            Viajes en curso
+          </ion-segment-button>
+          <ion-segment-button value="history">
+              Historico viajes
+            </ion-segment-button>
+        </ion-segment>
       </div>
 
-      <div *ngIf="myOffers.length > 0">
+      <!-- <div [ngSwitch]="listType"> -->
+
+          <div *ngIf="myOffers.length === 0">
+              <p text-center>No Tienes Ofertas</p>
+          </div>
 
 
-          <div *ngFor="let item of myOffers">
+          <div *ngIf="myOffers.length > 0">
 
-              <ion-card class="card-offert">
+              <div *ngFor="let item of myOffers">
 
-                  <ion-card-content>
-                    <p class="c-date" text-end>Publicado {{item.fecha_creacion | date: 'dd/MM/yy , h:mm a' }}</p>
+                  <ion-card class="card-offert">
 
-                    <ion-grid>
-                      <ion-row>
-                          <ion-col col-9>
-                              <p class="tx-title">
-                                <ion-icon name="md-pin" color="statusbar"></ion-icon>
-                                Origen
-                                <span>{{item.ciudad_origen}}</span>
-                              </p>
-                              <br>
-                              <p class="tx-title">
-                                <ion-icon name="md-pin" color="btn"></ion-icon>
-                                Destino
-                                <span>{{item.ciudad_destino}}</span>
-                              </p>
-                          </ion-col>
-                          <ion-col col-3 class="c-shared">
-                              <button ion-fab mini color="btn">
-                                  <ion-icon name="md-share"></ion-icon>
-                              </button>
-                              <p class="tx-share">Compartir</p>
-                          </ion-col>
-                      </ion-row>
+                      <ion-card-content>
+                        <p class="c-date" text-end>Publicado {{item.fecha_creacion | date: 'dd/MM/yy , h:mm a' }}</p>
 
-                      <ion-row>
-                          <ion-col col-7>
-                            <p class="tx-title">Tipo</p>
-                            <p>{{item.tipo_carroceria}}</p>
-                            <br>
-                            <p class="tx-title">Peso</p>
-                            <p>{{item.peso_carga_max}}</p>
-                            <br>
-                            <p class="tx-title">Flete</p>
-                            <p>{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
-                          </ion-col>
-                          <ion-col col-5 class="no-padding">
-                            <p class="tx-title">Carrocería</p>
-                            <p> {{item.clase_vehiculo}}</p>
-                            <br>
-                            <p class="tx-title">Fecha de Carga</p>
-                            <p>{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
-                            <br>
-                            <br>
-                            <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">
+                        <ion-grid>
+                          <ion-row>
+                              <ion-col col-9>
+                                  <p class="tx-title">
+                                    <ion-icon name="md-pin" color="statusbar"></ion-icon>
+                                    Origen
+                                    <span>{{item.ciudad_origen}}</span>
+                                  </p>
+                                  <br>
+                                  <p class="tx-title">
+                                    <ion-icon name="md-pin" color="btn"></ion-icon>
+                                    Destino
+                                    <span>{{item.ciudad_destino}}</span>
+                                  </p>
+                              </ion-col>
+                              <ion-col col-3 class="c-shared">
+                                  <button ion-fab mini color="btn">
+                                      <ion-icon name="md-share"></ion-icon>
+                                  </button>
+                                  <p class="tx-share">Compartir</p>
+                              </ion-col>
+                          </ion-row>
 
-                          </ion-col>
-                      </ion-row>
+                          <ion-row>
+                              <ion-col col-7>
+                                <p class="tx-title">Tipo</p>
+                                <p>{{item.tipo_carroceria}}</p>
+                                <br>
+                                <p class="tx-title">Peso</p>
+                                <p>{{item.peso_carga_max}}</p>
+                                <br>
+                                <p class="tx-title">Flete</p>
+                                <p>{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
+                              </ion-col>
+                              <ion-col col-5 class="no-padding">
+                                <p class="tx-title">Carrocería</p>
+                                <p> {{item.clase_vehiculo}}</p>
+                                <br>
+                                <p class="tx-title">Fecha de Carga</p>
+                                <p>{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
+                                <br>
+                                <br>
+                                <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">
 
-                    </ion-grid>
+                              </ion-col>
+                          </ion-row>
 
-                  </ion-card-content>
-              </ion-card>
+                        </ion-grid>
 
-              <hr class="c-divider">
+                      </ion-card-content>
+                  </ion-card>
 
-            </div>
+                  <hr class="c-divider">
 
-      </div>
+                </div>
+
+          </div>
+
+      <!-- </div> -->
+
+
+
+
 
 </ion-content>

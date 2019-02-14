@@ -16,6 +16,7 @@ export class FreightProvider{
   getById_path: string = CONFIG.api.offer.getById
   get_new_path: string = CONFIG.api.offer.new
   getMy_offers_path: string = CONFIG.api.offer.myOffers
+  getDriversMy_offers_path: string = CONFIG.api.offer.getDriverMyOffers
   postulate_path: string = CONFIG.api.offer.postulate
   push_path: string = CONFIG.api.push.postPush
   updateOffert_path: string = CONFIG.api.offer.updateOffer
@@ -75,6 +76,17 @@ export class FreightProvider{
     const headers = { headers: {'Authorization' : token, 'content-type': 'application/json' }}
     try{
       return await this.apiClient.get(url, null, headers)
+    }catch(e){
+      throw e
+    }
+  }
+
+  async getDriverMyOffers(){
+    const url = this.api_url + this.getDriversMy_offers_path
+    const token = await this.getToken()
+    const headers = {'Authorization' : token, 'content-type': 'application/json' }
+    try{
+      return await this.apiClient.request('GET', url, null, headers)
     }catch(e){
       throw e
     }
