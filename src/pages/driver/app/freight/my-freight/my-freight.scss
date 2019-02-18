@@ -1,5 +1,25 @@
 my-freight-driver{
 
+  .segment-md .segment-button{
+    height: 5.2rem;
+    font-size: 1.4rem;
+    text-transform: capitalize !important;
+    opacity: 1 !important;
+    line-height: 2rem;
+    padding: 5px 6px;
+    color: color($colors, txwhite);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .segment-button{
+    white-space: initial;
+  }
+
+  .segment-md .segment-button.segment-activated{
+    border-bottom-color: color($colors, btn) !important;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    color: color($colors, btnd);
+  }
+
   .card-offert{
 
     margin-top: 1rem;
@@ -52,5 +72,7 @@ my-freight-driver{
     margin-right: auto;
     width: 100%;
   }
+
+
 
 }
