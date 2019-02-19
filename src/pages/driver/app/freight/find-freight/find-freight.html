@@ -9,7 +9,7 @@
       </ion-refresher-content>  
   </ion-refresher>
 
-  <div class="card-content" *ngFor="let item of offers">
+  <div class="card-content" *ngFor="let item of offers; let i = index">
 
 
       <ion-card class="card-offert">
@@ -68,7 +68,7 @@
           </ion-card-content>
       </ion-card>
 
-      <hr class="c-divider">
+      <hr *ngIf="i != offers.length -1" class="c-divider">
 
     </div>
 
