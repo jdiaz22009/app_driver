@@ -13,6 +13,7 @@ export class DetailsFreightDriverPage {
 
   offer: any = []
   id: string
+  mode: number
   author_id: string
 
   constructor(
@@ -21,7 +22,7 @@ export class DetailsFreightDriverPage {
     public freight: FreightProvider,
     public navParams: NavParams) {
 
-
+     this.mode = this.navParams.get('mode') 
      this.id = this.navParams.get('id')
      this.getOfferById(this.id)
   }

@@ -83,6 +83,6 @@
       </ion-card-content>
   </ion-card>
 
-  <button color="btn" ion-button full (click)="accept()">Estoy Interesado</button>
+  <button *ngIf="mode === 0" color="btn" ion-button full (click)="accept()">Estoy Interesado</button>
 
 </ion-content>

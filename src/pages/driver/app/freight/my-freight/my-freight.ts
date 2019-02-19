@@ -41,8 +41,8 @@ export class MyFreightDriverPage {
     })
   }
 
-  freightDetails(){
-
+  freightDetails(freight){
+    this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 1})
   }
 
 
