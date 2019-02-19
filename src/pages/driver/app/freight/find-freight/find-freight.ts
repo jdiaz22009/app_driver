@@ -53,7 +53,7 @@ export class FindFreightDriverPage {
          const drivers = e['postulantes']
          if(drivers.length > 0){
             for(let i of drivers){
-              console.log(i)
+              // console.log(i)
               if(i._id !== userId){
                 array.push(i)
               }
@@ -78,4 +78,13 @@ export class FindFreightDriverPage {
   freightDetails(freight){
     this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id})
   }
+
+  doRefresh(refresher) {    
+    this.getFreights()
+    setTimeout(() => {
+      // console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
 }

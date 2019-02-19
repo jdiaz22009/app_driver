@@ -20,16 +20,16 @@
         </ion-segment>
       </div>
 
-      <!-- <div [ngSwitch]="listType"> -->
+      <div [ngSwitch]="listType">
 
-          <div *ngIf="myOffers.length === 0">
-              <p text-center>No Tienes Ofertas</p>
-          </div>
+          <div *ngSwitchCase="'all'">
+              <div *ngIf="allOffers.length === 0">
+                  <p text-center>No Tienes Ofertas</p>
+              </div>
 
+              <div *ngIf="allOffers.length > 0">
 
-          <div *ngIf="myOffers.length > 0">
-
-              <div *ngFor="let item of myOffers">
+              <div *ngFor="let item of allOffers">
 
                   <ion-card class="card-offert">
 
@@ -94,10 +94,21 @@
 
           </div>
 
-      <!-- </div> -->
+          </div>
 
+          <div *ngSwitchCase="'assigned'">
+              <div *ngIf="assignedOffers.length === 0">
+                  <p text-center>Aún No Tienes Ofertas Asignadas</p>
+              </div>
 
+          </div>
 
+          <div *ngSwitchCase="'history'">
+              <div *ngIf="historyOffers.length === 0">
+                  <p text-center>Aún No haz realizado ningún viaje</p>
+              </div>
+          </div>
 
+      </div>
 
 </ion-content>

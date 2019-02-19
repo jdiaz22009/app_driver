@@ -11,7 +11,13 @@ import { FreightProvider } from '@providers/api/freight'
 })
 export class MyFreightDriverPage {
 
-  myOffers: any = []
+  // myOffers: any = []
+
+  allOffers: any = []
+  assignedOffers: any = []
+  historyOffers: any = []
+
+  listType: string
 
 
   constructor(
@@ -24,13 +30,14 @@ export class MyFreightDriverPage {
   }
 
   ionViewDidLoad(){
+    this.listType = 'all'
     this.getMyOffers()
   }
 
   getMyOffers(){
     this.offer.getDriverMyOffers().then(res =>{
       // console.log(JSON.stringify(res))
-      this.myOffers = res['data']['data']
+      this.allOffers = res['data']['data']
     })
   }
 
