@@ -75,10 +75,7 @@
                                   
                               </ion-col>
                               <ion-col col-3 class="c-shared">
-                                  <button ion-fab mini color="btn">
-                                      <ion-icon name="md-share"></ion-icon>
-                                  </button>
-                                  <p class="tx-share">Compartir</p>
+                                  <img class="h-actions" src="./assets/imgs/details-chat.png">                                  
                               </ion-col>
                           </ion-row>
 
@@ -122,6 +119,92 @@
               <div *ngIf="assignedOffers.length === 0">
                   <p text-center>Aún No Tienes Ofertas Asignadas</p>
               </div>
+
+              <div *ngIf="assignedOffers.length > 0">
+
+                <div *ngFor="let item of assignedOffers; let i = index">
+  
+                    <ion-card class="card-offert">
+  
+                        <ion-card-content>
+                          <ion-grid>
+                              <ion-row>
+                                  <ion-col col-4>
+                                      <p class="c-date" text-start>{{item.pedido}} </p>
+                                  </ion-col>
+                                  <ion-col col-8>
+                                      <p class="c-date" text-end>Publicado {{item.fecha_creacion | date: 'dd/MM/yy , h:mm a'}}</p>
+                                  </ion-col>
+                              </ion-row>
+  
+                          </ion-grid>
+  
+                          <ion-grid>
+                            <ion-row>
+                                <ion-col col-9>
+                                    <ion-row>
+                                      <ion-col col-4>
+                                          <p class="tx-title tcity">
+                                              <ion-icon name="md-pin" color="statusbar"></ion-icon>
+                                              Origen                                            
+                                            </p> 
+                                      </ion-col>
+                                      <ion-col>
+                                          <p class="tx-title">{{item.ciudad_origen}}</p>
+                                        </ion-col>
+                                    </ion-row>
+  
+                                    <ion-row>
+                                        <ion-col col-4>
+                                            <p class="tx-title tcity">
+                                                <ion-icon name="md-pin" color="btn"></ion-icon>
+                                                  Destino                                           
+                                              </p> 
+                                        </ion-col>
+                                        <ion-col>
+                                            <p class="tx-title">{{item.ciudad_destino}}</p>
+                                          </ion-col>
+                                      </ion-row>
+                                    
+                                </ion-col>
+                                <ion-col col-3 class="c-shared">
+                                    <img class="h-actions" src="./assets/imgs/details-chat.png">                                    
+                                </ion-col>
+                            </ion-row>
+  
+                            <ion-row>
+                                <ion-col col-7>
+                                  <p class="tx-title">Tipo</p>
+                                  <p class="tx-summary">{{item.tipo_carroceria}}</p>
+                                  
+                                  <p class="tx-title">Peso</p>
+                                  <p class="tx-summary">{{item.peso_carga_max}}</p>
+                                  
+                                  <p class="tx-title">Flete</p>
+                                  <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
+                                </ion-col>
+                                <ion-col col-5 class="no-padding">
+                                  <p class="tx-title">Carrocería</p>
+                                  <p class="tx-summary"> {{item.clase_vehiculo}}</p>
+                                  
+                                  <p class="tx-title">Fecha de Carga</p>
+                                  <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>                                
+                                  <br>
+                                  <img (click)="freight(item)" class="f-next" src="./assets/imgs/find_next.png">
+  
+                                </ion-col>
+                            </ion-row>
+  
+                          </ion-grid>
+  
+                        </ion-card-content>
+                    </ion-card>
+  
+                    <hr *ngIf="i != assignedOffers.length -1" class="c-divider">
+  
+                  </div>
+  
+            </div>
 
           </div>
 

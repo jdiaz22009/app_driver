@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Carga</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>   
+
+      <ion-card class="card-offert">
+
+          <ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <p class="c-date" text-start>{{offer.pedido}} </p>
+                    </ion-col>
+                    <ion-col col-8>
+                        <p class="c-date" text-end>Publicado {{offer.fecha_creacion | date: 'dd/MM/yy , h:mm a'}}</p>
+                    </ion-col>
+                </ion-row>
+
+            </ion-grid>
+
+            <ion-grid>
+              <ion-row>
+                  <ion-col col-9>
+                      <ion-row>
+                        <ion-col col-4>
+                            <p class="tx-title tcity">
+                                <ion-icon name="md-pin" color="statusbar"></ion-icon>
+                                Origen                                            
+                              </p> 
+                        </ion-col>
+                        <ion-col>
+                            <p class="tx-title">{{offer.ciudad_origen}}</p>
+                          </ion-col>
+                      </ion-row>
+
+                      <ion-row>
+                          <ion-col col-4>
+                              <p class="tx-title tcity">
+                                  <ion-icon name="md-pin" color="btn"></ion-icon>
+                                    Destino                                           
+                                </p> 
+                          </ion-col>
+                          <ion-col>
+                              <p class="tx-title">{{offer.ciudad_destino}}</p>
+                            </ion-col>
+                        </ion-row>
+                      
+                  </ion-col>
+                  <ion-col col-3 class="c-shared">
+                      <button ion-fab mini color="btn">
+                          <ion-icon name="md-share"></ion-icon>
+                      </button>
+                      <p class="tx-share">Compartir</p>
+                  </ion-col>
+              </ion-row>
+
+              <ion-row>
+                  <ion-col col-6>
+                    <p class="tx-title">Fecha Cargue</p>
+                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy , h:mm a'}}</p>                    
+                  </ion-col>
+                  <ion-col col-6>                   
+                    <p class="tx-title">Fecha Descargue</p>
+                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy , h:mm a'}}</p>                                
+                  </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card-content>
+      </ion-card>
+
+
+
+</ion-content>
+
+<ion-footer>
+  <button color="btn" ion-button full (click)="changeState()">{{btnProgress}}</button>
+</ion-footer>

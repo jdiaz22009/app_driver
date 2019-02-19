@@ -5,8 +5,8 @@ export const CONFIG = {
     USER_FIRETOKEN: 'user_firetoken_key'
   },
   support:{
-    whatsapp: '+573194131358',
-    phone: '18001010101'
+    whatsapp: '+573103999999',
+    phone: '+573103999999'
   },
   api:{
     url: 'http://142.93.52.217',

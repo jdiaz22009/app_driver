@@ -141,14 +141,33 @@ export class FreightProvider{
     }
   }
 
-  async updateOfferState(id){
+
+
+  /**
+   * 
+   * @param {string} id - offer id
+   * @param {string} state -
+     * Asignación aceptada  '6'
+     * En Camino a Cargar   '7'
+     * En origen            '8'
+     * Cargando             '9'
+     * En tránsito          '13'
+     * En destino           '14'
+     * Descargando          '15'
+     * Descargado           '16'
+     * Cumplido enviado     '17'
+     * Cumplido aprobado    '18'
+     * Calificación Empresa '19'
+   *  
+   */
+  async updateOfferState(id, state){
 
     const url = this.api_url + this.updateOffert_path + '/' + id
     const token = await this.getToken()
-    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}   
 
     const params = qs.stringify({
-      id: '2',
+      id: state,
       type: 2
     })
 
@@ -157,6 +176,7 @@ export class FreightProvider{
     }catch(e){
       throw e
     }
-
   }
+
+
 }

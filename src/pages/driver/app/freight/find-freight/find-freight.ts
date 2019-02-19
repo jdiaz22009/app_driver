@@ -1,8 +1,8 @@
-import { CONFIG } from '@providers/config';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import 'rxjs/add/operator/map'
 
+import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
 import { FreightProvider } from '@providers/api/freight'
 
