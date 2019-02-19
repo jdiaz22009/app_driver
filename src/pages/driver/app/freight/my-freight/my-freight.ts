@@ -36,12 +36,13 @@ export class MyFreightDriverPage {
 
   getMyOffers(){
     this.offer.getDriverMyOffers().then(res =>{
-      // console.log(JSON.stringify(res))
+      console.log(JSON.stringify(res))
       this.allOffers = res['data']['data']
     })
   }
 
   freightDetails(freight){
+    console.log('epaaa')
     this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 1})
   }
 

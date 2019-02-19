@@ -51,6 +51,19 @@ my-freight-driver{
   .tx-title{
     color: color($colors, title) !important;
     font-weight: 500 !important;
+
+    span{
+      margin-left: 1rem;
+    }
+  }
+
+  .tx-summary{
+    color: color($colors, title) !important;
+    font-weight: 400 !important;
+  }
+
+  .tcity{
+    margin-bottom: 0.5rem;
   }
 
   .tx-share{
