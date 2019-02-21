@@ -15,22 +15,22 @@
                   </ion-col>
                   <ion-col col-4>
                       <p class="tx-title">Placa</p>
-                      <br>
+
                       <p class="tx-title">Tipo</p>
-                      <br>
+
                       <p class="tx-title">Carrocería</p>
-                      <br>
+
                       <p class="tx-title">Disponible</p>
                   </ion-col>
                   <ion-col col-4>
                       <p class="tx-summary">{{vehicle.placa}}</p>
-                      <br>
+
                       <p class="tx-summary">{{vehicle.clase_vehiculo}}</p>
-                      <br>
+
                       <p class="tx-summary">{{vehicle.tipo_carroceria}}</p>
-                      <br>
-                      <p *ngIf="vehicle.state" class="tx-y">si</p>
-                      <p *ngIf="!vehicle.state" class="tx-n">no</p>
+
+                      <p *ngIf="vehicle.state" class="tx-y">Si</p>
+                      <p *ngIf="!vehicle.state" class="tx-n">No</p>
                   </ion-col>
               </ion-row>
 
