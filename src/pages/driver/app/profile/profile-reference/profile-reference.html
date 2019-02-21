@@ -10,6 +10,45 @@
 </ion-header>
 
 <ion-content>
+    <p text-center>Referencia 1</p>
+
+    <ion-row>
+        <ion-col col-12>
+            <form [formGroup]="referenceForm">
+                <ion-item class=l-item>
+                    <ion-label stacked>Número celular</ion-label>
+                    <ion-input [formControl]="bankForm.controls['phone']" type="tel"></ion-input>
+                </ion-item>
+
+                <ion-item class=l-item>
+                    <ion-label stacked>Nombre banco </ion-label>
+                    <ion-input type="text" [formControl]="bankForm.controls['bank']"></ion-input>
+                </ion-item>
+
+                <ion-item class=l-item>
+                    <ion-label stacked>Número de cuenta</ion-label>
+                    <ion-input type="text" [formControl]="bankForm.controls['account']"></ion-input>
+                </ion-item>
+
+                <ion-item class=l-item>
+                    <ion-label stacked>Nombre titular</ion-label>
+                    <ion-input type="text" [formControl]="bankForm.controls['name']" ></ion-input>
+                </ion-item>
+
+                <ion-item class=l-item>
+                    <ion-label stacked>Cédula titular</ion-label>
+                    <ion-input type="text" [formControl]="bankForm.controls['id']"></ion-input>
+                </ion-item>
+
+                <ion-item class=l-item>
+                    <ion-label stacked>Tipo cuenta</ion-label>
+                    <ion-input type="tel" [formControl]="bankForm.controls['account_type']" ></ion-input>
+                </ion-item>
+              </form>
+        </ion-col>
+      </ion-row>
+
+
 
 
 

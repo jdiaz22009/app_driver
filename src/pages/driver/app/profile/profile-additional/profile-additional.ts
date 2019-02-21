@@ -27,6 +27,32 @@ export class ProfileAdditionalDriverPage {
   ]
   step_img: string = this.step_images[0]
 
+  gender_options = [
+    {value: 'Femenino', name: 'Femenino'},
+    {value: 'Masculino', name: 'Masculino'},
+  ]
+
+  blob_types = [
+    {value: 'A+', name: 'A+'},
+    {value: 'A-', name: 'A-'},
+    {value: 'B+', name: 'B+'},
+    {value: 'B-', name: 'B-'},
+    {value: 'O+', name: 'O+'},
+    {value: 'O-', name: 'O-'},
+    {value: 'AB+', name: 'AB+'},
+    {value: 'AB-', name: 'AB-'},
+  ]
+
+  plate_category = [
+    {value: 'B1', name: 'B1'},
+    {value: 'B2', name: 'B2'},
+    {value: 'B3', name: 'B3'},
+    {value: 'C1', name: 'C1'},
+    {value: 'C2', name: 'C2'},
+    {value: 'C3', name: 'C3'},
+  ]
+
+
   user: any
 
   constructor(
@@ -57,8 +83,6 @@ export class ProfileAdditionalDriverPage {
         this.profileForm_0.controls['license_expiration'].setValue(this.user.vencimiento_licencia)
         this.profileForm_0.controls['rh'].setValue(this.user.tipo_sangre)
         this.profileForm_0.controls['gender'].setValue(this.user.genero)
-
-
       }
   }
 
@@ -176,6 +200,20 @@ export class ProfileAdditionalDriverPage {
 
   scrollToTop() {
     this.content.scrollToTop()
+  }
+
+  toCapitalize(v, property){
+    let value
+    if(typeof(v) === 'string'){
+      value = v.charAt(0).toUpperCase() + v.slice(1)
+    }else if(typeof(v) === 'object'){
+      value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
+    }
+    if(this.profileForm.controls[property] !== undefined){
+      this.profileForm.controls[property].setValue(value)
+    }else if(this.profileForm_0.controls[property] !== undefined){
+      this.profileForm_0.controls[property].setValue(value)
+    }
   }
 
 }

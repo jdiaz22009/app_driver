@@ -21,32 +21,56 @@
               <form [formGroup]="profileForm">
                   <ion-item class=l-item>
                       <ion-label stacked>Fecha expedición documento</ion-label>
-                      <ion-input [formControl]="profileForm.controls['date']" type="tel"></ion-input>
+                      <ion-datetime
+                        [formControl]="profileForm.controls['date']"
+                        displayFormat="DD/MM/YYYY"
+                        pickerFormat="DD MM YYYY"
+                        doneText="Seleccionar"
+                        cancelText="Cancelar">
+                      </ion-datetime>
                   </ion-item>
 
                   <ion-item class=l-item>
                           <ion-label stacked>Lugar expedición documento </ion-label>
-                          <ion-input type="text" [formControl]="profileForm.controls['place']"></ion-input>
+                          <ion-input
+                            [formControl]="profileForm.controls['place']"
+                            (ionChange)="toCapitalize($event, 'place')"
+                            type="text" >
+                          </ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>País de residencia</ion-label>
-                      <ion-input type="text" [formControl]="profileForm.controls['country']"></ion-input>
+                      <ion-input
+                        [formControl]="profileForm.controls['country']"
+                        (ionChange)="toCapitalize($event, 'country')"
+                        type="text" ></ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Departamento de residencia </ion-label>
-                      <ion-input type="text" [formControl]="profileForm.controls['state']" ></ion-input>
+                      <ion-input
+                        [formControl]="profileForm.controls['state']"
+                        (ionChange)="toCapitalize($event, 'state')"
+                        type="text"></ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Ciudad de residencia</ion-label>
-                      <ion-input type="text" [formControl]="profileForm.controls['city']"></ion-input>
+                      <ion-input
+                        [formControl]="profileForm.controls['city']"
+                        (ionChange)="toCapitalize($event, 'city')"
+                        type="text">
+                      </ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Dirección de residencia </ion-label>
-                      <ion-input type="text" [formControl]="profileForm.controls['address']" ></ion-input>
+                      <ion-input
+                        [formControl]="profileForm.controls['address']"
+                        (ionChange)="toCapitalize($event, 'address')"
+                        type="text" >
+                      </ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
@@ -60,22 +84,40 @@
               <form [formGroup]="profileForm_0">
                   <ion-item class=l-item>
                       <ion-label stacked>Fecha de nacimiento</ion-label>
-                      <ion-input [formControl]="profileForm_0.controls['date']" type="tel"></ion-input>
+                      <ion-datetime
+                        [formControl]="profileForm_0.controls['date']"
+                        displayFormat="DD/MM/YYYY"
+                        pickerFormat="DD MM YYYY"
+                        doneText="Seleccionar"
+                        cancelText="Cancelar">
+                      </ion-datetime>
+
                   </ion-item>
 
                   <ion-item class=l-item>
                           <ion-label stacked>Lugar de nacimiento </ion-label>
-                          <ion-input type="text" [formControl]="profileForm_0.controls['place']"></ion-input>
+                          <ion-input
+                            [formControl]="profileForm_0.controls['place']"
+                            (ionChange)="toCapitalize($event, 'place')"
+                            type="text"></ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Nombre ARL</ion-label>
-                      <ion-input type="text" [formControl]="profileForm_0.controls['arl']"></ion-input>
+                      <ion-input
+                        [formControl]="profileForm_0.controls['arl']"
+                        (ionChange)="toCapitalize($event, 'arl')"
+                        type="text">
+                      </ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Nombre EPS </ion-label>
-                      <ion-input type="text" [formControl]="profileForm_0.controls['eps']" ></ion-input>
+                      <ion-input
+                        [formControl]="profileForm_0.controls['eps']"
+                        (ionChange)="toCapitalize($event, 'eps')"
+                        type="text">
+                      </ion-input>
                   </ion-item>
 
                   <ion-item class=l-item>
@@ -85,22 +127,35 @@
 
                   <ion-item class=l-item>
                       <ion-label stacked>Categoría Licencia</ion-label>
-                      <ion-input type="tel" [formControl]="profileForm_0.controls['license_category']" ></ion-input>
+                      <ion-select [formControl]="profileForm_0.controls['license_category']">
+                          <ion-option *ngFor="let item of plate_category" value="{{item.value}}">{{item.name}}</ion-option>
+                      </ion-select>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Vencimiento Licencia</ion-label>
-                      <ion-input type="email" [formControl]="profileForm_0.controls['license_expiration']"></ion-input>
+                      <ion-datetime
+                        [formControl]="profileForm_0.controls['license_expiration']"
+                        displayFormat="DD/MM/YYYY"
+                        pickerFormat="DD MM YYYY"
+                        max="2035-12-19"
+                        doneText="Seleccionar"
+                        cancelText="Cancelar">
+                      </ion-datetime>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Tipo de Sangre</ion-label>
-                      <ion-input type="tel" [formControl]="profileForm_0.controls['rh']" ></ion-input>
+                      <ion-select [formControl]="profileForm_0.controls['rh']">
+                          <ion-option *ngFor="let item of blob_types" value="{{item.value}}">{{item.name}}</ion-option>
+                      </ion-select>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Género</ion-label>
-                      <ion-input type="tel" [formControl]="profileForm_0.controls['gender']" ></ion-input>
+                      <ion-select [formControl]="profileForm_0.controls['gender']">
+                          <ion-option *ngFor="let item of gender_options" value="{{item.value}}">{{item.name}}</ion-option>
+                      </ion-select>
                   </ion-item>
                 </form>
           </div>

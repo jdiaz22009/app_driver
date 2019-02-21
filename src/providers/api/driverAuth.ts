@@ -181,7 +181,6 @@ export class DriverAuthProvider{
      const url = this.api_url + this.updatedrivers_path
      const token = await this.getToken()
 
-     const dataUserJson = JSON.parse(token)
      const params = {
        primer_nombre: driver.first_name,
        segundo_nombre: driver.second_name,
@@ -189,10 +188,10 @@ export class DriverAuthProvider{
        segundo_apellido: driver.second_lastname,
        celular: driver.mobil
      }
-     const headers = {headers:{'Authorization' : dataUserJson.token, 'content-type': 'application/json'} }
+     const headers = { headers: {'Authorization' : token, 'content-type': 'application/json' }}
 
      try {
-       return await this.apiClient.request('PUT', url,params,headers)
+       return await this.apiClient.request('PUT', url, params, headers)
      } catch (e) {
        throw e
      }
