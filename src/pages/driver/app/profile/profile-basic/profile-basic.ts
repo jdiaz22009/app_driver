@@ -68,10 +68,11 @@ export class ProfileBasicPage {
     const profileInput = this.profileForm.controls
 
     profileInput['id'].setValue(user.documento)
-    profileInput['first_name'].setValue(user.primer_nombre)
-    profileInput['second_name'].setValue(user.segundo_nombre)
-    profileInput['first_lastname'].setValue(user.primer_apellido)
-    profileInput['second_lastname'].setValue(user.segundo_apellido)
+    this.toCapitalize(user.primer_nombre, 'first_name')
+    this.toCapitalize(user.segundo_nombre, 'second_name')
+    this.toCapitalize(user.primer_apellido, 'first_lastname')
+    this.toCapitalize(user.segundo_apellido, 'second_lastname')
+
     profileInput['mobil'].setValue(user.celular)
     profileInput['email'].setValue(user.email)
   }
@@ -88,6 +89,18 @@ export class ProfileBasicPage {
     this.auth.upatedrivers(this.userProfile).then(res=> {
       console.log(JSON.stringify(res))
     }).catch(e => console.error(e))
+  }
+
+  toCapitalize(v, property){
+    let value
+    if(typeof(v) === 'string'){
+      value = v.charAt(0).toUpperCase() + v.slice(1)
+    }else if(typeof(v) === 'object'){
+      value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
+    }
+    if(this.profileForm.controls[property] !== undefined){
+      this.profileForm.controls[property].setValue(value)
+    }
   }
 
 }

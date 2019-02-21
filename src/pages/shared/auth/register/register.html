@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-navbar>        
+    <ion-navbar>
         <ion-title>Creación de Cuenta</ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>             
+<ion-content padding>
     <img src="./assets/imgs/img-top-crear-cuenta.png">
-    
+
     <ion-grid>
         <ion-row>
             <ion-col col-12>
@@ -14,31 +14,47 @@
                 <form [formGroup]="registerForm">
                     <ion-item class=l-item>
                         <ion-label stacked>Confirmar número de cédula</ion-label>
-                        <ion-input 
-                            [formControl]="registerForm.controls['id']" 
+                        <ion-input
+                            [formControl]="registerForm.controls['id']"
                             (ionBlur)="checkId()"
                             type="tel">
                         </ion-input>
-                    </ion-item>         
-            
+                    </ion-item>
+
                     <ion-item class=l-item>
                         <ion-label stacked>Primer Nombre <small class="l-requerido">*</small></ion-label>
-                        <ion-input [formControl]="registerForm.controls['first_name']" type="text"></ion-input>
+                        <ion-input
+                          [formControl]="registerForm.controls['first_name']"
+                          (ionChange)="toCapitalize($event, 'first_name')"
+                          type="text">
+                        </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Segundo Nombre</ion-label>
-                        <ion-input [formControl]="registerForm.controls['second_name']" type="text"></ion-input>
+                        <ion-input
+                          [formControl]="registerForm.controls['second_name']"
+                          (ionChange)="toCapitalize($event, 'second_name')"
+                          type="text">
+                        </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Primer Apellido <small class="l-requerido">*</small></ion-label>
-                        <ion-input [formControl]="registerForm.controls['first_lastname']" type="text"></ion-input>
+                        <ion-input
+                          [formControl]="registerForm.controls['first_lastname']"
+                          (ionChange)="toCapitalize($event, 'first_lastname')"
+                          type="text">
+                        </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Segundo Apellido</ion-label>
-                        <ion-input [formControl]="registerForm.controls['second_lastname']" type="text"></ion-input>
+                        <ion-input
+                          [formControl]="registerForm.controls['second_lastname']"
+                          (ionChange)="toCapitalize($event, 'second_lastname')"
+                          type="text">
+                        </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
@@ -53,15 +69,15 @@
 
                     <div *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.dirty">
                         Please enter a valid email.
-                    </div>                   
+                    </div>
 
-                  </form>           
-            
+                  </form>
+
                 <button margin-top (click)="register()" [disabled]="!registerForm.valid" ion-button full color="btn">Crear Cuenta</button>
 
             </ion-col>
         </ion-row>
     </ion-grid>
-    
+
 </ion-content>
 

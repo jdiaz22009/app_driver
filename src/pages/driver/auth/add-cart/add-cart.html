@@ -20,35 +20,11 @@
                         <ion-item class=l-item (click)="showModal(0)">
                             <ion-label stacked>Clase de vehículo <sup>*</sup></ion-label>
                             <ion-input [formControl]="cartForm.controls['type']" disabled="true"></ion-input>
-                            <!-- <ion-select [formControl]="cartForm.controls['type']" disabled="true"> -->
-                              <!-- <ion-option value="Camioneta">Camioneta</ion-option>
-                              <ion-option value="Mini turbo">Mini turbo</ion-option>
-                              <ion-option value="Sencillo">Sencillo</ion-option>
-                              <ion-option value="Doble Troque">Doble Troque</ion-option>
-                              <ion-option value="Cuatro Manos">Cuatro Manos</ion-option>
-                              <ion-option value="Minimula">Minimula</ion-option>
-                              <ion-option value="Tracto Camión">Tracto Camión</ion-option> -->
-                            <!-- </ion-select> -->
-
                         </ion-item>
 
                         <ion-item class=l-item (click)="showModal(1)">
                             <ion-label stacked>Tipo de carroceria <sup>*</sup></ion-label>
                             <ion-input [formControl]="cartForm.controls['bodywork']" disabled="true"></ion-input>
-                            <!-- <ion-select [formControl]="cartForm.controls['bodywork']" disabled="true"> -->
-                                <!-- <ion-option value="Carry">Carry</ion-option>
-                                <ion-option value="Estacas">Estacas</ion-option>
-                                <ion-option value="Furgón">Furgón</ion-option>
-                                <ion-option value="Furgón Refrigerado">Furgón Refrigerado</ion-option>
-                                <ion-option value="Platón">Platón</ion-option>
-                                <ion-option value="Plancha">Plancha</ion-option>
-                                <ion-option value="Cisterna">Cisterna</ion-option>
-                                <ion-option value="Tanque">Tanque</ion-option>
-                                <ion-option value="Volco">Volco</ion-option>
-                                <ion-option value="Contenedor">Contenedor</ion-option>
-                                <ion-option value="Cama Baja">Cama Baja</ion-option>
-                                <ion-option value="Niñera">Niñera</ion-option> -->
-                              <!-- </ion-select> -->
                         </ion-item>
 
                         <ion-item class=l-item>
@@ -58,7 +34,11 @@
 
                         <ion-item class=l-item>
                             <ion-label stacked>Marca <sup>*</sup></ion-label>
-                            <ion-input [formControl]="cartForm.controls['brand']" type="text"></ion-input>
+                            <ion-input
+                              [formControl]="cartForm.controls['brand']"
+                              (ionChange)="toCapitalize($event, 'brand')"
+                              type="text">
+                            </ion-input>
                         </ion-item>
 
                       </form>

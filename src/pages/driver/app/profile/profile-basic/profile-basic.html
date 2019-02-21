@@ -18,22 +18,40 @@
 
                       <ion-item class=l-item>
                               <ion-label stacked>Primer Nombre </ion-label>
-                              <ion-input type="text" [formControl]="profileForm.controls['first_name']"></ion-input>
+                              <ion-input
+                                [formControl]="profileForm.controls['first_name']"
+                                (ionChange)="toCapitalize($event, 'first_name')"
+                                type="text"
+                                class="t-capitalize">
+                              </ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Segundo Nombre</ion-label>
-                          <ion-input type="text" [formControl]="profileForm.controls['second_name']"></ion-input>
+                          <ion-input
+                            [formControl]="profileForm.controls['second_name']"
+                            (ionChange)="toCapitalize($event, 'second_name')"
+                            type="text"
+                            class="t-capitalize">
+                          </ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Primer Apellido </ion-label>
-                          <ion-input type="text" [formControl]="profileForm.controls['first_lastname']" ></ion-input>
+                          <ion-input
+                            [formControl]="profileForm.controls['first_lastname']"
+                            (ionChange)="toCapitalize($event, 'first_lastname')"
+                            type="text">
+                          </ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>
                           <ion-label stacked>Segundo Apellido</ion-label>
-                          <ion-input type="text" [formControl]="profileForm.controls['second_lastname']"></ion-input>
+                          <ion-input
+                            [formControl]="profileForm.controls['second_lastname']"
+                            (ionChange)="toCapitalize($event, 'second_lastname')"
+                            type="text">
+                          </ion-input>
                       </ion-item>
 
                       <ion-item class=l-item>

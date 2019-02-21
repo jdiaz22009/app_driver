@@ -140,4 +140,11 @@ export class RegisterSharedPage {
       })
     }
 
+    toCapitalize(v, property){
+      const value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
+      if(this.registerForm.controls[property] !== undefined){
+        this.registerForm.controls[property].setValue(value)
+      }
+    }
+
 }

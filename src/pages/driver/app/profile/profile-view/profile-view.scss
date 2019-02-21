@@ -2,7 +2,7 @@ profile-driver {
 
   .g-info{
     padding: 0!important;
-  } 
+  }
 
   .c-user{
     margin-top: 1rem;
@@ -12,11 +12,16 @@ profile-driver {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;    
+    width: 70%;
   }
 
   .tx-green{
     color: color($colors, btn);
+    font-weight: bold;
+  }
+
+  .tx-red{
+    color: red;
   }
 
   .tx-title{
@@ -31,7 +36,12 @@ profile-driver {
   }
 
   .c-info{
-    background-color: #d0d6da;    
+    background-color: #d0d6da;
+    padding: 0.5rem 0;
+
+    p{
+      margin: 0 !important;
+    }
   }
 
   .tx-title{
@@ -52,13 +62,13 @@ profile-driver {
 
   .tx-n{
     color: red;
-  } 
+  }
   .tx-y{
     color: green;
   }
 
   .item-md ion-thumbnail[item-start] {
-    margin: 0!important;
+    margin: 0 3rem 0 0!important;
   }
 
   .item-md ion-thumbnail{
@@ -66,18 +76,18 @@ profile-driver {
     min-height: 0!important;
   }
 
-  .details-item{    
+  .details-item{
 
     .item-thumb{
-      width: 30% !important;
-      height: 10% !important;
+      width: 90% !important;
+      height: 50% !important;
       margin: 1rem !important;
     }
 
   }
 
   .item ion-thumbnail[item-start] {
-    width: 29% !important;
+    width: 10% !important;
   }
 
 }

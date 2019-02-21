@@ -14,6 +14,7 @@ import { DriverAuthProvider } from '@providers/api/driverAuth'
 export class ProfileDriverPage {
 
   dataUser = {}  as DataUser
+  driver_name: string = ''
   data: any = [
     {thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Edita datos del conductor', page: 'ProfileBasicPage'},
     {thumb: './assets/imgs/perfil4.png', title: 'Mis datos Complementarios', summary: 'Edita datos complementarios del conductor', page: 'ProfileAdditionalDriverPage'},
@@ -41,6 +42,7 @@ export class ProfileDriverPage {
     this.auth.getDriver().then(res =>{
       console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
+      this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' '  + this.toCapitalize(this.userData.segundo_nombre)
     })
   }
 
@@ -51,6 +53,10 @@ export class ProfileDriverPage {
     }else{
       this.navCtrl.push(page)
     }
+  }
+
+  toCapitalize(v){
+      return v.charAt(0).toUpperCase() + v.slice(1)
   }
 
 }

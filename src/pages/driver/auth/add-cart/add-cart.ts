@@ -180,4 +180,11 @@ export class AddCartDriverPage {
       })
     }
 
+    toCapitalize(v, property){
+      const value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
+      if(this.cartForm.controls[property] !== undefined){
+        this.cartForm.controls[property].setValue(value)
+      }
+    }
+
 }
