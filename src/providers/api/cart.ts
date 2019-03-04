@@ -17,6 +17,7 @@ export class CartProvider{
   add_path: string = CONFIG.api.cart.add
   getClass_path: string = CONFIG.api.cart.getClass
   getVehicles_path: string = CONFIG.api.cart.getVehicles
+  updateVehicle_path: string = CONFIG.api.cart.updateVehicle
   getMyVehicle_path: string = CONFIG.api.cart.getMyVehicle
   getMySelected_path: string = CONFIG.api.cart.getMySelect
   inService_path: string = CONFIG.api.cart.updateVehicle
@@ -61,6 +62,41 @@ export class CartProvider{
     try{
       return await this.apiClient.get(url, null, null)
     }catch(e){
+      throw e
+    }
+  }
+
+  async getVehicleById(id){
+    const url = this.api_url + this.getMyVehicle_path + '/' + id
+    const token = await this.getToken()
+
+    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+
+    try {
+      return await this.apiClient.request('GET', url, null, headers)
+    } catch (e) {
+      throw e
+    }
+
+  }
+
+  async updateVehicle(cart, id){
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+
+    const params = {
+      placa: cart.license_plate,
+      clase_vehiculo: cart.type,
+      tipo_carroceria: cart.bodywork,
+      modelo: cart.model,
+      marca: cart.brand
+    }
+
+    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
       throw e
     }
   }

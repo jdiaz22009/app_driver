@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
+import { CartProvider } from '@providers/api/cart'
+
 @IonicPage()
 @Component({
   selector: 'details-vehicles',
@@ -16,13 +18,26 @@ export class DetailsVehiclesDriverPage {
   ]
 
   vehicle: any
+  showInformation: boolean = false
 
   constructor(
     public navCtrl: NavController,
+    public cartApi: CartProvider,
     public navParams: NavParams) {
 
-      this.vehicle = this.navParams.get('vehicle')
-      console.log(this.vehicle)
+  }
+
+  ionViewDidEnter(){
+    const cart = this.navParams.get('vehicle')
+    this.getVehicle(cart._id)
+  }
+
+  getVehicle(id){
+    this.cartApi.getVehicleById(id).then(res =>{
+      this.vehicle = res['data']
+      this.showInformation = true
+      console.log(JSON.stringify(res))
+    })
   }
 
   goPage(page){

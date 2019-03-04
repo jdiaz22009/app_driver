@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Cart } from '@models/cart'
 
+import { AlertsProvider } from '@providers/alerts'
+import { CartProvider } from '@providers/api/cart'
+
 @IonicPage()
 @Component({
   selector: 'information-vehicle',
@@ -24,9 +27,12 @@ export class InformationVehiclesDriverPage {
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
+    public alert: AlertsProvider,
+    public cartApi: CartProvider,
     public navParams: NavParams) {
 
       this.vehicle = navParams.get('vehicle')
+      console.log(this.vehicle)
 
       this.cartForm = this.formBuilder.group({
         license_plate: ['', Validators.compose([
@@ -49,7 +55,7 @@ export class InformationVehiclesDriverPage {
 
   onChangePlate(v){
     let plate = v._value.toString().toUpperCase()
-    const prev = this.cartForm.controls['license_plate'].value
+    // const prev = this.cartForm.controls['license_plate'].value
     if(plate.length <= 7){
 
       if(plate.length < 3){
@@ -78,6 +84,17 @@ export class InformationVehiclesDriverPage {
       this.cart.bodywork = this.cartForm.controls['bodywork'].value
       this.cart.model = this.cartForm.controls['model'].value
       this.cart.brand = this.cartForm.controls['brand'].value
+
+      this.cartApi.updateVehicle(this.cart, this.vehicle._id).then(res =>{
+        console.log(JSON.stringify(res))
+        this.navCtrl.pop()
+        loader.dismiss()
+        this.alert.showAlert('Vehículo Actualizado', 'Se ha actualizado tu vehículo correctamente')
+      }).catch(e =>{
+        console.error(e)
+        loader.dismiss()
+        this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tu vehículo, intenta de nuevo.')
+      })
 
   }
 
