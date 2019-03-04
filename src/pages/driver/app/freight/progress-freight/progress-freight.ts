@@ -2,8 +2,6 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
 import { FreightProvider } from '@providers/api/freight'
-import { ThrowStmt } from '@angular/compiler';
-
 
 @IonicPage()
 @Component({
@@ -35,12 +33,12 @@ export class ProgressFreightDriverPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public freight: FreightProvider,    
+    public freight: FreightProvider,
     ) {
 
     this.id = this.navParams.get('id')
     this.getOfferById(this.id)
-  }  
+  }
 
   getOfferById(id){
     this.freight.getOfferById(id).then(res =>{
@@ -52,10 +50,10 @@ export class ProgressFreightDriverPage {
       switch (this.freight_state) {
         case 4:
           this.btnProgress = this.progress[0]
-        break;      
+        break;
         case 5:
           this.btnProgress = this.progress[1]
-        break;      
+        break;
         default:
           this.btnProgress = this.progress[0]
           break;

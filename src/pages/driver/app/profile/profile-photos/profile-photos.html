@@ -18,11 +18,11 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="idFront" (click)="setPicture('idFront')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" src="./assets/imgs/no_photo.png" (click)="setPicture('idBack')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>

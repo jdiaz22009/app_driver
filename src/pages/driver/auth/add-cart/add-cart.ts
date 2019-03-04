@@ -131,10 +131,10 @@ export class AddCartDriverPage {
 
     onChangePlate(v){
       let plate = v._value.toString().toUpperCase()
-      const prev = this.cartForm.controls['license_plate'].value
+      // const prev = this.cartForm.controls['license_plate'].value
       if(plate.length <= 7){
 
-        console.log(plate + ' ' + plate.length +' ' + prev)
+        // console.log(plate + ' ' + plate.length +' ' + prev)
 
         if(plate.length < 3){
           this.prevPlate = false

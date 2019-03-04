@@ -11,6 +11,7 @@ import { Keyboard } from '@ionic-native/keyboard'
 import { IonicStorageModule } from '@ionic/storage'
 import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
+import { Camera } from '@ionic-native/camera'
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -45,6 +46,7 @@ import { MyApp } from './app.component'
     SocialSharing,
     FCM,
     LocalNotifications,
+    Camera,
     API_MODULE,
     PROVIDERS_MODULE
   ]

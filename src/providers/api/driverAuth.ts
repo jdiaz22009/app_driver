@@ -207,6 +207,8 @@ export class DriverAuthProvider{
         pais: driver.pais,
         departamento: driver.departamento,
         ciudad: driver.ciudad,
+        direccion: driver.direccion,
+        telefono_1: driver.telefono_1,
         fecha_nacimiento: driver.fecha_nacimiento,
         lugar_nacimiento: driver.lugar_nacimiento,
         nombre_arl: driver.nombre_arl,

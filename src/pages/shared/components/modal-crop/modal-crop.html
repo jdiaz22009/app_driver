@@ -1,0 +1,30 @@
+<ion-content>
+
+    <div class="all-content">
+        <div class="image-up" *ngIf="data.image" [class.rounded]="cropperSettings.rounded">
+            <!-- <img [src]="data.image" [width]="croppedWidth" [height]="croppedHeight"> -->
+        </div>
+
+        <div class="ctn-crop">
+            <img-cropper #cropper [image]="data" [settings]="cropperSettings" (onCrop)="handleCropping($event)"></img-cropper>
+        </div>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-grid>
+        <ion-row align-items>
+            <ion-col col-6 style="justify-content: center; display: flex; align-items: center; border-right: 0.5px solid #E7E7E7; height: 72px">
+                <button class="btn" (click)="closeModal()" type="submit" block>
+                    <span class="text">Cancelar</span>
+                </button>
+            </ion-col>
+            <ion-col col-6 style="justify-content: center; display: flex;">
+                <button class="btn" *ngIf="canSave" (click)="save()" type="submit" block >
+                    <span class="text">Guardar</span>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

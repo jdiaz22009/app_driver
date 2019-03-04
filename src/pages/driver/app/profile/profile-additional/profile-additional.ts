@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core'
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, Content, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { DataUserC } from '@models/dataUserC'
 
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { AlertsProvider } from '@providers/alerts'
 
 @IonicPage()
 @Component({
@@ -59,6 +60,8 @@ export class ProfileAdditionalDriverPage {
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
     public auth: DriverAuthProvider,
+    public loadingCtrl: LoadingController,
+    public alert: AlertsProvider,
     public navParams: NavParams) {
 
       this.setForms()
@@ -188,12 +191,18 @@ export class ProfileAdditionalDriverPage {
       this.driver.tipo_sangre = this.profileForm_0.controls['rh'].value
       this.driver.genero = this.profileForm_0.controls['gender'].value
 
+      const loader = this.loadingCtrl.create({})
+      loader.present()
 
       this.auth.updateDriverC(this.driver).then(res =>{
         console.log(res)
         console.log(JSON.stringify(res))
+        loader.dismiss()
+        this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
       }).catch(e =>{
         console.error(e)
+        loader.dismiss()
+        this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tus datos, intenta de nuevo.')
       })
     }
   }

@@ -7,7 +7,8 @@ import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 
 import { FIREBASE_CONFIG } from './app.firebase.config'
-import firebase from 'firebase/app'
+// import firebase from 'firebase/app'
+import * as firebase from 'firebase'
 
 import { AlertsProvider } from '@providers/alerts'
 import { StorageDb } from '@providers/storageDb'
@@ -31,11 +32,11 @@ export class MyApp {
     private localNotifications: LocalNotifications,
     public splashScreen: SplashScreen) {
 
-    this.initializeApp()
+    this.loadApp()
   }
 
 
-  initializeApp() {
+  loadApp() {
     this.platform.ready().then(() => {
 
       if (this.platform.is('cordova')) {
