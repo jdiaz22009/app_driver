@@ -10,46 +10,142 @@
 </ion-header>
 
 <ion-content>
-    <p text-center>Referencia 1</p>
 
     <ion-row>
         <ion-col col-12>
             <form [formGroup]="referenceForm">
-                <ion-item class=l-item>
-                    <ion-label stacked>Número celular</ion-label>
-                    <ion-input [formControl]="bankForm.controls['phone']" type="tel"></ion-input>
-                </ion-item>
 
-                <ion-item class=l-item>
-                    <ion-label stacked>Nombre banco </ion-label>
-                    <ion-input type="text" [formControl]="bankForm.controls['bank']"></ion-input>
-                </ion-item>
+                <ion-row>
+                    <ion-col col-12>
+                        <p class="tx-title" text-center>Referencia 1</p>
+                    </ion-col>
+                </ion-row>
 
-                <ion-item class=l-item>
-                    <ion-label stacked>Número de cuenta</ion-label>
-                    <ion-input type="text" [formControl]="bankForm.controls['account']"></ion-input>
-                </ion-item>
+                <ion-row>
+                  <ion-col col-6>
+                      <ion-item class=l-item>
+                          <ion-label stacked>Nombre</ion-label>
+                          <ion-input
+                            [formControl]="referenceForm.controls['name']"
+                            (ionChange)="toCapitalize($event, 'name')"
+                            type="text">
+                          </ion-input>
+                      </ion-item>
+                  </ion-col>
+                  <ion-col col-6>
+                      <ion-item class=l-item>
+                          <ion-label stacked>Empresa </ion-label>
+                          <ion-input
+                            [formControl]="referenceForm.controls['company']"
+                            (ionChange)="toCapitalize($event, 'company')"
+                            type="text">
+                          </ion-input>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
 
-                <ion-item class=l-item>
-                    <ion-label stacked>Nombre titular</ion-label>
-                    <ion-input type="text" [formControl]="bankForm.controls['name']" ></ion-input>
-                </ion-item>
+                <ion-row>
+                  <ion-col col-12>
+                      <ion-item class=l-item>
+                          <ion-label stacked>Teléfono de contacto</ion-label>
+                          <ion-input
+                            [formControl]="referenceForm.controls['phone']"
+                            (ionChange)="toCapitalize($event, 'phone')"
+                            type="text">
+                          </ion-input>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
 
-                <ion-item class=l-item>
-                    <ion-label stacked>Cédula titular</ion-label>
-                    <ion-input type="text" [formControl]="bankForm.controls['id']"></ion-input>
-                </ion-item>
+                <ion-row>
+                    <ion-col col-12>
+                        <p class="tx-title" text-center>Referencia 2</p>
+                    </ion-col>
+                </ion-row>
 
-                <ion-item class=l-item>
-                    <ion-label stacked>Tipo cuenta</ion-label>
-                    <ion-input type="tel" [formControl]="bankForm.controls['account_type']" ></ion-input>
-                </ion-item>
+                <ion-row>
+                    <ion-col col-6>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre</ion-label>
+                            <ion-input
+                              [formControl]="referenceForm.controls['name']"
+                              (ionChange)="toCapitalize($event, 'name1')"
+                              type="text">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Empresa </ion-label>
+                            <ion-input
+                              [formControl]="referenceForm.controls['company']"
+                              (ionChange)="toCapitalize($event, 'company1')"
+                              type="text">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-12>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Teléfono de contacto</ion-label>
+                            <ion-input
+                              [formControl]="referenceForm.controls['phone']"
+                              (ionChange)="toCapitalize($event, 'phone1')"
+                              type="text">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                <ion-row>
+                    <ion-col col-12>
+                        <p class="tx-title" text-center>Referencia 3</p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-6>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre</ion-label>
+                            <ion-input
+                              [formControl]="referenceForm.controls['name']"
+                              (ionChange)="toCapitalize($event, 'name2')"
+                              type="text">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Empresa </ion-label>
+                            <ion-input
+                              [formControl]="referenceForm.controls['company']"
+                              (ionChange)="toCapitalize($event, 'company2')"
+                              type="text">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-12>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Teléfono de contacto</ion-label>
+                            <ion-input
+                              [formControl]="referenceForm.controls['phone']"
+                              (ionChange)="toCapitalize($event, 'phone2')"
+                              type="text">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                  </ion-row>
               </form>
         </ion-col>
       </ion-row>
 
-
-
-
+      <button margin-top (click)="save()" [disabled]="!referenceForm.valid" ion-button full color="btn">Guardar</button>
 
 </ion-content>

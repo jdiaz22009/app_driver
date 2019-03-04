@@ -2,7 +2,6 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-
 @IonicPage()
 @Component({
   selector: 'profile-bank-driver',
@@ -14,7 +13,7 @@ export class ProfileBankDriverPage {
 
   constructor(
     public navCtrl: NavController,
-    private formBuilder: FormBuilder,
+    public formBuilder: FormBuilder,
     public navParams: NavParams) {
 
 
@@ -49,7 +48,7 @@ export class ProfileBankDriverPage {
   }
 
   ionViewDidLoad(){
-
+    console.log('borra es come maricas')
   }
 
 

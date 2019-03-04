@@ -24,42 +24,63 @@ export class ProfileReferenceDriverPage {
     public navParams: NavParams) {
 
       this.referenceForm = this.formBuilder.group({
-        id: ['', Validators.compose([
+        name: ['', Validators.compose([
           Validators.pattern(this.id_validator),
-          Validators.minLength(6),
-          Validators.required
-        ])],
-        first_name: ['', Validators.compose([
           Validators.minLength(3),
           Validators.required
         ])],
-        second_name: ['', Validators.compose([
+        company: ['', Validators.compose([
           Validators.minLength(3),
           Validators.required
         ])],
-        first_lastname: ['', Validators.compose([
+        phone: ['', Validators.compose([
           Validators.minLength(3),
           Validators.required
         ])],
-        second_lastname: ['', Validators.compose([
+        name1: ['', Validators.compose([
+          Validators.pattern(this.id_validator),
           Validators.minLength(3),
           Validators.required
         ])],
-        mobil: ['', Validators.compose([
+        company1: ['', Validators.compose([
           Validators.minLength(3),
           Validators.required
         ])],
-        email: ['', Validators.compose([
-          Validators.pattern(this.email_validator),
+        phone1: ['', Validators.compose([
+          Validators.minLength(3),
           Validators.required
-        ])]
+        ])],
+        name2: ['', Validators.compose([
+          Validators.pattern(this.id_validator),
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        company2: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
+        phone2: ['', Validators.compose([
+          Validators.minLength(3),
+          Validators.required
+        ])],
        })
+  }
 
+
+  save(){
 
   }
 
-  ionViewDidLoad(){
-
+  toCapitalize(v, property){
+    let value
+    if(typeof(v) === 'string'){
+      value = v.charAt(0).toUpperCase() + v.slice(1)
+    }else if(typeof(v) === 'object'){
+      value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
+    }
+    if(this.referenceForm.controls[property] !== undefined){
+      this.referenceForm.controls[property].setValue(value)
+    }
   }
 
 

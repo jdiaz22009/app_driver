@@ -1,3 +1,13 @@
 profile-reference-driver {
 
+  .tx-title{
+    color: color($colors, title);
+    font-weight: 500;
+  }
+
+  .button-md{
+    margin: 4rem 0 0 0 !important;
+    height: 5rem !important;
+  }
+
 }
