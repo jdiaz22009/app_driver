@@ -197,6 +197,7 @@ export class ProfileAdditionalDriverPage {
       this.auth.updateDriverC(this.driver).then(res =>{
         console.log(res)
         console.log(JSON.stringify(res))
+        this.navCtrl.pop()
         loader.dismiss()
         this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
       }).catch(e =>{

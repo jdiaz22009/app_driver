@@ -1,9 +1,11 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { RegisterDriver } from '@models/registerDriver'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+
+import { AlertsProvider } from '@providers/alerts'
 
 @IonicPage()
 @Component({
@@ -24,6 +26,8 @@ export class ProfileBasicPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public auth: DriverAuthProvider,
+    public loadingCtrl: LoadingController,
+    public alert: AlertsProvider,
     private formBuilder: FormBuilder) {
 
       this.profileForm = this.formBuilder.group({
@@ -41,7 +45,7 @@ export class ProfileBasicPage {
           Validators.required
         ])],
         first_lastname: ['', Validators.compose([
-          Validators.minLength(3),
+          Validators.minLength(2),
           Validators.required
         ])],
         second_lastname: ['', Validators.compose([
@@ -86,9 +90,18 @@ export class ProfileBasicPage {
     this.userProfile.mobil = this.profileForm.controls['mobil'].value
     this.userProfile.email = this.profileForm.controls['email'].value
 
+    const loader = this.loadingCtrl.create({})
+      loader.present()
     this.auth.upatedrivers(this.userProfile).then(res=> {
       console.log(JSON.stringify(res))
-    }).catch(e => console.error(e))
+      this.navCtrl.pop()
+      loader.dismiss()
+      this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
+    }).catch(e => {
+      console.error(e)
+      loader.dismiss()
+      this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tus datos, intenta de nuevo.')
+    })
   }
 
   toCapitalize(v, property){

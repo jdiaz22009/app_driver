@@ -23,8 +23,10 @@ export class DriverAuthProvider{
   validateId_path: string = CONFIG.api.drivers.validateId
   register_driver_path: string = CONFIG.api.drivers.register
   inService_path: string = CONFIG.api.drivers.setInServices
-  updatedrivers_path:string = CONFIG.api.drivers.updateConductor
-  updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
+  updatedrivers_path:string = CONFIG.api.drivers.updateDriver
+
+  // updatedrivers_path:string = CONFIG.api.drivers.updateConductor
+  // updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
 
   api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
   getDevDrivers:string = CONFIG.dev.getDrivers
@@ -182,13 +184,15 @@ export class DriverAuthProvider{
      const token = await this.getToken()
 
      const params = {
+       documento: driver.id,
        primer_nombre: driver.first_name,
        segundo_nombre: driver.second_name,
        primer_apellido: driver.first_lastname,
        segundo_apellido: driver.second_lastname,
-       celular: driver.mobil
+       celular: driver.mobil,
+       email: driver.email
      }
-     const headers = { headers: {'Authorization' : token, 'content-type': 'application/json' }}
+     const headers = {'Authorization' : token, 'content-type': 'application/json'}
 
      try {
        return await this.apiClient.request('PUT', url, params, headers)
@@ -198,7 +202,7 @@ export class DriverAuthProvider{
   }
 
   async updateDriverC(driver: DataUserC){
-      const url = this.api_url + this.updateDriverC_path
+      const url = this.api_url + this.updatedrivers_path
       const token = await this.getToken()
 
       const params = {
