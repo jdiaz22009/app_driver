@@ -1,6 +1,19 @@
 additional-information {
+  .top-img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    width: 80%;
+  }
 
-  
-  
+  .footer-md::before{
+    background-image: none !important;
+  }
+
+  .button-md{
+    margin: 4rem 0 0 0 !important;
+    height: 5rem !important;
+  }
 
 }

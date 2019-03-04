@@ -1,5 +1,382 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Información Complementaria</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only color="royal">
+          <ion-icon color="white" name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
 
-    <nav-driver-component title="Información Complementaria" availability="none"></nav-driver-component>
- 
+  <img class="top-img" margin-top [src]="step_img">
+
+  <ion-grid>
+    <ion-row>
+        <ion-col col-12 >
+                <div *ngIf="step_form === 0">
+                    <form [formGroup]="vehicleForm">
+                        <ion-row>
+                          <ion-col>
+                              <ion-item class=l-item>
+                                  <ion-label stacked>Motor </ion-label>
+                                  <ion-input
+                                    [formControl]="vehicleForm.controls['engine']"
+                                    (ionChange)="toCapitalize($event, 'engine')"
+                                    type="text" >
+                                  </ion-input>
+                              </ion-item>
+                          </ion-col>
+                          <ion-col justify-content-center>
+                              <p text-center>Repontenciado</p>
+                              <ion-row>
+                                  <ion-col>
+                                      <p text-center>Si</p>
+                                      <ion-item>
+                                        <ion-radio checked="false" value="yes"></ion-radio>
+                                      </ion-item>
+                                  </ion-col>
+                                  <ion-col>
+                                      <p text-center>No</p>
+                                      <ion-item>
+                                        <ion-radio checked="false" value="no"></ion-radio>
+                                      </ion-item>
+                                  </ion-col>
+                              </ion-row>
+
+                          </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Chasis </ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm.controls['chassis']"
+                                      (ionChange)="toCapitalize($event, 'chassis')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Combustible</ion-label>
+                                    <ion-select [formControl]="vehicleForm.controls['gas']">
+                                        <ion-option *ngFor="let item of gas_category" value="{{item.value}}">{{item.name}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Configuración</ion-label>
+                                    <ion-select [formControl]="vehicleForm.controls['configuration']">
+                                        <ion-option *ngFor="let item of configuration_category" value="{{item.value}}">{{item.name}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Color </ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm.controls['color']"
+                                      (ionChange)="toCapitalize($event, 'color')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                        <ion-row>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Peso vacío (Ton)</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm.controls['weight']"
+                                      (ionChange)="toCapitalize($event, 'weight')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Capacidad (Ton)</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm.controls['capacity']"
+                                      (ionChange)="toCapitalize($event, 'capacity')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                        <ion-row>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Tipo de servicio</ion-label>
+                                    <ion-select [formControl]="vehicleForm.controls['service_type']">
+                                        <ion-option *ngFor="let item of service_type_category" value="{{item.value}}">{{item.name}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>País</ion-label>
+                                    <ion-select [formControl]="vehicleForm.controls['country']">
+                                        <ion-option *ngFor="let item of country_category" value="{{item.value}}">{{item.name}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                      </form>
+                </div>
+                <div *ngIf="step_form === 1">
+                    <form [formGroup]="vehicleForm0">
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Declaración de Importación</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['import_declaration']"
+                                      (ionChange)="toCapitalize($event, 'import_declaration')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Número de SOAT</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['soat']"
+                                      (ionChange)="toCapitalize($event, 'soat')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                  <ion-label stacked>Vencimiento SOAT</ion-label>
+                                  <ion-datetime
+                                    [formControl]="vehicleForm0.controls['soat_expiration']"
+                                    displayFormat="DD/MM/YYYY"
+                                    pickerFormat="DD MM YYYY"
+                                    max="2035-12-19"
+                                    doneText="Seleccionar"
+                                    cancelText="Cancelar">
+                                  </ion-datetime>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>NIT de empresa SOAT</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['soat_company_id']"
+                                      (ionChange)="toCapitalize($event, 'soat_company_id')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked># de revisión tecnicomecanica</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['technical_review']"
+                                      (ionChange)="toCapitalize($event, 'technical_review')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                  <ion-label stacked>Fecha vencimiento tecnicomecanica</ion-label>
+                                  <ion-datetime
+                                    [formControl]="vehicleForm0.controls['technical_review_expiration']"
+                                    displayFormat="DD/MM/YYYY"
+                                    pickerFormat="DD MM YYYY"
+                                    max="2035-12-19"
+                                    doneText="Seleccionar"
+                                    cancelText="Cancelar">
+                                  </ion-datetime>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col justify-content-center>
+                                <p text-center>Tiene Trailer</p>
+                                <ion-row>
+                                    <ion-col>
+                                        <p text-center>Si</p>
+                                        <ion-item>
+                                          <ion-radio checked="false" value="yes"></ion-radio>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <p text-center>No</p>
+                                        <ion-item>
+                                          <ion-radio checked="false" value="no"></ion-radio>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Marca</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['trailer_brand']"
+                                      (ionChange)="toCapitalize($event, 'trailer_brand')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Modelo</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['trailer_model']"
+                                      (ionChange)="toCapitalize($event, 'trailer_model')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                        <ion-row>
+
+                            <ion-col col-6>
+                                <ion-item class=l-item>
+                                    <ion-label stacked>Placa</ion-label>
+                                    <ion-input
+                                      [formControl]="vehicleForm0.controls['trailer_plate']"
+                                      (ionChange)="toCapitalize($event, 'trailer_plate')"
+                                      type="text" >
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+
+                    </form>
+                </div>
+                <div *ngIf="step_form === 2">
+                    <form [formGroup]="vehicleForm1">
+
+                      <ion-row>
+
+                          <ion-col col-6>
+                              <ion-item class=l-item>
+                                  <ion-label stacked>Nombre empresa GPS</ion-label>
+                                  <ion-input
+                                    [formControl]="vehicleForm1.controls['gps_company']"
+                                    (ionChange)="toCapitalize($event, 'gps_company')"
+                                    type="text" >
+                                  </ion-input>
+                              </ion-item>
+                          </ion-col>
+
+                          <ion-col col-6>
+                              <ion-item class=l-item>
+                                  <ion-label stacked>Página web GPS</ion-label>
+                                  <ion-input
+                                    [formControl]="vehicleForm1.controls['gps_company_web']"
+                                    (ionChange)="toCapitalize($event, 'gps_company_web')"
+                                    type="text" >
+                                  </ion-input>
+                              </ion-item>
+                          </ion-col>
+
+                      </ion-row>
+
+
+                      <ion-row>
+
+                          <ion-col col-6>
+                              <ion-item class=l-item>
+                                  <ion-label stacked>ID GPS</ion-label>
+                                  <ion-input
+                                    [formControl]="vehicleForm1.controls['gps_id']"
+                                    (ionChange)="toCapitalize($event, 'gps_id')"
+                                    type="text" >
+                                  </ion-input>
+                              </ion-item>
+                          </ion-col>
+
+                          <ion-col col-6>
+                              <ion-item class=l-item>
+                                  <ion-label stacked>Usuario GPS</ion-label>
+                                  <ion-input
+                                    [formControl]="vehicleForm1.controls['gps_user']"
+                                    (ionChange)="toCapitalize($event, 'gps_user')"
+                                    type="text" >
+                                  </ion-input>
+                              </ion-item>
+                          </ion-col>
+
+                      </ion-row>
+
+                      <ion-row>
+
+                          <ion-col col-6>
+                              <ion-item class=l-item>
+                                  <ion-label stacked>Clave GPS</ion-label>
+                                  <ion-input
+                                    [formControl]="vehicleForm1.controls['gps_password']"
+                                    (ionChange)="toCapitalize($event, 'gps_password')"
+                                    type="text" >
+                                  </ion-input>
+                              </ion-item>
+                          </ion-col>
+
+                      </ion-row>
+
+                    </form>
+                </div>
+
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
 </ion-content>
+
+<ion-footer>
+    <button *ngIf="step_form === 0" margin-top (click)="save()" [disabled]="!vehicleForm.valid" ion-button full color="btn">{{btn_title}}</button>
+    <button *ngIf="step_form === 1" margin-top (click)="save()" [disabled]="!vehicleForm0.valid" ion-button full color="btn">{{btn_title}}</button>
+    <button *ngIf="step_form === 2" margin-top (click)="save()" [disabled]="!vehicleForm1.valid" ion-button full color="btn">{{btn_title}}</button>
+</ion-footer>

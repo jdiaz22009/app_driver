@@ -1,5 +1,20 @@
 details-vehicles {
-    
+
+  .img-truck{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    width: 80%;
+  }
+
+  .c-info{
+    margin-top: 1.4rem;
+    p{
+      margin: 0.5rem !important;
+    }
+  }
+
   .tx-title{
     color: color($colors, title) !important;
     font-weight: 500 !important;
@@ -8,7 +23,7 @@ details-vehicles {
   .tx-summary{
     color: color($colors, title) !important;
     font-size: 1.4rem;
-    font-weight: 500;
+    // font-weight: 500;
   }
 
   .tx-lite{
@@ -18,13 +33,13 @@ details-vehicles {
 
   .tx-n{
     color: red;
-  } 
+  }
   .tx-y{
     color: green;
   }
 
   .item-md ion-thumbnail[item-start] {
-    margin: 0!important;
+    margin: 0 3rem 0 0!important;
   }
 
   .item-md ion-thumbnail{
@@ -32,18 +47,18 @@ details-vehicles {
     min-height: 0!important;
   }
 
-  .details-item{    
+  .details-item{
 
     .item-thumb{
-      width: 30% !important;
-      height: 10% !important;
+      width: 90% !important;
+      height: 50% !important;
       margin: 1rem !important;
     }
 
   }
 
   .item ion-thumbnail[item-start] {
-    width: 29% !important;
+    width: 10% !important;
   }
-  
+
 }

@@ -7,8 +7,7 @@ import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 
 import { FIREBASE_CONFIG } from './app.firebase.config'
-// import firebase from 'firebase/app'
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 
 import { AlertsProvider } from '@providers/alerts'
 import { StorageDb } from '@providers/storageDb'

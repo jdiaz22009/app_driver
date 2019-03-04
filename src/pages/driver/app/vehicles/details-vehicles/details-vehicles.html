@@ -14,9 +14,9 @@
     <ion-grid *ngIf="showInformation">
       <ion-row>
         <ion-col col-4>
-            <img src="./assets/imgs/carts/truck.png">
+            <img class="img-truck" src="./assets/imgs/carts/truck.png">
         </ion-col>
-        <ion-col offset-1>
+        <ion-col offset-1 class="c-info">
             <p class="tx-title">Placa: <span class="tx-summary">{{vehicle.placa}}</span></p>
             <p class="tx-title">Tipo: <span class="tx-summary">{{vehicle.clase_vehiculo}}</span></p>
             <p *ngIf="vehicle.state" class="tx-title">Estado: <span class="tx-y">Disponible</span></p>
