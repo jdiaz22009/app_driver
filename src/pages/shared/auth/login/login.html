@@ -27,6 +27,12 @@
                                 </ion-input>
                             </ion-item>
 
+                            <!-- <input
+                                  [formControl]="idForm.controls['id']"
+                                  type="tel"
+                                  (keyup.enter)="validateId()"> -->
+
+
                             <div *ngIf="!idForm.controls.id.valid && idForm.controls.id.dirty">
                                     <p class="tx-d">Ingrese un usuario válido.</p>
                             </div>
