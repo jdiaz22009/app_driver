@@ -2,17 +2,17 @@ home-driver {
 
   .footer-md::before{
     height: 0!important;
-  }  
+  }
 
   .content-controls{
-    margin-top: 4rem;
+    margin-top: 6rem;
   }
-  
+
   .h-actions{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;    
+    width: 70%;
   }
 
   .h-summary{
@@ -27,7 +27,7 @@ home-driver {
     margin-left: auto;
     margin-right: auto;
     margin-top: 2rem;
-    width: 50%; 
+    width: 50%;
   }
 
   .find-tx{
@@ -35,5 +35,5 @@ home-driver {
     color: color($colors, txt1) !important;
     font-size: 1.5rem;
   }
-  
+
 }

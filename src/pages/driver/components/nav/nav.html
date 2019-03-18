@@ -1,40 +1,42 @@
-<ion-toolbar>
-    <ion-grid class="nav-home">
-        <ion-row align-items-center>
-          <ion-col col-2 *ngIf="!modeTitle">
-              <button ion-button clear color="white" icon-only (click)="goBack()">
-                <ion-icon name="arrow-back"></ion-icon>
-              </button>
-          </ion-col>
-          <ion-col col-7 *ngIf="!nav_ava" class="col-toogle">
-            <ion-grid>
-              <ion-row align-items-center>
-                <ion-col col-7>
-                    <p class="nav-tx-available">{{tx_available}} - {{plate}}</p>
-                </ion-col>
-                <ion-col col-4>
-                    <ion-item >
-                        <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange($event, driver_available)"></ion-toggle>
-                    </ion-item>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-col>
-          <ion-col col-1 *ngIf="!nav_ava" class="col-chat" (click)="chat()">
-              <img class="img" src="./assets/imgs/chat.png"/>
-          </ion-col>
-          <ion-col col-1 *ngIf="!nav_ava" (click)="logout()">
-              <img class="logout" src="./assets/imgs/logout.png"/>
-          </ion-col>
+<ion-header>
+  <ion-toolbar>
+      <ion-grid class="nav-home">
+          <ion-row align-items-center>
+              <ion-col col-2 *ngIf="!modeTitle">
+                  <button ion-button clear color="white" icon-only (click)="goBack()">
+                    <ion-icon name="arrow-back"></ion-icon>
+                  </button>
+              </ion-col>
 
-          <ion-col col-1 offset-7 *ngIf="nav_ava" class="col-chat" (click)="chat()">
-              <img src="./assets/imgs/chat.png"/>
-          </ion-col>
-          <ion-col col-1 *ngIf="nav_ava" (click)="logout()">
-              <img class="logout" src="./assets/imgs/logout.png"/>
-          </ion-col>
+              <ion-col col-2 *ngIf="modeTitle">
 
-        </ion-row>
-      </ion-grid>
+              </ion-col>
 
-</ion-toolbar>
+              <ion-col col-8 *ngIf="!nav_ava" class="col-toogle">
+                <ion-grid>
+                  <ion-row align-items-center>
+                    <ion-col col-7>
+                        <p class="nav-tx-available">{{tx_available}} - {{plate}}</p>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-item >
+                            <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange($event, driver_available)"></ion-toggle>
+                        </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-buttons end>
+          <button ion-button icon-only (click)="chat()">
+            <ion-icon color="white" name="custom-chat"></ion-icon>
+          </button>
+          <button ion-button icon-only (click)="logout()">
+            <ion-icon color="white" name="custom-logout"></ion-icon>
+          </button>
+        </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
