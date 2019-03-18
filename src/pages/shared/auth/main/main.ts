@@ -12,6 +12,8 @@ import { CONFIG } from '@providers/config'
 })
 export class MainSharedPage {
 
+  showContent: boolean = true;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,7 +32,8 @@ export class MainSharedPage {
   checkForSession(){
     this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
       console.log(res)
-      if(res != null){        
+      if(res != null){
+        this.showContent = false
         if(res['type'] === 'driver'){
           this.navCtrl.setRoot('home-drive')
         }else if(res['type'] === 'company'){

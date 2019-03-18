@@ -4,7 +4,6 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular'
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { StorageDb } from '@providers/storageDb'
-import { CONFIG } from '@providers/config'
 import { CartProvider } from '@providers/api/cart'
 
 @Component({
@@ -14,16 +13,14 @@ import { CartProvider } from '@providers/api/cart'
 export class NavDriverComponent {
 
   @Input('title') navTitle
-  @Input('availability') navAvailability
-
-  title: string
-  modeTitle: boolean = false
 
   tx_available: string = ''
   plate: string = ''
   vehicle_id: string = ''
-  driver_available: boolean
-  nav_ava = false
+
+  modeTitle: boolean = false
+  driver_available: boolean = false
+  nav_ava: boolean = false
 
   constructor(
     public navCtrl: NavController,
@@ -34,20 +31,13 @@ export class NavDriverComponent {
     public cart: CartProvider,
     public navParams: NavParams) {
 
-      this.setAvailabilityTx()
+      // this.setAvailabilityTx()
+      this.getMySelectedVehicle()
   }
 
   ngAfterViewInit(){
-    this.title = this.navTitle
-    this.title === undefined ? this.modeTitle = true : this.modeTitle = false
-
-    if(this.navAvailability != undefined && this.navAvailability === 'none'){
-      this.nav_ava = true
-    }
-
-    console.log(this.navAvailability +  ' ' + this.nav_ava)
-
-    this.getMySelectedVehicle()
+    this.navTitle === undefined ? this.modeTitle = false : this.modeTitle = true
+    // this.getMySelectedVehicle()
   }
 
   setAvailabilityTx(){
@@ -55,9 +45,12 @@ export class NavDriverComponent {
   }
 
   availabilityChange(e, availability){
-
     this.cart.setInService(availability, this.vehicle_id).then(res =>{
-      console.log('setInService' + JSON.stringify(res))
+      // console.log('setInService' + JSON.stringify(res))
+      console.log('setInService ' + availability)
+      this.driver_available = availability
+      this.setAvailabilityTx()
+
     })
   }
 
@@ -66,7 +59,9 @@ export class NavDriverComponent {
       // console.log(JSON.stringify(res))
       this.plate = res['data']['data'].placa
       this.driver_available = res['data']['data'].state
+      // console.log('driver_available ' + this.driver_available)
       this.vehicle_id = res['data']['data']._id
+      this.setAvailabilityTx()
     }).catch(e =>{
       console.error(e)
     })
@@ -83,7 +78,7 @@ export class NavDriverComponent {
   logout(){
     const loader = this.loadingCtrl.create({})
     loader.present()
-    this.alert.showConfirm('Confirmar cerrar sesión', '', 'Aceptar', 'cancelar').then(res =>{
+    this.alert.showConfirm('Confirmar cerrar sesión', '', 'Aceptar', 'Cancelar').then(res =>{
       loader.dismiss()
       if(res === 1){
         this.apiDriver.logout().then(res =>{

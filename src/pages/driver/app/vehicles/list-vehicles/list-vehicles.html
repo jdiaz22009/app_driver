@@ -1,51 +1,54 @@
 <ion-content>
 
-    <nav-driver-component title="Vehículos"></nav-driver-component>
+    <nav-driver-component></nav-driver-component>
 
-    <div class="content-controls" *ngFor="let vehicle of vehicles">
-      <ion-card class="card-carts">
-          <ion-card-content>
-                  <div class="rc" float-right>
-                      <img class="btn-remove" src="./assets/imgs/cancel-btn.png">
-                  </div>
-            <ion-grid>
-              <ion-row>
-                  <ion-col col-3 class="ion-col">
-                      <img src="./assets/imgs/carts/truck.png">
-                  </ion-col>
-                  <ion-col col-4>
-                      <p class="tx-title">Placa</p>
+    <div class="content-controls">
+      <div *ngFor="let vehicle of vehicles">
+        <ion-card class="card-carts">
+            <ion-card-content>
+                    <div class="rc" float-right>
+                        <img class="btn-remove" src="./assets/imgs/cancel-btn.png">
+                    </div>
+              <ion-grid>
+                <ion-row>
+                    <ion-col col-3 class="ion-col">
+                        <img src="./assets/imgs/carts/truck.png">
+                    </ion-col>
+                    <ion-col col-4>
+                        <p class="tx-title">Placa</p>
 
-                      <p class="tx-title">Tipo</p>
+                        <p class="tx-title">Tipo</p>
 
-                      <p class="tx-title">Carrocería</p>
+                        <p class="tx-title">Carrocería</p>
 
-                      <p class="tx-title">Disponible</p>
-                  </ion-col>
-                  <ion-col col-4>
-                      <p class="tx-summary">{{vehicle.placa}}</p>
+                        <p class="tx-title">Disponible</p>
+                    </ion-col>
+                    <ion-col col-4>
+                        <p class="tx-summary">{{vehicle.placa}}</p>
 
-                      <p class="tx-summary">{{vehicle.clase_vehiculo}}</p>
+                        <p class="tx-summary">{{vehicle.clase_vehiculo}}</p>
 
-                      <p class="tx-summary">{{vehicle.tipo_carroceria}}</p>
+                        <p class="tx-summary">{{vehicle.tipo_carroceria}}</p>
 
-                      <p *ngIf="vehicle.state" class="tx-y">Si</p>
-                      <p *ngIf="!vehicle.state" class="tx-n">No</p>
-                  </ion-col>
-              </ion-row>
+                        <p *ngIf="vehicle.state" class="tx-y">Si</p>
+                        <p *ngIf="!vehicle.state" class="tx-n">No</p>
+                    </ion-col>
+                </ion-row>
 
-              <ion-row class="btn-next">
-                  <ion-col>
-                      <img (click)="vehicleDetails(vehicle)" class="f-next" src="./assets/imgs/find_next.png">
-                  </ion-col>
-              </ion-row>
+                <ion-row class="btn-next">
+                    <ion-col>
+                        <img (click)="vehicleDetails(vehicle)" class="f-next" src="./assets/imgs/find_next.png">
+                    </ion-col>
+                </ion-row>
 
-            </ion-grid>
+              </ion-grid>
 
-          </ion-card-content>
+            </ion-card-content>
 
-      </ion-card>
+        </ion-card>
+      </div>
     </div>
+
 
     <ion-fab bottom right>
         <button ion-fab color="btn" (click)="addVehicle()">

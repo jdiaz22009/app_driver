@@ -1,11 +1,11 @@
 find-freight-driver{
 
   .cr-content{
-    margin-top: 4rem;    
+    margin-top: 4rem;
   }
 
   .card-content{
-    margin-top: 2rem;
+    margin-top: 0.2rem;
   }
 
   .scroll-content{
@@ -23,7 +23,7 @@ find-freight-driver{
       padding: 0 !important;
     }
 
-    .c-shared{      
+    .c-shared{
       align-content: flex-end;
       align-items: flex-end;
     }
@@ -31,6 +31,10 @@ find-freight-driver{
     .no-padding{
       padding: 0!important;
     }
+  }
+
+  .mi{
+    margin-bottom: 0.4rem;
   }
 
   .c-date{
@@ -45,24 +49,41 @@ find-freight-driver{
     font-weight: 500 !important;
   }
 
+  .tx-summary{
+    color: color($colors, title) !important;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
   .tx-share{
     color: color($colors, btn) !important;
     font-weight: 500 !important;
+    font-size: 1rem;
   }
 
   .c-divider{
     background-color: color($colors, title);
     width: calc(100% - 20px);
     height: 3px;
-    margin: 10px;
-
+    // margin: 10px;
   }
 
   .f-next{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;  
+    width: 100%;
+  }
+
+  .fab[mini] {
+    margin: 1px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+  }
+
+  .fab ion-icon{
+    font-size: 2rem !important;
   }
 
 }
