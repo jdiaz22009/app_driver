@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { API_MODULE } from '../providers/api/index'
 import { PROVIDERS_MODULE } from '../providers/index'
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 import { MyApp } from './app.component'
 
 @NgModule({
@@ -30,6 +32,7 @@ import { MyApp } from './app.component'
     IonicModule.forRoot(MyApp,{
 
     }),
+    BrowserAnimationsModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

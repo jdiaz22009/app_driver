@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
+    "@angular/cdk": "5.2.5",
     "@angular/common": "5.2.11",
     "@angular/compiler": "5.2.11",
     "@angular/compiler-cli": "5.2.11",
     "@angular/core": "5.2.11",
     "@angular/forms": "5.2.11",
     "@angular/http": "5.2.11",
+    "@angular/material": "5.2.5",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/call-number": "^4.18.0",
@@ -49,6 +51,7 @@
     "cordova-plugin-x-socialsharing": "^5.4.4",
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^5.8.5",
+    "hammerjs": "^2.0.8",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "mx.ferreyra.callnumber": "0.0.2",
@@ -90,6 +93,7 @@
   },
   "config": {
     "ionic_source_map_type": "source-map",
-    "ionic_webpack": "./webpack.config.js"
+    "ionic_webpack": "./webpack.config.js",
+    "ionic_copy": "./config/copy.config.js"
   }
 }

@@ -17,7 +17,7 @@
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" src="./assets/imgs/no_photo.png" (click)="setPicture('idBack')">
+                <img class="p-photos" [src]="idBack" (click)="setPicture('idBack')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
@@ -27,11 +27,11 @@
             </ion-row>
             <ion-row justify-content-center>
                 <ion-col col-4>
-                    <img class="p-photos" src="./assets/imgs/no_photo.png">
+                    <img class="p-photos" [src]="licenseFront" (click)="setPicture('licenseFront')">
                     <p class="p-summary">Frontal</p>
                 </ion-col>
                 <ion-col col-4 offset-3>
-                    <img class="p-photos" src="./assets/imgs/no_photo.png">
+                    <img class="p-photos" [src]="licenseBack" (click)="setPicture('licenseBack')">
                     <p class="p-summary">Trasera</p>
                 </ion-col>
         </ion-row>
@@ -41,14 +41,17 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="driverImg" (click)="setPicture('driverImg')">
             </ion-col>
             <ion-col col-4 offset-3></ion-col>
         </ion-row>
 
     </ion-grid>
 
+</ion-content>
+
+<ion-footer>
+
     <button color="btn" ion-button full>Guardar Documentos</button>
 
-
-</ion-content>
+</ion-footer>
