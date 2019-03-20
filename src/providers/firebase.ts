@@ -24,11 +24,12 @@ export class FirebaseProvider{
 
    }
 
-   uploadPicture(data){
-     //.child('images')
+   uploadPicture(data, id, name){
 
-    const imgRef = this.storage.ref('/images')
+    const imgRef = this.storage.ref(`drivers/${id}/${name}`)
      return new Promise((resolve, reject) =>{
+      //  const task = imgRef.putString(data, 'data_url')
+
       imgRef.putString(data, 'data_url').then(res =>{
         resolve(res)
       }).catch(e => {
@@ -37,6 +38,13 @@ export class FirebaseProvider{
       })
      })
 
+   }
+
+   getProfilePicture(id){
+    const imgRef = this.storage.ref(`drivers/${id}`)
+    return new Promise((resolve, reject) =>{
+      imgRef.once('value')
+    })
    }
 
    setDriverData(media: MediaFirebase){

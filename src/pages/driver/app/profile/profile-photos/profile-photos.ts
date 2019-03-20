@@ -1,5 +1,6 @@
+import { AlertsProvider } from '@providers/alerts';
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, ActionSheetController, ModalController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, LoadingController } from 'ionic-angular'
 
 import { MediaProvider } from '@providers/media'
 import { StorageDb } from '@providers/storageDb'
@@ -13,7 +14,7 @@ import { DataUser } from '@models/dataUser'
   selector: 'profile-photos-driver',
   templateUrl: 'profile-photos.html'
 })
-export class ProfilePhotoDriverPage {  
+export class ProfilePhotoDriverPage {
 
   noImg: string = './assets/imgs/no_photo.png'
   idFront: string = this.noImg
@@ -27,6 +28,8 @@ export class ProfilePhotoDriverPage {
     public navCtrl: NavController,
     public db: StorageDb,
     public media: MediaProvider,
+    public alerts: AlertsProvider,
+    public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private fire: FirebaseProvider,
@@ -36,6 +39,14 @@ export class ProfilePhotoDriverPage {
   }
 
   ionViewDidLoad(){
+    // this.getProfilePicture()
+  }
+
+  async getProfilePicture(){
+    const userId = await this.getUserId()
+    this.fire.getProfilePicture(userId).then(res =>{
+      console.log(res)
+    })
 
   }
 
@@ -72,12 +83,8 @@ export class ProfilePhotoDriverPage {
       const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
       modal.onDidDismiss(data =>{
         if(data){
-         console.log(data)
-         console.log(data.cropResult)
-         //data:image/jpeg;base64,
-        //  const photo = data.cropResult.replace('data:image/jpeg;base64,', '')
         const photo = data.cropResult
-        console.log('model picture ' + modelPicture + " " + photo)
+
         if(modelPicture === 'idFront'){
           this.idFront = photo
         }else if(modelPicture === 'idBack'){
@@ -90,10 +97,7 @@ export class ProfilePhotoDriverPage {
           this.driverImg = photo
         }
 
-        modelPicture = photo
-         this.fire.uploadPicture(photo).then(res =>{
-           console.log(res)
-         })
+
         }
       })
       modal.present()
@@ -103,5 +107,81 @@ export class ProfilePhotoDriverPage {
     })
   }
 
+  async getUserId(){
+    const id = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+      return res.userId
+    })
+    return id
+  }
+
+  async save(){
+      const loader = this.loadingCtrl.create({})
+      loader.present()
+
+      const userId = await this.getUserId()
+
+      let arrayImgs = []
+
+      if(this.idFront != this.noImg){
+        arrayImgs.push({
+          model: this.idFront,
+          id: userId,
+          name: 'idFront'
+        })
+      }
+
+      if(this.idBack != this.noImg){
+        arrayImgs.push({
+          model: this.idBack,
+          id: userId,
+          name: 'idBack'
+        })
+      }
+
+      if(this.licenseFront != this.noImg){
+        arrayImgs.push({
+          model: this.licenseFront,
+          id: userId,
+          name: 'licenseFront'
+        })
+      }
+
+      if(this.licenseBack != this.noImg){
+        arrayImgs.push({
+          model: this.licenseBack,
+          id: userId,
+          name: 'licenseBack'
+        })
+      }
+
+      if(this.driverImg != this.noImg){
+        arrayImgs.push({
+          model: this.driverImg,
+          id: userId,
+          name: 'driverImg'
+        })
+      }
+
+      const indexArray = arrayImgs.length
+      arrayImgs.forEach((item, index) =>{
+
+        this.fire.uploadPicture(item.model, item.id, item.name).then(res =>{
+          console.log(res)
+          console.log(JSON.stringify(res))
+          if(index == indexArray -1){
+            loader.dismiss()
+            this.alerts.showAlert('', 'Se han guardado los datos correctamente')
+          }
+        }).catch(e =>{
+          if(index == indexArray -1){
+            loader.dismiss()
+            this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
+          }
+        })
+
+      })
+
+
+  }
 
 }
