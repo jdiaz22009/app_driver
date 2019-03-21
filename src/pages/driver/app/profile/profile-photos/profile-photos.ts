@@ -39,13 +39,41 @@ export class ProfilePhotoDriverPage {
   }
 
   ionViewDidLoad(){
-    // this.getProfilePicture()
+    this.getProfilePicture()
   }
 
   async getProfilePicture(){
+    const loader = this.loadingCtrl.create({})
+    loader.present()
     const userId = await this.getUserId()
     this.fire.getProfilePicture(userId).then(res =>{
+      loader.dismiss()
       console.log(res)
+      console.log(res['idFront'])
+
+      if(res['idFront'] !== undefined){
+        this.idFront = res['idFront']
+      }
+
+      if(res['idBack'] !== undefined){
+        this.idBack = res['idBack']
+      }
+
+      if(res['licenseFront'] !== undefined){
+        this.licenseFront = res['licenseFront']
+      }
+
+      if(res['licenseBack'] !== undefined){
+        this.licenseBack = res['licenseBack']
+      }
+
+      if(res['driverImg'] !== undefined){
+        this.driverImg = res['driverImg']
+      }
+
+    }).catch(e =>{
+      loader.dismiss()
+      console.error('error ' + e)
     })
 
   }
@@ -173,7 +201,6 @@ export class ProfilePhotoDriverPage {
 
         this.fire.uploadPicture(item.model, item.id, item.name).then(res =>{
           console.log(res)
-          console.log(JSON.stringify(res))
 
           if(item.model === this.idFront){
             dataArray.idFront = res
@@ -195,8 +222,9 @@ export class ProfilePhotoDriverPage {
             dataArray.driverImg = res
           }
 
+          console.log('dataArray ' + dataArray)
+
           if(index == indexArray -1){
-            console.log('dataArray ' + dataArray)
 
             this.fire.saveImageProfilePath(dataArray, userId).then(res =>{
               console.log('save image path ' + res)
@@ -207,6 +235,7 @@ export class ProfilePhotoDriverPage {
             this.alerts.showAlert('', 'Se han guardado los datos correctamente')
           }
         }).catch(e =>{
+          console.error('error upload ' + e)
           if(index == indexArray -1){
             loader.dismiss()
             this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')

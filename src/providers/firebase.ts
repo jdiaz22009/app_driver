@@ -54,30 +54,34 @@ export class FirebaseProvider{
    }
 
    getProfilePicture(id){
-    const imgRef = this.storage.ref(`drivers/${id}`)
+    const imgRef = this.database.ref(`drivers/${id}`)
     return new Promise((resolve, reject) =>{
-      imgRef.once('value')
+      imgRef.once('value', (snap)=>{
+          resolve(snap.val())
+      }, (e) =>{
+        reject(e)
+      })
     })
    }
 
-   setDriverData(media: MediaFirebase){
-    this.driverRef.push(media)
-   }
+  //  setDriverData(media: MediaFirebase){
+  //   this.driverRef.push(media)
+  //  }
 
-   async getDriverData(){
-     const getPromise = new Promise((resolve, reject)=>{
-        this.driverRef.on('value', (snap) =>{
-          console.log(snap.val())
-          resolve(snap.val())
-        }, (e) =>{
-          console.error(e)
-          reject(e)
-        })
-     })
-     return await getPromise
-   }
+  //  async getDriverData(){
+  //    const getPromise = new Promise((resolve, reject)=>{
+  //       this.driverRef.on('value', (snap) =>{
+  //         console.log(snap.val())
+  //         resolve(snap.val())
+  //       }, (e) =>{
+  //         console.error(e)
+  //         reject(e)
+  //       })
+  //    })
+  //    return await getPromise
+  //  }
 
-   updateDriverData(id){
+  //  updateDriverData(id){
 
-   }
+  //  }
 }
