@@ -96,8 +96,6 @@ export class ProfilePhotoDriverPage {
         }else if(modelPicture === 'driverImg'){
           this.driverImg = photo
         }
-
-
         }
       })
       modal.present()
@@ -163,12 +161,48 @@ export class ProfilePhotoDriverPage {
       }
 
       const indexArray = arrayImgs.length
+      let dataArray = {
+        idFront: null,
+        idBack: null,
+        licenseFront: null,
+        licenseBack: null,
+        driverImg: null
+      }
+
       arrayImgs.forEach((item, index) =>{
 
         this.fire.uploadPicture(item.model, item.id, item.name).then(res =>{
           console.log(res)
           console.log(JSON.stringify(res))
+
+          if(item.model === this.idFront){
+            dataArray.idFront = res
+          }
+
+          if(item.model === this.idBack){
+            dataArray.idBack = res
+          }
+
+          if(item.model === this.licenseFront){
+            dataArray.licenseFront = res
+          }
+
+          if(item.model === this.licenseBack){
+            dataArray.licenseBack = res
+          }
+
+          if(item.model === this.driverImg){
+            dataArray.driverImg = res
+          }
+
           if(index == indexArray -1){
+            console.log('dataArray ' + dataArray)
+
+            this.fire.saveImageProfilePath(dataArray, userId).then(res =>{
+              console.log('save image path ' + res)
+            }).catch(e =>{
+              console.error('error dont save image paht ' + e)
+            })
             loader.dismiss()
             this.alerts.showAlert('', 'Se han guardado los datos correctamente')
           }

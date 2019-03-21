@@ -28,16 +28,29 @@ export class FirebaseProvider{
 
     const imgRef = this.storage.ref(`drivers/${id}/${name}`)
      return new Promise((resolve, reject) =>{
-      //  const task = imgRef.putString(data, 'data_url')
+      const task = imgRef.putString(data, 'data_url')
+      task.on(
+        'state_changed',
+        snapshot => {
+            const percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100
+            console.log(percentage)
+        },
+        error => {
+            console.error(error.message)
+            reject(error)
+        },
+        () => {
+            imgRef.getDownloadURL().then(resUrl => {
+                resolve(resUrl)
+            })
+        }
+      )
+    })
 
-      imgRef.putString(data, 'data_url').then(res =>{
-        resolve(res)
-      }).catch(e => {
-        console.error(e)
-        reject(e)
-      })
-     })
+   }
 
+   async saveImageProfilePath(data, userId){
+    return await this.database.ref(`drivers/${userId}`).set(data)
    }
 
    getProfilePicture(id){
