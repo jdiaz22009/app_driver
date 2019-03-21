@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core'
 import { IonicPageModule } from 'ionic-angular'
 import { LoginSharedPage } from './login'
 
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatFormFieldModule, MatInputModule } from '@angular/material'
+import { ModalForgotPasswordModule } from './../../components/modal-forgotPassword/modal-forgotPassword.module'
+
 
 @NgModule({
   declarations: [
@@ -11,9 +11,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material'
   ],
   imports: [
     IonicPageModule.forChild(LoginSharedPage),
-    // BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule
+    ModalForgotPasswordModule
   ],
 })
 export class LoginSharedModule {}

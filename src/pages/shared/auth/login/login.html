@@ -67,6 +67,14 @@
 
                             <p class="tx-l">ingresa tu contraseña</p>
 
+                            <ion-grid>
+                              <ion-row>
+                                <ion-col text-center>
+                                  <button ion-button color="btnb" class="btn-forgot" clear (click)="resetPassword()">Olvidaste tu Contraseña?</button>
+                                </ion-col>
+                              </ion-row>
+                            </ion-grid>
+
                             <button (click)="login()" [disabled]="!passwordForm.valid" ion-button full color="btn">Iniciar Sesión</button>
                 </ion-col>
             </ion-row>

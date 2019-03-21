@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, MenuController, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Keyboard } from '@ionic-native/keyboard'
@@ -42,6 +42,7 @@ export class LoginSharedPage {
     private driverAuth: DriverAuthProvider,
     private companyAuth: CompanyAuthProvider,
     public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
     public db: StorageDb,
     public menu: MenuController,
     public keyboard: Keyboard
@@ -192,6 +193,11 @@ export class LoginSharedPage {
 
   getSupport(){
     this.navCtrl.push('SupportSharedPage')
+  }
+
+  resetPassword(){
+    const modal = this.modalCtrl.create('ModalForgotPasswordComponent', null, { cssClass: 'modal-id' })
+    modal.present()
   }
 
 }
