@@ -19,6 +19,7 @@ export class AddCartDriverPage {
   cart = {} as Cart
   cartForm: FormGroup
   prevPlate: boolean = false
+  prevModel: number
   id: number
   mode: number
   plate: string
@@ -27,7 +28,7 @@ export class AddCartDriverPage {
     title: 'Clase de vehículo',
     options: [
       {value: 'Camioneta', name: 'Camioneta', checked: false},
-      {value: 'Mini turbo', name: 'Mini turbo', checked: false},
+      {value: 'Turbo', name: 'Turbo', checked: false},
       {value: 'Sencillo', name:'Sencillo', checked: false},
       {value: 'Doble Troque', name:'Doble Troque', checked: false},
       {value: 'Cuatro Manos', name:'Cuatro Manos', checked: false},
@@ -49,8 +50,8 @@ export class AddCartDriverPage {
       {value: 'Tanque', name:'Tanque', checked: false},
       {value: 'Volco', name:'Volco', checked: false},
       {value: 'Contenedor', name:'Contenedor', checked: false},
-      {value: 'Cama Baja', name:'Cama Baja', checked: false},
-      {value: 'Niñera', name:'Niñera', checked: false}
+      // {value: 'Cama Baja', name:'Cama Baja', checked: false},
+      // {value: 'Niñera', name:'Niñera', checked: false}
     ]
   }
 
@@ -77,7 +78,10 @@ export class AddCartDriverPage {
         ])],
         type: ['', Validators.required],
         bodywork: ['', Validators.required],
-        model: ['', Validators.required],
+        model: ['', Validators.compose([
+          Validators.required,
+          Validators.maxLength(4)
+        ])],
         brand: ['', Validators.required]
       })
     }
@@ -150,6 +154,16 @@ export class AddCartDriverPage {
         this.cartForm.controls['license_plate'].setValue(this.plate)
       }
 
+    }
+
+    onChangeModel(v){
+      let model = v._value.toString().toUpperCase()
+      console.log(model +  ' ' + model.length +' ' + this.prevModel)
+      if(model.length > 4){
+        this.cartForm.controls['model'].setValue(this.prevModel)
+      }else{
+        this.prevModel = model
+      }
     }
 
     showModal(mode){

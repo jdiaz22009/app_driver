@@ -58,8 +58,7 @@ export class RegisterSharedPage {
         second_lastname: [''],
         mobil: ['', Validators.required],
         email: ['', Validators.compose([
-          Validators.pattern(this.email_validator),
-          Validators.required
+          Validators.pattern(this.email_validator)
         ])]
       })
 
