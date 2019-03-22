@@ -35,7 +35,7 @@
                   </ion-item>
 
                   <ion-item class=l-item>
-                      <ion-label stacked>País de residencia</ion-label>
+                      <ion-label stacked>País</ion-label>
                       <ion-input
                         [formControl]="profileForm.controls['country']"
                         (ionChange)="toCapitalize($event, 'country')"
@@ -43,7 +43,7 @@
                   </ion-item>
 
                   <ion-item class=l-item>
-                      <ion-label stacked>Departamento de residencia </ion-label>
+                      <ion-label stacked>Departamento</ion-label>
                       <ion-input
                         [formControl]="profileForm.controls['state']"
                         (ionChange)="toCapitalize($event, 'state')"
@@ -51,7 +51,7 @@
                   </ion-item>
 
                   <ion-item class=l-item>
-                      <ion-label stacked>Ciudad de residencia</ion-label>
+                      <ion-label stacked>Municipio</ion-label>
                       <ion-input
                         [formControl]="profileForm.controls['city']"
                         (ionChange)="toCapitalize($event, 'city')"
@@ -60,7 +60,7 @@
                   </ion-item>
 
                   <ion-item class=l-item>
-                      <ion-label stacked>Dirección de residencia </ion-label>
+                      <ion-label stacked>Dirección</ion-label>
                       <ion-input
                         [formControl]="profileForm.controls['address']"
                         (ionChange)="toCapitalize($event, 'address')"
@@ -165,3 +165,4 @@
 
 
 </ion-content>
+

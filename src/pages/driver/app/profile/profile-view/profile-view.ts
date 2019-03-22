@@ -23,6 +23,7 @@ export class ProfileDriverPage {
     {thumb: './assets/imgs/perfil.png', title: 'Mis referencias', summary: 'Te ayudara con las empresas', page: 'ProfileReferenceDriverPage'}
   ]
 
+  inputCount: number = 46
   userData: any = []
 
   constructor(
