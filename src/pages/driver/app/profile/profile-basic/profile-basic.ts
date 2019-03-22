@@ -97,6 +97,7 @@ export class ProfileBasicPage {
       this.navCtrl.pop()
       loader.dismiss()
       this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
+      
     }).catch(e => {
       console.error(e)
       loader.dismiss()

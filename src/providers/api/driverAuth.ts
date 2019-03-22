@@ -13,7 +13,7 @@ import { ApiClientProvider } from './apiClient'
 import { StorageDb } from '@providers/storageDb'
 
 @Injectable()
-export class DriverAuthProvider{
+export class DriverAuthProvider {
 
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
 
@@ -23,78 +23,80 @@ export class DriverAuthProvider{
   validateId_path: string = CONFIG.api.drivers.validateId
   register_driver_path: string = CONFIG.api.drivers.register
   inService_path: string = CONFIG.api.drivers.setInServices
-  updatedrivers_path:string = CONFIG.api.drivers.updateDriver
+  updatedrivers_path: string = CONFIG.api.drivers.updateDriver
+  driverUrl_path: string = CONFIG.api.drivers.wayTopay
 
   // updatedrivers_path:string = CONFIG.api.drivers.updateConductor
   // updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
 
   api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
-  getDevDrivers:string = CONFIG.dev.getDrivers
+  getDevDrivers: string = CONFIG.dev.getDrivers
   login_path_dev: string = CONFIG.dev.login
-  validateId_path_dev:string = CONFIG.dev.validateId
+  validateId_path_dev: string = CONFIG.dev.validateId
   register_driver_parth_dev: string = CONFIG.dev.register
-  inService_path_dev:string = CONFIG.dev.setInServices
-  updatedrivers_dev:string = CONFIG.dev.updateConductor
+  inService_path_dev: string = CONFIG.dev.setInServices
+  updatedrivers_dev: string = CONFIG.dev.updateConductor
+
 
   constructor(
     public apiClient: ApiClientProvider,
     public db: StorageDb,
     public plt: Platform
-  ){
+  ) {
 
   }
 
-  async getToken(){
-     const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
-       return res.token
-     })
-     return token != null ? token : ''
+  async getToken() {
+    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+      return res.token
+    })
+    return token != null ? token : ''
   }
 
-  async getFireToken(){
-    try{
+  async getFireToken() {
+    try {
       const token = await this.db.getItem(CONFIG.localdb.USER_FIRETOKEN)
       return token != null ? token : 'no token'
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async verifyToken(){
+  async verifyToken() {
     const token = await this.getToken()
     console.log('token to verify ' + token)
-    const url = this.api_url +  this.verify_token_path
-    const headers = { headers: {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'} }
-    try{
-      return await this.apiClient.request('POST', url, null, headers )
-    }catch(e){
+    const url = this.api_url + this.verify_token_path
+    const headers = { headers: { 'Authorization': token, 'content-type': 'application/x-www-form-urlencoded' } }
+    try {
+      return await this.apiClient.request('POST', url, null, headers)
+    } catch (e) {
       throw e
     }
 
   }
 
-  async getOSType(){
+  async getOSType() {
     if (this.plt.is('ios')) {
       return 'ios'
-    }else if(this.plt.is('android')){
+    } else if (this.plt.is('android')) {
       return 'android'
-    }else if(this.plt.is('mobileweb')){
+    } else if (this.plt.is('mobileweb')) {
       return 'web'
-    }else{
+    } else {
       return 'unknown'
     }
   }
 
-  async validateId(id: Number){
+  async validateId(id: Number) {
     const url = this.api_url + this.validateId_path + '/' + id
-    try{
-       return await this.apiClient.get(url, null, null)
-    }catch(e){
+    try {
+      return await this.apiClient.get(url, null, null)
+    } catch (e) {
       throw e
     }
   }
 
-  async login(user: User){
+  async login(user: User) {
 
     const firetoken = await this.getFireToken()
     const osType = await this.getOSType()
@@ -108,16 +110,16 @@ export class DriverAuthProvider{
       type: osType
     })
 
-    const headers = {headers:{'content-type': 'application/x-www-form-urlencoded'} }
+    const headers = { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
 
-    try{
+    try {
       return await this.apiClient.request('POST', url, params, headers)
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async register(register: RegisterDriver, rol: number){
+  async register(register: RegisterDriver, rol: number) {
 
     const firetoken = await this.getFireToken()
     const osType = await this.getOSType()
@@ -140,16 +142,17 @@ export class DriverAuthProvider{
       rol
     })
 
-    const headers = {'content-type': 'application/x-www-form-urlencoded' }
+    const headers = { 'content-type': 'application/x-www-form-urlencoded' }
 
-    try{
+    try {
       return await this.apiClient.request('POST', url, params, headers)
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async setInService(state, vehicle){
+  
+  async setInService(state, vehicle) {
     const url = this.api_url + this.inService_path
 
     const token = await this.getToken()
@@ -159,82 +162,123 @@ export class DriverAuthProvider{
       inservice_vehicle: vehicle,
     }
 
-    const headers = { 'Authorization': token , 'content-type': 'application/json'}
-    try{
-      return await this.apiClient.request('POST' ,url, params, headers)
-    }catch(e){
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('POST', url, params, headers)
+    } catch (e) {
       throw e
     }
   }
 
-  async getDriver(){
-    const url =  this.api_url + this.getDriver_path
+  async getDriver() {
+    const url = this.api_url + this.getDriver_path
     const token = await this.getToken()
-    const headers = { headers:{'Authorization': token , 'content-type': 'application/json'} }
-    try{
+    const headers = { headers: { 'Authorization': token, 'content-type': 'application/json' } }
+    try {
       return await this.apiClient.get(url, null, headers)
-    }catch(e){
+    } catch (e) {
       throw e
     }
 
   }
 
-   async upatedrivers(driver){
-     const url = this.api_url + this.updatedrivers_path
-     const token = await this.getToken()
+  async upatedrivers(driver) {
+    const url = this.api_url + this.updatedrivers_path
+    const token = await this.getToken()
 
-     const params = {
-       documento: driver.id,
-       primer_nombre: driver.first_name,
-       segundo_nombre: driver.second_name,
-       primer_apellido: driver.first_lastname,
-       segundo_apellido: driver.second_lastname,
-       celular: driver.mobil,
-       email: driver.email
-     }
-     const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    const params = {
+      documento: driver.id,
+      primer_nombre: driver.first_name,
+      segundo_nombre: driver.second_name,
+      primer_apellido: driver.first_lastname,
+      segundo_apellido: driver.second_lastname,
+      celular: driver.mobil,
+      email: driver.email
+    }
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
-     try {
-       return await this.apiClient.request('PUT', url, params, headers)
-     } catch (e) {
-       throw e
-     }
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
   }
 
-  async updateDriverC(driver: DataUserC){
-      const url = this.api_url + this.updatedrivers_path
-      const token = await this.getToken()
+  async updateDriverC(driver: DataUserC) {
+    const url = this.api_url + this.updatedrivers_path
+    const token = await this.getToken()
 
+    const params = {
+      fecha_expedicion_cedula: driver.fecha_expedicion_cedula,
+      lugar_expedicion_cedula: driver.lugar_expedicion_cedula,
+      pais: driver.pais,
+      departamento: driver.departamento,
+      ciudad: driver.ciudad,
+      direccion: driver.direccion,
+      telefono_1: driver.telefono_1,
+      fecha_nacimiento: driver.fecha_nacimiento,
+      lugar_nacimiento: driver.lugar_nacimiento,
+      nombre_arl: driver.nombre_arl,
+      nombre_eps: driver.nombre_eps,
+      numero_licencia_conducir: driver.numero_licencia_conducir,
+      categoria_licencia: driver.categoria_licencia,
+      vencimiento_licencia: driver.vencimiento_licencia,
+      tipo_sangre: driver.tipo_sangre,
+      genero: driver.genero
+    }
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async bankData(data) {
+    const url = this.api_url + this.driverUrl_path
+    const token = await this.getToken()
+    if (data.type == 1) {
       const params = {
-        fecha_expedicion_cedula: driver.fecha_expedicion_cedula,
-        lugar_expedicion_cedula: driver.lugar_expedicion_cedula,
-        pais: driver.pais,
-        departamento: driver.departamento,
-        ciudad: driver.ciudad,
-        direccion: driver.direccion,
-        telefono_1: driver.telefono_1,
-        fecha_nacimiento: driver.fecha_nacimiento,
-        lugar_nacimiento: driver.lugar_nacimiento,
-        nombre_arl: driver.nombre_arl,
-        nombre_eps: driver.nombre_eps,
-        numero_licencia_conducir: driver.numero_licencia_conducir,
-        categoria_licencia: driver.categoria_licencia,
-        vencimiento_licencia: driver.vencimiento_licencia,
-        tipo_sangre: driver.tipo_sangre,
-        genero: driver.genero
+        type: data.type,
+        numero_celular: data.phone
+
       }
-
-      const headers = {'Authorization' : token, 'content-type': 'application/json'}
-
+      const headers = { 'Authorization': token, 'content-type': 'application/json' }
       try {
-        return await this.apiClient.request('PUT', url, params, headers)
+        return await this.apiClient.request('POST', url, params, headers)
       } catch (e) {
         throw e
       }
+
+    }else if (data.type == 2) {
+      const params = {
+        type: data.type,
+        nombre_banco: data.bank,
+        numero_cuenta: data.account,
+        nombre_titular: data.name,
+        cedula_titular: data.id,
+        numero_celular: data.phone,
+        tipo_cuenta: data.account_type,
+        img_certificacion: data.img_certificacion,
+        img_tenencia: data.img_tenencia
+
+      }
+      const headers = { 'Authorization': token, 'content-type': 'application/json' }
+      try {
+        return await this.apiClient.request('POST', url, params, headers)
+      } catch (e) {
+        throw e
+      }
+    }
+
   }
 
-  async logout(){
+  async logout() {
     return await this.db.deleteDB()
   }
+
+
 
 }
