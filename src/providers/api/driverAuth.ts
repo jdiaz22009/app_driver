@@ -25,6 +25,7 @@ export class DriverAuthProvider {
   inService_path: string = CONFIG.api.drivers.setInServices
   updatedrivers_path: string = CONFIG.api.drivers.updateDriver
   driverUrl_path: string = CONFIG.api.drivers.wayTopay
+  create_reference:string = CONFIG.api.drivers.create_reference
 
   // updatedrivers_path:string = CONFIG.api.drivers.updateConductor
   // updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
@@ -272,6 +273,19 @@ export class DriverAuthProvider {
         throw e
       }
     }
+
+  }
+
+  async driverReference(params){
+    const url = this.api_url + this.create_reference
+    const token = await this.getToken()
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('POST', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+
 
   }
 

@@ -63,7 +63,7 @@
                         <ion-item class=l-item>
                             <ion-label stacked>Nombre</ion-label>
                             <ion-input
-                              [formControl]="referenceForm.controls['name']"
+                              [formControl]="referenceForm.controls['name1']"
                               (ionChange)="toCapitalize($event, 'name1')"
                               type="text">
                             </ion-input>
@@ -73,7 +73,7 @@
                         <ion-item class=l-item>
                             <ion-label stacked>Empresa </ion-label>
                             <ion-input
-                              [formControl]="referenceForm.controls['company']"
+                              [formControl]="referenceForm.controls['company1']"
                               (ionChange)="toCapitalize($event, 'company1')"
                               type="text">
                             </ion-input>
@@ -87,7 +87,7 @@
                         <ion-item class=l-item>
                             <ion-label stacked>Teléfono de contacto</ion-label>
                             <ion-input
-                              [formControl]="referenceForm.controls['phone']"
+                              [formControl]="referenceForm.controls['phone1']"
                               (ionChange)="toCapitalize($event, 'phone1')"
                               type="text">
                             </ion-input>
@@ -106,7 +106,7 @@
                         <ion-item class=l-item>
                             <ion-label stacked>Nombre</ion-label>
                             <ion-input
-                              [formControl]="referenceForm.controls['name']"
+                              [formControl]="referenceForm.controls['name2']"
                               (ionChange)="toCapitalize($event, 'name2')"
                               type="text">
                             </ion-input>
@@ -116,7 +116,7 @@
                         <ion-item class=l-item>
                             <ion-label stacked>Empresa </ion-label>
                             <ion-input
-                              [formControl]="referenceForm.controls['company']"
+                              [formControl]="referenceForm.controls['company2']"
                               (ionChange)="toCapitalize($event, 'company2')"
                               type="text">
                             </ion-input>
@@ -130,7 +130,7 @@
                         <ion-item class=l-item>
                             <ion-label stacked>Teléfono de contacto</ion-label>
                             <ion-input
-                              [formControl]="referenceForm.controls['phone']"
+                              [formControl]="referenceForm.controls['phone2']"
                               (ionChange)="toCapitalize($event, 'phone2')"
                               type="text">
                             </ion-input>
@@ -141,6 +141,7 @@
         </ion-col>
       </ion-row>
 
-      <button margin-top (click)="save()" [disabled]="!referenceForm.valid" ion-button full color="btn">Guardar</button>
+      <button margin-top (click)="save()"  ion-button full color="btn">Guardar</button>
+      <!-- [disabled]="!referenceForm.valid" -->
 
 </ion-content>

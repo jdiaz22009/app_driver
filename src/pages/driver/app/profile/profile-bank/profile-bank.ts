@@ -59,9 +59,6 @@ export class ProfileBankDriverPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('borra es come maricas')
-  }
 
 
   checkselect() {
