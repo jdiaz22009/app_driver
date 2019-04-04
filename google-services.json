@@ -8,32 +8,49 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1007696881750:android:3ea05e107e3165cf",
+        "mobilesdk_app_id": "1:1007696881750:android:e4f0241d1286bd43",
         "android_client_info": {
-          "package_name": "com.cargaya.app"
+          "package_name": "co.cargaya.express"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1007696881750-90k66glfltlhcvuag4bg1ojvrvonlf6v.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyAFxeb0zxZhJR3PsdNHb3BKIHA1CwySnOw"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007696881750-90k66glfltlhcvuag4bg1ojvrvonlf6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007696881750:android:3ea05e107e3165cf",
+        "android_client_info": {
+          "package_name": "com.cargaya.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFxeb0zxZhJR3PsdNHb3BKIHA1CwySnOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007696881750-90k66glfltlhcvuag4bg1ojvrvonlf6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
