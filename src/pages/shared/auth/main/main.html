@@ -1,28 +1,30 @@
 <ion-content>
 
-  <div *ngIf="showContent">
+    <div *ngIf="showContent">
 
-    <img class="logo" src="./assets/imgs/logo-cargaya.png">
-    <img class="img-cargo" src="./assets/imgs/img-top-splash.jpg">
+        <img class="logo" src="./assets/imgs/logo-cargaya.png">
+        <img class="img-cargo" src="./assets/imgs/img-top-splash.jpg">
 
-    <ion-grid class="m-options">
-        <ion-row>
-            <h4 class="m-title">INGRESAR COMO:</h4>
-        </ion-row>
-        <ion-row (click)="openPage('driver')">
-            <ion-col col-12>
-                <img class="m-options-button" src="./assets/imgs/icon-conductor.png">
-            </ion-col>
-        </ion-row>
+        <ion-grid class="m-options">
 
+            <ion-row>
+                <h4 class="m-title">INGRESAR COMO:</h4>
+            </ion-row>
+            <ion-row (click)="openPage('driver')">
+                <div class="m-option-b">
+                    <ion-col col-12>
+                        <img class="m-options-button" src="./assets/imgs/icon-conductor.png">
+                    </ion-col>
+                </div>
+            </ion-row>
+            <!-- 
         <ion-row (click)="openPage('company')">
             <ion-col col-12>
                 <img class="m-options-button" src="./assets/imgs/icon-empresa.png">
             </ion-col>
-        </ion-row>
-    </ion-grid>
+        </ion-row> -->
+        </ion-grid>
 
-  </div>
+    </div>
 
 </ion-content>
-
