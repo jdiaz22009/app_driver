@@ -1,8 +1,13 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, ModalController} from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { AlertsProvider } from '@providers/alerts'
+import { FirebaseProvider } from '@providers/firebase';
+import { StorageDb } from '@providers/storageDb';
+import {MediaProvider} from '@providers/media'
+import { CONFIG } from '@providers/config'
+
 
 
 
@@ -19,6 +24,10 @@ export class ProfileBankDriverPage {
   disablenequi: boolean;
   disableTel: boolean;
   profile_bank:any = {}
+  nophonto:string = './assets/imgs/no_photo.png'
+  bankCertificate:string = this.nophonto
+  holdingLetter:string = this.nophonto
+
 
   constructor(
     public navCtrl: NavController,
@@ -26,6 +35,13 @@ export class ProfileBankDriverPage {
     public navParams: NavParams,
     public auth: DriverAuthProvider,
     public alert: AlertsProvider,
+    public fire:FirebaseProvider,
+    public db: StorageDb,
+    public media: MediaProvider,
+    public loadingCtrl: LoadingController,
+    public actionSheetCtrl: ActionSheetController,
+    private modalCtrl: ModalController
+
     ) {
 
 
@@ -60,6 +76,13 @@ export class ProfileBankDriverPage {
   }
 
 
+  async getUserId(){
+    const id = await this.db.getItem(CONFIG.localdb.USER_KEY)
+    .then(res => {
+      return res.userId
+    })
+    return id
+  }
 
   checkselect() {
     if (this.checknequi == true && this.checkbank == true) {
@@ -79,7 +102,7 @@ export class ProfileBankDriverPage {
   }
 
 
-  saveBank(){
+  async saveBank(){
 
     if (this.checknequi == true) {
       this.profile_bank.phone = this.bankForm.controls['phone'].value
@@ -101,6 +124,11 @@ export class ProfileBankDriverPage {
 
       
     }else if (this.checkbank == true) {
+
+      const loader = this.loadingCtrl.create({})
+      loader.present()
+      const userID = await this.getUserId()
+
       this.profile_bank.phone = this.bankForm.controls['phone'].value
       this.profile_bank.bank = this.bankForm.controls['bank'].value
       this.profile_bank.account = this.bankForm.controls['account'].value
@@ -112,8 +140,8 @@ export class ProfileBankDriverPage {
 
       this.auth.bankData(this.profile_bank)
       .then(res => {
+        loader.dismiss()
         console.log(JSON.stringify(res))
-        this.alert.showAlert('Datos Bancarios','Se ha guardado correctamente')
         this.navCtrl.setRoot('home-drive')
 
 
@@ -124,15 +152,146 @@ export class ProfileBankDriverPage {
         this.alert.showAlert('Error','Ocurrio un error, intente de nuevo')
       })
 
-      
 
+      let arrayImgs = []
+      if (this.bankCertificate != this.nophonto) {
+        console.log('entre al primer if')
+         arrayImgs.push({
+           model: this.bankCertificate,
+           id: userID,
+           name: 'bankCertificate'
+         })
+        
+      }
 
+      if (this.holdingLetter != this.nophonto) {
+        console.log('entre al segundo if')
 
+        arrayImgs.push({
+          model: this.holdingLetter,
+          id: userID,
+          name: 'holdingLetter'
+        })
+        
+      }
 
-      
+      const indexArray = arrayImgs.length
+      let dataArray = {
+        bankCertificate: null,
+        holdingLetter: null
+      }
+      arrayImgs.forEach((item,index) =>{
+        this.fire.uploadPicture(item.modal, item.id, item.name)
+        .then(res =>{
+          console.log(res,'response arrayImgs')
+          if(item.model === this.bankCertificate){
+            dataArray.bankCertificate = res
+          }
+
+          if (item.model === this.holdingLetter) {
+            dataArray.holdingLetter = res
+            
+          }
+
+          console.log('dataArray' + dataArray)
+
+          if (index == indexArray -1) {
+            this.fire.saveImageProfilePath(dataArray,userID)
+            .then(res => {
+              console.log('save image path' + res)
+            })
+            .catch(e =>{
+              console.error('Error dont save image path' + e)
+              if (index == indexArray -1) {
+                this.alert.showAlert('Error','Ha ocurrido un problema, por favor intente de nuevo')
+                
+              }
+            })
+            this.alert.showAlert('','Se han guardado los datos correctamente')
+            
+          }
+        })
+      })      
     }
 
   }
+
+
+  async getProfileBankPicture() {
+    const loader = this.loadingCtrl.create({})
+    loader.present();
+    const userID = await this.getUserId();
+    this.fire.getProfilePicture(userID)
+    .then(res =>{
+      console.log('res', res);
+    })
+    .catch(e =>{
+      loader.dismiss()
+      console.error('Error' + e)
+    })
+
+
+  }
+
+  setPicture(id){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Subir foto',
+      buttons: [
+        {
+          text: 'Tomar Foto',
+          role: 'takePicure',
+          handler: () => {
+            this.takePicture(id,1)
+            
+          }
+        },
+        {
+          text: 'Seleccionar de Galeria',
+          role: 'takePicture',
+          handler: () =>{
+            this.takePicture(id,0)
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler:() =>{
+            console.log('cancel clicked');
+          }
+        }
+      ]
+    })
+    actionSheet.present()
+  }
+
+
+  takePicture(modelPicture,mode){
+    this.media.takePicture(mode)
+    .then(res => {
+      const modal = this.modalCtrl.create('ModalCropSharedComponent',{picture: res})
+      modal.onDidDismiss(data => {
+        if (data) {
+          const photo = data.cropResult
+          if(modelPicture === 'bankCertificate'){
+            this.bankCertificate = photo;
+            
+          }else if(modelPicture === 'holdingLetter'){
+            this.holdingLetter = photo
+
+          }
+          
+        }else {
+          console.error('Error')
+        }  
+      })
+      modal.present()
+    })
+    .catch(e =>{
+      console.error(e)
+    })
+  }
+
+
 
 
 }

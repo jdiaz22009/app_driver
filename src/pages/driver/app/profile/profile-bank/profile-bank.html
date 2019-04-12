@@ -63,12 +63,12 @@
   <ion-row justify-content-center>
       <ion-col col-4>
           <p class="tx-title">Certificación Bancaria</p>
-          <img class="p-photos" src="./assets/imgs/no_photo.png">
+          <img class="p-photos" [src]="bankCertificate" (click)="setPicture('bankCertificate')">
 
       </ion-col>
       <ion-col col-4 offset-3>
           <p class="tx-title">Carta de Tenencia</p>
-          <img class="p-photos" src="./assets/imgs/no_photo.png">
+          <img class="p-photos" [src]="holdingLetter" (click)="setPicture('holdingLetter')">
       </ion-col>
 </ion-row>
 

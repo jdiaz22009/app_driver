@@ -27,15 +27,26 @@ export class AdditionalInfoVehiclesDriverPage {
 
   gas_category: any = [
     {value: 'Diesel', name: 'Diesel'},
-    {value: 'Extra', name: 'Extra'},
+    {value: 'ACPM', name: 'ACPM'},
+    {value: 'Gas Natural', name: 'Gas Natural'},
+    {value: 'Gasolina', name:'Gasolina'},
+    {value: 'Electrico', name: 'Electrico'}
   ]
 
   configuration_category: any = [
-    {value: 'Some', name: 'Some'},
+    {value: 'Camiòn Rìgido De 2 Ejes', name: 'Camiòn Rìgido De 2 Ejes'},
+    {value: 'Camiòn Rìgido De 3 Ejes', name: 'Camiòn Rìgido De 3 Ejes'},
+    {value: 'Camiòn Rìgido De 4 Ejes', name: 'Camiòn Rìgido De 4 Ejes'},
+    {value: 'Camiòn De Mas De 4 Ejes', name: 'Camiòn De Mas De 4 Ejes'},
+    {value: 'Tractocamiòn De 2 Ejes', name: 'Tractocamiòn De 2 Ejes'},
+    {value: 'Tractocamiòn De 3 Ejes', name: 'Tractocamiòn De 3 Ejes'},
+    {value: 'Tractocamiòn De 4 Ejes', name: 'Tractocamiòn De 4 Ejes'},
+    {value: 'Tractocamiòn De Mas De 4 Ejes', name: 'Tractocamiòn De Mas De 4 Ejes'}
+    
   ]
 
   service_type_category: any = [
-    {value: 'Some', name: 'Some'},
+    {value: 'jgjhg', name: 'fdgdf'},
   ]
 
   country_category: any = [
