@@ -46,7 +46,7 @@ export class CartProvider{
       clase_vehiculo: cart.type,
       tipo_carroceria: cart.bodywork,
       modelo: cart.model,
-      marca: cart.model,
+      marca: cart.brand
     })
     const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
 

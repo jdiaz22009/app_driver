@@ -33,4 +33,6 @@ password keystore: cargaya2017
 key alias: cargayaexpress
 key password: cargaya2017
 
- 
+# Accesos
+User:   14989044
+Pass:   14989044
