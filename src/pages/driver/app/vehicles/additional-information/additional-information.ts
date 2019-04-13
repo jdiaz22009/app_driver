@@ -46,11 +46,23 @@ export class AdditionalInfoVehiclesDriverPage {
   ]
 
   service_type_category: any = [
-    {value: 'jgjhg', name: 'fdgdf'},
+    {value: 'Particular', name: 'Particular'},
+    {value: 'Público', name: 'Público'}
   ]
 
   country_category: any = [
-    {value: 'Some', name: 'Some'},
+    {value: 'Argentina', name: 'Argentina'},
+    {value: 'Brasil', name: 'Brasil'},
+    {value: 'Bolivia', name: 'Bolivia'},
+    {value: 'Chile', name: 'Chile'},
+    {value: 'Colombia', name: 'Colombia'},
+    {value: 'Ecuador', name: 'Ecuador'},
+    {value: 'Estados Unidos', name: 'Estados Unidos'},
+    {value: 'México', name: 'México'},
+    {value: 'Paraguay', name: 'Paraguay'},
+    {value: 'Perú', name: 'Perú'},
+    {value: 'Uruguay', name: 'Uruguay'},
+    {value: 'Venezuela', name: 'Venezuela'}
   ]
 
   constructor(
