@@ -33,6 +33,12 @@ password keystore: cargaya2017
 key alias: cargayaexpress
 key password: cargaya2017
 
+Google Store:
+Usuario servicliente@cargaya.com
+Clave Servicomex2019-
+
 # Accesos
 User:   14989044
 Pass:   14989044
+
+
