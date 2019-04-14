@@ -101,6 +101,73 @@ export class CartProvider{
     }
   }
 
+  // TODO: Additonal information vehicle Form1... by mosco, sorry perafo
+  async updateVehicleAddInfo1(cart, id){
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+    const params = {
+      motor: cart.engine,
+      //repotenciado
+      chasis: cart.chassis,
+      combustible: cart.gas,
+      configuracion: cart.configuration,
+      color: cart.color,
+      peso_vacio: cart.weight,
+      capacidad: cart.capacity,
+      tipo_servicio: cart.service_type,
+      pais: cart.country
+    }
+    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  // TODO: Additonal information vehicle Form2... by mosco, sorry perafo
+  async updateVehicleAddInfo2(cart, id){
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+
+    const params = {
+      importacion: cart.import_declaration,
+      numero_soat: cart.soat,
+      vencimiento_soat: cart.soat_expiration,
+      nit_soat: cart.soat_company_id,
+      numero_tecnicomecanica: cart.technical_review,
+      vencimiento_tecnicomecanica: cart.technical_review_expiration
+      // ,trailer: cart.xxxxxxx
+    }
+    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+// TODO: Additonal information vehicle Form3... by mosco, sorry perafo
+async updateVehicleAddInfo3(cart, id){
+  const url = this.api_url + this.updateVehicle_path + '/' + id
+  const token = await this.getToken()
+
+  const params = {
+    empresa_gps: cart.gps_company,
+    pagina_gps: cart.gps_company_web,
+    id_gps: cart.gps_id,
+    usuario_gps: cart.gps_user,
+    clave_gps: cart.gps_password
+  }
+  const headers = {'Authorization' : token, 'content-type': 'application/json'}
+  try {
+    return await this.apiClient.request('PUT', url, params, headers)
+  } catch (e) {
+    throw e
+  }
+}
+
+
   async getVehiclesList(){
     const url = this.api_url + this.getVehicles_path
     const token = await this.getToken()

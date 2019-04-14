@@ -32,7 +32,7 @@ export class InformationVehiclesDriverPage {
     public navParams: NavParams) {
 
       this.vehicle = navParams.get('vehicle')
-      console.log(this.vehicle)
+      console.log('-InformationVehicle- vehicle: ',this.vehicle)
 
       this.cartForm = this.formBuilder.group({
         license_plate: ['', Validators.compose([
@@ -44,7 +44,7 @@ export class InformationVehiclesDriverPage {
         model: ['', Validators.required],
         brand: ['', Validators.required]
       })
-
+ 
       this.cartForm.controls['license_plate'].setValue(this.vehicle.placa)
       this.cartForm.controls['type'].setValue(this.vehicle.clase_vehiculo)
       this.cartForm.controls['bodywork'].setValue(this.vehicle.tipo_carroceria)
