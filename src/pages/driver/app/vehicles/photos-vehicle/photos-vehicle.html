@@ -16,11 +16,11 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="front" (click)="setPicture('front')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="rear" (click)="setPicture('rear')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
@@ -30,11 +30,11 @@
             </ion-row>
             <ion-row justify-content-center>
                 <ion-col col-4>
-                    <img class="p-photos" src="./assets/imgs/no_photo.png">
+                    <img class="p-photos" [src]="Lrfron" (click)="setPicture('Lrfron')">
                     <p class="p-summary">Frontal</p>
                 </ion-col>
                 <ion-col col-4 offset-3>
-                    <img class="p-photos" src="./assets/imgs/no_photo.png">
+                    <img class="p-photos" [src]="LrRear" (click)="setPicture('LrRear')">
                     <p class="p-summary">Trasera</p>
                 </ion-col>
         </ion-row>
@@ -44,11 +44,11 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="SoatFron" (click)="setPicture('SoatFron')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="SoatRear" (click)="setPicture('SoatRear')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
@@ -58,17 +58,17 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="TecnoFron" (click)="setPicture('TecnoFron')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" src="./assets/imgs/no_photo.png">
+                <img class="p-photos" [src]="TecnoRear" (click)="setPicture('TecnoRear')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
 
     </ion-grid>
 
-    <button color="btn" ion-button full>Guardar Documentos</button>
+    <button color="btn" ion-button full (click)="save()">Guardar Documentos</button>
 
 </ion-content>
