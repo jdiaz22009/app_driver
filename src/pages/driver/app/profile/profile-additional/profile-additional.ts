@@ -19,7 +19,7 @@ export class ProfileAdditionalDriverPage {
   profileForm: FormGroup
   profileForm_0: FormGroup
 
-  driver = {} as DataUserC
+  driver = {} as DataUserC 
   profile: any
   step_form: number = 0
   step_images: any = [

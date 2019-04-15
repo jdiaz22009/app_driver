@@ -57,7 +57,7 @@ export class ProfileDriverPage {
 
   goPage(page) {
     console.log(page)
-    if (page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage' || page === 'ProfileReferenceDriverPage') {
+    if (page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage' || page === 'ProfileReferenceDriverPage' || page === 'ProfileBankDriverPage') {
       this.navCtrl.push(page, { profile: this.userData })
     } else {
       this.navCtrl.push(page)
