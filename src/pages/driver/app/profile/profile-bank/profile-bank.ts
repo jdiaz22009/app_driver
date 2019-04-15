@@ -89,7 +89,7 @@ export class ProfileBankDriverPage {
         this.checknequi = false
         this.checkbank = true
         this.show_nequi = 0
-        this.show_bank = 1
+        this.show_bank = 1 
         this.bankForm.controls['bank'].setValue(this.user.banco.nombre_banco)
         this.bankForm.controls['account'].setValue(this.user.banco.numero_cuenta)
         this.bankForm.controls['name'].setValue(this.user.banco.nombre_titular)

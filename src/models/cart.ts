@@ -10,7 +10,7 @@ export interface Cart{
   gas: string;
   configuration: string;
   color: string;
-  //Repotenciado
+  power : string;
   weight: string;
   capacity: string;
   service_type: string;

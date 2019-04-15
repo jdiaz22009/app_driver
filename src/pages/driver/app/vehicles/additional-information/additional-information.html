@@ -27,23 +27,23 @@
                 </ion-item>
               </ion-col>
               <ion-col justify-content-center>
-                  <ion-grid>
-                      <ion-row>
-                        <ion-col>
-                          <p text-center class="tx-title">Repotenciado</p>
-                        </ion-col>
-                      </ion-row>
-                      <ion-row justify-content-center>
-                        <ion-col col-4 offset-2>
-                          <p class="tx-title">Si</p>
-                          <ion-checkbox  color="btn" mode="ios" checked="true"></ion-checkbox>
-                        </ion-col>
-                        <ion-col col-4>
-                          <p class="tx-title">No</p>
-                          <ion-checkbox   color="btn" mode="ios" checked="false"></ion-checkbox>
-                        </ion-col>
-                      </ion-row>
-                    </ion-grid>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <p text-center class="tx-title">Repotenciado</p>
+                    </ion-col> 
+                  </ion-row>
+                  <ion-row justify-content-center>
+                    <ion-col col-4 offset-2>
+                      <p class="tx-title">Si</p>
+                      <ion-checkbox color="btn" mode="ios" checked="true" value="repo_yes" (ionChange)="checkRepoYes()"></ion-checkbox>
+                    </ion-col>
+                    <ion-col col-4>
+                      <p class="tx-title">No</p>
+                      <ion-checkbox color="btn" mode="ios" checked="false" value="no" name="no" (ionChange)="checkRepoNo(event)"></ion-checkbox>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
 
               </ion-col>
             </ion-row>
@@ -205,7 +205,7 @@
               <ion-row justify-content-center>
                 <ion-col col-4 offset-2>
                   <p class="tx-title">Si</p>
-                  <ion-checkbox  color="btn" mode="ios" checked="true"></ion-checkbox>
+                  <ion-checkbox color="btn" mode="ios" checked="true"></ion-checkbox>
                 </ion-col>
                 <ion-col col-4>
                   <p class="tx-title">No</p>
@@ -229,7 +229,7 @@
                 <ion-item class=l-item>
                   <ion-label stacked>Modelo</ion-label>
                   <ion-input [formControl]="vehicleForm0.controls['trailer_model']" (ionChange)="toCapitalize($event, 'trailer_model')"
-                    type="text">
+                    type="number">
                   </ion-input>
                 </ion-item>
               </ion-col>

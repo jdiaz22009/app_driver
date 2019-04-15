@@ -30,6 +30,9 @@ export class AdditionalInfoVehiclesDriverPage {
   vehicleForm: FormGroup
   vehicleForm0: FormGroup
   vehicleForm1: FormGroup
+  repoyes: Boolean
+  repono: Boolean
+  repo_yes:Boolean= false;
 
   gas_category: any = [
     { value: 'Diesel', name: 'Diesel' },
@@ -76,7 +79,7 @@ export class AdditionalInfoVehiclesDriverPage {
     this.setForm()
     // Form 0
     this.vehicleForm.controls['engine'].setValue(this.vehicle.motor)
-    // Repotenciado
+    // Repotenciado 
     this.vehicleForm.controls['chassis'].setValue(this.vehicle.chasis)
     this.vehicleForm.controls['gas'].setValue(this.vehicle.combustible)
     this.vehicleForm.controls['configuration'].setValue(this.vehicle.configuracion)
@@ -290,9 +293,9 @@ export class AdditionalInfoVehiclesDriverPage {
         this.cart.soat_company_id = this.vehicleForm0.controls['soat_company_id'].value
         this.cart.technical_review = this.vehicleForm0.controls['technical_review'].value
         this.cart.technical_review_expiration = this.vehicleForm0.controls['technical_review_expiration'].value
-        this.cart.trailer_brand = this.vehicleForm.controls['trailer_brand'].value
-        this.cart.trailer_model = this.vehicleForm.controls['trailer_model'].value
-        this.cart.trailer_plate = this.vehicleForm.controls['trailer_plate'].value
+        this.cart.trailer_brand = this.vehicleForm0.controls['trailer_brand'].value
+        this.cart.trailer_model = this.vehicleForm0.controls['trailer_model'].value
+        this.cart.trailer_plate = this.vehicleForm0.controls['trailer_plate'].value
 
 
         console.log('-AditionalInfo- cart: ', this.cart)
@@ -374,6 +377,21 @@ export class AdditionalInfoVehiclesDriverPage {
     }
   }
 
+  checkRepoYes($evento) {
+    console.log('--AddiotionalInfo event: ',$evento)
+    if (this.repoyes == true) {
+      this.repono = false
+      this.cart.power = 'si'
+    } 
+  }
+
   
+  checkRepoNo(e) {
+    console.log('--AddiotionalInfo event: ', e)
+    if (this.repono == true) {
+      this.repoyes = false
+      this.cart.power = 'no'
+    } 
+  }
 
 }
