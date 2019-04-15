@@ -1,10 +1,12 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { StorageDb } from '@providers/storageDb'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { AlertsProvider } from '@providers/alerts'
+import { DataUserC } from '@models/dataUserC'
+
 
 
 @IonicPage()
@@ -13,6 +15,7 @@ import { AlertsProvider } from '@providers/alerts'
   templateUrl: 'profile-reference.html'
 })
 export class ProfileReferenceDriverPage {
+  driver = {} as DataUserC
 
   referenceForm: FormGroup
 
@@ -22,89 +25,111 @@ export class ProfileReferenceDriverPage {
 
   profile_reference: any = {}
 
+
+
   constructor(
     public navCtrl: NavController,
     public db: StorageDb,
     private formBuilder: FormBuilder,
     public navParams: NavParams,
-    public auth:DriverAuthProvider,
-    public alert:AlertsProvider) {
+    public auth: DriverAuthProvider,
+    public loadingCtrl: LoadingController,
+    public alert: AlertsProvider) {
 
+    const user = this.navParams.get('profile')
+
+    console.log('--ProfileReference-- user: ', user)
+
+    if (user != null) {
+      // this.referenceForm.controls['date'].setValue(user.ref_nombre1)
+      // this.referenceForm.controls['company'].setValue(user.ref_empresa1)
+      // this.referenceForm.controls['phone'].setValue(user.ref_telefono1)
+
+      // this.referenceForm.controls['name1'].setValue(user.ref_nombre2)
+      // this.referenceForm.controls['company1'].setValue(user.ref_empresa2)
+      // this.referenceForm.controls['phone1'].setValue(user.ref_telefono2)
+
+      // this.referenceForm.controls['name2'].setValue(user.ref_nombre3)
+      // this.referenceForm.controls['company2'].setValue(user.ref_empresa3)
+      // this.referenceForm.controls['phone2'].setValue(user.ref_telefono3)
+
+    }
     this.referenceForm = this.formBuilder.group({
       name: ['', Validators.compose([
         Validators.pattern(this.id_validator),
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       company: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       phone: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       name1: ['', Validators.compose([
         Validators.pattern(this.id_validator),
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       company1: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       phone1: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       name2: ['', Validators.compose([
         Validators.pattern(this.id_validator),
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       company2: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
       phone2: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
+        // Validators.minLength(3),
+        // Validators.required
       ])],
     })
   }
 
 
+
+
   save() {
-    const params = [{
-      nameReference1: this.referenceForm.controls['name'].value,
-      companyReference1: this.referenceForm.controls['company'].value,
-      phoneReference1: this.referenceForm.controls['phone'].value,
-    },
-    {
-      nameReference2: this.referenceForm.controls['name1'].value,
-      companyReference2: this.referenceForm.controls['company1'].value,
-      phoneReference2: this.referenceForm.controls['phone1'].value,
-    },
-    {
-      nameReference3: this.referenceForm.controls['name2'].value,
-      companyReference3: this.referenceForm.controls['company2'].value,
-      phoneReference3: this.referenceForm.controls['phone2'].value,
-    }]
-    console.log(params,'referencia')
 
-    this.auth.driverReference(params)
-      .then(res => {
-        console.log(JSON.stringify(res))
-        this.alert.showAlert('Datos Bancarios','Se ha guardado correctamente')
-        this.navCtrl.setRoot('home-drive')
+    this.driver.ref_nombre1 = this.referenceForm.controls['name'].value
+    this.driver.ref_empresa1 = this.referenceForm.controls['company'].value
+    this.driver.ref_telefono1 = this.referenceForm.controls['phone'].value
 
+    this.driver.ref_nombre2 = this.referenceForm.controls['name1'].value
+    this.driver.ref_empresa2 = this.referenceForm.controls['company1'].value
+    this.driver.ref_telefono2 = this.referenceForm.controls['phone1'].value
 
+    this.driver.ref_nombre3 = this.referenceForm.controls['name2'].value
+    this.driver.ref_empresa3 = this.referenceForm.controls['company2'].value
+    this.driver.ref_telefono3 = this.referenceForm.controls['phone2'].value
 
-      })
-      .catch(error => {
-        console.log(error)
-        this.alert.showAlert('Error','Ocurrio un error, intente de nuevo')
-      })
+    const loader = this.loadingCtrl.create({})
+    loader.present()
+
+    console.log('--ProfileReference-- driver: ', this.driver)
+    this.auth.updateDriverRef(this.driver).then(res => {
+      console.log(res)
+      // console.log(JSON.stringify(res))
+      loader.dismiss()
+      this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
+    }).catch(e => {
+      console.error(e)
+      loader.dismiss()
+      this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tus datos, intenta de nuevo.')
+    })
+    this.navCtrl.pop()
+
 
   }
 

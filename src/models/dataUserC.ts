@@ -14,5 +14,14 @@ export interface DataUserC{
   categoria_licencia: String,
   vencimiento_licencia: String,
   tipo_sangre: String,
-  genero: String
+  genero: String,
+  ref_nombre1 : String,
+  ref_empresa1: String,
+  ref_telefono1: Number,
+  ref_nombre2 : String,
+  ref_empresa2: String,
+  ref_telefono2: Number,
+  ref_nombre3 : String,
+  ref_empresa3: String,
+  ref_telefono3: Number
 }

@@ -269,7 +269,7 @@ export class AdditionalInfoVehiclesDriverPage {
       this.scrollToTop()
     } else if (this.step_form === 1) {
       console.log('-AditionalInfo- StepForm 1')
-      if (
+      if ( 
         this.vehicleForm0.controls['import_declaration'].value !== this.vehicle.importacion ||
         this.vehicleForm0.controls['soat'].value !== this.vehicle.numero_soat ||
         this.vehicleForm0.controls['soat_expiration'].value !== this.vehicle.vencimiento_soat ||

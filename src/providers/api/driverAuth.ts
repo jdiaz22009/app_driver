@@ -237,6 +237,32 @@ export class DriverAuthProvider {
     }
   }
 
+  async updateDriverRef(driver: DataUserC) {
+    const url = this.api_url + this.updatedrivers_path
+    const token = await this.getToken()
+
+    const params = {
+      ref_nombre1: driver.ref_nombre1,
+      ref_empresa1: driver.ref_empresa1,
+      ref_telefono1: driver.ref_telefono1,
+      ref_nombre2: driver.ref_nombre2,
+      ref_empresa2: driver.ref_empresa2,
+      ref_telefono2: driver.ref_telefono2,
+      ref_nombre3: driver.ref_nombre3,
+      ref_empresa3: driver.ref_empresa3,
+      ref_telefono3: driver.ref_telefono3
+      
+    }
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
   async bankData(data) {
     const url = this.api_url + this.driverUrl_path
     const token = await this.getToken()
