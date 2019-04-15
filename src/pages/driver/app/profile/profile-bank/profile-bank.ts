@@ -28,6 +28,8 @@ export class ProfileBankDriverPage {
   bankCertificate:string = this.nophonto
   holdingLetter:string = this.nophonto
 
+  show_nequi: number = 0
+  show_bank: number = 0
 
   constructor(
     public navCtrl: NavController,
@@ -84,21 +86,32 @@ export class ProfileBankDriverPage {
     return id
   }
 
-  checkselect() {
-    if (this.checknequi == true && this.checkbank == true) {
-      this.disablenequi = true
-      this.disableTel = true
-    } else if (this.checkbank == true) {
-      this.disablenequi = false
+  
+
+  checkselectNequi(){
+    if(this.checknequi == true){
+      this.checkbank = false
+      this.show_nequi = 1
+      this.show_bank = 0
       this.disableTel = false
-    } else if (this.checknequi == true) {
       this.disablenequi = true
-      this.disableTel = false
-    } else {
-      this.disablenequi = true
-      this.disableTel = true
+    } else if(this.checknequi == false){
+      this.show_nequi = 0
+
     }
-    console.log('save', this.checknequi, this.checkbank)
+  }
+
+  checkselectBank(){
+    if(this.checkbank == true){
+      this.checknequi = false
+      this.show_nequi = 0
+      this.show_bank = 1
+      this.disableTel = true
+      this.disablenequi = false
+    } else if(this.checkbank == false){
+      this.show_bank = 0
+    }
+
   }
 
 
