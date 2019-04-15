@@ -13,14 +13,16 @@ import { DriverAuthProvider } from '@providers/api/driverAuth'
 })
 export class ProfileDriverPage {
 
-  dataUser = {}  as DataUser
+  dataUser = {} as DataUser
   driver_name: string = ''
+  percent_profile: number = 0
+  travels: number = 0
   data: any = [
-    {thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Edita datos del conductor', page: 'ProfileBasicPage'},
-    {thumb: './assets/imgs/perfil4.png', title: 'Mis datos Complementarios', summary: 'Edita datos complementarios del conductor', page: 'ProfileAdditionalDriverPage'},
-    {thumb: './assets/imgs/perfil3.png', title: 'Mis fotos', summary: ' Sube fotos de documentos', page: 'ProfilePhotoDriverPage'},
-    {thumb: './assets/imgs/perfil2.png', title: 'Mis datos bancarios', summary: 'Para recibir pagos de la empresa', page: 'ProfileBankDriverPage'},
-    {thumb: './assets/imgs/perfil.png', title: 'Mis referencias', summary: 'Te ayudara con las empresas', page: 'ProfileReferenceDriverPage'}
+    { thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Edita datos del conductor', page: 'ProfileBasicPage' },
+    { thumb: './assets/imgs/perfil4.png', title: 'Mis datos Complementarios', summary: 'Edita datos complementarios del conductor', page: 'ProfileAdditionalDriverPage' },
+    { thumb: './assets/imgs/perfil3.png', title: 'Mis fotos', summary: ' Sube fotos de documentos', page: 'ProfilePhotoDriverPage' },
+    { thumb: './assets/imgs/perfil2.png', title: 'Mis datos bancarios', summary: 'Para recibir pagos de la empresa', page: 'ProfileBankDriverPage' },
+    { thumb: './assets/imgs/perfil.png', title: 'Mis referencias', summary: 'Te ayudara con las empresas', page: 'ProfileReferenceDriverPage' }
   ]
 
   inputCount: number = 46
@@ -35,33 +37,35 @@ export class ProfileDriverPage {
 
   }
 
-  ionViewDidLoad(){
+  ionViewDidLoad() {
 
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getProfile()
   }
 
-  getProfile(){
-    this.auth.getDriver().then(res =>{
+  getProfile() {
+    this.auth.getDriver().then(res => {
       console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
-      this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' '  + this.toCapitalize(this.userData.segundo_nombre)
+      this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' ' + this.toCapitalize(this.userData.segundo_nombre)
+      this.percent_profile = res['data'].percent_profile
+      this.travels = this.userData.cantidad_viajes === 0 ? 0 : this.userData.cantidad_viajes
     })
   }
 
-  goPage(page){
+  goPage(page) {
     console.log(page)
-    if(page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage'){
-      this.navCtrl.push(page, { profile: this.userData})
-    }else{
+    if (page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage') {
+      this.navCtrl.push(page, { profile: this.userData })
+    } else {
       this.navCtrl.push(page)
     }
   }
 
-  toCapitalize(v){
-      return v.charAt(0).toUpperCase() + v.slice(1)
+  toCapitalize(v) {
+    return v.charAt(0).toUpperCase() + v.slice(1)
   }
 
 }

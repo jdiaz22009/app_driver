@@ -22,27 +22,28 @@
               <ion-col>
                 <ion-item class=l-item>
                   <ion-label stacked>Motor Número</ion-label>
-                  <ion-input [formControl]="vehicleForm.controls['engine']" 
-                    type="number">
+                  <ion-input [formControl]="vehicleForm.controls['engine']" type="number">
                   </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col justify-content-center>
-                <p text-center>Repotenciado</p>
-                <ion-row>
-                  <ion-col>
-                    <p text-center>Si</p>
-                    <ion-item>
-                      <ion-radio checked="false" value="yes"></ion-radio>
-                    </ion-item>
-                  </ion-col>
-                  <ion-col>
-                    <p text-center>No</p>
-                    <ion-item>
-                      <ion-radio checked="false" value="no"></ion-radio>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
+                  <ion-grid>
+                      <ion-row>
+                        <ion-col>
+                          <p text-center class="tx-title">Repotenciado</p>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row justify-content-center>
+                        <ion-col col-4 offset-2>
+                          <p class="tx-title">Si</p>
+                          <ion-checkbox  color="btn" mode="ios" checked="true"></ion-checkbox>
+                        </ion-col>
+                        <ion-col col-4>
+                          <p class="tx-title">No</p>
+                          <ion-checkbox   color="btn" mode="ios" checked="false"></ion-checkbox>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
 
               </ion-col>
             </ion-row>
@@ -51,8 +52,7 @@
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Chasis Número</ion-label>
-                  <ion-input [formControl]="vehicleForm.controls['chassis']" 
-                    type="number">
+                  <ion-input [formControl]="vehicleForm.controls['chassis']" type="number">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -94,8 +94,7 @@
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Peso vacío (Ton)</ion-label>
-                  <ion-input [formControl]="vehicleForm.controls['weight']" 
-                    type="decimal">
+                  <ion-input [formControl]="vehicleForm.controls['weight']" type="decimal">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -103,8 +102,7 @@
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Capacidad (Ton)</ion-label>
-                  <ion-input [formControl]="vehicleForm.controls['capacity']" 
-                    type="decimal">
+                  <ion-input [formControl]="vehicleForm.controls['capacity']" type="decimal">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -198,26 +196,23 @@
 
             </ion-row>
 
-            <ion-row>
-              <ion-col justify-content-center>
-                <p text-center>Tiene Trailer</p>
-                <ion-row>
-                  <ion-col>
-                    <p text-center>Si</p>
-                    <ion-item>
-                      <ion-radio checked="false" value="yes"></ion-radio>
-                    </ion-item>
-                  </ion-col>
-                  <ion-col>
-                    <p text-center>No</p>
-                    <ion-item>
-                      <ion-radio checked="false" value="no"></ion-radio>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-
-              </ion-col>
-            </ion-row>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <p text-center class="tx-title">Tiene Trailer</p>
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-center>
+                <ion-col col-4 offset-2>
+                  <p class="tx-title">Si</p>
+                  <ion-checkbox  color="btn" mode="ios" checked="true"></ion-checkbox>
+                </ion-col>
+                <ion-col col-4>
+                  <p class="tx-title">No</p>
+                  <ion-checkbox color="btn" mode="ios" checked="false"></ion-checkbox>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
             <ion-row>
 
@@ -278,12 +273,8 @@
                   </ion-input>
                 </ion-item>
               </ion-col>
-
             </ion-row>
-
-
             <ion-row>
-
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>ID GPS</ion-label>
@@ -292,7 +283,6 @@
                   </ion-input>
                 </ion-item>
               </ion-col>
-
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Usuario GPS</ion-label>
@@ -301,11 +291,8 @@
                   </ion-input>
                 </ion-item>
               </ion-col>
-
             </ion-row>
-
             <ion-row>
-
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Clave GPS</ion-label>

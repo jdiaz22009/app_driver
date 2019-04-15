@@ -6,134 +6,249 @@
 
 <ion-content>
 
-    <div *ngIf="step_form === 0">
+  <div *ngIf="step_form === 0">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p text-center class="tx-title">Soy el propietario</p>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center>
+        <ion-col col-4 offset-2>
+          <p class="tx-title">Si</p>
+          <ion-checkbox color="btn" mode="ios" checked="true"></ion-checkbox>
+        </ion-col>
+        <ion-col col-4>
+          <p class="tx-title">No</p>
+          <ion-checkbox color="btn" mode="ios" checked="false"></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-                <p text-center class="tx-title">Soy el propietario</p>
-            </ion-col>
-          </ion-row>
-          <ion-row justify-content-center>
-            <ion-col col-4 offset-2>
-              <p class="tx-title">Si</p>
-              <ion-checkbox color="btn" mode="ios" checked="true"></ion-checkbox>
-            </ion-col>
-            <ion-col col-4>
-              <p class="tx-title">No</p>
-              <ion-checkbox color="btn" mode="ios" checked="false"></ion-checkbox>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <form [formGroup]="ownerForm">
+      <ion-grid>
+        <ion-row>
+          <ion-item class=l-item>
+            <ion-label stacked>Tipo de Persona</ion-label>
+            <ion-select (ionChange)="onType($event)" [formControl]="ownerForm.controls['type']">
+              <ion-option value="natural">Natural</ion-option>
+              <ion-option value="juridica">Jurídica</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Tipo de Identificación</ion-label>
+              <ion-select [formControl]="ownerForm.controls['id_type']">
+                <ion-option value="id">Cédula Ciudadanía</ion-option>
+                <ion-option value="int">Cédula extrajería</ion-option>
+                <ion-option value="pas">Pasaporte</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Num Identificación ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['id']" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Primer Nombre ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['first_name']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Segundo Nombre ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['second_name']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-        <form [formGroup]="ownerForm">
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Primer Apellido ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['first_lastname']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Segundo Apellido ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['second_lastname']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-            <ion-grid>
-              <ion-row>
-                  <ion-item class=l-item>
-                      <ion-label stacked>Tipo de Persona</ion-label>
-                      <ion-select (ionChange)="onType($event)" [formControl]="ownerForm.controls['type']">
-                        <ion-option value="natural">Natural</ion-option>
-                        <ion-option value="juridica">Jurídica</ion-option>
-                      </ion-select>
-                  </ion-item>
-              </ion-row>
-              <ion-row>
-                <ion-col col-6>
-                    <ion-item class=l-item>
-                        <ion-label stacked>Tipo de Identificación</ion-label>
-                        <ion-select [formControl]="ownerForm.controls['id_type']">
-                          <ion-option value="id">Cédula Ciudadanía</ion-option>
-                          <ion-option value="int">Cédula extrajería</ion-option>
-                          <ion-option value="pas">Pasaporte</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-col>
-                <ion-col col-6>
-                    <ion-item class=l-item>
-                        <ion-label stacked>Num Identificación <sup>*</sup></ion-label>
-                        <ion-input [formControl]="ownerForm.controls['id']" type="number"></ion-input>
-                    </ion-item>
-                </ion-col>
-              </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Municipio</ion-label>
+              <ion-select [formControl]="ownerForm.controls['state']">
+                <ion-option value="id">Cali</ion-option>
+                <ion-option value="int">Bogota</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Dirección ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['address']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-              <ion-row>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Primer Nombre <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['first_name']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Segundo Nombre <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['second_name']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-              </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Celular ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['mobil']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Teléfono ></ion-label>
+              <ion-input [formControl]="ownerForm.controls['phone']" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-              <ion-row>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Primer Apellido <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['first_lastname']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Segundo Apellido <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['second_lastname']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-              </ion-row>
+      </ion-grid>
 
-              <ion-row>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Municipio</ion-label>
-                          <ion-select [formControl]="ownerForm.controls['state']">
-                            <ion-option value="id">Cali</ion-option>
-                            <ion-option value="int">Bogota</ion-option>
-                          </ion-select>
-                      </ion-item>
-                  </ion-col>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Dirección <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['address']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-              </ion-row>
-
-              <ion-row>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Celular <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['mobil']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-                  <ion-col col-6>
-                      <ion-item class=l-item>
-                          <ion-label stacked>Teléfono <sup>*</sup></ion-label>
-                          <ion-input [formControl]="ownerForm.controls['phone']" type="text"></ion-input>
-                      </ion-item>
-                  </ion-col>
-              </ion-row>
-
-            </ion-grid>
-
-        </form>
+    </form>
 
 
 
 
-    </div>
+  </div>
 
-    <div *ngIf="step_form === 1">
+  <div *ngIf="step_form === 1">
+    <form [formGroup]="ownerForm0">
+      <ion-row>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Razón Social</ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_business_name']" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>NIT<sup>*</sup></ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_nit']" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    </div>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>País</ion-label>
+            <ion-select [formControl]="ownerForm0.controls['owner_country']">
+              <ion-option value="id">Colombia</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Departamento <sup>*</sup></ion-label>
+            <ion-select [formControl]="ownerForm0.controls['owner_department']">
+              <ion-option value="id">Valle Del Cauca</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <button margin-top (click)="save()" ion-button full color="btn">{{btn_txt}}</button>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>País</ion-label>
+            <ion-select [formControl]="ownerForm0.controls['owner_municipality']">
+              <ion-option value="id">Cali</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Dirección ></ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_address']" type="text"></ion-input>
+           
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Celular</ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_mobile']" type="number"></ion-input>
+            
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Teléfono ></ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_phone']" type="number"></ion-input>
+            
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-label stacked>-----Representante Legal-----</ion-label>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Primer Nombre</ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_first_name_legal_rep']" type="number"></ion-input>
+           
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item class=l-item>
+            <ion-label stacked>Segundo Nombre</ion-label>
+            <ion-input [formControl]="ownerForm0.controls['owner_second_name_legal_rep']" type="number"></ion-input>
+           
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Primer Nombre</ion-label>
+              <ion-input [formControl]="ownerForm0.controls['owner_surname_legal_rep']" type="number"></ion-input>
+             
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class=l-item>
+              <ion-label stacked>Segundo Nombre</ion-label>
+              <ion-input [formControl]="ownerForm0.controls['owner_second_surname_legal_rep']" type="number"></ion-input>
+             
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-item class=l-item>
+                <ion-label stacked>Email</ion-label>
+                <ion-input [formControl]="ownerForm0.controls['owner_email_legal_rep']" type="number"></ion-input>
+               
+              </ion-item>
+        </ion-row>
+
+    </form>
+  </div>
+
 
 </ion-content>
+<ion-footer>
+  <button margin-top (click)="save()" [disabled]="!ownerForm.valid" ion-button full color="btn">{{btn_txt}}</button>
+</ion-footer>

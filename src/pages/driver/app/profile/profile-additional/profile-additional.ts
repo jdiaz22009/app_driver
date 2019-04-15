@@ -97,31 +97,31 @@ export class ProfileAdditionalDriverPage {
     this.profileForm = this.formBuilder.group({
       date: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       place: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       country: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       state: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       city: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       address: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       phone: ['', Validators.compose([
         Validators.minLength(6),
-        Validators.required
+        // Validators.required
       ])]
      })
 
@@ -129,39 +129,39 @@ export class ProfileAdditionalDriverPage {
      this.profileForm_0 = this.formBuilder.group({
       date: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       place: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       arl: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       eps: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       license_plate: ['', Validators.compose([
         Validators.minLength(7),
-        Validators.required
+        // Validators.required
       ])],
       license_category: ['', Validators.compose([
         Validators.minLength(1),
-        Validators.required
+        // Validators.required
       ])],
       license_expiration: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])],
       rh: ['', Validators.compose([
         Validators.minLength(2),
-        Validators.required
+        // Validators.required
       ])],
       gender: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.required
+        // Validators.required
       ])]
      })
   }

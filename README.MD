@@ -9,6 +9,7 @@
 2. npm install - g cordova
 3. brew install gradle
 
+
 - Android:   npm run android
 - Navegador: npm start
 
@@ -27,6 +28,7 @@ android:icon="@mipmap/ic_launcher"
 android:roundIcon="@mipmap/ic_launcher_round
 
 # Compilacion apk:
+0. ionic cordova platform add android
 - - Android Studio
 name file : cargaya.jks
 password keystore: cargaya2017

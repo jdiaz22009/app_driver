@@ -12,7 +12,7 @@ import { CartProvider } from '@providers/api/cart'
   templateUrl: 'additional-information.html'
 })
 export class AdditionalInfoVehiclesDriverPage {
-
+ 
   cart = {} as Cart
   cartForm: FormGroup
   @ViewChild(Content) content: Content
@@ -93,6 +93,9 @@ export class AdditionalInfoVehiclesDriverPage {
     this.vehicleForm0.controls['soat_company_id'].setValue(this.vehicle.nit_soat)
     this.vehicleForm0.controls['technical_review'].setValue(this.vehicle.numero_tecnicomecanica)
     this.vehicleForm0.controls['technical_review_expiration'].setValue(this.vehicle.vencimiento_tecnicomecanica)
+    this.vehicleForm0.controls['trailer_brand'].setValue(this.vehicle.trailer_marca)
+    this.vehicleForm0.controls['trailer_model'].setValue(this.vehicle.trailer_modelo)
+    this.vehicleForm0.controls['trailer_plate'].setValue(this.vehicle.trailer_placa)
     // this.vehicleForm0.controls['technical_review_expiration'].setValue(this.vehicle.tipo_servicio)
 
     // Form 2
@@ -272,8 +275,10 @@ export class AdditionalInfoVehiclesDriverPage {
         this.vehicleForm0.controls['soat_expiration'].value !== this.vehicle.vencimiento_soat ||
         this.vehicleForm0.controls['soat_company_id'].value !== this.vehicle.nit_soat ||
         this.vehicleForm0.controls['technical_review'].value !== this.vehicle.numero_tecnicomecanica ||
-        this.vehicleForm0.controls['technical_review_expiration'].value !== this.vehicle.vencimiento_tecnicomecanica
-        // || this.cart.technical_review_expiration !== this.vehicle.trailer 
+        this.vehicleForm0.controls['technical_review_expiration'].value !== this.vehicle.vencimiento_tecnicomecanica ||
+        this.vehicleForm0.controls['trailer_brand'].value !== this.vehicle.trailer_marca ||
+        this.vehicleForm0.controls['trailer_model'].value !== this.vehicle.trailer_modelo ||
+        this.vehicleForm0.controls['trailer_plate'].value !== this.vehicle.trailer_placa 
 
       ) {
         const loader = this.loadingCtrl.create({})
@@ -285,7 +290,9 @@ export class AdditionalInfoVehiclesDriverPage {
         this.cart.soat_company_id = this.vehicleForm0.controls['soat_company_id'].value
         this.cart.technical_review = this.vehicleForm0.controls['technical_review'].value
         this.cart.technical_review_expiration = this.vehicleForm0.controls['technical_review_expiration'].value
-        // // this.cart.trailer = this.vehicleForm.controls['trailer'].value
+        this.cart.trailer_brand = this.vehicleForm.controls['trailer_brand'].value
+        this.cart.trailer_model = this.vehicleForm.controls['trailer_model'].value
+        this.cart.trailer_plate = this.vehicleForm.controls['trailer_plate'].value
 
 
         console.log('-AditionalInfo- cart: ', this.cart)
@@ -366,5 +373,7 @@ export class AdditionalInfoVehiclesDriverPage {
       this.vehicleForm.controls[property].setValue(value)
     }
   }
+
+  
 
 }
