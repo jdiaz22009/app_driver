@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Cart } from '@models/cart'
 import { AlertsProvider } from '@providers/alerts'
-import { CartProvider } from '@providers/api/cart'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { CartProvider } from '@providers/api/cart'
 
 
 @IonicPage()
@@ -48,7 +48,7 @@ export class OwnerDataVehiclesDriverPage {
     console.log('-AdditionalInformationVehicle- vehicle: ', this.vehicle)
     this.setForm()
 
-    if (this.ownerForm.controls['owner_type'].value === 'natural') {
+    if (this.vehicle.prop_tipo_persona === 'natural') {
       this.ownerForm.controls['owner_type'].setValue(this.vehicle.prop_tipo_persona)
       this.show_type = 0
       this.ownerForm.controls['owner_id_type'].setValue(this.vehicle.prop_tipo_identificacion)
@@ -63,7 +63,7 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_phone'].setValue(this.vehicle.prop_telefono)
       
     }
-    if (this.ownerForm.controls['owner_type'].value === 'juridico') {
+    if (this.vehicle.prop_tipo_persona === 'juridico') {
       this.ownerForm.controls['owner_type'].setValue(this.vehicle.prop_tipo_persona)
       this.show_type = 1
       this.ownerForm.controls['owner_business_name'].setValue(this.vehicle.prop_razon_social)
@@ -180,7 +180,7 @@ export class OwnerDataVehiclesDriverPage {
     this.cart.owner_type = this.ownerForm.controls['owner_type'].value
 
     if (this.show_type === 0) {
-      console.log('-OwnerData- StepForm 0')
+      console.log('-OwnerData- StepForm 0') 
       this.cart.owner_id_type = this.ownerForm.controls['owner_id_type'].value
       this.cart.owner_id = this.ownerForm.controls['owner_id'].value
       this.cart.owner_first_name = this.ownerForm.controls['owner_first_name'].value
@@ -192,9 +192,11 @@ export class OwnerDataVehiclesDriverPage {
       this.cart.owner_mobil = this.ownerForm.controls['owner_mobil'].value
       this.cart.owner_phone = this.ownerForm.controls['owner_phone'].value
 
+      console.log('--OwnerData-- Cart: ', this.cart)
+      console.log('--OwnerData-- vehicle: ', this.vehicle)
+
       this.cartApi.updateVehicleAddOwnerNat(this.cart, this.vehicle._id).then(res => {
-        console.log(JSON.stringify(res))
-        // this.navCtrl.pop()
+        console.log('--OwnerData-- RESPUESTA: ',JSON.stringify(res))
         loader.dismiss()
         this.navCtrl.pop()
   
@@ -221,9 +223,11 @@ export class OwnerDataVehiclesDriverPage {
       this.cart.owner_second_surname_legal_rep = this.ownerForm.controls['owner_second_surname_legal_rep'].value
       this.cart.owner_email_legal_rep = this.ownerForm.controls['owner_email_legal_rep'].value
 
+      console.log('--OwnerData-- Cart: ', this.cart)
+      console.log('--OwnerData-- vehicle: ', this.vehicle)
+
       this.cartApi.updateVehicleAddOwnerJur(this.cart, this.vehicle._id).then(res => {
         console.log(JSON.stringify(res))
-        // this.navCtrl.pop()
         loader.dismiss()
         this.navCtrl.pop()
   

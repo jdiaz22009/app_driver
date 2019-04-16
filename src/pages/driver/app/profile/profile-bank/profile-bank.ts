@@ -10,7 +10,7 @@ import { CONFIG } from '@providers/config'
 
 
 
- 
+
 @IonicPage()
 @Component({
   selector: 'profile-bank-driver',
@@ -32,6 +32,11 @@ export class ProfileBankDriverPage {
   show_bank: number = 0
   user: any
 
+  type_account_category: any = [
+    { value: 'Ahorros', name: 'Ahorros' },
+    { value: 'Corriente', name: 'Corriente' }
+  ]
+
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
@@ -50,33 +55,35 @@ export class ProfileBankDriverPage {
 
     this.bankForm = this.formBuilder.group({
       phone: ['', Validators.compose([
-        // Validators.minLength(3),
-        // Validators.required
+        Validators.minLength(0)
+        // ,Validators.required
       ])],
       bank: ['', Validators.compose([
-        // Validators.minLength(3),
-        // Validators.required
+        Validators.minLength(0)
+        // ,Validators.required
       ])],
       account: ['', Validators.compose([
-        // Validators.minLength(3),
-        // Validators.required
+        Validators.minLength(0)
+        // ,Validators.required
       ])],
       name: ['', Validators.compose([
-        // Validators.minLength(3),
-        // Validators.required
+        Validators.minLength(0)
+        // ,Validators.required
       ])],
       id: ['', Validators.compose([
-        // Validators.minLength(3),
-        // Validators.required
+        Validators.minLength(0)
+        // ,Validators.required
       ])],
       account_type: ['', Validators.compose([
-        // Validators.minLength(3),
-        // Validators.required
+        Validators.minLength(0)
+        // ,Validators.required
       ])]
     })
     this.user = this.navParams.get('profile')
+    console.log('--ProfileBank-- USER: ', this.user)
+    console.log('--ProfileBank-- USER: ', this.user.nequi.numero_celular.length)
     if (this.user != null) {
-      if (this.user.nequi.numero_celular && this.user.nequi.numero_celular.length > 0) {
+      if (this.user.nequi.numero_celular.length > 0) {
         this.checknequi = true
         this.checkbank = false
         this.show_nequi = 1
@@ -84,12 +91,11 @@ export class ProfileBankDriverPage {
         this.disableTel = false
         this.disablenequi = true
         this.bankForm.controls['phone'].setValue(this.user.nequi.numero_celular)
-      }
-      if (this.user.banco) {
+      } else if (this.user.banco) {
         this.checknequi = false
         this.checkbank = true
         this.show_nequi = 0
-        this.show_bank = 1 
+        this.show_bank = 1
         this.bankForm.controls['bank'].setValue(this.user.banco.nombre_banco)
         this.bankForm.controls['account'].setValue(this.user.banco.numero_cuenta)
         this.bankForm.controls['name'].setValue(this.user.banco.nombre_titular)
@@ -141,13 +147,26 @@ export class ProfileBankDriverPage {
 
 
   async saveBank() {
+    const loader = this.loadingCtrl.create({})
+    loader.present()
 
+    console.log('--ProfileBank-- saveBank checknequi: ', this.checknequi)
+    console.log('--ProfileBank-- saveBank checkbank: ', this.checkbank)
+    console.log('--ProfileBank-- saveBank Phone: ', this.bankForm.controls['phone'].value)
     if (this.checknequi == true) {
+      console.log('--ProfileBank-- saveBank Entro a checknequi')
       this.profile_bank.phone = this.bankForm.controls['phone'].value
+      this.profile_bank.bank = ''
+      this.profile_bank.account = ''
+      this.profile_bank.name = ''
+      this.profile_bank.id = ''
+      this.profile_bank.account_type = ''
       this.profile_bank.type = 1
       this.auth.bankData(this.profile_bank)
         .then(res => {
           console.log(JSON.stringify(res))
+          loader.dismiss()
+
           this.alert.showAlert('Datos nequi', 'Se ha guardado correctamente')
           this.navCtrl.setRoot('home-drive')
 
@@ -155,24 +174,20 @@ export class ProfileBankDriverPage {
         })
         .catch(error => {
           console.log(error)
+          loader.dismiss()
           this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
         })
       console.log(this.profile_bank)
-
-
-
     }
     if (this.checkbank == true) {
-
+      console.log('--ProfileBank-- saveBank Entro a checkbank')
       const loader = this.loadingCtrl.create({})
       loader.present()
       const userID = await this.getUserId()
-
-      this.profile_bank.phone = this.bankForm.controls['phone'].value
+      this.profile_bank.phone = ''
       this.profile_bank.bank = this.bankForm.controls['bank'].value
       this.profile_bank.account = this.bankForm.controls['account'].value
       this.profile_bank.name = this.bankForm.controls['name'].value
-      this.profile_bank.phone = this.bankForm.controls['phone'].value
       this.profile_bank.id = this.bankForm.controls['id'].value
       this.profile_bank.account_type = this.bankForm.controls['account_type'].value
       this.profile_bank.type = 2
@@ -180,17 +195,15 @@ export class ProfileBankDriverPage {
       this.auth.bankData(this.profile_bank)
         .then(res => {
           loader.dismiss()
+          this.alert.showAlert('Datos de Banco', 'Se ha guardado correctamente')
           console.log(JSON.stringify(res))
           this.navCtrl.setRoot('home-drive')
-
-
-
         })
         .catch(error => {
           console.log(error)
+          loader.dismiss()
           this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
         })
-
 
       let arrayImgs = []
       if (this.bankCertificate != this.nophonto) {
@@ -214,7 +227,7 @@ export class ProfileBankDriverPage {
 
       }
 
-      console.log(arrayImgs,'array')
+      console.log(arrayImgs, 'array')
 
       const indexArray = arrayImgs.length
       let dataArray = {
@@ -248,6 +261,7 @@ export class ProfileBankDriverPage {
 
                   }
                 })
+              loader.dismiss()
               this.alert.showAlert('', 'Se han guardado los datos correctamente')
 
             }
@@ -257,7 +271,7 @@ export class ProfileBankDriverPage {
 
   }
 
-  onViewDidLoad(){
+  onViewDidLoad() {
     this.getProfileBankPicture()
   }
 
@@ -267,12 +281,12 @@ export class ProfileBankDriverPage {
     const userID = await this.getUserId();
     this.fire.getProfilePicture(userID)
       .then(res => {
-        console.log(res,'res')
-        if(res['bankCertificate'] !== undefined){
+        console.log(res, 'res')
+        if (res['bankCertificate'] !== undefined) {
           this.bankCertificate = res['bankCertificate']
         }
 
-        if(res['holdingLetter'] !== undefined){
+        if (res['holdingLetter'] !== undefined) {
           this.holdingLetter = res['holdingLetter']
         }
       })
@@ -322,7 +336,7 @@ export class ProfileBankDriverPage {
         const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
         modal.onDidDismiss(data => {
           if (data) {
-            console.log(data,'data res')
+            console.log(data, 'data res')
             const photo = data.cropResult
             if (modelPicture === 'bankCertificate') {
               this.bankCertificate = photo;

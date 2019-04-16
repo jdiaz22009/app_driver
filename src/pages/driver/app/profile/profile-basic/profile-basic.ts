@@ -101,7 +101,7 @@ export class ProfileBasicPage {
       this.userProfile.email = this.profileForm.controls['email'].value
 
       const loader = this.loadingCtrl.create({})
-      loader.present()
+      loader.present() 
       this.auth.upatedrivers(this.userProfile).then(res => {
         console.log(JSON.stringify(res))
         loader.dismiss()

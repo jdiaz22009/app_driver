@@ -11,15 +11,14 @@
         <ion-col col-4>
             <p>Celular (NEQUI)</p>
 
-            <ion-checkbox color="btn" mode="ios" checked="true" value="nequi" [(ngModel)]="checknequi" name="nequi"
-                (ionChange)="checkselectNequi()"></ion-checkbox>
+            <ion-checkbox color="btn" mode="ios" value="nequi" [(ngModel)]="checknequi" name="nequi" (ionChange)="checkselectNequi()"></ion-checkbox>
 
 
-        </ion-col> 
+        </ion-col>
         <ion-col col-5 offset-2>
-            <p>Cuenta bancaria</p> 
+            <p>Cuenta bancaria</p>
 
-            <ion-checkbox color="btn" mode="ios" checked="true" value="bank" [(ngModel)]="checkbank" (ionChange)="checkselectBank()"></ion-checkbox>
+            <ion-checkbox color="btn" mode="ios" value="bank" [(ngModel)]="checkbank" (ionChange)="checkselectBank()"></ion-checkbox>
 
         </ion-col>
     </ion-row>
@@ -29,7 +28,7 @@
 
             <form [formGroup]="bankForm">
                 <div *ngIf="show_nequi === 1">
-                    <ion-item class=l-item >
+                    <ion-item class=l-item>
                         <ion-label stacked>Número celular</ion-label>
                         <ion-input [formControl]="bankForm.controls['phone']" type="number" disabled="{{disableTel}}"></ion-input>
                     </ion-item>
@@ -58,7 +57,9 @@
 
                     <ion-item class=l-item>
                         <ion-label stacked>Tipo cuenta</ion-label>
-                        <ion-input type="tel" [formControl]="bankForm.controls['account_type']" disabled="{{disablenequi}}"></ion-input>
+                        <ion-select [formControl]="bankForm.controls['account_type']" disabled="{{disablenequi}}">
+                            <ion-option *ngFor="let item of type_account_category" value="{{item.value}}">{{item.name}}</ion-option>
+                        </ion-select>
                     </ion-item>
                 </div>
             </form>

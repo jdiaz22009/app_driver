@@ -47,6 +47,7 @@ export interface Cart {
   owner_country: string;
   owner_department: string;
   owner_municipality: string;
+  owner_mobile: string;
   owner_first_name_legal_rep: string;
   owner_second_name_legal_rep: string;
   owner_surname_legal_rep: string;
