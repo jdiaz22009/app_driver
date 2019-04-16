@@ -23,6 +23,7 @@ export interface Cart {
   technical_review: number;
   technical_review_expiration: string;
   // propio
+  trailer: string;
   trailer_brand: string;
   trailer_model: string;
   trailer_plate: string;
@@ -31,6 +32,8 @@ export interface Cart {
   gps_id: string;
   gps_user: string;
   gps_password: string;
+  fork_info:string;
+  owner : string;
   owner_type: string;
   owner_id_type: string;
   owner_id: string;

@@ -5,32 +5,51 @@
 </ion-header>
 
 <ion-content>
-
   <div *ngIf="step_form === 0">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <p text-center class="tx-title">Soy el propietario</p>
-        </ion-col>
-      </ion-row>
-      <ion-row justify-content-center>
-        <ion-col col-4 offset-2>
-          <p class="tx-title">Si</p>
-          <ion-checkbox color="btn" mode="ios" checked="true"></ion-checkbox>
-        </ion-col>
-        <ion-col col-4>
-          <p class="tx-title">No</p>
-          <ion-checkbox color="btn" mode="ios" checked="false"></ion-checkbox>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
     <form [formGroup]="ownerForm">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p text-center class="tx-title">Soy el propietario</p>
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-col col-4 offset-2>
+            <p class="tx-title">Si</p>
+            <ion-checkbox color="btn" checked="true" checked="false" [formControl]="ownerForm.controls['owner_yes']" (ionChange)="ckOwnerYes()"></ion-checkbox>
+          </ion-col>
+          <ion-col col-4>
+            <p class="tx-title">No</p>
+            <ion-checkbox color="btn" checked="false" [formControl]="ownerForm.controls['owner_no']" (ionChange)="ckOwnerNo()"></ion-checkbox>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="is_owner === 0">
+          <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <p text-center class="tx-title">Información De:</p>
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-center>
+                <ion-col col-4 offset-2>
+                  <p class="tx-title">Propietario</p>
+                  <ion-checkbox color="btn"  [formControl]="ownerForm.controls['owner_prop_yes']" (ionChange)="ckOwnerProYes()"></ion-checkbox>
+                </ion-col>
+                <ion-col col-4>
+                  <p class="tx-title">Tenedor</p>
+                  <ion-checkbox color="btn"  [formControl]="ownerForm.controls['owner_prop_no']" (ionChange)="ckOwnerProNo()"></ion-checkbox>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+      </div>
+
+
       <ion-grid>
         <ion-row>
           <ion-item class=l-item>
             <ion-label stacked>Tipo de Persona</ion-label>
-            <ion-select (ionChange)="onType($event)" [formControl]="ownerForm.controls['owner_type']">
+            <ion-select (ionChange)="onType($event)" [formControl]="ownerForm.controls['owner_type']" disabled="{{disableowner}}">
               <ion-option value="natural">Natural</ion-option>
               <ion-option value="juridica">Jurídica</ion-option>
             </ion-select>
@@ -41,7 +60,7 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Tipo de Identificación</ion-label>
-                <ion-select [formControl]="ownerForm.controls['owner_id_type']">
+                <ion-select [formControl]="ownerForm.controls['owner_id_type']" disabled="{{disableowner}}">
                   <ion-option value="CC">Cédula Ciudadanía</ion-option>
                   <ion-option value="CE">Cédula extrajería</ion-option>
                   <ion-option value="PAS">Pasaporte</ion-option>
@@ -51,7 +70,7 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Num Identificación </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_id']" type="number"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_id']" type="number" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -60,13 +79,13 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Primer Nombre </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_first_name']" type="text"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_first_name']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Segundo Nombre </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_second_name']" type="text"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_second_name']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -75,13 +94,13 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Primer Apellido </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_first_lastname']" type="text"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_first_lastname']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Segundo Apellido </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_second_lastname']" type="text"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_second_lastname']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -90,7 +109,7 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Municipio</ion-label>
-                <ion-select [formControl]="ownerForm.controls['owner_state']">
+                <ion-select [formControl]="ownerForm.controls['owner_state']" disabled="{{disableowner}}">
                   <ion-option value="id">Cali</ion-option>
                   <ion-option value="int">Bogota</ion-option>
                 </ion-select>
@@ -99,7 +118,7 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Dirección </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_address']" type="text"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_address']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -108,20 +127,20 @@
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Celular </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_mobil']" type="number"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_mobil']" type="number" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Teléfono </ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_phone']" type="number"></ion-input>
+                <ion-input [formControl]="ownerForm.controls['owner_phone']" type="number" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
         </div>
       </ion-grid>
 
-    </form>
+  </form>
 
 
 
@@ -199,7 +218,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row >
+      <ion-row>
         <ion-label text-center class="tx-title"> ---------- Representante Legal ---------- </ion-label>
       </ion-row>
 

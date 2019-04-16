@@ -30,6 +30,9 @@ android:roundIcon="@mipmap/ic_launcher_round
 # Compilacion apk:
 0. ionic cordova platform add android
 - - Android Studio
+-> Clean
+-> Build
+-> Generate APK (v1 v2)
 name file : cargaya.jks
 password keystore: cargaya2017
 key alias: cargayaexpress
