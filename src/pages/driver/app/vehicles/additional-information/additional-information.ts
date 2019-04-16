@@ -12,12 +12,13 @@ import { CartProvider } from '@providers/api/cart'
   templateUrl: 'additional-information.html'
 })
 export class AdditionalInfoVehiclesDriverPage {
- 
+
   cart = {} as Cart
   cartForm: FormGroup
   @ViewChild(Content) content: Content
 
   step_form: number = 0
+  show_trailer: number = 0
   step_images: any = [
     './assets/imgs/step-1-3.png',
     './assets/imgs/step-2-3.png',
@@ -32,7 +33,7 @@ export class AdditionalInfoVehiclesDriverPage {
   vehicleForm1: FormGroup
   repoyes: Boolean
   repono: Boolean
-  repo_yes:Boolean= false;
+  repo_yes: Boolean = false;
 
   gas_category: any = [
     { value: 'Diesel', name: 'Diesel' },
@@ -79,7 +80,19 @@ export class AdditionalInfoVehiclesDriverPage {
     this.setForm()
     // Form 0
     this.vehicleForm.controls['engine'].setValue(this.vehicle.motor)
-    // Repotenciado 
+    if (this.vehicle.repotenciado !== 'si' && this.vehicle.repotenciado !== 'no') {
+      this.vehicleForm.controls['repowering_yes'].setValue(false)
+      this.vehicleForm.controls['repowering_no'].setValue(false)
+    } else if (this.vehicle.repotenciado === 'si') {
+      this.vehicleForm.controls['repowering_yes'].setValue(true)
+      this.vehicleForm.controls['repowering_no'].setValue(false)
+    } else if (this.vehicle.repotenciado === 'no') {
+      this.vehicleForm.controls['repowering_yes'].setValue(false)
+      this.vehicleForm.controls['repowering_no'].setValue(true)
+    } else {
+      this.vehicleForm.controls['repowering_yes'].setValue(false)
+      this.vehicleForm.controls['repowering_no'].setValue(false)
+    }
     this.vehicleForm.controls['chassis'].setValue(this.vehicle.chasis)
     this.vehicleForm.controls['gas'].setValue(this.vehicle.combustible)
     this.vehicleForm.controls['configuration'].setValue(this.vehicle.configuracion)
@@ -96,10 +109,27 @@ export class AdditionalInfoVehiclesDriverPage {
     this.vehicleForm0.controls['soat_company_id'].setValue(this.vehicle.nit_soat)
     this.vehicleForm0.controls['technical_review'].setValue(this.vehicle.numero_tecnicomecanica)
     this.vehicleForm0.controls['technical_review_expiration'].setValue(this.vehicle.vencimiento_tecnicomecanica)
+    if (this.vehicle.trailer !== 'si' && this.vehicle.trailer !== 'no') {
+      this.vehicleForm0.controls['trailer_yes'].setValue(false)
+      this.vehicleForm0.controls['trailer_no'].setValue(false)
+    } else if (this.vehicle.trailer === 'si') {
+      this.show_trailer = 1
+      this.vehicleForm0.controls['trailer_yes'].setValue(true)
+      this.vehicleForm0.controls['trailer_no'].setValue(false)
+    } else if (this.vehicle.trailer === 'no') {
+      this.show_trailer = 0
+      this.vehicleForm0.controls['trailer_yes'].setValue(false)
+      this.vehicleForm0.controls['trailer_no'].setValue(true)
+    } else {
+      this.show_trailer = 0
+      this.vehicleForm0.controls['trailer_yes'].setValue(false)
+      this.vehicleForm0.controls['trailer_no'].setValue(false)
+    }
+
+
     this.vehicleForm0.controls['trailer_brand'].setValue(this.vehicle.trailer_marca)
     this.vehicleForm0.controls['trailer_model'].setValue(this.vehicle.trailer_modelo)
     this.vehicleForm0.controls['trailer_plate'].setValue(this.vehicle.trailer_placa)
-    // this.vehicleForm0.controls['technical_review_expiration'].setValue(this.vehicle.tipo_servicio)
 
     // Form 2
     this.vehicleForm1.controls['gps_company'].setValue(this.vehicle.empresa_gps)
@@ -116,7 +146,10 @@ export class AdditionalInfoVehiclesDriverPage {
         Validators.minLength(3),
         // Validators.required
       ])],
-      repowering: ['', Validators.compose([
+      repowering_yes: ['', Validators.compose([
+        // Validators.required
+      ])],
+      repowering_no: ['', Validators.compose([
         // Validators.required
       ])],
       chassis: ['', Validators.compose([
@@ -160,43 +193,47 @@ export class AdditionalInfoVehiclesDriverPage {
 
     this.vehicleForm0 = this.formBuilder.group({
       import_declaration: ['', Validators.compose([
-        Validators.minLength(6),
+        Validators.minLength(0),
         // Validators.required
       ])],
       soat: ['', Validators.compose([
-        Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       soat_expiration: ['', Validators.compose([
-        Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       soat_company_id: ['', Validators.compose([
-        Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       technical_review: ['', Validators.compose([
-        Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       technical_review_expiration: ['', Validators.compose([
-        Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
-      trailer: ['', Validators.compose([
-        Validators.minLength(2),
+      trailer_yes: ['', Validators.compose([
+        Validators.minLength(0),
+        // Validators.required
+      ])],
+      trailer_no: ['', Validators.compose([
+        Validators.minLength(0),
         // Validators.required
       ])],
       trailer_brand: ['', Validators.compose([
-        Validators.minLength(2),
+        Validators.minLength(0),
         // Validators.required
       ])],
       trailer_model: ['', Validators.compose([
-        Validators.minLength(2),
+        Validators.minLength(0),
         // Validators.required
       ])],
       trailer_plate: ['', Validators.compose([
-        Validators.minLength(2),
+        Validators.minLength(0),
         // Validators.required
       ])]
     })
@@ -230,6 +267,7 @@ export class AdditionalInfoVehiclesDriverPage {
     if (this.step_form === 0) {
       console.log('-AditionalInfo- StepForm 0')
       if (this.vehicleForm.controls['engine'].value !== this.vehicle.motor ||
+        this.cart.power !== this.vehicle.repotenciado ||
         this.vehicleForm.controls['chassis'].value !== this.vehicle.chasis ||
         this.vehicleForm.controls['gas'].value !== this.vehicle.combustible ||
         this.vehicleForm.controls['configuration'].value !== this.vehicle.configuracion ||
@@ -271,8 +309,8 @@ export class AdditionalInfoVehiclesDriverPage {
       this.step_img = this.step_images[1]
       this.scrollToTop()
     } else if (this.step_form === 1) {
-      console.log('-AditionalInfo- StepForm 1')
-      if ( 
+      console.log('-AditionalInfo- StepForm 1 CART:', this.cart)
+      if (
         this.vehicleForm0.controls['import_declaration'].value !== this.vehicle.importacion ||
         this.vehicleForm0.controls['soat'].value !== this.vehicle.numero_soat ||
         this.vehicleForm0.controls['soat_expiration'].value !== this.vehicle.vencimiento_soat ||
@@ -281,7 +319,7 @@ export class AdditionalInfoVehiclesDriverPage {
         this.vehicleForm0.controls['technical_review_expiration'].value !== this.vehicle.vencimiento_tecnicomecanica ||
         this.vehicleForm0.controls['trailer_brand'].value !== this.vehicle.trailer_marca ||
         this.vehicleForm0.controls['trailer_model'].value !== this.vehicle.trailer_modelo ||
-        this.vehicleForm0.controls['trailer_plate'].value !== this.vehicle.trailer_placa 
+        this.vehicleForm0.controls['trailer_plate'].value !== this.vehicle.trailer_placa
 
       ) {
         const loader = this.loadingCtrl.create({})
@@ -355,9 +393,6 @@ export class AdditionalInfoVehiclesDriverPage {
           this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tu vehículo, intenta de nuevo.')
         })
       }
-      this.navCtrl.pop()
-
-
     }
   }
 
@@ -377,21 +412,35 @@ export class AdditionalInfoVehiclesDriverPage {
     }
   }
 
-  checkRepoYes($evento) {
-    console.log('--AddiotionalInfo event: ',$evento)
-    if (this.repoyes == true) {
-      this.repono = false
+  checkRepoYes() {
+    if (this.vehicleForm.controls['repowering_yes'].value === true) {
+      this.vehicleForm.controls['repowering_no'].setValue(false)
       this.cart.power = 'si'
-    } 
+    }
   }
 
-  
-  checkRepoNo(e) {
-    console.log('--AddiotionalInfo event: ', e)
-    if (this.repono == true) {
-      this.repoyes = false
+
+  checkRepoNo() {
+    if (this.vehicleForm.controls['repowering_no'].value == true) {
+      this.vehicleForm.controls['repowering_yes'].setValue(false)
       this.cart.power = 'no'
-    } 
+    }
+  }
+
+  checkTraileYes() {
+    if (this.vehicleForm0.controls['trailer_yes'].value === true) {
+      this.vehicleForm0.controls['trailer_no'].setValue(false)
+      this.show_trailer = 1
+      this.cart.trailer = 'si'
+    }
+  }
+
+  checkTraileNo() {
+    if (this.vehicleForm0.controls['trailer_no'].value === true) {
+      this.vehicleForm0.controls['trailer_yes'].setValue(false)
+      this.show_trailer = 0
+      this.cart.trailer = 'no'
+    }
   }
 
 }

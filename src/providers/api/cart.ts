@@ -107,7 +107,7 @@ export class CartProvider {
     const token = await this.getToken()
     const params = {
       motor: cart.engine,
-      //repotenciado
+      repotenciado: cart.power,
       chasis: cart.chassis,
       combustible: cart.gas,
       configuracion: cart.configuration,
@@ -136,8 +136,11 @@ export class CartProvider {
       vencimiento_soat: cart.soat_expiration,
       nit_soat: cart.soat_company_id,
       numero_tecnicomecanica: cart.technical_review,
-      vencimiento_tecnicomecanica: cart.technical_review_expiration
-      // ,trailer: cart.xxxxxxx
+      vencimiento_tecnicomecanica: cart.technical_review_expiration,
+      trailer: cart.trailer,
+      trailer_marca: cart.trailer_brand,
+      trailer_modelo: cart.trailer_model,
+      trailer_placa: cart.trailer_plate
     }
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
     try {
@@ -183,6 +186,8 @@ export class CartProvider {
       prop_direccion: cart.owner_address,
       prop_celular: cart.owner_mobil,
       prop_telefono: cart.owner_phone,
+      propietario : cart.owner,
+      tenedor : cart.fork_info
     }
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
     try {
@@ -200,15 +205,17 @@ export class CartProvider {
       prop_nit: cart.owner_nit,
       prop_pais: cart.owner_country,
       prop_departamento: cart.owner_department,
-      prop_municipio_negocio : cart.owner_municipality,
-      prop_direccion_negocio : cart.owner_address,
-      prop_celular_negocio : cart.owner_mobile,
-      prop_telefono_negocio : cart.owner_phone,
+      prop_municipio_negocio: cart.owner_municipality,
+      prop_direccion_negocio: cart.owner_address,
+      prop_celular_negocio: cart.owner_mobile,
+      prop_telefono_negocio: cart.owner_phone,
       prop_repre_primer_nombre: cart.owner_first_name_legal_rep,
       prop_repre_segundo_nombre: cart.owner_second_name_legal_rep,
       prop_repre_primer_apellido: cart.owner_surname_legal_rep,
       prop_repre_segundo_apellido: cart.owner_second_surname_legal_rep,
-      prop_repre_email: cart.owner_email_legal_rep
+      prop_repre_email: cart.owner_email_legal_rep,
+      propietario : cart.owner,
+      tenedor : cart.fork_info
     }
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
     try {
