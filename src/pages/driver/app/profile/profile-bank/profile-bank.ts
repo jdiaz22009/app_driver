@@ -214,13 +214,15 @@ export class ProfileBankDriverPage {
 
       }
 
+      console.log(arrayImgs,'array')
+
       const indexArray = arrayImgs.length
       let dataArray = {
         bankCertificate: null,
         holdingLetter: null
       }
       arrayImgs.forEach((item, index) => {
-        this.fire.uploadPicture(item.modal, item.id, item.name)
+        this.fire.uploadPicture(item.model, item.id, item.name)
           .then(res => {
             console.log(res, 'response arrayImgs')
             if (item.model === this.bankCertificate) {
@@ -255,6 +257,9 @@ export class ProfileBankDriverPage {
 
   }
 
+  onViewDidLoad(){
+    this.getProfileBankPicture()
+  }
 
   async getProfileBankPicture() {
     const loader = this.loadingCtrl.create({})
@@ -262,7 +267,14 @@ export class ProfileBankDriverPage {
     const userID = await this.getUserId();
     this.fire.getProfilePicture(userID)
       .then(res => {
-        console.log('res', res);
+        console.log(res,'res')
+        if(res['bankCertificate'] !== undefined){
+          this.bankCertificate = res['bankCertificate']
+        }
+
+        if(res['holdingLetter'] !== undefined){
+          this.holdingLetter = res['holdingLetter']
+        }
       })
       .catch(e => {
         loader.dismiss()
@@ -310,6 +322,7 @@ export class ProfileBankDriverPage {
         const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
         modal.onDidDismiss(data => {
           if (data) {
+            console.log(data,'data res')
             const photo = data.cropResult
             if (modelPicture === 'bankCertificate') {
               this.bankCertificate = photo;
