@@ -13,7 +13,7 @@
 
                 <form [formGroup]="registerForm">
                     <ion-item class=l-item>
-                        <ion-label stacked>Confirmar número de cédula</ion-label>
+                        <ion-label stacked>Confirmar número de cédula <sup>*</sup></ion-label>
                         <ion-input
                             [formControl]="registerForm.controls['id']"
                             (ionBlur)="checkId()"
