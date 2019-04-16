@@ -4,6 +4,7 @@ import { MediaProvider } from '@providers/media'
 import { StorageDb } from '@providers/storageDb'
 import { FirebaseProvider } from '@providers/firebase'
 import { AlertsProvider } from '@providers/alerts';
+import { DriverAuthProvider } from '@providers/api/driverAuth';
 
 import { CONFIG } from '@providers/config'
 
@@ -35,7 +36,8 @@ export class PhotosVehiclesDriverPage {
     public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
-    private fire: FirebaseProvider) {
+    private fire: FirebaseProvider,
+    public driveAuth: DriverAuthProvider) {
      
 
   }
@@ -69,55 +71,95 @@ export class PhotosVehiclesDriverPage {
   }
 
   ionViewDidLoad(){
-    this.getProfilePicture()
+    //this.getProfilePicture()
+    this.getDriver()
   }
 
-  async getProfilePicture(){
-    const loader = this.loadingCtrl.create({})
-    loader.present()
-    const userId = await this.getUserId()
-    this.fire.getProfilePicture(userId).then(res =>{
-      loader.dismiss()
-      console.log(res)
-      console.log(res['front'])
+  // async getProfilePicture(){
+  //   const loader = this.loadingCtrl.create({})
+  //   loader.present()
+  //   const userId = await this.getUserId()
+  //   this.fire.getProfilePicture(userId).then(res =>{
+  //     loader.dismiss()
+  //     console.log(res)
 
-      if(res['front'] !== undefined){
-        this.front = res['front']
+  //     if(res['front'] !== undefined){
+  //       this.front = res['front']
+  //     }
+
+  //     if(res['rear'] !== undefined){
+  //       this.rear = res['rear']
+  //     }
+
+  //     if(res['Lrfron'] !== undefined){
+  //       this.Lrfron = res['Lrfron']
+  //     }
+
+  //     if(res['LrRear'] !== undefined){
+  //       this.LrRear = res['LrRear']
+  //     }
+
+  //     if(res['SoatFron'] !== undefined){
+  //       this.SoatFron = res['SoatFron']
+  //     }
+
+  //     if(res['SoatRear'] !== undefined){
+  //       this.SoatRear = res['SoatRear']
+  //     }
+
+  //     if(res['TecnoFron'] !== undefined){
+  //       this.TecnoFron = res['TecnoFron']
+  //     }
+
+  //     if(res['TecnoRear'] !== undefined){
+  //       this.TecnoRear = res['TecnoRear']
+  //     }
+
+  //   }).catch(e =>{
+  //     loader.dismiss()
+  //     console.error('error ' + e)
+  //   })
+
+  // }
+
+  async getDriver() {
+    this.driveAuth.getDriver().then(res => {
+      const photo = res['data']['id_driver'].photoSoat
+      console.log(photo, 'photo response')
+      if (photo.front !== undefined) {
+        this.front = photo.front
+      }
+      if (photo.rear !== undefined) {
+        this.rear = photo.rear
       }
 
-      if(res['rear'] !== undefined){
-        this.rear = res['rear']
+      if (photo.Lrfron !== undefined) {
+        this.Lrfron = photo.Lrfron
       }
 
-      if(res['Lrfron'] !== undefined){
-        this.Lrfron = res['Lrfron']
+      if (photo.LrRear !== undefined) {
+        this.LrRear = photo.LrRear
       }
 
-      if(res['LrRear'] !== undefined){
-        this.LrRear = res['LrRear']
+      if (photo.SoatFron !== undefined) {
+        this.SoatFron = photo.SoatFron
       }
 
-      if(res['SoatFron'] !== undefined){
-        this.SoatFron = res['SoatFron']
+      if (photo.SoatRear !== undefined) {
+        this.SoatRear = photo.SoatRear
       }
 
-      if(res['SoatRear'] !== undefined){
-        this.SoatRear = res['SoatRear']
+      if (photo.TecnoFron !== undefined) {
+        this.TecnoFron = photo.TecnoFron
       }
 
-      if(res['TecnoFron'] !== undefined){
-        this.TecnoFron = res['TecnoFron']
+      if (photo.TecnoRear !== undefined) {
+        this.TecnoRear = photo.TecnoRear
       }
 
-      if(res['TecnoRear'] !== undefined){
-        this.TecnoRear = res['TecnoRear']
-      }
 
-    }).catch(e =>{
-      loader.dismiss()
-      console.error('error ' + e)
+
     })
-
   }
 
   takePicture(modelPicture, mode){
@@ -284,11 +326,29 @@ export class PhotosVehiclesDriverPage {
           
         }
 
-        console.log('dataArray ' + dataArray)
+        let myphoto = {
+          photoSoat:{
+            front: dataArray.front,
+            rear: dataArray.rear,
+            Lrfron: dataArray.Lrfron,
+            LrRear: dataArray.LrRear,
+            SoatFron: dataArray.SoatFron,
+            SoatRear: dataArray.SoatRear,
+            TecnoFron: dataArray.TecnoFron,
+            TecnoRear: dataArray.TecnoRear
+          }
+        }
+
+        console.log('dataArray ' , dataArray)
+
+        
 
         if(index == indexArray -1){
 
           this.fire.saveImageProfilePath(dataArray, userId).then(res =>{
+            this.driveAuth.saveUrl(myphoto).then(response => {
+              console.log(response, 'response')
+            })
             console.log('save image path ' + res)
           }).catch(e =>{
             console.error('error dont save image paht ' + e)

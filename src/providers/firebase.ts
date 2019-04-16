@@ -57,12 +57,14 @@ export class FirebaseProvider{
     const imgRef = this.database.ref(`drivers/${id}`)
     return new Promise((resolve, reject) =>{
       imgRef.once('value', (snap)=>{
-          resolve(snap.val())
+        console.log(snap.val(),'snap de Picture')
+        resolve(snap.val())
       }, (e) =>{
         reject(e)
       })
     })
    }
+
 
   //  setDriverData(media: MediaFirebase){
   //   this.driverRef.push(media)

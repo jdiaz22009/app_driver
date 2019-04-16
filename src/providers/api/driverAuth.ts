@@ -25,7 +25,8 @@ export class DriverAuthProvider {
   inService_path: string = CONFIG.api.drivers.setInServices
   updatedrivers_path: string = CONFIG.api.drivers.updateDriver
   driverUrl_path: string = CONFIG.api.drivers.wayTopay
-  create_reference:string = CONFIG.api.drivers.create_reference
+  create_reference: string = CONFIG.api.drivers.create_reference
+  save_url: string = CONFIG.api.drivers.saveUrl
 
   // updatedrivers_path:string = CONFIG.api.drivers.updateConductor
   // updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
@@ -152,7 +153,7 @@ export class DriverAuthProvider {
     }
   }
 
-  
+
   async setInService(state, vehicle) {
     const url = this.api_url + this.inService_path
 
@@ -251,7 +252,7 @@ export class DriverAuthProvider {
       ref_nombre3: driver.ref_nombre3,
       ref_empresa3: driver.ref_empresa3,
       ref_telefono3: driver.ref_telefono3
-      
+
     }
 
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
@@ -279,7 +280,7 @@ export class DriverAuthProvider {
         throw e
       }
 
-    }else if (data.type == 2) {
+    } else if (data.type == 2) {
       const params = {
         type: data.type,
         nombre_banco: data.bank,
@@ -302,7 +303,7 @@ export class DriverAuthProvider {
 
   }
 
-  async driverReference(params){
+  async driverReference(params) {
     const url = this.api_url + this.create_reference
     const token = await this.getToken()
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
@@ -315,9 +316,23 @@ export class DriverAuthProvider {
 
   }
 
+  async saveUrl(params) {
+    const url = this.api_url + this.save_url
+    const token = await this.getToken()
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (error) {
+      throw error
+
+    }
+  }
+
   async logout() {
     return await this.db.deleteDB()
   }
+
+
 
 
 

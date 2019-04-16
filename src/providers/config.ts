@@ -27,7 +27,8 @@ export const CONFIG = {
       getDrivers: '/api/v1/auth/conductores/get-driver',
       updateDriver: '/api/v1/auth/conductores/update-datos',
       wayTopay: '/api/v1/auth/conductores/forma-pago',
-      create_reference:'/api/v1/auth/conductores/referencias'
+      create_reference:'/api/v1/auth/conductores/referencias',
+      saveUrl:'/api/v1/auth/conductores/save-url'
     },
     cart:{
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',

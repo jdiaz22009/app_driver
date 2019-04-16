@@ -11,6 +11,7 @@ import { CONFIG } from '@providers/config'
 
 
 
+
 @IonicPage()
 @Component({
   selector: 'profile-bank-driver',
@@ -108,6 +109,54 @@ export class ProfileBankDriverPage {
 
   }
 
+  ionViewDidLoad() {
+    //this.getProfileBankPicture()
+    this.getDriver()
+  }
+
+  // async getProfileBankPicture() {
+  //   const loader = this.loadingCtrl.create({})
+  //   loader.present();
+  //   const userID = await this.getUserId();
+  //   this.fire.getProfilePicture(userID)
+  //     .then(res => {
+  //       loader.dismiss()
+  //       console.log(res, 'res')
+  //       if (res['bankCertificate'] !== undefined) {
+  //         this.bankCertificate = res['bankCertificate']
+  //       }
+
+  //       if (res['holdingLetter'] !== undefined) {
+  //         this.holdingLetter = res['holdingLetter']
+  //       }
+  //     })
+  //     .catch(e => {
+  //       loader.dismiss()
+  //       console.error('Error' + e)
+  //     })
+
+
+  // }
+
+
+  async getDriver() {
+    this.auth.getDriver().then(res => {
+      const photo = res['data']['id_driver'].banco
+      console.log(photo, 'photo response')
+      if (photo.img_certificacion !== undefined) {
+        this.bankCertificate = photo.img_certificacion
+      }
+      if (photo.img_tenencia !== undefined) {
+        this.holdingLetter = photo.img_tenencia
+      }
+
+     
+
+
+    })
+  }
+
+
 
   async getUserId() {
     const id = await this.db.getItem(CONFIG.localdb.USER_KEY)
@@ -147,12 +196,6 @@ export class ProfileBankDriverPage {
 
 
   async saveBank() {
-    const loader = this.loadingCtrl.create({})
-    loader.present()
-
-    console.log('--ProfileBank-- saveBank checknequi: ', this.checknequi)
-    console.log('--ProfileBank-- saveBank checkbank: ', this.checkbank)
-    console.log('--ProfileBank-- saveBank Phone: ', this.bankForm.controls['phone'].value)
     if (this.checknequi == true) {
       console.log('--ProfileBank-- saveBank Entro a checknequi')
       this.profile_bank.phone = this.bankForm.controls['phone'].value
@@ -165,7 +208,6 @@ export class ProfileBankDriverPage {
       this.auth.bankData(this.profile_bank)
         .then(res => {
           console.log(JSON.stringify(res))
-          loader.dismiss()
 
           this.alert.showAlert('Datos nequi', 'Se ha guardado correctamente')
           this.navCtrl.setRoot('home-drive')
@@ -174,15 +216,12 @@ export class ProfileBankDriverPage {
         })
         .catch(error => {
           console.log(error)
-          loader.dismiss()
           this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
         })
       console.log(this.profile_bank)
     }
     if (this.checkbank == true) {
       console.log('--ProfileBank-- saveBank Entro a checkbank')
-      const loader = this.loadingCtrl.create({})
-      loader.present()
       const userID = await this.getUserId()
       this.profile_bank.phone = ''
       this.profile_bank.bank = this.bankForm.controls['bank'].value
@@ -191,19 +230,6 @@ export class ProfileBankDriverPage {
       this.profile_bank.id = this.bankForm.controls['id'].value
       this.profile_bank.account_type = this.bankForm.controls['account_type'].value
       this.profile_bank.type = 2
-
-      this.auth.bankData(this.profile_bank)
-        .then(res => {
-          loader.dismiss()
-          this.alert.showAlert('Datos de Banco', 'Se ha guardado correctamente')
-          console.log(JSON.stringify(res))
-          this.navCtrl.setRoot('home-drive')
-        })
-        .catch(error => {
-          console.log(error)
-          loader.dismiss()
-          this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
-        })
 
       let arrayImgs = []
       if (this.bankCertificate != this.nophonto) {
@@ -246,58 +272,50 @@ export class ProfileBankDriverPage {
               dataArray.holdingLetter = res
 
             }
+            let bank = {
+              banco: {
+                nombre_banco: this.profile_bank.bank,
+                numero_cuenta: this.profile_bank.account,
+                nombre_titular: this.profile_bank.name,
+                cedula_titular: this.profile_bank.id,
+                tipo_cuenta: this.profile_bank.account_type,
+                img_certificacion: dataArray.bankCertificate,
+                img_tenencia: dataArray.holdingLetter
+              }
+            }
 
             console.log('dataArray' + dataArray)
 
             if (index == indexArray - 1) {
               this.fire.saveImageProfilePath(dataArray, userID)
                 .then(res => {
+                  this.auth.saveUrl(bank).then(response => {
+                    console.log(response, 'response')
+                  })
+                  
+
                   console.log('save image path' + res)
                 })
                 .catch(e => {
                   console.error('Error dont save image path' + e)
-                  if (index == indexArray - 1) {
-                    this.alert.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
-
-                  }
                 })
-              loader.dismiss()
               this.alert.showAlert('', 'Se han guardado los datos correctamente')
 
             }
           })
+          .catch(e =>{
+            console.error('error upload ' + e)
+            if(index == indexArray -1){
+              this.alert.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
+            }
+          })
       })
+      
     }
 
   }
 
-  onViewDidLoad() {
-    this.getProfileBankPicture()
-  }
-
-  async getProfileBankPicture() {
-    const loader = this.loadingCtrl.create({})
-    loader.present();
-    const userID = await this.getUserId();
-    this.fire.getProfilePicture(userID)
-      .then(res => {
-        console.log(res, 'res')
-        if (res['bankCertificate'] !== undefined) {
-          this.bankCertificate = res['bankCertificate']
-        }
-
-        if (res['holdingLetter'] !== undefined) {
-          this.holdingLetter = res['holdingLetter']
-        }
-      })
-      .catch(e => {
-        loader.dismiss()
-        console.error('Error' + e)
-      })
-
-
-  }
-
+ 
   setPicture(id) {
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Subir foto',
@@ -346,13 +364,10 @@ export class ProfileBankDriverPage {
 
             }
 
-          } else {
-            console.error('Error')
           }
         })
         modal.present()
-      })
-      .catch(e => {
+      }).catch(e => {
         console.error(e)
       })
   }
