@@ -42,7 +42,7 @@ export class OwnerDataVehiclesDriverPage {
     public cartApi: CartProvider,
     public alert: AlertsProvider,
     public loadingCtrl: LoadingController) {
-
+ 
 
     this.vehicle = navParams.get('vehicle')
     console.log('-AdditionalInformationVehicle- vehicle: ', this.vehicle)
@@ -62,9 +62,6 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_mobil'].setValue(this.vehicle.prop_celular)
       this.ownerForm.controls['owner_phone'].setValue(this.vehicle.prop_telefono)
       
-
-
-
     }
     if (this.ownerForm.controls['owner_type'].value === 'juridico') {
       this.ownerForm.controls['owner_type'].setValue(this.vehicle.prop_tipo_persona)
