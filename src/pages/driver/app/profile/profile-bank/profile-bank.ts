@@ -10,7 +10,7 @@ import { CONFIG } from '@providers/config'
 
 
 
-
+ 
 @IonicPage()
 @Component({
   selector: 'profile-bank-driver',

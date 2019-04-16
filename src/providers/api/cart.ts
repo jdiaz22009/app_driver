@@ -10,7 +10,7 @@ import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
 
 @Injectable()
-export class CartProvider{
+export class CartProvider {
 
   api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
 
@@ -25,18 +25,18 @@ export class CartProvider{
   constructor(
     public apiClient: ApiClientProvider,
     public db: StorageDb
-    ){
+  ) {
 
   }
 
-  async getToken(){
-    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+  async getToken() {
+    const token = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
       return res.token
     })
     return token
   }
 
-  async add(cart: Cart){
+  async add(cart: Cart) {
     const url = this.api_url + this.add_path
 
     const token = await this.getToken()
@@ -48,29 +48,29 @@ export class CartProvider{
       modelo: cart.model,
       marca: cart.brand
     })
-    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+    const headers = { 'Authorization': token, 'content-type': 'application/x-www-form-urlencoded' }
 
-    try{
+    try {
       return await this.apiClient.request('POST', url, params, headers)
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async getVehicleClass(){
+  async getVehicleClass() {
     const url = this.api_url + this.getClass_path
-    try{
+    try {
       return await this.apiClient.get(url, null, null)
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async getVehicleById(id){
+  async getVehicleById(id) {
     const url = this.api_url + this.getMyVehicle_path + '/' + id
     const token = await this.getToken()
 
-    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
     try {
       return await this.apiClient.request('GET', url, null, headers)
@@ -80,7 +80,7 @@ export class CartProvider{
 
   }
 
-  async updateVehicle(cart, id){
+  async updateVehicle(cart, id) {
     const url = this.api_url + this.updateVehicle_path + '/' + id
     const token = await this.getToken()
 
@@ -92,7 +92,7 @@ export class CartProvider{
       marca: cart.brand
     }
 
-    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
     try {
       return await this.apiClient.request('PUT', url, params, headers)
@@ -102,7 +102,7 @@ export class CartProvider{
   }
 
   // TODO: Additonal information vehicle Form1... by mosco, sorry perafo
-  async updateVehicleAddInfo1(cart, id){
+  async updateVehicleAddInfo1(cart, id) {
     const url = this.api_url + this.updateVehicle_path + '/' + id
     const token = await this.getToken()
     const params = {
@@ -117,7 +117,7 @@ export class CartProvider{
       tipo_servicio: cart.service_type,
       pais: cart.country
     }
-    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
     try {
       return await this.apiClient.request('PUT', url, params, headers)
     } catch (e) {
@@ -126,7 +126,7 @@ export class CartProvider{
   }
 
   // TODO: Additonal information vehicle Form2... by mosco, sorry perafo
-  async updateVehicleAddInfo2(cart, id){
+  async updateVehicleAddInfo2(cart, id) {
     const url = this.api_url + this.updateVehicle_path + '/' + id
     const token = await this.getToken()
 
@@ -139,7 +139,7 @@ export class CartProvider{
       vencimiento_tecnicomecanica: cart.technical_review_expiration
       // ,trailer: cart.xxxxxxx
     }
-    const headers = {'Authorization' : token, 'content-type': 'application/json'}
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
     try {
       return await this.apiClient.request('PUT', url, params, headers)
     } catch (e) {
@@ -147,52 +147,103 @@ export class CartProvider{
     }
   }
 
-// TODO: Additonal information vehicle Form3... by mosco, sorry perafo
-async updateVehicleAddInfo3(cart, id){
-  const url = this.api_url + this.updateVehicle_path + '/' + id
-  const token = await this.getToken()
+  // TODO: Additonal information vehicle Form3... by mosco, sorry perafo
+  async updateVehicleAddInfo3(cart, id) {
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
 
-  const params = {
-    empresa_gps: cart.gps_company,
-    pagina_gps: cart.gps_company_web,
-    id_gps: cart.gps_id,
-    usuario_gps: cart.gps_user,
-    clave_gps: cart.gps_password
+    const params = {
+      empresa_gps: cart.gps_company,
+      pagina_gps: cart.gps_company_web,
+      id_gps: cart.gps_id,
+      usuario_gps: cart.gps_user,
+      clave_gps: cart.gps_password
+    }
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
   }
-  const headers = {'Authorization' : token, 'content-type': 'application/json'}
-  try {
-    return await this.apiClient.request('PUT', url, params, headers)
-  } catch (e) {
-    throw e
+
+  // TODO: Add owner... by mosco, sorry perafo
+  async updateVehicleAddOwnerNat(cart, id) {
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+    const params = {
+      prop_tipo_persona: cart.owner_type,
+      prop_tipo_identificacion: cart.owner_id_type,
+      prop_identificacion: cart.owner_id,
+      prop_primer_nombre: cart.owner_first_name,
+      prop_segundo_nombre: cart.owner_second_name,
+      prop_primer_apellido: cart.owner_first_lastname,
+      prop_segundo_apellido: cart.owner_second_lastname,
+      prop_municipio: cart.owner_state,
+      prop_direccion: cart.owner_address,
+      prop_celular: cart.owner_mobil,
+      prop_telefono: cart.owner_phone,
+    }
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
   }
-}
+
+  async updateVehicleAddOwnerJur(cart, id) {
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+    const params = {
+      prop_razon_social: cart.owner_business_name,
+      prop_nit: cart.owner_nit,
+      prop_pais: cart.owner_country,
+      prop_departamento: cart.owner_department,
+      prop_municipio_negocio : cart.owner_municipality,
+      prop_direccion_negocio : cart.owner_address,
+      prop_celular_negocio : cart.owner_mobile,
+      prop_telefono_negocio : cart.owner_phone,
+      prop_repre_primer_nombre: cart.owner_first_name_legal_rep,
+      prop_repre_segundo_nombre: cart.owner_second_name_legal_rep,
+      prop_repre_primer_apellido: cart.owner_surname_legal_rep,
+      prop_repre_segundo_apellido: cart.owner_second_surname_legal_rep,
+      prop_repre_email: cart.owner_email_legal_rep
+    }
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
 
 
-  async getVehiclesList(){
+  async getVehiclesList() {
     const url = this.api_url + this.getVehicles_path
     const token = await this.getToken()
-    const headers = { 'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}
-    try{
+    const headers = { 'Authorization': token, 'content-type': 'application/x-www-form-urlencoded' }
+    try {
       return await this.apiClient.request('GET', url, null, headers)
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async getMySelected(){
+  async getMySelected() {
     const url = this.api_url + this.getMySelected_path
     const token = await this.getToken()
-    const headers = { 'Authorization' : token, 'content-type': 'application/json'}
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
-    try{
+    try {
       return await this.apiClient.request('GET', url, null, headers)
-    }catch(e){
+    } catch (e) {
       throw e
     }
   }
 
-  async setInService(state, id){
-    const url = this.api_url + this.inService_path + '/'+ id
+  async setInService(state, id) {
+    const url = this.api_url + this.inService_path + '/' + id
 
     const token = await this.getToken()
 
@@ -200,10 +251,10 @@ async updateVehicleAddInfo3(cart, id){
       state: state,
     }
 
-    const headers = { 'Authorization': token , 'content-type': 'application/json'}
-    try{
-      return await this.apiClient.request('PUT' ,url, params, headers)
-    }catch(e){
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
       throw e
     }
   }
