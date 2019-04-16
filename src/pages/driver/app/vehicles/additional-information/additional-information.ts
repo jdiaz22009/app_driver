@@ -113,7 +113,7 @@ export class AdditionalInfoVehiclesDriverPage {
       this.vehicleForm0.controls['trailer_yes'].setValue(false)
       this.vehicleForm0.controls['trailer_no'].setValue(false)
     } else if (this.vehicle.trailer === 'si') {
-      this.show_trailer = 1 
+      this.show_trailer = 1
       this.vehicleForm0.controls['trailer_yes'].setValue(true)
       this.vehicleForm0.controls['trailer_no'].setValue(false)
     } else if (this.vehicle.trailer === 'no') {
@@ -393,9 +393,6 @@ export class AdditionalInfoVehiclesDriverPage {
           this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tu vehículo, intenta de nuevo.')
         })
       }
-      this.navCtrl.pop()
-
-
     }
   }
 
@@ -430,7 +427,7 @@ export class AdditionalInfoVehiclesDriverPage {
     }
   }
 
-  checkTraileYes(){
+  checkTraileYes() {
     if (this.vehicleForm0.controls['trailer_yes'].value === true) {
       this.vehicleForm0.controls['trailer_no'].setValue(false)
       this.show_trailer = 1
@@ -438,7 +435,7 @@ export class AdditionalInfoVehiclesDriverPage {
     }
   }
 
-  checkTraileNo(){
+  checkTraileNo() {
     if (this.vehicleForm0.controls['trailer_no'].value === true) {
       this.vehicleForm0.controls['trailer_yes'].setValue(false)
       this.show_trailer = 0
