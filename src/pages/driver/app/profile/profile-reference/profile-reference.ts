@@ -39,66 +39,67 @@ export class ProfileReferenceDriverPage {
     const user = this.navParams.get('profile')
 
     console.log('--ProfileReference-- user: ', user)
+    this.setForms()
 
     if (user != null) {
-      // this.referenceForm.controls['date'].setValue(user.ref_nombre1)
-      // this.referenceForm.controls['company'].setValue(user.ref_empresa1)
-      // this.referenceForm.controls['phone'].setValue(user.ref_telefono1)
+      this.referenceForm.controls['name'].setValue(user.ref_nombre1)
+      this.referenceForm.controls['company'].setValue(user.ref_empresa1)
+      this.referenceForm.controls['phone'].setValue(user.ref_telefono1)
 
-      // this.referenceForm.controls['name1'].setValue(user.ref_nombre2)
-      // this.referenceForm.controls['company1'].setValue(user.ref_empresa2)
-      // this.referenceForm.controls['phone1'].setValue(user.ref_telefono2)
+      this.referenceForm.controls['name1'].setValue(user.ref_nombre2)
+      this.referenceForm.controls['company1'].setValue(user.ref_empresa2)
+      this.referenceForm.controls['phone1'].setValue(user.ref_telefono2)
 
-      // this.referenceForm.controls['name2'].setValue(user.ref_nombre3)
-      // this.referenceForm.controls['company2'].setValue(user.ref_empresa3)
-      // this.referenceForm.controls['phone2'].setValue(user.ref_telefono3)
+      this.referenceForm.controls['name2'].setValue(user.ref_nombre3)
+      this.referenceForm.controls['company2'].setValue(user.ref_empresa3)
+      this.referenceForm.controls['phone2'].setValue(user.ref_telefono3)
 
     }
+  }
+
+  setForms() {
     this.referenceForm = this.formBuilder.group({
       name: ['', Validators.compose([
         Validators.pattern(this.id_validator),
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       company: ['', Validators.compose([
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       phone: ['', Validators.compose([
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       name1: ['', Validators.compose([
         Validators.pattern(this.id_validator),
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       company1: ['', Validators.compose([
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       phone1: ['', Validators.compose([
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       name2: ['', Validators.compose([
         Validators.pattern(this.id_validator),
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       company2: ['', Validators.compose([
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
       phone2: ['', Validators.compose([
-        // Validators.minLength(3),
+        Validators.minLength(0),
         // Validators.required
       ])],
     })
   }
-
-
-
 
   save() {
 
