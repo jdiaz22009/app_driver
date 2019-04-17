@@ -279,8 +279,8 @@ export class ProfileBankDriverPage {
                 nombre_titular: this.profile_bank.name,
                 cedula_titular: this.profile_bank.id,
                 tipo_cuenta: this.profile_bank.account_type,
-                img_certificacion: dataArray.bankCertificate,
-                img_tenencia: dataArray.holdingLetter
+                img_certificacion: dataArray.bankCertificate == null ? './assets/imgs/no_photo.png': dataArray.bankCertificate,
+                img_tenencia: dataArray.holdingLetter  == null ? './assets/imgs/no_photo.png': dataArray.holdingLetter
               }
             }
 

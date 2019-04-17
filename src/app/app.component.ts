@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar'
 import { SplashScreen } from '@ionic-native/splash-screen'
 import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
@@ -18,7 +19,7 @@ import { CONFIG } from '@providers/config'
 })
 export class MyApp {
 
-  rootPage: any =  'MainSharedPage'
+  rootPage: any = 'MainSharedPage'
 
   @ViewChild('myNav') nav: NavController
 
@@ -28,6 +29,7 @@ export class MyApp {
     public fcm: FCM,
     public db: StorageDb,
     public alerts: AlertsProvider,
+    public androidPermissions: AndroidPermissions,
     private localNotifications: LocalNotifications,
     public splashScreen: SplashScreen) {
 
@@ -35,12 +37,14 @@ export class MyApp {
   }
 
 
+
+
   loadApp() {
     this.platform.ready().then(() => {
 
       if (this.platform.is('cordova')) {
 
-        this.fcm.subscribeToTopic('all').then(res =>{
+        this.fcm.subscribeToTopic('all').then(res => {
           console.log('subscribeToTopic')
         })
 
@@ -53,9 +57,18 @@ export class MyApp {
           this.buildNotification(data, data.wasTapped)
         })
 
-        if(!this.localNotifications.hasPermission()){
+        if (!this.localNotifications.hasPermission()) {
           this.localNotifications.requestPermission()
         }
+
+
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+          result => console.log('Has permission?', result.hasPermission),
+          err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+        );
+
+        this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
+      
       }
 
       firebase.initializeApp(FIREBASE_CONFIG)
@@ -66,9 +79,10 @@ export class MyApp {
     })
   }
 
-  buildNotification(data, mode){
-    if(data){
-      if(mode){
+
+  buildNotification(data, mode) {
+    if (data) {
+      if (mode) {
         console.log('Received in background ', JSON.stringify(data))
         this.localNotifications.schedule({
           id: 1,
@@ -76,11 +90,11 @@ export class MyApp {
           text: data.body
         })
 
-      }else{
+      } else {
         console.log('Received in foreground ', JSON.stringify(data))
         const id = data.id
-        this.alerts.showConfirm(data.title , data.body, 'ver', 'cancelar').then(res =>{
-          if(res === 1){
+        this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
+          if (res === 1) {
             this.nav.push('DetailsFreightDriverPage', { id: id })
           }
         })

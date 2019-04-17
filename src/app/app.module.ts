@@ -12,6 +12,7 @@ import { IonicStorageModule } from '@ionic/storage'
 import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 import { Camera } from '@ionic-native/camera'
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -51,7 +52,8 @@ import { MyApp } from './app.component'
     LocalNotifications,
     Camera,
     API_MODULE,
-    PROVIDERS_MODULE
+    PROVIDERS_MODULE,
+    AndroidPermissions
   ]
 })
 export class AppModule {}
