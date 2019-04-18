@@ -1,4 +1,4 @@
-export interface DataUserC{
+export interface DataUserC {
   fecha_expedicion_cedula: String,
   lugar_expedicion_cedula: String,
   pais: String,
@@ -15,13 +15,17 @@ export interface DataUserC{
   vencimiento_licencia: String,
   tipo_sangre: String,
   genero: String,
-  ref_nombre1 : String,
+  ref_nombre1: String,
   ref_empresa1: String,
   ref_telefono1: Number,
-  ref_nombre2 : String,
+  ref_nombre2: String,
   ref_empresa2: String,
   ref_telefono2: Number,
-  ref_nombre3 : String,
+  ref_nombre3: String,
   ref_empresa3: String,
-  ref_telefono3: Number
+  ref_telefono3: Number,
+  req_fletes: Number,
+  req_disponibilidad: Number,
+  req_cargas: Number
+
 }

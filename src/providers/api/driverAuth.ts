@@ -27,6 +27,7 @@ export class DriverAuthProvider {
   driverUrl_path: string = CONFIG.api.drivers.wayTopay
   create_reference: string = CONFIG.api.drivers.create_reference
   save_url: string = CONFIG.api.drivers.saveUrl
+  coming_soon: string = CONFIG.api.drivers.comingSoon
 
   // updatedrivers_path:string = CONFIG.api.drivers.updateConductor
   // updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
@@ -326,6 +327,18 @@ export class DriverAuthProvider {
       throw error
 
     }
+  }
+
+  async ComingSoon(params) {
+    const url = this.api_url + this.coming_soon
+    const token = await this.getToken()
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('POST', url, params, headers)
+    } catch (error) {
+      throw error
+    }
+
   }
 
   async logout() {

@@ -119,7 +119,7 @@ export class ProfileReferenceDriverPage {
     loader.present()
 
     console.log('--ProfileReference-- driver: ', this.driver)
-    this.auth.updateDriverRef(this.driver).then(res => {
+    this.auth.updateDriverRef(this.driver).then(res => { 
       console.log(res)
       // console.log(JSON.stringify(res))
       loader.dismiss()

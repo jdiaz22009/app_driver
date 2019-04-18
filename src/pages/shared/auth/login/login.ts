@@ -198,6 +198,6 @@ export class LoginSharedPage {
   resetPassword(){
     const modal = this.modalCtrl.create('ModalForgotPasswordComponent', null, { cssClass: 'modal-id' })
     modal.present()
-  }
+  } 
 
 }
