@@ -5,12 +5,13 @@
     <ion-grid class="content-controls">
         <ion-row justify-content-center>
             <ion-col col-4 (click)="goPage('ListVehiclesDriverPage')">
-            <img class="h-actions" src="./assets/imgs/action_carts.png">
-            <p class="h-summary">Mis vehículos</p>
+                <img class="h-actions" src="./assets/imgs/action_carts.png">
+                <p class="h-summary">Mis vehículos</p>
             </ion-col>
-            <ion-col col-4 offset-3 (click)="goPage('MyFreightDriverPage')">
+            <!-- <ion-col col-4 offset-3 (click)="goPage('MyFreightDriverPage')"> -->
+            <ion-col col-4 offset-3 (click)="getComingSoonFletes()">
                 <img class="h-actions" src="./assets/imgs/action_loads.png">
-            <p class="h-summary">Mis fletes</p>
+                <p class="h-summary">Mis fletes</p>
             </ion-col>
         </ion-row>
         <ion-row justify-content-center margin-top>
@@ -18,7 +19,8 @@
                 <img class="h-actions" src="./assets/imgs/action_profile.png">
                 <p class="h-summary">Mi perfil</p>
             </ion-col>
-            <ion-col col-4 offset-3 (click)="availability()">
+            <!-- <ion-col col-4 offset-3 (click)="availability()"> -->
+            <ion-col col-4 offset-3 (click)="getComingSoonDisponibilidad()">
                 <img class="h-actions" src="./assets/imgs/action_availability.png">
                 <p class="h-summary">Mi disponibilidad</p>
             </ion-col>
@@ -28,6 +30,7 @@
 </ion-content>
 
 <ion-footer>
-    <img (click)="goPage('FindFreightDriverPage')" class="money-logo" src="./assets/imgs/money.png">
+    <!-- <img (click)="goPage('FindFreightDriverPage')" class="money-logo" src="./assets/imgs/money.png"> -->
+    <img (click)="getComingSoonCargas()" class="money-logo" src="./assets/imgs/money.png">
     <h2 class="find-tx">Buscar Cargas</h2>
 </ion-footer>
