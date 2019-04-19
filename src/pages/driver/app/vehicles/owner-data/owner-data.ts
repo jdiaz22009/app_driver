@@ -57,8 +57,9 @@ export class OwnerDataVehiclesDriverPage {
     this.ownerForm.controls['owner_prop_yes'].setValue(false)
 
 
-    if (this.vehicle.propietario === 'Si') {
+    if (this.vehicle.propietario != undefined && this.vehicle.propietario === 'Si') {
       console.log('-AdditionalInformationVehicle- Entro a es propietario')
+      console.log('-AdditionalInformationVehicle- userData', this.userData)
       this.ownerForm.controls['owner_yes'].setValue(true)
       this.ownerForm.controls['owner_no'].setValue(false)
       this.is_owner = 1
@@ -70,6 +71,8 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_second_name'].setValue(this.userData.segundo_nombre)
       this.ownerForm.controls['owner_first_lastname'].setValue(this.userData.primer_apellido)
       this.ownerForm.controls['owner_second_lastname'].setValue(this.userData.segundo_apellido)
+      this.ownerForm.controls['owner_country'].setValue(this.userData.pais)
+      this.ownerForm.controls['owner_department'].setValue(this.userData.departamento)
       this.ownerForm.controls['owner_state'].setValue(this.userData.ciudad)
       this.ownerForm.controls['owner_address'].setValue(this.userData.direccion)
       this.ownerForm.controls['owner_mobil'].setValue(this.userData.celular)
@@ -86,7 +89,7 @@ export class OwnerDataVehiclesDriverPage {
       } else if (this.vehicle.tendor === 'No') {
         this.ownerForm.controls['owner_prop_yes'].setValue(true)
         this.ownerForm.controls['owner_prop_no'].setValue(false)
-      }
+      } 
       if (this.vehicle.prop_tipo_persona === 'natural' || this.vehicle.prop_tipo_persona === 'juridica') {
         if (this.vehicle.prop_tipo_persona === 'natural') {
           this.ownerForm.controls['owner_type'].setValue(this.vehicle.prop_tipo_persona)
@@ -97,6 +100,8 @@ export class OwnerDataVehiclesDriverPage {
           this.ownerForm.controls['owner_second_name'].setValue(this.vehicle.prop_segundo_nombre)
           this.ownerForm.controls['owner_first_lastname'].setValue(this.vehicle.prop_primer_apellido)
           this.ownerForm.controls['owner_second_lastname'].setValue(this.vehicle.prop_segundo_apellido)
+          this.ownerForm.controls['owner_country'].setValue(this.vehicle.prop_pais)
+          this.ownerForm.controls['owner_department'].setValue(this.vehicle.prop_departamento)
           this.ownerForm.controls['owner_state'].setValue(this.vehicle.prop_municipio)
           this.ownerForm.controls['owner_address'].setValue(this.vehicle.prop_direccion)
           this.ownerForm.controls['owner_mobil'].setValue(this.vehicle.prop_celular)
@@ -152,6 +157,10 @@ export class OwnerDataVehiclesDriverPage {
       owner_first_lastname: ['', Validators.compose([
         Validators.minLength(0)])],
       owner_second_lastname: ['', Validators.compose([
+        Validators.minLength(0)])],
+      owner_country: ['', Validators.compose([
+        Validators.minLength(0)])],
+      owner_department: ['', Validators.compose([
         Validators.minLength(0)])],
       owner_state: ['', Validators.compose([
         Validators.minLength(0)])],
@@ -237,6 +246,8 @@ export class OwnerDataVehiclesDriverPage {
       this.cart.owner_second_name = this.ownerForm.controls['owner_second_name'].value
       this.cart.owner_first_lastname = this.ownerForm.controls['owner_first_lastname'].value
       this.cart.owner_second_lastname = this.ownerForm.controls['owner_second_lastname'].value
+      this.cart.owner_country = this.ownerForm.controls['owner_country'].value
+      this.cart.owner_department = this.ownerForm.controls['owner_department'].value
       this.cart.owner_state = this.ownerForm.controls['owner_state'].value
       this.cart.owner_address = this.ownerForm.controls['owner_address'].value
       this.cart.owner_mobil = this.ownerForm.controls['owner_mobil'].value
@@ -244,7 +255,7 @@ export class OwnerDataVehiclesDriverPage {
 
       console.log('--OwnerData-- Cart: ', this.cart)
       console.log('--OwnerData-- vehicle: ', this.vehicle)
-
+ 
       this.cartApi.updateVehicleAddOwnerNat(this.cart, this.vehicle._id).then(res => {
         console.log('--OwnerData-- RESPUESTA: ', JSON.stringify(res))
         loader.dismiss()
@@ -318,6 +329,8 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_second_name'].setValue(this.userData.segundo_nombre)
       this.ownerForm.controls['owner_first_lastname'].setValue(this.userData.primer_apellido)
       this.ownerForm.controls['owner_second_lastname'].setValue(this.userData.segundo_apellido)
+      this.ownerForm.controls['owner_country'].setValue(this.userData.pais)
+      this.ownerForm.controls['owner_department'].setValue(this.userData.departamento)
       this.ownerForm.controls['owner_state'].setValue(this.userData.ciudad)
       this.ownerForm.controls['owner_address'].setValue(this.userData.direccion)
       this.ownerForm.controls['owner_mobil'].setValue(this.userData.celular)
@@ -333,6 +346,8 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_second_name'].setValue('')
       this.ownerForm.controls['owner_first_lastname'].setValue('')
       this.ownerForm.controls['owner_second_lastname'].setValue('')
+      this.ownerForm.controls['owner_country'].setValue('')
+      this.ownerForm.controls['owner_department'].setValue('')
       this.ownerForm.controls['owner_state'].setValue('')
       this.ownerForm.controls['owner_address'].setValue('')
       this.ownerForm.controls['owner_mobil'].setValue('')

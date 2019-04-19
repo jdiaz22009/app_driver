@@ -106,13 +106,26 @@
           </ion-row>
 
           <ion-row>
+            <ion-col col-6> 
+              <ion-item class=l-item>
+                <ion-label stacked>País </ion-label>
+                <ion-input [formControl]="ownerForm.controls['owner_country']" type="text" disabled="{{disableowner}}"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item class=l-item>
+                <ion-label stacked>Departamento </ion-label>
+                <ion-input [formControl]="ownerForm.controls['owner_department']" type="text" disabled="{{disableowner}}"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Municipio</ion-label>
-                <ion-select [formControl]="ownerForm.controls['owner_state']" disabled="{{disableowner}}">
-                  <ion-option value="id">Cali</ion-option>
-                  <ion-option value="int">Bogota</ion-option>
-                </ion-select>
+                <ion-input [formControl]="ownerForm.controls['owner_state']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-6>

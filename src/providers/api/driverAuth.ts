@@ -210,6 +210,7 @@ export class DriverAuthProvider {
   async updateDriverC(driver: DataUserC) {
     const url = this.api_url + this.updatedrivers_path
     const token = await this.getToken()
+    console.log('--DriverAuth-- updateDriverC driver: ', driver)
 
     const params = {
       fecha_expedicion_cedula: driver.fecha_expedicion_cedula,

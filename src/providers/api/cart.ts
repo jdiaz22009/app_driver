@@ -182,6 +182,8 @@ export class CartProvider {
       prop_segundo_nombre: cart.owner_second_name,
       prop_primer_apellido: cart.owner_first_lastname,
       prop_segundo_apellido: cart.owner_second_lastname,
+      prop_pais : cart.owner_country,
+      prop_departamento : cart.owner_department,
       prop_municipio: cart.owner_state,
       prop_direccion: cart.owner_address,
       prop_celular: cart.owner_mobil,
