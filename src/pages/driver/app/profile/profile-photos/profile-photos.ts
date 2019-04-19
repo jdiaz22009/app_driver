@@ -147,22 +147,22 @@ export class ProfilePhotoDriverPage {
       const photo = res['data']['id_driver'].myphoto
       console.log(photo, 'photo response')
       if (photo.idFrontCe !== undefined) {
-        this.idFront = photo.idFrontCe
+        this.idFront = (photo.idFrontCe === '') ? './assets/imgs/no_photo.png': photo.idFrontCe
       }
       if (photo.idBackCe !== undefined) {
-        this.idBack = photo.idBackCe
+        this.idBack = (photo.idBackCe === '')? './assets/imgs/no_photo.png' : photo.idBackCe
       }
 
       if (photo.licenseFront !== undefined) {
-        this.licenseFront = photo.licenseFront
+        this.licenseFront = (photo.licenseFront === '') ? './assets/imgs/no_photo.png' : photo.licenseFront
       }
 
       if (photo.licenseBack !== undefined) {
-        this.licenseBack = photo.licenseBack
+        this.licenseBack = (photo.licenseBack === '') ? './assets/imgs/no_photo.png' : photo.licenseBack
       }
 
       if (photo.face_driverImg !== undefined) {
-        this.driverImg = photo.face_driverImg
+        this.driverImg = (photo.face_driverImg === '') ? './assets/imgs/no_photo.png' : photo.face_driverImg
       }
 
 
@@ -255,11 +255,11 @@ export class ProfilePhotoDriverPage {
         console.log('dataArray ', dataArray)
         let myphoto = {
           myphoto: {
-            idFrontCe: dataArray.idFront,
-            idBackCe: dataArray.idBack,
-            licenseFront: dataArray.licenseFront,
-            licenseBack: dataArray.licenseBack,
-            face_driverImg: dataArray.driverImg
+            idFrontCe: (dataArray.idFront === '') ? './assets/imgs/no_photo.png' : dataArray.idFront,
+            idBackCe: (dataArray.idBack === '') ? './assets/imgs/no_photo.png' : dataArray.idBack,
+            licenseFront: (dataArray.licenseFront === '') ? './assets/imgs/no_photo.png' : dataArray.licenseFront,
+            licenseBack: (dataArray.licenseBack === '') ? './assets/imgs/no_photo.png' : dataArray.licenseBack,
+            face_driverImg: (dataArray.driverImg === '') ? './assets/imgs/no_photo.png' : dataArray.driverImg
 
           }
         }
