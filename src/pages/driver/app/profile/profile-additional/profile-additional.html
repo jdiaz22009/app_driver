@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-
+ 
   <img class="top-img" margin-top [src]="step_img">
 
   <ion-grid>
@@ -36,14 +36,16 @@
 
                   <ion-item class=l-item>
                       <ion-label stacked>País</ion-label>
-                      <ion-input
-                        [formControl]="profileForm.controls['country']"
-                        (ionChange)="toCapitalize($event, 'country')"
-                        type="text" ></ion-input>
+                      <ion-select [formControl]="profileForm.controls['country']" >
+                        <ion-option value="Colombia">Colombia</ion-option>
+                      </ion-select>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Departamento</ion-label>
+                      <!-- <ion-select [formControl]="profileForm.controls['state']" (ionChange)="changeDep($event)">
+                        <ion-option *ngFor="let item of colombia" value="{{item.id}}" >{{item.departamento}} </ion-option>
+                    </ion-select> -->
                       <ion-input
                         [formControl]="profileForm.controls['state']"
                         (ionChange)="toCapitalize($event, 'state')"
@@ -52,6 +54,10 @@
 
                   <ion-item class=l-item>
                       <ion-label stacked>Municipio</ion-label>
+                      
+                      <!-- <ion-select [formControl]="profileForm.controls['city']">
+                        <ion-option *ngFor="let item of ciudades" value="{{item}}" >{{item}} </ion-option>
+                    </ion-select> -->
                       <ion-input
                         [formControl]="profileForm.controls['city']"
                         (ionChange)="toCapitalize($event, 'city')"

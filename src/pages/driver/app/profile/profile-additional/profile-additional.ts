@@ -22,6 +22,9 @@ export class ProfileAdditionalDriverPage {
   driver = {} as DataUserC
   profile: any
   step_form: number = 0
+  id_departamento: number
+  departamento: string = ''
+  ciuades: any = []
   step_images: any = [
     './assets/imgs/step-1-2.png',
     './assets/imgs/step-2-2.png'
@@ -32,6 +35,10 @@ export class ProfileAdditionalDriverPage {
     { value: 'Femenino', name: 'Femenino' },
     { value: 'Masculino', name: 'Masculino' },
   ]
+
+
+
+  
 
   blob_types = [
     { value: 'A+', name: 'A+' },
@@ -67,6 +74,7 @@ export class ProfileAdditionalDriverPage {
     this.setForms()
 
     this.user = this.navParams.get('profile')
+    console.log('--ProfileAdditionl-- user: ', this.user)
 
     if (this.user != null) {
       this.profileForm.controls['date'].setValue(this.user.fecha_expedicion_cedula)
@@ -170,18 +178,18 @@ export class ProfileAdditionalDriverPage {
     if (this.step_form === 0) {
       console.log('--ProfileAditional--  StempForm 0 driver: ', this.driver)
       if (
-        this.profileForm.controls['date'].value !== this.driver.fecha_expedicion_cedula 
-        || this.profileForm.controls['place'].value !== this.driver.lugar_expedicion_cedula 
-        || this.profileForm.controls['country'].value !== this.driver.pais 
-        || this.profileForm.controls['state'].value !== this.driver.departamento 
-        || this.profileForm.controls['city'].value !== this.driver.ciudad 
-        || this.profileForm.controls['address'].value !== this.driver.direccion 
-        || this.profileForm.controls['phone'].value !== this.driver.telefono_1 
+        this.profileForm.controls['date'].value !== this.driver.fecha_expedicion_cedula
+        || this.profileForm.controls['place'].value !== this.driver.lugar_expedicion_cedula
+        || this.profileForm.controls['country'].value !== this.driver.pais
+        || this.profileForm.controls['state'].value !== this.driver.departamento
+        || this.profileForm.controls['city'].value !== this.driver.ciudad
+        || this.profileForm.controls['address'].value !== this.driver.direccion
+        || this.profileForm.controls['phone'].value !== this.driver.telefono_1
       ) {
         this.driver.fecha_expedicion_cedula = this.profileForm.controls['date'].value
         this.driver.lugar_expedicion_cedula = this.profileForm.controls['place'].value
         this.driver.pais = this.profileForm.controls['country'].value
-        this.driver.departamento = this.profileForm.controls['state'].value
+        this.driver.departamento = this.departamento
         this.driver.ciudad = this.profileForm.controls['city'].value
         this.driver.direccion = this.profileForm.controls['address'].value
         this.driver.telefono_1 = this.profileForm.controls['phone'].value
@@ -208,15 +216,15 @@ export class ProfileAdditionalDriverPage {
       console.log('--ProfileAditional--  step_form 1 driver: ', this.driver)
 
       if (
-        this.profileForm_0.controls['date'].value !== this.driver.fecha_nacimiento 
-        || this.profileForm_0.controls['place'].value !== this.driver.lugar_nacimiento 
-        || this.profileForm_0.controls['arl'].value !== this.driver.nombre_arl 
-        || this.profileForm_0.controls['eps'].value !== this.driver.nombre_eps 
-        || this.profileForm_0.controls['license_plate'].value !== this.driver.numero_licencia_conducir 
-        || this.profileForm_0.controls['license_category'].value !== this.driver.categoria_licencia 
-        || this.profileForm_0.controls['license_expiration'].value !== this.driver.vencimiento_licencia 
-        || this.profileForm_0.controls['rh'].value !== this.driver.tipo_sangre 
-        || this.profileForm_0.controls['gender'].value !== this.driver.genero 
+        this.profileForm_0.controls['date'].value !== this.driver.fecha_nacimiento
+        || this.profileForm_0.controls['place'].value !== this.driver.lugar_nacimiento
+        || this.profileForm_0.controls['arl'].value !== this.driver.nombre_arl
+        || this.profileForm_0.controls['eps'].value !== this.driver.nombre_eps
+        || this.profileForm_0.controls['license_plate'].value !== this.driver.numero_licencia_conducir
+        || this.profileForm_0.controls['license_category'].value !== this.driver.categoria_licencia
+        || this.profileForm_0.controls['license_expiration'].value !== this.driver.vencimiento_licencia
+        || this.profileForm_0.controls['rh'].value !== this.driver.tipo_sangre
+        || this.profileForm_0.controls['gender'].value !== this.driver.genero
       ) {
         this.driver.fecha_nacimiento = this.profileForm_0.controls['date'].value
         this.driver.lugar_nacimiento = this.profileForm_0.controls['place'].value
@@ -265,5 +273,14 @@ export class ProfileAdditionalDriverPage {
       this.profileForm_0.controls[property].setValue(value)
     }
   }
+
+  // changeDep($event) {
+  //   console.log('--ProfileAditional-- changeDep $event: ', $event)
+  //   this.id_departamento = $event
+  //   this.departamento = this.colombia[this.id_departamento].departamento
+  //   this.ciudades = this.colombia[this.id_departamento].ciudades
+  //   console.log('--ProfileAditional-- changeDep departamento: ', this.departamento)
+  //   console.log('--ProfileAditional-- changeDep ciudades: ', this.ciudades)
+  // }
 
 }
