@@ -22,7 +22,7 @@ export class RegisterSharedPage {
 
   email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   password_validator = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
-  id_validator =  /^\d+$/
+  id_validator = /^\d+$/
 
   registerForm: FormGroup
 
@@ -31,6 +31,7 @@ export class RegisterSharedPage {
 
   driver_rol: number = 4
   company_rol: number = 1
+  chTerms: boolean = true
 
   constructor(
     public navCtrl: NavController,
@@ -41,44 +42,56 @@ export class RegisterSharedPage {
     public modalCtrl: ModalController,
     public db: StorageDb,
     public loadingCtrl: LoadingController
-    ) {
+  ) {
 
-      this.prevId = navParams.get('id')
-      this.mode = navParams.get('mode')
+    this.prevId = navParams.get('id')
+    this.mode = navParams.get('mode')
 
-      this.registerForm = this.formBuilder.group({
-        id: ['', Validators.compose([
-          Validators.pattern(this.id_validator),
-          Validators.minLength(6),
-          Validators.required
-        ])],
-        first_name: ['', Validators.required],
-        second_name: [''],
-        first_lastname: ['', Validators.required],
-        second_lastname: [''],
-        mobil: ['', Validators.required],
-        email: ['', Validators.compose([
-          Validators.pattern(this.email_validator)
-        ])]
+    this.registerForm = this.formBuilder.group({
+      id: ['', Validators.compose([
+        Validators.pattern(this.id_validator),
+        Validators.minLength(6),
+        Validators.required
+      ])],
+      first_name: ['', Validators.required],
+      second_name: [''],
+      first_lastname: ['', Validators.required],
+      second_lastname: [''],
+      mobil: ['', Validators.required],
+      email: ['', Validators.compose([
+        Validators.pattern(this.email_validator)
+      ])],
+      terms: ['']
+    })
+    this.registerForm.controls['terms'].setValue(false)
+
+
+  }
+
+  checkTerms() {
+    console.log('--Registrer CheckTerms--', this.registerForm.controls['terms'].value)
+    if (this.registerForm.controls['terms'].value === true) {
+      this.chTerms = false
+    } else if (this.registerForm.controls['terms'].value === false) {
+      this.chTerms = true
+    }
+  }
+
+  checkId() {
+    this.user.id = parseInt(this.registerForm.controls['id'].value)
+    console.log(this.user.id + ' ' + this.prevId)
+    if (this.user.id != this.prevId) {
+      const modal = this.modalCtrl.create('ModalIdSharedComponent', null, { cssClass: 'modal-id' })
+      modal.onDidDismiss(() => {
+        this.navCtrl.pop()
       })
-
+      modal.present()
+      return
     }
+  }
 
-    checkId(){
-      this.user.id = parseInt(this.registerForm.controls['id'].value)
-      console.log(this.user.id + ' ' + this.prevId)
-      if(this.user.id != this.prevId){
-        const modal = this.modalCtrl.create('ModalIdSharedComponent', null, { cssClass: 'modal-id' })
-        modal.onDidDismiss(() =>{
-          this.navCtrl.pop()
-        })
-        modal.present()
-        return
-      }
-    }
-
-    register(){
-
+  register() {
+    if (this.registerForm.controls['terms'].value === true) {
       this.user.id = parseInt(this.registerForm.controls['id'].value)
       this.user.first_name = this.registerForm.controls['first_name'].value
       this.user.second_name = this.registerForm.controls['second_name'].value
@@ -91,59 +104,60 @@ export class RegisterSharedPage {
       this.user.phone = 0
       this.user.address = ''
 
-      if(this.mode === 'driver'){
-          this.driverRegister()
-      }else if(this.mode === 'company'){
+      if (this.mode === 'driver') {
+        this.driverRegister()
+      } else if (this.mode === 'company') {
 
       }
-
     }
 
-    driverRegister(){
-      const loader = this.loadingCtrl.create({})
-      loader.present()
+  }
 
-      this.auth.register(this.user, this.driver_rol).then(res =>{
+  driverRegister() {
+    const loader = this.loadingCtrl.create({})
+    loader.present()
 
-        const code = res['data'].code
+    this.auth.register(this.user, this.driver_rol).then(res => {
 
-        if(code === 100){
+      const code = res['data'].code
 
-          const id = res['data'].id_conductor
+      if (code === 100) {
 
-          const sessionData = {
-            userId: id,
-            user: this.user.id,
-            token: res['data'].token,
-            type: 'driver'
-          }
+        const id = res['data'].id_conductor
 
-          this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res =>{
-            loader.dismiss()
-            this.navCtrl.setRoot('AddCartDriverPage', {id: this.user.id, mode: 0})
-          }).catch(e =>{
-            loader.dismiss()
-            console.log(e)
-            this.alert.showAlert('Error', 'Error al crear la sesión')
-          })
-
-        }else{
-          loader.dismiss()
-          const msg = res['data'].message
-          this.alert.showAlert('Error', msg)
+        const sessionData = {
+          userId: id,
+          user: this.user.id,
+          token: res['data'].token,
+          type: 'driver'
         }
-      }).catch(e =>{
-        console.log(e)
-        loader.dismiss()
-        this.alert.showAlert('Error', 'No se pudo registrar el usuario, verifique los datos e intente de nuevo')
-      })
-    }
 
-    toCapitalize(v, property){
-      const value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
-      if(this.registerForm.controls[property] !== undefined){
-        this.registerForm.controls[property].setValue(value)
+        this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res => {
+          loader.dismiss()
+          this.navCtrl.setRoot('AddCartDriverPage', { id: this.user.id, mode: 0 })
+        }).catch(e => {
+          loader.dismiss()
+          console.log(e)
+          this.alert.showAlert('Error', 'Error al crear la sesión')
+        })
+
+      } else {
+        loader.dismiss()
+        const msg = res['data'].message
+        this.alert.showAlert('Error', msg)
       }
+    }).catch(e => {
+      console.log(e)
+      loader.dismiss()
+      this.alert.showAlert('Error', 'No se pudo registrar el usuario, verifique los datos e intente de nuevo')
+    })
+  }
+
+  toCapitalize(v, property) {
+    const value = v._value.toString().charAt(0).toUpperCase() + v._value.toString().slice(1)
+    if (this.registerForm.controls[property] !== undefined) {
+      this.registerForm.controls[property].setValue(value)
     }
+  }
 
 }

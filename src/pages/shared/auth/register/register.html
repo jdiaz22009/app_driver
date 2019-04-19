@@ -13,47 +13,36 @@
 
                 <form [formGroup]="registerForm">
                     <ion-item class=l-item>
-                        <ion-label stacked>Confirmar número de cédula <small class="l-requerido">*</small></ion-label>
-                        <ion-input
-                            [formControl]="registerForm.controls['id']"
-                            (ionBlur)="checkId()"
-                            type="tel">
+                        <ion-label stacked>Confirma tu número de cédula <small class="l-requerido">*</small></ion-label>
+                        <ion-input [formControl]="registerForm.controls['id']" (ionBlur)="checkId()" type="tel">
                         </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Primer Nombre <small class="l-requerido">*</small></ion-label>
-                        <ion-input
-                          [formControl]="registerForm.controls['first_name']"
-                          (ionChange)="toCapitalize($event, 'first_name')"
-                          type="text">
+                        <ion-input [formControl]="registerForm.controls['first_name']" (ionChange)="toCapitalize($event, 'first_name')"
+                            type="text">
                         </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Segundo Nombre</ion-label>
-                        <ion-input
-                          [formControl]="registerForm.controls['second_name']"
-                          (ionChange)="toCapitalize($event, 'second_name')"
-                          type="text">
+                        <ion-input [formControl]="registerForm.controls['second_name']" (ionChange)="toCapitalize($event, 'second_name')"
+                            type="text">
                         </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Primer Apellido <small class="l-requerido">*</small></ion-label>
-                        <ion-input
-                          [formControl]="registerForm.controls['first_lastname']"
-                          (ionChange)="toCapitalize($event, 'first_lastname')"
-                          type="text">
+                        <ion-input [formControl]="registerForm.controls['first_lastname']" (ionChange)="toCapitalize($event, 'first_lastname')"
+                            type="text">
                         </ion-input>
                     </ion-item>
 
                     <ion-item class=l-item>
                         <ion-label stacked>Segundo Apellido</ion-label>
-                        <ion-input
-                          [formControl]="registerForm.controls['second_lastname']"
-                          (ionChange)="toCapitalize($event, 'second_lastname')"
-                          type="text">
+                        <ion-input [formControl]="registerForm.controls['second_lastname']" (ionChange)="toCapitalize($event, 'second_lastname')"
+                            type="text">
                         </ion-input>
                     </ion-item>
 
@@ -70,14 +59,29 @@
                     <div *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.dirty">
                         Please enter a valid email.
                     </div>
+                    <ion-row justify-content-center>
+                        <div class="terms">
+                            <a href="http://cargaya.com/politicas/">
+                                <ion-checkbox color="btn" [formControl]="registerForm.controls['terms']" (ionChange)="checkTerms()"
+                                    class="check"></ion-checkbox>
+                                He leido los términos y condiciones
+                            </a>
+                        </div>
+                        <div *ngIf="chTerms">
+                            Recuerda leer los términos y condiciones
+                        </div>
+                    </ion-row>
 
-                  </form>
 
-                <button margin-top (click)="register()" [disabled]="!registerForm.valid" ion-button full color="btn">Crear Cuenta</button>
+
+                </form>
+
 
             </ion-col>
         </ion-row>
     </ion-grid>
 
 </ion-content>
-
+<ion-footer>
+    <button margin-top (click)="register()" [disabled]="!registerForm.valid" ion-button full color="btn">Crear Cuenta</button>
+</ion-footer>
