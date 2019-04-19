@@ -262,7 +262,7 @@ export class AdditionalInfoVehiclesDriverPage {
     })
   }
 
-  save() {
+  save() { 
 
     if (this.step_form === 0) {
       console.log('-AditionalInfo- StepForm 0')

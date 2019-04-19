@@ -19,7 +19,7 @@ export class ProfileAdditionalDriverPage {
   profileForm: FormGroup
   profileForm_0: FormGroup
 
-  driver = {} as DataUserC 
+  driver = {} as DataUserC
   profile: any
   step_form: number = 0
   step_images: any = [
@@ -168,30 +168,15 @@ export class ProfileAdditionalDriverPage {
 
   save() {
     if (this.step_form === 0) {
-      this.step_form++
-      this.step_img = this.step_images[1]
-      this.scrollToTop()
-    } else if (this.step_form === 1) {
-    console.log('--ProfileAditional-- driver: ', this.driver)
-
+      console.log('--ProfileAditional--  StempForm 0 driver: ', this.driver)
       if (
-        this.profileForm.controls['date'].value !== this.driver.fecha_expedicion_cedula && this.driver.fecha_expedicion_cedula !== undefined
-        || this.profileForm.controls['place'].value !== this.driver.lugar_expedicion_cedula && this.driver.lugar_expedicion_cedula !== undefined
-        || this.profileForm.controls['country'].value !== this.driver.pais && this.driver.pais !== undefined
-        || this.profileForm.controls['state'].value !== this.driver.departamento && this.driver.departamento !== undefined
-        || this.profileForm.controls['city'].value !== this.driver.ciudad && this.driver.ciudad !== undefined
-        || this.profileForm.controls['address'].value !== this.driver.direccion && this.driver.ciudad !== ""
-        || this.profileForm.controls['phone'].value !== this.driver.telefono_1 && this.driver.ciudad !== "0"
-
-        || this.profileForm_0.controls['date'].value !== this.driver.fecha_nacimiento && this.driver.fecha_nacimiento !== undefined
-        || this.profileForm_0.controls['place'].value !== this.driver.lugar_nacimiento && this.driver.lugar_nacimiento !== undefined
-        || this.profileForm_0.controls['arl'].value !== this.driver.nombre_arl && this.driver.nombre_arl !== undefined
-        || this.profileForm_0.controls['eps'].value !== this.driver.nombre_eps && this.driver.nombre_eps !== undefined
-        || this.profileForm_0.controls['license_plate'].value !== this.driver.numero_licencia_conducir && this.driver.numero_licencia_conducir !== undefined
-        || this.profileForm_0.controls['license_category'].value !== this.driver.categoria_licencia && this.driver.categoria_licencia !== undefined
-        || this.profileForm_0.controls['license_expiration'].value !== this.driver.vencimiento_licencia && this.driver.vencimiento_licencia !== undefined
-        || this.profileForm_0.controls['rh'].value !== this.driver.tipo_sangre && this.driver.tipo_sangre !== undefined
-        || this.profileForm_0.controls['gender'].value !== this.driver.genero && this.driver.genero !== undefined
+        this.profileForm.controls['date'].value !== this.driver.fecha_expedicion_cedula 
+        || this.profileForm.controls['place'].value !== this.driver.lugar_expedicion_cedula 
+        || this.profileForm.controls['country'].value !== this.driver.pais 
+        || this.profileForm.controls['state'].value !== this.driver.departamento 
+        || this.profileForm.controls['city'].value !== this.driver.ciudad 
+        || this.profileForm.controls['address'].value !== this.driver.direccion 
+        || this.profileForm.controls['phone'].value !== this.driver.telefono_1 
       ) {
         this.driver.fecha_expedicion_cedula = this.profileForm.controls['date'].value
         this.driver.lugar_expedicion_cedula = this.profileForm.controls['place'].value
@@ -201,6 +186,38 @@ export class ProfileAdditionalDriverPage {
         this.driver.direccion = this.profileForm.controls['address'].value
         this.driver.telefono_1 = this.profileForm.controls['phone'].value
 
+        const loader = this.loadingCtrl.create({})
+        loader.present()
+
+        this.auth.updateDriverC(this.driver).then(res => {
+          console.log(res)
+          console.log(JSON.stringify(res))
+          loader.dismiss()
+          this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
+        }).catch(e => {
+          console.error(e)
+          loader.dismiss()
+          this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tus datos, intenta de nuevo.')
+        })
+      }
+
+      this.step_form++
+      this.step_img = this.step_images[1]
+      this.scrollToTop()
+    } else if (this.step_form === 1) {
+      console.log('--ProfileAditional--  step_form 1 driver: ', this.driver)
+
+      if (
+        this.profileForm_0.controls['date'].value !== this.driver.fecha_nacimiento 
+        || this.profileForm_0.controls['place'].value !== this.driver.lugar_nacimiento 
+        || this.profileForm_0.controls['arl'].value !== this.driver.nombre_arl 
+        || this.profileForm_0.controls['eps'].value !== this.driver.nombre_eps 
+        || this.profileForm_0.controls['license_plate'].value !== this.driver.numero_licencia_conducir 
+        || this.profileForm_0.controls['license_category'].value !== this.driver.categoria_licencia 
+        || this.profileForm_0.controls['license_expiration'].value !== this.driver.vencimiento_licencia 
+        || this.profileForm_0.controls['rh'].value !== this.driver.tipo_sangre 
+        || this.profileForm_0.controls['gender'].value !== this.driver.genero 
+      ) {
         this.driver.fecha_nacimiento = this.profileForm_0.controls['date'].value
         this.driver.lugar_nacimiento = this.profileForm_0.controls['place'].value
         this.driver.nombre_arl = this.profileForm_0.controls['arl'].value
