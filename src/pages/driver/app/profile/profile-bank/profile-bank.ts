@@ -190,8 +190,11 @@ export class ProfileBankDriverPage {
 
     console.log('--ProfileBank-- USER: ', this.user)
     // console.log('--ProfileBank-- USER: ', this.user.pago_anticipo)
+    this.bankForm0.controls['equal'].setValue(false)
+    this.bankForm0.controls['checknequi_balance'].setValue(false)
+    this.bankForm0.controls['checkbank_balance'].setValue(false)
     if (this.user != undefined && this.user != null) {
-      if (this.user.pago_anticipo != undefined && this.user.pago_anticipo.billetera.numero_celular.length > 0) {
+      if (this.user.pago_anticipo != undefined && this.user.pago_anticipo.billetera !== undefined && this.user.pago_anticipo.billetera.numero_celular !== undefined && this.user.pago_anticipo.billetera.numero_celular.length > 0) {
         this.bankForm.controls['checknequi'].setValue(true)
         this.bankForm.controls['checkbank'].setValue(false)
         this.show_nequi = 1
@@ -203,7 +206,7 @@ export class ProfileBankDriverPage {
         this.bankForm.controls['phone'].setValue(this.user.pago_anticipo.billetera.numero_celular)
         this.bankForm.controls['name_beneficiary'].setValue(this.user.pago_anticipo.billetera.nombre_beneficiario)
         this.bankForm.controls['id_beneficiary'].setValue(this.user.pago_anticipo.billetera.identificacion_beneficiario)
-      } else if (this.user.pago_anticipo.banco.nombre_banco.length > 0) {
+      } else if (this.user.pago_anticipo != undefined && this.user.pago_anticipo.banco !== undefined && this.user.pago_anticipo.banco.nombre_banco !== undefined && this.user.pago_anticipo.banco.nombre_banco.length > 0) {
         this.bankForm.controls['checknequi'].setValue(false)
         this.bankForm.controls['checkbank'].setValue(true)
         this.show_nequi = 0
@@ -217,41 +220,41 @@ export class ProfileBankDriverPage {
         this.bankForm.controls['account_type'].setValue(this.user.pago_anticipo.banco.tipo_cuenta)
       }
 
-    }
-    this.bankForm0.controls['equal'].setValue(false)
-    this.bankForm0.controls['checknequi_balance'].setValue(false)
-    this.bankForm0.controls['checkbank_balance'].setValue(false)
+      if (this.user.pago_saldo != undefined && this.user.pago_saldo.igual_anticipo === true) {
+        this.bankForm0.controls['equal'].setValue(true)
+        console.log('--ProfileBank-- this.user.pago_saldo.igual_anticipo: ', this.user.pago_saldo.igual_anticipo)
 
-    if (this.user.pago_saldo != undefined && this.user.pago_saldo.igual_anticipo === true) {
-      this.bankForm0.controls['equal'].setValue(true)
-    }
+      }
 
-    if (this.user.pago_saldo != undefined && this.user.pago_saldo.billetera.numero_celular.length > 0) {
-      this.bankForm0.controls['checknequi_balance'].setValue(true)
-      this.bankForm0.controls['checkbank_balance'].setValue(false)
-      this.show_nequi_balance = 1
-      this.show_bank_balance = 0
-      this.disablenequi_balance = false
-      this.disableBank_balance = true
-      console.log('--ProfileBank-- if (this.user.pago_saldo.billetera) show_nequi_balance: ', this.show_nequi_balance)
-      console.log('--ProfileBank-- if (this.user.pago_saldo.billetera) show_bank_balance: ', this.show_bank_balance)
-      this.bankForm0.controls['phone_balance'].setValue(this.user.pago_saldo.billetera.numero_celular)
-      this.bankForm0.controls['name_beneficiary_balance'].setValue(this.user.pago_saldo.billetera.nombre_beneficiario)
-      this.bankForm0.controls['id_beneficiary_balance'].setValue(this.user.pago_saldo.billetera.identificacion_beneficiario)
-    } else if (this.user.pago_saldo.banco.nombre_banco.length > 0) {
-      this.bankForm0.controls['checknequi_balance'].setValue(false)
-      this.bankForm0.controls['checkbank_balance'].setValue(true)
-      this.show_nequi_balance = 0
-      this.show_bank_balance = 1
-      console.log('--ProfileBank-- this.user.pago_saldo.banco show_nequi_balance_balance: ', this.show_nequi_balance)
-      console.log('--ProfileBank-- this.user.pago_saldo.banco show_bank_balance_balance: ', this.show_bank_balance)
-      this.bankForm0.controls['bank_balance'].setValue(this.user.pago_saldo.banco.nombre_banco)
-      this.bankForm0.controls['account_balance'].setValue(this.user.pago_saldo.banco.numero_cuenta)
-      this.bankForm0.controls['name_balance'].setValue(this.user.pago_saldo.banco.nombre_titular)
-      this.bankForm0.controls['id_balance'].setValue(this.user.pago_saldo.banco.cedula_titular)
-      this.bankForm0.controls['account_type_balance'].setValue(this.user.pago_saldo.banco.tipo_cuenta)
-    }
 
+
+      if (this.user.pago_saldo != undefined && this.user.pago_saldo.billetera.numero_celular.length > 0) {
+        this.bankForm0.controls['checknequi_balance'].setValue(true)
+        this.bankForm0.controls['checkbank_balance'].setValue(false)
+        this.show_nequi_balance = 1
+        this.show_bank_balance = 0
+        this.disablenequi_balance = false
+        this.disableBank_balance = true
+        console.log('--ProfileBank-- if (this.user.pago_saldo.billetera) show_nequi_balance: ', this.show_nequi_balance)
+        console.log('--ProfileBank-- if (this.user.pago_saldo.billetera) show_bank_balance: ', this.show_bank_balance)
+        this.bankForm0.controls['phone_balance'].setValue(this.user.pago_saldo.billetera.numero_celular)
+        this.bankForm0.controls['name_beneficiary_balance'].setValue(this.user.pago_saldo.billetera.nombre_beneficiario)
+        this.bankForm0.controls['id_beneficiary_balance'].setValue(this.user.pago_saldo.billetera.identificacion_beneficiario)
+      } else if (this.user.pago_saldo != undefined && this.user.pago_saldo.banco.nombre_banco !== null && this.user.pago_saldo.banco.nombre_banco.length > 0) {
+        this.bankForm0.controls['checknequi_balance'].setValue(false)
+        this.bankForm0.controls['checkbank_balance'].setValue(true)
+        this.show_nequi_balance = 0
+        this.show_bank_balance = 1
+        console.log('--ProfileBank-- this.user.pago_saldo.banco show_nequi_balance_balance: ', this.show_nequi_balance)
+        console.log('--ProfileBank-- this.user.pago_saldo.banco show_bank_balance_balance: ', this.show_bank_balance)
+        this.bankForm0.controls['bank_balance'].setValue(this.user.pago_saldo.banco.nombre_banco)
+        this.bankForm0.controls['account_balance'].setValue(this.user.pago_saldo.banco.numero_cuenta)
+        this.bankForm0.controls['name_balance'].setValue(this.user.pago_saldo.banco.nombre_titular)
+        this.bankForm0.controls['id_balance'].setValue(this.user.pago_saldo.banco.cedula_titular)
+        this.bankForm0.controls['account_type_balance'].setValue(this.user.pago_saldo.banco.tipo_cuenta)
+      }
+
+    }
   }
 
   // async getProfileBankPicture() {
@@ -284,10 +287,10 @@ export class ProfileBankDriverPage {
       const photo = res['data']['id_driver'].banco
       this.driver = res['data']['id_driver']
       console.log(photo, 'photo response')
-      if (photo.img_certificacion !== undefined) {
+      if (photo !== undefined && photo.img_certificacion !== undefined) {
         this.bankCertificate = photo.img_certificacion
       }
-      if (photo.img_tenencia !== undefined) {
+      if (photo !== undefined && photo.img_tenencia !== undefined) {
         this.holdingLetter = photo.img_tenencia
       }
 
@@ -311,11 +314,13 @@ export class ProfileBankDriverPage {
     if (this.step_form === 0) {
       this.profile_bank.paso = 1
       console.log('-ProfileBank- StepForm 1')
+      console.log('-ProfileBank- User: ', this.user)
+      console.log('-ProfileBank- Driver: ', this.driver)
       if (this.bankForm.controls['checknequi'].value === true
-        && this.bankForm.controls['phone'].value != ''
-        && this.bankForm.controls['name_beneficiary'].value != ''
-        && this.bankForm.controls['name_beneficiary'].value != ''
-        && this.bankForm.controls['id_beneficiary'].value != ''
+        // && this.bankForm.controls['phone'].value != ''
+        // && this.bankForm.controls['name_beneficiary'].value != ''
+        // && this.bankForm.controls['name_beneficiary'].value != ''
+        // && this.bankForm.controls['id_beneficiary'].value != ''
       ) {
         console.log('--ProfileBank-- saveBank Entro a checknequi')
         this.profile_bank.phone = this.bankForm.controls['phone'].value
@@ -330,7 +335,7 @@ export class ProfileBankDriverPage {
         this.auth.bankData(this.profile_bank)
           .then(res => {
             console.log(JSON.stringify(res))
-            this.alert.showAlert('Datos nequi', 'Se ha guardado correctamente')
+            this.alert.showAlert('Datos bancarios para pagos de anticipo', 'Se ha guardado correctamente')
             // this.navCtrl.setRoot('home-drive')
           })
           .catch(error => {
@@ -339,11 +344,11 @@ export class ProfileBankDriverPage {
           })
         console.log(this.profile_bank)
       } else if (this.bankForm.controls['checkbank'].value === true
-        && this.bankForm.controls['bank'].value != '' && this.bankForm.controls['bank'].value != this.user.pago_anticipo.banco.nombre_banco
-        && this.bankForm.controls['account'].value != '' && this.bankForm.controls['account'].value != this.user.pago_anticipo.banco.numero_cuenta
-        && this.bankForm.controls['name'].value != '' && this.bankForm.controls['name'].value != this.user.pago_anticipo.banco.nombre_titular
-        && this.bankForm.controls['id'].value != '' && this.bankForm.controls['id'].value != this.user.pago_anticipo.banco.cedula_titular
-        && this.bankForm.controls['account_type'].value != '' && this.bankForm.controls['account_type'].value != this.user.pago_anticipo.banco.tipo_cuenta
+        // && this.bankForm.controls['bank'].value !== '' && this.bankForm.controls['bank'].value !== this.user.pago_anticipo.banco.nombre_banco
+        // && this.bankForm.controls['account'].value !== '' && this.bankForm.controls['account'].value !== this.user.pago_anticipo.banco.numero_cuenta
+        // && this.bankForm.controls['name'].value !== '' && this.bankForm.controls['name'].value !== this.user.pago_anticipo.banco.nombre_titular
+        // && this.bankForm.controls['id'].value !== '' && this.bankForm.controls['id'].value !== this.user.pago_anticipo.banco.cedula_titular
+        // && this.bankForm.controls['account_type'].value !== '' && this.bankForm.controls['account_type'].value !== this.user.pago_anticipo.banco.tipo_cuenta
       ) {
         console.log('--ProfileBank-- saveBank Entro a checkbank')
         console.log('--ProfileBank-- saveBank profile_bank: ', this.profile_bank)
@@ -432,7 +437,15 @@ export class ProfileBankDriverPage {
             })
         })
         this.auth.bankData(this.profile_bank)
-
+          .then(res => {
+            console.log(JSON.stringify(res))
+            this.alert.showAlert('Datos bancarios para pagos de anticipo', 'Se ha guardado correctamente')
+            // this.navCtrl.setRoot('home-drive')
+          })
+          .catch(error => {
+            console.log(error)
+            this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
+          })
       }
       this.step_form++
       this.step_img = this.step_images[1]
@@ -462,15 +475,15 @@ export class ProfileBankDriverPage {
         this.profile_bank.phone = this.bankForm0.controls['phone_balance'].value
         this.profile_bank.name_beneficiary = this.bankForm0.controls['name_beneficiary_balance'].value
         this.profile_bank.id_beneficiary = this.bankForm0.controls['id_beneficiary_balance'].value
-        this.profile_bank.bank_beneficiary = ''
-        this.profile_bank.account_beneficiary = ''
-        this.profile_bank.account_type_beneficiary = ''
+        this.profile_bank.bank = ''
+        this.profile_bank.account = ''
+        this.profile_bank.account_type = ''
         this.profile_bank.type = 1
         console.log('--ProfileBank-- saveBank profile_bank: ', this.profile_bank)
         this.auth.bankData(this.profile_bank)
           .then(res => {
             console.log(JSON.stringify(res))
-            this.alert.showAlert('Datos nequi', 'Se ha guardado correctamente')
+            this.alert.showAlert('Datos bancarios para pagos de saldos', 'Se ha guardado correctamente')
             this.navCtrl.setRoot('home-drive')
           })
           .catch(error => {
@@ -488,16 +501,16 @@ export class ProfileBankDriverPage {
       ) {
         console.log('--ProfileBank-- saveBank Entro a checkbank')
         const userID = await this.getUserId()
-        this.profile_bank.phone_beneficiary = ''
+        this.profile_bank.phone = ''
         this.profile_bank.name_beneficiary = ''
         this.profile_bank.id_beneficiary = ''
 
 
-        this.profile_bank.bank_beneficiary = this.bankForm0.controls['bank_balance'].value
-        this.profile_bank.account_beneficiary = this.bankForm0.controls['account_balance'].value
-        this.profile_bank.name_beneficiary = this.bankForm0.controls['name_balance'].value
-        this.profile_bank.id_beneficiary = this.bankForm0.controls['id_balance'].value
-        this.profile_bank.account_type_beneficiary = this.bankForm0.controls['account_type_balance'].value
+        this.profile_bank.bank = this.bankForm0.controls['bank_balance'].value
+        this.profile_bank.account = this.bankForm0.controls['account_balance'].value
+        this.profile_bank.name = this.bankForm0.controls['name_balance'].value
+        this.profile_bank.id = this.bankForm0.controls['id_balance'].value
+        this.profile_bank.account_type = this.bankForm0.controls['account_type_balance'].value
         this.profile_bank.type = 2
 
         let arrayImgs = []
@@ -573,10 +586,22 @@ export class ProfileBankDriverPage {
               }
             })
         })
+        console.log('--ProfileBank-- saveBank datos a enviar PROFILE_BANK: ', this.profile_bank)
         this.auth.bankData(this.profile_bank)
+          .then(res => {
+            console.log(JSON.stringify(res))
+            this.alert.showAlert('Datos bancarios para pagos de saldos', 'Se ha guardado correctamente')
+            this.navCtrl.setRoot('home-drive')
+          })
+          .catch(error => {
+            console.log(error)
+            this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
+          })
+        console.log(this.profile_bank)
 
       }
       this.scrollToTop()
+      this.navCtrl.setRoot('home-drive')
 
     }
 
@@ -649,9 +674,18 @@ export class ProfileBankDriverPage {
       this.bankForm.controls['checkbank'].setValue(false)
       this.show_nequi = 1
       this.show_bank = 0
+      // this.bankForm.controls['bank'].setValue('')
+      // this.bankForm.controls['account'].setValue('')
+      // this.bankForm.controls['name'].setValue('')
+      // this.bankForm.controls['id'].setValue('')
+      // this.bankForm.controls['account_type'].setValue('')
     } else if (this.bankForm.controls['checknequi'].value === false) {
+      this.bankForm.controls['checkbank'].setValue(true)
       this.show_nequi = 0
       this.show_bank = 1
+      // this.bankForm.controls['phone'].setValue('')
+      // this.bankForm.controls['name_beneficiary'].setValue('')
+      // this.bankForm.controls['id_beneficiary'].setValue('')
     }
   }
 
@@ -661,34 +695,60 @@ export class ProfileBankDriverPage {
       this.show_nequi = 0
       this.show_bank = 1
       this.disableBank = false
+      // this.bankForm.controls['phone'].setValue('')
+      // this.bankForm.controls['name_beneficiary'].setValue('')
+      // this.bankForm.controls['id_beneficiary'].setValue('')
     } else if (this.bankForm.controls['checkbank'].value === false) {
-      this.show_nequi = 0
-      this.show_bank = 1
+      this.bankForm.controls['checknequi'].setValue(true)
+      this.show_nequi = 1
+      this.show_bank = 0
+      // this.bankForm.controls['bank'].setValue('')
+      // this.bankForm.controls['account'].setValue('')
+      // this.bankForm.controls['name'].setValue('')
+      // this.bankForm.controls['id'].setValue('')
+      // this.bankForm.controls['account_type'].setValue('')
     }
   }
 
   checkselectNequi_balance() {
     if (this.bankForm0.controls['checknequi_balance'].value === true) {
+      console.log('--ProfileBank-- checkselectNequi_balance TRUE')
+      this.bankForm0.controls['equal'].setValue(false)
       console.log('--ProfileBank-- checkselectNequi_balance checkbank_balance: ', this.bankForm0.controls['checkbank_balance'].value)
       this.bankForm0.controls['checkbank_balance'].setValue(false)
       this.show_nequi_balance = 1
       this.show_bank_balance = 0
       this.disablenequi_balance = false
+      this.bankForm0.controls['phone_balance'].setValue('')
+      this.bankForm0.controls['name_beneficiary_balance'].setValue('')
+      this.bankForm0.controls['id_beneficiary_balance'].setValue('')
+
     } else if (this.bankForm0.controls['checknequi_balance'].value === false) {
+      console.log('--ProfileBank-- checkselectNequi_balance FALSE')
+      this.bankForm0.controls['checkbank_balance'].setValue(true)
       this.show_nequi_balance = 0
       this.show_bank_balance = 1
       this.disablenequi_balance = true
+      this.bankForm0.controls['bank_balance'].setValue('')
+      this.bankForm0.controls['account_balance'].setValue('')
+      this.bankForm0.controls['name_balance'].setValue('')
+      this.bankForm0.controls['id_balance'].setValue('')
+      this.bankForm0.controls['account_type_balance'].setValue('')
     }
   }
 
   checkselectBank_balance() {
     if (this.bankForm0.controls['checkbank_balance'].value === true) {
+      console.log('--ProfileBank-- checkselectBank_balance TRUE')
+      this.bankForm0.controls['equal'].setValue(false)
       console.log('--ProfileBank-- checkselectNequi_balance checkbank_balance: ', this.bankForm0.controls['checkbank_balance'].value)
       this.bankForm0.controls['checknequi_balance'].setValue(false)
       this.show_nequi_balance = 0
       this.show_bank_balance = 1
       this.disableBank_balance = false
     } else if (this.bankForm0.controls['checkbank_balance'].value === false) {
+      console.log('--ProfileBank-- checkselectBank_balance FALSE')
+      this.bankForm0.controls['checknequi_balance'].setValue(true)
       this.show_nequi_balance = 1
       this.show_bank_balance = 0
       this.disableBank_balance = true
@@ -697,52 +757,62 @@ export class ProfileBankDriverPage {
 
   checkselectequal() {
     if (this.bankForm0.controls['equal'].value === true) {
+      console.log('--ProfileBank-- checkselectequal TRUE')
+      this.bankForm0.controls['equal'].setValue(true)
+      this.profile_bank.equal = true
       this.disableBank_balance = true
       this.disablenequi_balance = true
-      // this.getDriver()
+      this.getDriver()
       console.log('--ProfileBank-- checkselectequal driver: ', this.driver)
       console.log('--ProfileBank-- checkselectequal user: ', this.user)
 
-      if (this.user.pago_anticipo != undefined && this.user.pago_anticipo.billetera.numero_celular.length > 0) {
+      if (this.driver.pago_anticipo != undefined && this.driver.pago_anticipo.billetera.numero_celular.length > 0) {
         this.bankForm0.controls['checknequi_balance'].setValue(true)
         this.bankForm0.controls['checkbank_balance'].setValue(false)
         this.show_nequi_balance = 1
         this.show_bank_balance = 0
-        this.disablenequi_balance = false
         this.disableBank_balance = true
+        this.disablenequi_balance = true
         console.log('--ProfileBank-- checkselectequal show_nequi_balance: ', this.show_nequi_balance)
         console.log('--ProfileBank-- checkselectequal show_bank_balance: ', this.show_bank_balance)
-        this.bankForm0.controls['phone_balance'].setValue(this.user.pago_anticipo.billetera.numero_celular)
-        this.bankForm0.controls['name_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.nombre_beneficiario)
-        this.bankForm0.controls['id_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.identificacion_beneficiario)
-      } else if (this.user.pago_anticipo.banco.nombre_banco.length > 0) {
+        this.bankForm0.controls['phone_balance'].setValue(this.driver.pago_anticipo.billetera.numero_celular)
+        this.bankForm0.controls['name_beneficiary_balance'].setValue(this.driver.pago_anticipo.billetera.nombre_beneficiario)
+        this.bankForm0.controls['id_beneficiary_balance'].setValue(this.driver.pago_anticipo.billetera.identificacion_beneficiario)
+      } else if (this.driver.pago_anticipo.banco.nombre_banco.length > 0) {
         this.bankForm0.controls['checknequi_balance'].setValue(false)
         this.bankForm0.controls['checkbank_balance'].setValue(true)
         this.show_nequi_balance = 0
         this.show_bank_balance = 1
-        console.log('--ProfileBank-- this.user.pago_anticipo.banco show_nequi_balance_balance: ', this.show_nequi_balance)
-        console.log('--ProfileBank-- this.user.pago_anticipo.banco show_bank_balance_balance: ', this.show_bank_balance)
-        this.bankForm0.controls['bank_balance'].setValue(this.user.pago_anticipo.banco.nombre_banco)
-        this.bankForm0.controls['account_balance'].setValue(this.user.pago_anticipo.banco.numero_cuenta)
-        this.bankForm0.controls['name_balance'].setValue(this.user.pago_anticipo.banco.nombre_titular)
-        this.bankForm0.controls['id_balance'].setValue(this.user.pago_anticipo.banco.cedula_titular)
-        this.bankForm0.controls['account_type_balance'].setValue(this.user.pago_anticipo.banco.tipo_cuenta)
-      } else if (this.bankForm.controls['equal'].value === false) {
-        this.bankForm0.controls['checknequi_balance'].setValue(false)
-        this.bankForm0.controls['checkbank_balance'].setValue(false)
-        this.bankForm0.controls['phone_balance'].setValue('')
-        this.bankForm0.controls['name_beneficiary_balance'].setValue('')
-        this.bankForm0.controls['id_beneficiary_balance'].setValue('')
-        this.bankForm0.controls['bank_balance'].setValue('')
-        this.bankForm0.controls['account_balance'].setValue('')
-        this.bankForm0.controls['name_balance'].setValue('')
-        this.bankForm0.controls['id_balance'].setValue('')
-        this.bankForm0.controls['account_type_balance'].setValue('')
+        this.disableBank_balance = true
+        this.disablenequi_balance = true
+        console.log('--ProfileBank-- this.driver.pago_anticipo.banco show_nequi_balance_balance: ', this.show_nequi_balance)
+        console.log('--ProfileBank-- this.driver.pago_anticipo.banco show_bank_balance_balance: ', this.show_bank_balance)
+        this.bankForm0.controls['bank_balance'].setValue(this.driver.pago_anticipo.banco.nombre_banco)
+        this.bankForm0.controls['account_balance'].setValue(this.driver.pago_anticipo.banco.numero_cuenta)
+        this.bankForm0.controls['name_balance'].setValue(this.driver.pago_anticipo.banco.nombre_titular)
+        this.bankForm0.controls['id_balance'].setValue(this.driver.pago_anticipo.banco.cedula_titular)
+        this.bankForm0.controls['account_type_balance'].setValue(this.driver.pago_anticipo.banco.tipo_cuenta)
       }
 
-
-
+    } else if (this.bankForm0.controls['equal'].value === false) {
+      console.log('--ProfileBank-- checkselectequal FALSE')
+      this.profile_bank.equal = false
+      this.bankForm0.controls['checknequi_balance'].setValue(false)
+      this.bankForm0.controls['checkbank_balance'].setValue(false)
+      this.bankForm0.controls['phone_balance'].setValue('')
+      this.bankForm0.controls['name_beneficiary_balance'].setValue('')
+      this.bankForm0.controls['id_beneficiary_balance'].setValue('')
+      this.bankForm0.controls['bank_balance'].setValue('')
+      this.bankForm0.controls['account_balance'].setValue('')
+      this.bankForm0.controls['name_balance'].setValue('')
+      this.bankForm0.controls['id_balance'].setValue('')
+      this.bankForm0.controls['account_type_balance'].setValue('')
+      this.show_nequi_balance = 0
+      this.show_bank_balance = 0
+      this.disablenequi_balance = false
+      this.disableBank_balance = false
     }
+
   }
 
 
