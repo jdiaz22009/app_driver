@@ -30,7 +30,7 @@
                 <ion-col>
                   <p text-center class="tx-title">Información De:</p>
                 </ion-col>
-              </ion-row>
+              </ion-row> 
               <ion-row justify-content-center>
                 <ion-col col-4 offset-2>
                   <p class="tx-title">Propietario</p>
@@ -108,13 +108,13 @@
           <ion-row>
             <ion-col col-6> 
               <ion-item class=l-item>
-                <ion-label stacked>País </ion-label>
+                <ion-label stacked>País de domicilio</ion-label>
                 <ion-input [formControl]="ownerForm.controls['owner_country']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item class=l-item>
-                <ion-label stacked>Departamento </ion-label>
+                <ion-label stacked>Departamento de domicilio</ion-label>
                 <ion-input [formControl]="ownerForm.controls['owner_department']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
@@ -124,7 +124,7 @@
           <ion-row>
             <ion-col col-6>
               <ion-item class=l-item>
-                <ion-label stacked>Municipio</ion-label>
+                <ion-label stacked>Municipio de domicilio</ion-label>
                 <ion-input [formControl]="ownerForm.controls['owner_state']" type="text" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
@@ -255,18 +255,34 @@
       <ion-row>
         <ion-col col-6>
           <ion-item class=l-item>
-            <ion-label stacked>Primer Nombre</ion-label>
+            <ion-label stacked>Primer Apellido</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_surname_legal_rep']" type="text"></ion-input>
 
           </ion-item>
         </ion-col>
         <ion-col col-6>
           <ion-item class=l-item>
-            <ion-label stacked>Segundo Nombre</ion-label>
+            <ion-label stacked>Segundo Apellido</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_second_surname_legal_rep']" type="text"></ion-input>
 
           </ion-item>
         </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-6>
+              <ion-item class=l-item>
+                <ion-label stacked>Documento de identidad #</ion-label>
+                <ion-input [formControl]="ownerForm0.controls['owner_number_id_legal_rep']" type="text"></ion-input>
+    
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+                <ion-item class=l-item>
+                  <ion-label stacked>Celular #</ion-label>
+                  <ion-input [formControl]="ownerForm0.controls['owner_phone_legal_rep']" type="text"></ion-input>
+      
+                </ion-item>
+              </ion-col>
       </ion-row>
 
       <ion-row>

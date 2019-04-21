@@ -11,10 +11,11 @@ import { CartProvider } from '@providers/api/cart'
 export class DetailsVehiclesDriverPage {
 
   data: any = [
-    {thumb: './assets/imgs/truck1.png', title: 'Información Básica', summary: 'Edite tipo de vehículo', page: 'InformationVehiclesDriverPage'},
-    {thumb: './assets/imgs/truck1.png', title: 'Información Complementaria', summary: 'Edita clase, carrocería...', page: 'AdditionalInfoVehiclesDriverPage'},
-    {thumb: './assets/imgs/truck-card.png', title: 'Datos del propietario/Tenedor', summary: 'Edita datos del propietario', page: 'OwnerDataVehiclesDriverPage'},
-    {thumb: './assets/imgs/profile-card.png', title: 'Fotos', summary: 'Edita SOAT, tecnicomecánica...', page: 'PhotosVehiclesDriverPage'}
+    {thumb: './assets/imgs/truck1.png', title: 'Información Básica', summary: 'Ingresa tipo de vehículo', page: 'InformationVehiclesDriverPage'},
+    {thumb: './assets/imgs/truck1.png', title: 'Información Complementaria', summary: 'Ingresa clase, carrocería...', page: 'AdditionalInfoVehiclesDriverPage'},
+    {thumb: './assets/imgs/truck-card.png', title: 'Datos del propietario/Tenedor', summary: 'Ingresa datos del propietario', page: 'OwnerDataVehiclesDriverPage'},
+    {thumb: './assets/imgs/profile-card.png', title: 'Fotos documentos del vehículo', summary: 'Ingresa SOAT, tecnicomecánica...', page: 'PhotosVehiclesDriverPage'},
+    {thumb: './assets/imgs/profile-card.png', title: 'Fotos del vehículo', summary: 'Fotos de mi nave', page: 'PhotosVehiclesPage'} 
   ]
 
   vehicle: any

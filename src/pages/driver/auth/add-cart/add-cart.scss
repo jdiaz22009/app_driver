@@ -2,7 +2,14 @@ add-cart-driver {
 
   ion-content .scroll-content {
     overflow : hidden !important;
+
+    .l-requerido{
+      color: red;
+ }
+      
 }
+
+
   
 //   .scroll-content{
 //     overflow-y: auto !important;

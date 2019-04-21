@@ -55,6 +55,8 @@ export interface Cart {
   owner_second_name_legal_rep: string;
   owner_surname_legal_rep: string;
   owner_second_surname_legal_rep: string;
+  owner_number_id_legal_rep: string;
+  owner_phone_legal_rep : string;
   owner_email_legal_rep: string;
 
 }

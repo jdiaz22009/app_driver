@@ -10,6 +10,7 @@ export interface DataUserC {
   lugar_nacimiento: String,
   nombre_arl: String,
   nombre_eps: String,
+  nombre_fondo: String,
   numero_licencia_conducir: Number,
   categoria_licencia: String,
   vencimiento_licencia: String,

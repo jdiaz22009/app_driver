@@ -34,6 +34,7 @@ export class ProfileAdditionalDriverPage {
   gender_options = [
     { value: 'Femenino', name: 'Femenino' },
     { value: 'Masculino', name: 'Masculino' },
+    { value: 'Prefiero no decir', name: 'Prefiero no decir' }
   ]
 
 
@@ -89,6 +90,7 @@ export class ProfileAdditionalDriverPage {
       this.profileForm_0.controls['place'].setValue(this.user.lugar_nacimiento)
       this.profileForm_0.controls['arl'].setValue(this.user.nombre_arl)
       this.profileForm_0.controls['eps'].setValue(this.user.nombre_eps)
+      this.profileForm_0.controls['found'].setValue(this.user.nombre_fondo)
       this.profileForm_0.controls['license_plate'].setValue(this.user.numero_licencia_conducir)
       this.profileForm_0.controls['license_category'].setValue(this.user.categoria_licencia)
       this.profileForm_0.controls['license_expiration'].setValue(this.user.vencimiento_licencia)
@@ -148,6 +150,10 @@ export class ProfileAdditionalDriverPage {
         // Validators.required
       ])],
       eps: ['', Validators.compose([
+        Validators.minLength(3),
+        // Validators.required
+      ])],
+      found: ['', Validators.compose([
         Validators.minLength(3),
         // Validators.required
       ])],
@@ -220,6 +226,7 @@ export class ProfileAdditionalDriverPage {
         || this.profileForm_0.controls['place'].value !== this.driver.lugar_nacimiento
         || this.profileForm_0.controls['arl'].value !== this.driver.nombre_arl
         || this.profileForm_0.controls['eps'].value !== this.driver.nombre_eps
+        || this.profileForm_0.controls['found'].value !== this.driver.nombre_fondo
         || this.profileForm_0.controls['license_plate'].value !== this.driver.numero_licencia_conducir
         || this.profileForm_0.controls['license_category'].value !== this.driver.categoria_licencia
         || this.profileForm_0.controls['license_expiration'].value !== this.driver.vencimiento_licencia

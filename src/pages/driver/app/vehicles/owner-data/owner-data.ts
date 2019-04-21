@@ -89,7 +89,7 @@ export class OwnerDataVehiclesDriverPage {
       } else if (this.vehicle.tendor === 'No') {
         this.ownerForm.controls['owner_prop_yes'].setValue(true)
         this.ownerForm.controls['owner_prop_no'].setValue(false)
-      } 
+      }
       if (this.vehicle.prop_tipo_persona === 'natural' || this.vehicle.prop_tipo_persona === 'juridica') {
         if (this.vehicle.prop_tipo_persona === 'natural') {
           this.ownerForm.controls['owner_type'].setValue(this.vehicle.prop_tipo_persona)
@@ -121,6 +121,8 @@ export class OwnerDataVehiclesDriverPage {
           this.ownerForm.controls['owner_second_name_legal_rep'].setValue(this.vehicle.prop_repre_segundo_nombre)
           this.ownerForm.controls['owner_surname_legal_rep'].setValue(this.vehicle.prop_repre_primer_apellido)
           this.ownerForm.controls['owner_second_surname_legal_rep'].setValue(this.vehicle.prop_repre_segundo_apellido)
+          this.ownerForm.controls['owner_number_id_legal_rep'].setValue(this.vehicle.prop_repre_documento)
+          this.ownerForm.controls['owner_phone_legal_rep'].setValue(this.vehicle.prop_repre_celular)
           this.ownerForm.controls['owner_email_legal_rep'].setValue(this.vehicle.prop_repre_email)
 
         }
@@ -209,6 +211,10 @@ export class OwnerDataVehiclesDriverPage {
 
       owner_second_surname_legal_rep: ['', Validators.compose([
         Validators.minLength(0)])],
+      owner_number_id_legal_rep: ['', Validators.compose([
+        Validators.minLength(0)])],
+      owner_phone_legal_rep: ['', Validators.compose([
+        Validators.minLength(0)])],
 
       owner_email_legal_rep: ['', Validators.compose([
         Validators.minLength(0)])]
@@ -255,7 +261,7 @@ export class OwnerDataVehiclesDriverPage {
 
       console.log('--OwnerData-- Cart: ', this.cart)
       console.log('--OwnerData-- vehicle: ', this.vehicle)
- 
+
       this.cartApi.updateVehicleAddOwnerNat(this.cart, this.vehicle._id).then(res => {
         console.log('--OwnerData-- RESPUESTA: ', JSON.stringify(res))
         loader.dismiss()
@@ -282,6 +288,8 @@ export class OwnerDataVehiclesDriverPage {
       this.cart.owner_second_name_legal_rep = this.ownerForm.controls['owner_second_name_legal_rep'].value
       this.cart.owner_surname_legal_rep = this.ownerForm.controls['owner_surname_legal_rep'].value
       this.cart.owner_second_surname_legal_rep = this.ownerForm.controls['owner_second_surname_legal_rep'].value
+      this.cart.owner_number_id_legal_rep = this.ownerForm.controls['owner_number_id_legal_rep'].value
+      this.cart.owner_phone_legal_rep = this.ownerForm.controls['owner_phone_legal_rep'].value
       this.cart.owner_email_legal_rep = this.ownerForm.controls['owner_email_legal_rep'].value
 
       console.log('--OwnerData-- Cart: ', this.cart)

@@ -215,6 +215,8 @@ export class CartProvider {
       prop_repre_segundo_nombre: cart.owner_second_name_legal_rep,
       prop_repre_primer_apellido: cart.owner_surname_legal_rep,
       prop_repre_segundo_apellido: cart.owner_second_surname_legal_rep,
+      prop_repre_documento: cart.owner_number_id_legal_rep,
+      prop_repre_celular: cart.owner_phone_legal_rep,
       prop_repre_email: cart.owner_email_legal_rep,
       propietario : cart.owner,
       tenedor : cart.fork_info

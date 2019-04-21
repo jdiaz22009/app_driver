@@ -18,11 +18,11 @@ export class ProfileDriverPage {
   percent_profile: number = 0
   travels: number = 0
   data: any = [
-    { thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Edita datos del conductor', page: 'ProfileBasicPage' },
-    { thumb: './assets/imgs/perfil4.png', title: 'Mis datos Complementarios', summary: 'Edita datos complementarios del conductor', page: 'ProfileAdditionalDriverPage' },
-    { thumb: './assets/imgs/perfil3.png', title: 'Mis fotos', summary: ' Sube fotos de documentos', page: 'ProfilePhotoDriverPage' },
-    { thumb: './assets/imgs/perfil2.png', title: 'Mis datos bancarios', summary: 'Para recibir pagos de la empresa', page: 'ProfileBankDriverPage' },
-    { thumb: './assets/imgs/perfil.png', title: 'Mis referencias', summary: 'Te ayudara con las empresas', page: 'ProfileReferenceDriverPage' }
+    { thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Ingresa tus datos básicos', page: 'ProfileBasicPage' },
+    { thumb: './assets/imgs/perfil4.png', title: 'Mis datos complementarios', summary: 'Ingresa tus datos complementarios', page: 'ProfileAdditionalDriverPage' },
+    { thumb: './assets/imgs/perfil2.png', title: 'Mis datos bancarios', summary: 'Para recibir tus pagos', page: 'ProfileBankDriverPage' },
+    { thumb: './assets/imgs/perfil.png', title: 'Mis referencias comerciales', summary: 'Ingresa los datos de quienes te conocen', page: 'ProfileReferenceDriverPage' },
+    { thumb: './assets/imgs/perfil3.png', title: 'Mis fotos', summary: 'Sube fotos de tus documentos y tu perfil', page: 'ProfilePhotoDriverPage' }
   ]
 
   inputCount: number = 46
@@ -49,6 +49,7 @@ export class ProfileDriverPage {
     this.auth.getDriver().then(res => {
       console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
+      console.log('--ProfileView-- getProfile userData: ', this.userData)
       this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' ' + this.toCapitalize(this.userData.segundo_nombre)
       this.percent_profile = res['data'].percent_profile
       this.travels = this.userData.cantidad_viajes === 0 ? 0 : this.userData.cantidad_viajes
@@ -57,7 +58,10 @@ export class ProfileDriverPage {
 
   goPage(page) {
     console.log(page)
-    if (page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage' || page === 'ProfileReferenceDriverPage' || page === 'ProfileBankDriverPage') {
+    if (page === 'ProfileBankDriverPage') {
+      this.navCtrl.setRoot(page, { profile: this.userData })
+      console.log('--ProfileView-- goPage userData: ', this.userData)
+    }else if (page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage' || page === 'ProfileReferenceDriverPage') {
       this.navCtrl.push(page, { profile: this.userData })
     } else {
       this.navCtrl.push(page)

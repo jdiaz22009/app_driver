@@ -130,7 +130,7 @@ export class RegisterSharedPage {
           user: this.user.id,
           token: res['data'].token,
           type: 'driver'
-        }
+        } 
 
         this.db.setItem(CONFIG.localdb.USER_KEY, sessionData).then(res => {
           loader.dismiss()

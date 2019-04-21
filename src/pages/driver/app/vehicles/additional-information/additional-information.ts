@@ -14,7 +14,7 @@ import { CartProvider } from '@providers/api/cart'
 export class AdditionalInfoVehiclesDriverPage {
 
   cart = {} as Cart
-  cartForm: FormGroup
+  cartForm: FormGroup 
   @ViewChild(Content) content: Content
 
   step_form: number = 0
@@ -37,7 +37,6 @@ export class AdditionalInfoVehiclesDriverPage {
 
   gas_category: any = [
     { value: 'Diesel', name: 'Diesel' },
-    { value: 'ACPM', name: 'ACPM' },
     { value: 'Gas Natural', name: 'Gas Natural' },
     { value: 'Gasolina', name: 'Gasolina' },
     { value: 'Electrico', name: 'Electrico' }

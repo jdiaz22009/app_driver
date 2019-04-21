@@ -40,7 +40,7 @@
                         (ionChange)="checkRepoYes()"></ion-checkbox>
                     </ion-col>
                     <ion-col col-4>
-                      <p class="tx-title">No</p>
+                      <p class="tx-title">No</p> 
                       <ion-checkbox color="btn"  checked="false" [formControl]="vehicleForm.controls['repowering_no']"
                         (ionChange)="checkRepoNo()"></ion-checkbox>
                     </ion-col>
@@ -136,7 +136,7 @@
             <ion-row>
               <ion-col col-6>
                 <ion-item class=l-item>
-                  <ion-label stacked>Declaración de Importación</ion-label>
+                  <ion-label stacked>Declaración de Importación #</ion-label>
                   <ion-input [formControl]="vehicleForm0.controls['import_declaration']" (ionChange)="toCapitalize($event, 'import_declaration')"
                     type="number">
                   </ion-input>
@@ -145,7 +145,7 @@
 
               <ion-col col-6>
                 <ion-item class=l-item>
-                  <ion-label stacked>Número de SOAT</ion-label>
+                  <ion-label stacked>SOAT Número</ion-label>
                   <ion-input [formControl]="vehicleForm0.controls['soat']" (ionChange)="toCapitalize($event, 'soat')"
                     type="number">
                   </ion-input>
@@ -178,7 +178,7 @@
             <ion-row>
               <ion-col col-6>
                 <ion-item class=l-item>
-                  <ion-label stacked># de revisión tecnicomecanica</ion-label>
+                  <ion-label stacked># de revisión tecnicomecánica</ion-label>
                   <ion-input [formControl]="vehicleForm0.controls['technical_review']" (ionChange)="toCapitalize($event, 'technical_review')"
                     type="number">
                   </ion-input>
@@ -187,7 +187,7 @@
 
               <ion-col col-6>
                 <ion-item class=l-item>
-                  <ion-label stacked>Fecha vencimiento tecnicomecanica</ion-label>
+                  <ion-label stacked>Fecha vencimiento tecnicomecánica</ion-label>
                   <ion-datetime [formControl]="vehicleForm0.controls['technical_review_expiration']" displayFormat="DD/MM/YYYY"
                     pickerFormat="DD MM YYYY" max="2035-12-19" doneText="Seleccionar" cancelText="Cancelar">
                   </ion-datetime>
@@ -219,7 +219,7 @@
               <ion-row>
                 <ion-col col-6>
                   <ion-item class=l-item>
-                    <ion-label stacked>Marca</ion-label>
+                    <ion-label stacked>Marca de trailer</ion-label>
                     <ion-input [formControl]="vehicleForm0.controls['trailer_brand']" (ionChange)="toCapitalize($event, 'trailer_brand')"
                       type="text">
                     </ion-input>
@@ -227,7 +227,7 @@
                 </ion-col>
                 <ion-col col-6>
                   <ion-item class=l-item>
-                    <ion-label stacked>Modelo</ion-label>
+                    <ion-label stacked>Modelo de trailer</ion-label>
                     <ion-input [formControl]="vehicleForm0.controls['trailer_model']" (ionChange)="toCapitalize($event, 'trailer_model')"
                       type="number">
                     </ion-input>
@@ -237,7 +237,7 @@
               <ion-row>
                 <ion-col col-6>
                   <ion-item class=l-item>
-                    <ion-label stacked>Placa</ion-label>
+                    <ion-label stacked>Placa de trailer</ion-label>
                     <ion-input [formControl]="vehicleForm0.controls['trailer_plate']" (ionChange)="toCapitalize($event, 'trailer_plate')"
                       type="text">
                     </ion-input>

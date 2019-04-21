@@ -1,85 +1,176 @@
+
 <ion-header>
-    <ion-navbar>
-        <ion-title>Datos Bancarios</ion-title>
-    </ion-navbar>
-</ion-header>
+        <ion-navbar>
+            <ion-title>Datos Bancarios</ion-title>
+        </ion-navbar>
+    </ion-header>
 
 <ion-content>
-    <p text-center>Recibir mis pagos en</p>
+    <img class="top-img" margin-top [src]="step_img">
 
-    <ion-row justify-content-center>
-        <ion-col col-4>
-            <p>Celular (NEQUI)</p>
+    <p text-center>{{step_tittle}}</p>
+    <div *ngIf="step_form === 0">
+        <form [formGroup]="bankForm">
 
-            <ion-checkbox color="btn" mode="ios" value="nequi" [(ngModel)]="checknequi" name="nequi" (ionChange)="checkselectNequi()"></ion-checkbox>
+            <ion-row justify-content-center>
+                <ion-col col-5>
+                    <p>Billetera electrónica (Efecty)</p>
+                    <ion-checkbox color="btn" value="billetera" [formControl]="bankForm.controls['checknequi']" name="billetera"
+                        (ionChange)="checkselectNequi()"></ion-checkbox>
+                </ion-col>
+                <ion-col col-5>
+                    <p>Cuenta bancaria</p>
+                    <ion-checkbox color="btn" value="bank" [formControl]="bankForm.controls['checkbank']" (ionChange)="checkselectBank()"></ion-checkbox>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12>
+                    <div *ngIf="show_nequi === 1">
+                        <ion-item class=l-item>
+                            <ion-label stacked>Número celular</ion-label>
+                            <ion-input [formControl]="bankForm.controls['phone']" type="number" disabled="{{disablenequi}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre completo beneficiario</ion-label>
+                            <ion-input [formControl]="bankForm.controls['name_beneficiary']" type="text" disabled="{{disablenequi}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Número documento identidad beneficiario</ion-label>
+                            <ion-input [formControl]="bankForm.controls['id_beneficiary']" type="number" disabled="{{disablenequi}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item >
+                            <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
+                            <img class="p-photos" [src]="bankCertificate" (click)="setPicture('bankCertificate')" >
+                        </ion-item>
+                    </div>
+                    <div *ngIf="show_bank === 1">
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre banco </ion-label>
+                            <ion-input type="text" [formControl]="bankForm.controls['bank']" disabled="{{disableBank}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Número de cuenta</ion-label>
+                            <ion-input type="number" [formControl]="bankForm.controls['account']" disabled="{{disableBank}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre titular</ion-label>
+                            <ion-input type="text" [formControl]="bankForm.controls['name']" disabled="{{disableBank}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Cédula titular</ion-label>
+                            <ion-input type="number" [formControl]="bankForm.controls['id']" disabled="{{disableBank}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Tipo cuenta</ion-label>
+                            <ion-select [formControl]="bankForm.controls['account_type']" disabled="{{disableBank}}">
+                                <ion-option *ngFor="let item of type_account_category" value="{{item.value}}">{{item.name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
 
+                </ion-col>
+            </ion-row>
+            <div *ngIf="show_bank === 1">
+                <ion-row justify-content-center>
+                    <ion-col col-4>
+                        <p class="tx-title">Certificación Bancaria</p>
+                        <img class="p-photos" [src]="bankCertificate" (click)="setPicture('bankCertificate')" >
 
-        </ion-col>
-        <ion-col col-5 offset-2>
-            <p>Cuenta bancaria</p>
+                    </ion-col>
+                    <ion-col col-4 offset-3>
+                        <p class="tx-title">Carta de Tenencia</p>
+                        <img class="p-photos" [src]="holdingLetter" (click)="setPicture('holdingLetter')" >
+                    </ion-col>
+                </ion-row>
+            </div>
 
-            <ion-checkbox color="btn" mode="ios" value="bank" [(ngModel)]="checkbank" (ionChange)="checkselectBank()"></ion-checkbox>
-
-        </ion-col>
-    </ion-row>
-
-    <ion-row>
-        <ion-col col-12>
-
-            <form [formGroup]="bankForm">
-                <div *ngIf="show_nequi === 1">
-                    <ion-item class=l-item>
-                        <ion-label stacked>Número celular</ion-label>
-                        <ion-input [formControl]="bankForm.controls['phone']" type="number" disabled="{{disableTel}}"></ion-input>
-                    </ion-item>
-                </div>
-                <div *ngIf="show_bank === 1">
-
-                    <ion-item class=l-item>
-                        <ion-label stacked>Nombre banco </ion-label>
-                        <ion-input type="text" [formControl]="bankForm.controls['bank']" disabled="{{disablenequi}}"></ion-input>
-                    </ion-item>
-
-                    <ion-item class=l-item>
-                        <ion-label stacked>Número de cuenta</ion-label>
-                        <ion-input type="number" [formControl]="bankForm.controls['account']" disabled="{{disablenequi}}"></ion-input>
-                    </ion-item>
-
-                    <ion-item class=l-item>
-                        <ion-label stacked>Nombre titular</ion-label>
-                        <ion-input type="text" [formControl]="bankForm.controls['name']" disabled="{{disablenequi}}"></ion-input>
-                    </ion-item>
-
-                    <ion-item class=l-item>
-                        <ion-label stacked>Cédula titular</ion-label>
-                        <ion-input type="number" [formControl]="bankForm.controls['id']" disabled="{{disablenequi}}"></ion-input>
-                    </ion-item>
-
-                    <ion-item class=l-item>
-                        <ion-label stacked>Tipo cuenta</ion-label>
-                        <ion-select [formControl]="bankForm.controls['account_type']" disabled="{{disablenequi}}">
-                            <ion-option *ngFor="let item of type_account_category" value="{{item.value}}">{{item.name}}</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </div>
-            </form>
-        </ion-col>
-    </ion-row>
-    <div *ngIf="show_bank === 1">
-        <ion-row justify-content-center>
-            <ion-col col-4>
-                <p class="tx-title">Certificación Bancaria</p>
-                <img class="p-photos" [src]="bankCertificate" (click)="setPicture('bankCertificate')">
-
-            </ion-col>
-            <ion-col col-4 offset-3>
-                <p class="tx-title">Carta de Tenencia</p>
-                <img class="p-photos" [src]="holdingLetter" (click)="setPicture('holdingLetter')">
-            </ion-col>
-        </ion-row>
+        </form>
     </div>
+    <div *ngIf="step_form === 1">
+        <form [formGroup]="bankForm0">
+            <ion-row justify-content-center>
+                <ion-col col-6>
+                    <p>Usar la  misma información de los pagos ANTICIPO</p>
+                    <ion-checkbox color="btn" value="equal" [formControl]="bankForm0.controls['equal']"
+                        (ionChange)="checkselectequal()"></ion-checkbox>
+                </ion-col>
+            </ion-row>
+            <ion-row justify-content-center>
+                <ion-col col-4>
+                    <p>Billetera electrónica (Efecty)</p>
+                    <ion-checkbox color="btn" value="billetera_balance" [formControl]="bankForm0.controls['checknequi_balance']"
+                        name="billetera_balance" (ionChange)="checkselectNequi_balance()"></ion-checkbox>
+                </ion-col>
+                <ion-col col-5 offset-2>
+                    <p>Cuenta bancaria</p>
+                    <ion-checkbox color="btn" value="bank" [formControl]="bankForm0.controls['checkbank_balance']"
+                        (ionChange)="checkselectBank_balance()"></ion-checkbox>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12>
+                    <div *ngIf="show_nequi_balance === 1">
+                        <ion-item class=l-item>
+                            <ion-label stacked>Número celular</ion-label>
+                            <ion-input [formControl]="bankForm0.controls['phone_balance']" type="number" disabled="{{disablenequi_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre completo beneficiario</ion-label>
+                            <ion-input [formControl]="bankForm0.controls['name_beneficiary_balance']" type="text"
+                                disabled="{{disablenequi_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Número documento identidad beneficiario</ion-label>
+                            <ion-input [formControl]="bankForm0.controls['id_beneficiary_balance']" type="number"
+                                disabled="{{disablenequi_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
+                            <img class="p-photos" [src]="bankCertificate_balance" (click)="setPicture('bankCertificate_balance')" >
+                        </ion-item>
+                    </div>
+                    <div *ngIf="show_bank_balance === 1">
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre banco </ion-label>
+                            <ion-input type="text" [formControl]="bankForm0.controls['bank_balance']" disabled="{{disableBank_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Número de cuenta</ion-label>
+                            <ion-input type="number" [formControl]="bankForm0.controls['account_balance']" disabled="{{disableBank_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Nombre titular</ion-label>
+                            <ion-input type="text" [formControl]="bankForm0.controls['name_balance']" disabled="{{disableBank_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Cédula titular</ion-label>
+                            <ion-input type="number" [formControl]="bankForm0.controls['id_balance']" disabled="{{disableBank_balance}}"></ion-input>
+                        </ion-item>
+                        <ion-item class=l-item>
+                            <ion-label stacked>Tipo cuenta</ion-label>
+                            <ion-select [formControl]="bankForm0.controls['account_type_balance']" disabled="{{disableBank_balance}}">
+                                <ion-option *ngFor="let item of type_account_category" value="{{item.value}}">{{item.name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
 
+                </ion-col>
+            </ion-row>
+            <div *ngIf="show_bank_balance === 1">
+                <ion-row justify-content-center>
+                    <ion-col col-4>
+                        <p class="tx-title">Certificación Bancaria</p> 
+                        <img class="p-photos" [src]="bankCertificate_balance" (click)="setPicture('bankCertificate_balance')" >
+
+                    </ion-col>
+                    <ion-col col-4 offset-3>
+                        <p class="tx-title">Carta de Tenencia</p>
+                        <img class="p-photos" [src]="holdingLetter_balance" (click)="setPicture('holdingLetter_balance')" >
+                    </ion-col>
+                </ion-row>
+            </div>
+        </form>
+    </div>
     <button margin-top ion-button full color="btn" (click)="saveBank()">Guardar</button>
-
 
 </ion-content>
