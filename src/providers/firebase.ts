@@ -28,7 +28,7 @@ export class FirebaseProvider{
 
     const imgRef = this.storage.ref(`drivers/${id}/${name}`)
      return new Promise((resolve, reject) =>{
-      const task = imgRef.putString(data, 'data_url')
+      const task = imgRef.putString(data, 'base64', {contentType:'image/jpg'})
       task.on(
         'state_changed',
         snapshot => {
@@ -36,7 +36,6 @@ export class FirebaseProvider{
             console.log(percentage)
         },
         error => {
-            console.error(error.message)
             reject(error)
         },
         () => {

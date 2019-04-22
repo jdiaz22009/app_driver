@@ -1,22 +1,22 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams , ActionSheetController, ModalController,LoadingController} from 'ionic-angular'
-
 import { MediaProvider } from '@providers/media'
 import { StorageDb } from '@providers/storageDb'
 import { FirebaseProvider } from '@providers/firebase'
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+
 import { CONFIG } from '@providers/config'
+
 
 @IonicPage()
 @Component({
-  selector: 'photos-vehicle',
-  templateUrl: 'photos-vehicle.html'
+  selector: 'photos-my-vehicle',
+  templateUrl: 'photos-my-vehicle.html'
 })
-export class PhotosVehiclesDriverPage {
+export class PhotosMyVehiclesDriverPage {
 
   noImg: string = './assets/imgs/no_photo.png'
-
   front: string = this.noImg
   rear: string = this.noImg
   Lrfron: string = this.noImg
@@ -25,6 +25,8 @@ export class PhotosVehiclesDriverPage {
   SoatRear: string = this.noImg
   TecnoFron: string = this.noImg
   TecnoRear: string = this.noImg
+
+
 
   constructor(
     public navCtrl: NavController,
@@ -155,9 +157,6 @@ export class PhotosVehiclesDriverPage {
       if (photo.TecnoRear !== undefined) {
         this.TecnoRear = photo.TecnoRear
       }
-
-
-
     })
   }
 

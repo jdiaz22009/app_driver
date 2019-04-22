@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Mis Fotos Vehículo</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content>
+
+    <ion-grid class="content-controls">
+
+        <ion-row justify-content-center class="mtc">
+            <ion-col col-4>
+                <img class="p-photos" [src]="front" (click)="setPicture('front')">
+                <p class="p-summary">Frontal</p>
+            </ion-col>
+            <ion-col col-4 offset-3>
+                <img class="p-photos" [src]="rear" (click)="setPicture('rear')">
+                <p class="p-summary">Trasera</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+          <ion-col col-4>
+              <img class="p-photos" [src]="Lrfron" (click)="setPicture('Lrfron')">
+              <p class="p-summary">Lateral Izquierda</p>
+          </ion-col>
+          <ion-col col-4 offset-3>
+              <img class="p-photos" [src]="LrRear" (click)="setPicture('LrRear')">
+              <p class="p-summary">Lateral Derecha</p>
+          </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <button color="btn" ion-button full (click)="save()">Guardar Fotos</button>
+</ion-footer>

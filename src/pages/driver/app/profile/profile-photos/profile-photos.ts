@@ -1,14 +1,12 @@
-import { AlertsProvider } from '@providers/alerts';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, LoadingController } from 'ionic-angular'
 
+import { AlertsProvider } from '@providers/alerts'
 import { MediaProvider } from '@providers/media'
 import { StorageDb } from '@providers/storageDb'
 import { FirebaseProvider } from '@providers/firebase'
 import { CONFIG } from '@providers/config'
-import { DriverAuthProvider } from '@providers/api/driverAuth';
-
-import { DataUser } from '@models/dataUser'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 @IonicPage()
 @Component({
@@ -41,44 +39,47 @@ export class ProfilePhotoDriverPage {
   }
 
   ionViewDidLoad() {
-    // this.getProfilePicture()
-    this.getDriver()
+    this.getProfilePicture()
   }
 
-  // async getProfilePicture(){
-  //   const loader = this.loadingCtrl.create({})
-  //   loader.present()
-  //   const userId = await this.getUserId()
-  //   this.fire.getProfilePicture(userId).then(res =>{
-  //     loader.dismiss()
-  //     console.log(res)
+  async getProfilePicture(){
+    const loader = this.loadingCtrl.create({})
+    loader.present()
+    const userId = await this.getUserId()
 
-  //     if(res['idFront'] !== undefined){
-  //       this.idFront = res['idFront']
-  //     }
+    this.fire.getProfilePicture(userId).then(res =>{
+      loader.dismiss()
 
-  //     if(res['idBack'] !== undefined){
-  //       this.idBack = res['idBack']
-  //     }
+      console.log(JSON.stringify(res))
 
-  //     if(res['licenseFront'] !== undefined){
-  //       this.licenseFront = res['licenseFront']
-  //     }
+      if(res === null) return
 
-  //     if(res['licenseBack'] !== undefined){
-  //       this.licenseBack = res['licenseBack']
-  //     }
+      if(res['idFront'] !== undefined){
+        this.idFront = res['idFront']
+      }
 
-  //     if(res['driverImg'] !== undefined){
-  //       this.driverImg = res['driverImg']
-  //     }
+      if(res['idBack'] !== undefined){
+        this.idBack = res['idBack']
+      }
 
-  //   }).catch(e =>{
-  //     loader.dismiss()
-  //     console.error('error ' + e)
-  //   })
+      if(res['licenseFront'] !== undefined){
+        this.licenseFront = res['licenseFront']
+      }
 
-  // }
+      if(res['licenseBack'] !== undefined){
+        this.licenseBack = res['licenseBack']
+      }
+
+      if(res['driverImg'] !== undefined){
+        this.driverImg = res['driverImg']
+      }
+
+    }).catch(e =>{
+      loader.dismiss()
+      console.error('error ' + e)
+    })
+
+  }
 
   setPicture(id) {
     const actionSheet = this.actionSheetCtrl.create({
@@ -108,117 +109,58 @@ export class ProfilePhotoDriverPage {
     actionSheet.present()
   }
 
-  takePicture(modelPicture, mode) {
-    this.media.takePicture(mode).then(res => {
+  takePicture(modelPicture, mode){
+    this.media.takePicture(mode).then(res =>{
       const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
-      modal.onDidDismiss(data => {
-        if (data) {
-          const photo = data.cropResult
+      modal.onDidDismiss(data =>{
+        if(data){
+        const photo = data.cropResult
 
-          if (modelPicture === 'idFront') {
-            this.idFront = photo
-          } else if (modelPicture === 'idBack') {
-            this.idBack = photo
-          } else if (modelPicture === 'licenseFront') {
-            this.licenseFront = photo
-          } else if (modelPicture === 'licenseBack') {
-            this.licenseBack = photo
-          } else if (modelPicture === 'driverImg') {
-            this.driverImg = photo
-          }
+        if(modelPicture === 'idFront'){
+          this.idFront = photo
+        }else if(modelPicture === 'idBack'){
+          this.idBack = photo
+        }else if(modelPicture === 'licenseFront'){
+          this.licenseFront = photo
+        }else if(modelPicture === 'licenseBack'){
+          this.licenseBack = photo
+        }else if(modelPicture === 'driverImg'){
+          this.driverImg = photo
+        }
         }
       })
       modal.present()
 
-    }).catch(e => {
+    }).catch(e =>{
       console.error(e)
     })
   }
 
+
   async getUserId() {
-    const id = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
       return res.userId
     })
-    return id
   }
 
-  async getDriver() {
-    this.driveAuth.getDriver().then(res => {
-      const photo = res['data']['id_driver'].myphoto
-      console.log(photo, 'photo response')
-      if (photo.idFrontCe !== undefined) {
-        this.idFront = (photo.idFrontCe === '') ? './assets/imgs/no_photo.png': photo.idFrontCe
-      }
-      if (photo.idBackCe !== undefined) {
-        this.idBack = (photo.idBackCe === '')? './assets/imgs/no_photo.png' : photo.idBackCe
-      }
-
-      if (photo.licenseFront !== undefined) {
-        this.licenseFront = (photo.licenseFront === '') ? './assets/imgs/no_photo.png' : photo.licenseFront
-      }
-
-      if (photo.licenseBack !== undefined) {
-        this.licenseBack = (photo.licenseBack === '') ? './assets/imgs/no_photo.png' : photo.licenseBack
-      }
-
-      if (photo.face_driverImg !== undefined) {
-        this.driverImg = (photo.face_driverImg === '') ? './assets/imgs/no_photo.png' : photo.face_driverImg
-      }
-
-
-
-    })
-  }
+  isBase64Img(str) {
+    try {
+        return str.includes('data:image/jpeg;base64')
+    } catch (e) {
+        return false
+    }
+}
 
   async save() {
+
     const loader = this.loadingCtrl.create({})
     loader.present()
 
     const userId = await this.getUserId()
+    console.log(userId)
 
     let arrayImgs = []
 
-    if (this.idFront != this.noImg) {
-      arrayImgs.push({
-        model: this.idFront,
-        id: userId,
-        name: 'idFront'
-      })
-    }
-
-    if (this.idBack != this.noImg) {
-      arrayImgs.push({
-        model: this.idBack,
-        id: userId,
-        name: 'idBack'
-      })
-    }
-
-    if (this.licenseFront != this.noImg) {
-      arrayImgs.push({
-        model: this.licenseFront,
-        id: userId,
-        name: 'licenseFront'
-      })
-    }
-
-    if (this.licenseBack != this.noImg) {
-      arrayImgs.push({
-        model: this.licenseBack,
-        id: userId,
-        name: 'licenseBack'
-      })
-    }
-
-    if (this.driverImg != this.noImg) {
-      arrayImgs.push({
-        model: this.driverImg,
-        id: userId,
-        name: 'driverImg'
-      })
-    }
-
-    const indexArray = arrayImgs.length
     let dataArray = {
       idFront: null,
       idBack: null,
@@ -227,62 +169,108 @@ export class ProfilePhotoDriverPage {
       driverImg: null
     }
 
-    arrayImgs.forEach((item, index) => {
+    if (this.idFront != this.noImg && this.isBase64Img(this.idFront)) {
+      arrayImgs.push({
+        model: this.idFront,
+        id: userId,
+        name: 'idFront'
+      })
+    }else{
+      dataArray.idFront = this.idFront === this.noImg ? null : this.idFront
+    }
 
-      this.fire.uploadPicture(item.model, item.id, item.name).then(res => {
+    if (this.idBack != this.noImg && this.isBase64Img(this.idBack)) {
+      arrayImgs.push({
+        model: this.idBack,
+        id: userId,
+        name: 'idBack'
+      })
+    }else{
+      dataArray.idBack = this.idBack === this.noImg ? null : this.idBack
+    }
+
+    if (this.licenseFront != this.noImg && this.isBase64Img(this.licenseFront)) {
+      arrayImgs.push({
+        model: this.licenseFront,
+        id: userId,
+        name: 'licenseFront'
+      })
+    }else{
+      dataArray.licenseFront = this.licenseFront === this.noImg ? null : this.licenseFront
+    }
+
+    if (this.licenseBack != this.noImg && this.isBase64Img(this.licenseBack)) {
+      arrayImgs.push({
+        model: this.licenseBack,
+        id: userId,
+        name: 'licenseBack'
+      })
+    }else{
+      dataArray.licenseBack = this.licenseBack === this.noImg ? null : this.licenseBack
+    }
+
+    if (this.driverImg != this.noImg && this.isBase64Img(this.driverImg)) {
+      arrayImgs.push({
+        model: this.driverImg,
+        id: userId,
+        name: 'driverImg'
+      })
+    }else{
+      dataArray.driverImg = this.driverImg === this.noImg ? null : this.driverImg
+    }
+
+    const indexArray = arrayImgs.length
+
+    console.log('data Array ' + JSON.stringify(dataArray))
+
+    arrayImgs.forEach((item, index) => {
+      // console.log('upload ' + item.model)
+      const img = item.model.substring(23)
+      console.log('upload ' + img)
+      this.fire.uploadPicture(img, item.id, item.name).then(res => {
         console.log(res)
 
-        if (item.model === this.idFront) {
+        // if (item.model === this.idFront) {
+          if (item.name === 'idFront') {
           dataArray.idFront = res
         }
 
-        if (item.model === this.idBack) {
+        // if (item.model === this.idBack) {
+        if (item.name === 'idBack') {
           dataArray.idBack = res
         }
 
-        if (item.model === this.licenseFront) {
+        // if (item.model === this.licenseFront) {
+        if (item.name === 'licenseFront') {
           dataArray.licenseFront = res
         }
 
-        if (item.model === this.licenseBack) {
+        // if (item.model === this.licenseBack) {
+          if (item.name === 'licenseBack') {
           dataArray.licenseBack = res
         }
 
-        if (item.model === this.driverImg) {
+        // if (item.model === this.driverImg) {
+          if (item.name === 'driverImg') {
           dataArray.driverImg = res
         }
 
-        console.log('dataArray ', dataArray)
-        let myphoto = {
-          myphoto: {
-            idFrontCe: (dataArray.idFront === '') ? './assets/imgs/no_photo.png' : dataArray.idFront,
-            idBackCe: (dataArray.idBack === '') ? './assets/imgs/no_photo.png' : dataArray.idBack,
-            licenseFront: (dataArray.licenseFront === '') ? './assets/imgs/no_photo.png' : dataArray.licenseFront,
-            licenseBack: (dataArray.licenseBack === '') ? './assets/imgs/no_photo.png' : dataArray.licenseBack,
-            face_driverImg: (dataArray.driverImg === '') ? './assets/imgs/no_photo.png' : dataArray.driverImg
+        if (index == indexArray -1) {
 
-          }
-        }
-
-        console.log(myphoto, 'myphoto')
-
-
-        if (index == indexArray - 1) {
-
-          this.fire.saveImageProfilePath(dataArray, userId).then(res => {
-            this.driveAuth.saveUrl(myphoto).then(response => {
-              console.log(response, 'response')
+          setTimeout(() =>{
+            console.log('data Arr ' + JSON.stringify(dataArray))
+            this.fire.saveImageProfilePath(dataArray, userId).then(() => {
+              console.log('save image path ')
+            }).catch(e => {
+              console.error('error dont save image paht ' + e)
             })
+            loader.dismiss()
+            this.alerts.showAlert('', 'Se han guardado los datos correctamente')
+          }, 2000)
 
-            console.log('save image path ' + res)
-          }).catch(e => {
-            console.error('error dont save image paht ' + e)
-          })
-          loader.dismiss()
-          this.alerts.showAlert('', 'Se han guardado los datos correctamente')
         }
       }).catch(e => {
-        console.error('error upload ' + e)
+        console.error('error upload ' + e.message)
         if (index == indexArray - 1) {
           loader.dismiss()
           this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
@@ -290,6 +278,12 @@ export class ProfilePhotoDriverPage {
       })
 
     })
+
+    // this.fire.saveImageProfilePath(dataArray, userId).then(() => {
+    //   console.log('save image path ')
+    // }).catch(e => {
+    //   console.error('error dont save image paht ' + e)
+    // })
 
 
   }
