@@ -37,10 +37,6 @@ export class ProfileAdditionalDriverPage {
     { value: 'Prefiero no decir', name: 'Prefiero no decir' }
   ]
 
-
-
-  
-
   blob_types = [
     { value: 'A+', name: 'A+' },
     { value: 'A-', name: 'A-' },
@@ -75,7 +71,7 @@ export class ProfileAdditionalDriverPage {
     this.setForms()
 
     this.user = this.navParams.get('profile')
-    console.log('--ProfileAdditionl-- user: ', this.user)
+    // console.log('--ProfileAdditionl-- user: ', this.user)
 
     if (this.user != null) {
       this.profileForm.controls['date'].setValue(this.user.fecha_expedicion_cedula)
@@ -182,7 +178,7 @@ export class ProfileAdditionalDriverPage {
 
   save() {
     if (this.step_form === 0) {
-      console.log('--ProfileAditional--  StempForm 0 driver: ', this.driver)
+
       if (
         this.profileForm.controls['date'].value !== this.driver.fecha_expedicion_cedula
         || this.profileForm.controls['place'].value !== this.driver.lugar_expedicion_cedula
@@ -219,7 +215,7 @@ export class ProfileAdditionalDriverPage {
       this.step_img = this.step_images[1]
       this.scrollToTop()
     } else if (this.step_form === 1) {
-      console.log('--ProfileAditional--  step_form 1 driver: ', this.driver)
+      // console.log('--ProfileAditional--  step_form 1 driver: ', this.driver)
 
       if (
         this.profileForm_0.controls['date'].value !== this.driver.fecha_nacimiento
@@ -237,6 +233,7 @@ export class ProfileAdditionalDriverPage {
         this.driver.lugar_nacimiento = this.profileForm_0.controls['place'].value
         this.driver.nombre_arl = this.profileForm_0.controls['arl'].value
         this.driver.nombre_eps = this.profileForm_0.controls['eps'].value
+        this.driver.nombre_fondo = this.profileForm_0.controls['found'].value
         this.driver.numero_licencia_conducir = this.profileForm_0.controls['license_plate'].value
         this.driver.categoria_licencia = this.profileForm_0.controls['license_category'].value
         this.driver.vencimiento_licencia = this.profileForm_0.controls['license_expiration'].value

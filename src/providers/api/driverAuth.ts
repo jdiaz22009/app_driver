@@ -224,6 +224,7 @@ export class DriverAuthProvider {
       lugar_nacimiento: driver.lugar_nacimiento,
       nombre_arl: driver.nombre_arl,
       nombre_eps: driver.nombre_eps,
+      nombre_fondo: driver.nombre_fondo,
       numero_licencia_conducir: driver.numero_licencia_conducir,
       categoria_licencia: driver.categoria_licencia,
       vencimiento_licencia: driver.vencimiento_licencia,
