@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content>
- 
+
   <img class="top-img" margin-top [src]="step_img">
 
-  <ion-grid> 
+  <ion-grid>
     <ion-row>
         <ion-col col-12 >
 
@@ -43,26 +43,20 @@
 
                   <ion-item class=l-item>
                       <ion-label stacked>Departamento de residencia</ion-label>
-                      <!-- <ion-select [formControl]="profileForm.controls['state']" (ionChange)="changeDep($event)">
-                        <ion-option *ngFor="let item of colombia" value="{{item.id}}" >{{item.departamento}} </ion-option>
-                    </ion-select> -->
-                      <ion-input
+                      <ion-select
                         [formControl]="profileForm.controls['state']"
-                        (ionChange)="toCapitalize($event, 'state')"
-                        type="text"></ion-input>
+                        (ionChange)="getCity()">
+                        <ion-option *ngFor="let item of departmentsOptions" value="{{item}}">{{item}}</ion-option>
+                      </ion-select>
                   </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Municipio de residencia</ion-label>
-                      
-                      <!-- <ion-select [formControl]="profileForm.controls['city']">
-                        <ion-option *ngFor="let item of ciudades" value="{{item}}" >{{item}} </ion-option>
-                    </ion-select> -->
-                      <ion-input
-                        [formControl]="profileForm.controls['city']"
-                        (ionChange)="toCapitalize($event, 'city')"
-                        type="text">
-                      </ion-input>
+                      <ion-select
+                        [formControl]="profileForm.controls['city']">
+                        <ion-option *ngFor="let item of citiesOptions" value="{{item}}">{{item}}</ion-option>
+                      </ion-select>
+
                   </ion-item>
 
                   <ion-item class=l-item>
@@ -95,7 +89,7 @@
 
                   </ion-item>
 
-                  <ion-item class=l-item> 
+                  <ion-item class=l-item>
                           <ion-label stacked>Lugar de nacimiento </ion-label>
                           <ion-input
                             [formControl]="profileForm_0.controls['place']"
@@ -152,7 +146,7 @@
                         doneText="Seleccionar"
                         cancelText="Cancelar">
                       </ion-datetime>
-                  </ion-item> 
+                  </ion-item>
 
                   <ion-item class=l-item>
                       <ion-label stacked>Tipo de sangre</ion-label>

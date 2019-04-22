@@ -1,3 +1,4 @@
+import { CitiesProvider } from '@providers/cities';
 import { Component, ViewChild } from '@angular/core'
 import { IonicPage, NavController, NavParams, Content, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -30,6 +31,9 @@ export class ProfileAdditionalDriverPage {
     './assets/imgs/step-2-2.png'
   ]
   step_img: string = this.step_images[0]
+
+  departmentsOptions: any = []
+  citiesOptions: any = []
 
   gender_options = [
     { value: 'Femenino', name: 'Femenino' },
@@ -64,6 +68,7 @@ export class ProfileAdditionalDriverPage {
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
     public auth: DriverAuthProvider,
+    public cities: CitiesProvider,
     public loadingCtrl: LoadingController,
     public alert: AlertsProvider,
     public navParams: NavParams) {
@@ -71,14 +76,14 @@ export class ProfileAdditionalDriverPage {
     this.setForms()
 
     this.user = this.navParams.get('profile')
-    // console.log('--ProfileAdditionl-- user: ', this.user)
 
     if (this.user != null) {
+      console.log(this.user.ciudad)
       this.profileForm.controls['date'].setValue(this.user.fecha_expedicion_cedula)
       this.profileForm.controls['place'].setValue(this.user.lugar_expedicion_cedula)
       this.profileForm.controls['country'].setValue(this.user.pais)
       this.profileForm.controls['state'].setValue(this.user.departamento)
-      this.profileForm.controls['city'].setValue(this.user.ciudad)
+      this.profileForm.controls['city'].patchValue(this.user.ciudad)
       this.profileForm.controls['address'].setValue(this.user.direccion)
       this.profileForm.controls['phone'].setValue(this.user.telefono_1)
 
@@ -96,6 +101,27 @@ export class ProfileAdditionalDriverPage {
   }
 
   ionViewDidLoad() {
+    this.getDepartment()
+  }
+
+  getDepartment(){
+    this.cities.getAllData().then(() =>{
+      this.cities.getDepartments().then(res =>{
+        this.departmentsOptions = res
+        this.getCity()
+      })
+    })
+  }
+
+  getCity(){
+    const department = this.profileForm.controls['state'].value
+    if(department !== ''){
+      const i = this.departmentsOptions.indexOf(department)
+      // console.log('get city ' + department + ' ' + i)
+      this.cities.getCities(i).then(res =>{
+        this.citiesOptions = res
+      })
+    }
 
   }
 
@@ -191,7 +217,7 @@ export class ProfileAdditionalDriverPage {
         this.driver.fecha_expedicion_cedula = this.profileForm.controls['date'].value
         this.driver.lugar_expedicion_cedula = this.profileForm.controls['place'].value
         this.driver.pais = this.profileForm.controls['country'].value
-        this.driver.departamento = this.departamento
+        this.driver.departamento = this.profileForm.controls['state'].value
         this.driver.ciudad = this.profileForm.controls['city'].value
         this.driver.direccion = this.profileForm.controls['address'].value
         this.driver.telefono_1 = this.profileForm.controls['phone'].value
@@ -277,14 +303,5 @@ export class ProfileAdditionalDriverPage {
       this.profileForm_0.controls[property].setValue(value)
     }
   }
-
-  // changeDep($event) {
-  //   console.log('--ProfileAditional-- changeDep $event: ', $event)
-  //   this.id_departamento = $event
-  //   this.departamento = this.colombia[this.id_departamento].departamento
-  //   this.ciudades = this.colombia[this.id_departamento].ciudades
-  //   console.log('--ProfileAditional-- changeDep departamento: ', this.departamento)
-  //   console.log('--ProfileAditional-- changeDep ciudades: ', this.ciudades)
-  // }
 
 }
