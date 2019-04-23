@@ -23,11 +23,11 @@ export class ProfilePhotoDriverPage {
   driverImg: string = this.noImg
 
   picturesObj = [
-    {name: 'idFront', model: this.idFront},
-    {name: 'idBack', model: this.idBack},
-    {name: 'licenseFront', model: this.licenseFront},
-    {name: 'licenseBack', model: this.licenseBack},
-    {name: 'driverImg', model: this.driverImg}
+    {name: 'idFront'},
+    {name: 'idBack'},
+    {name: 'licenseFront'},
+    {name: 'licenseBack'},
+    {name: 'driverImg'}
   ]
 
   constructor(
@@ -129,7 +129,7 @@ export class ProfilePhotoDriverPage {
     } catch (e) {
         return false
     }
-}
+  }
 
   async save() {
 
@@ -140,13 +140,7 @@ export class ProfilePhotoDriverPage {
 
     let arrayImgs = []
 
-    let dataArray = {
-      idFront: null,
-      idBack: null,
-      licenseFront: null,
-      licenseBack: null,
-      driverImg: null
-    }
+    let dataArray = {}
 
     this.picturesObj.map(obj =>{
       if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
@@ -155,56 +149,6 @@ export class ProfilePhotoDriverPage {
         dataArray[obj.name] = this[obj.name] === this.noImg ? null : this[obj.name]
       }
     })
-
-    // if (this.idFront != this.noImg && this.isBase64Img(this.idFront)) {
-    //   arrayImgs.push({
-    //     model: this.idFront,
-    //     id: userId,
-    //     name: 'idFront'
-    //   })
-    // }else{
-    //   dataArray.idFront = this.idFront === this.noImg ? null : this.idFront
-    // }
-
-    // if (this.idBack != this.noImg && this.isBase64Img(this.idBack)) {
-    //   arrayImgs.push({
-    //     model: this.idBack,
-    //     id: userId,
-    //     name: 'idBack'
-    //   })
-    // }else{
-    //   dataArray.idBack = this.idBack === this.noImg ? null : this.idBack
-    // }
-
-    // if (this.licenseFront != this.noImg && this.isBase64Img(this.licenseFront)) {
-    //   arrayImgs.push({
-    //     model: this.licenseFront,
-    //     id: userId,
-    //     name: 'licenseFront'
-    //   })
-    // }else{
-    //   dataArray.licenseFront = this.licenseFront === this.noImg ? null : this.licenseFront
-    // }
-
-    // if (this.licenseBack != this.noImg && this.isBase64Img(this.licenseBack)) {
-    //   arrayImgs.push({
-    //     model: this.licenseBack,
-    //     id: userId,
-    //     name: 'licenseBack'
-    //   })
-    // }else{
-    //   dataArray.licenseBack = this.licenseBack === this.noImg ? null : this.licenseBack
-    // }
-
-    // if (this.driverImg != this.noImg && this.isBase64Img(this.driverImg)) {
-    //   arrayImgs.push({
-    //     model: this.driverImg,
-    //     id: userId,
-    //     name: 'driverImg'
-    //   })
-    // }else{
-    //   dataArray.driverImg = this.driverImg === this.noImg ? null : this.driverImg
-    // }
 
     const results = arrayImgs.map(obj =>{
       const img = obj.model.substring(23)
@@ -230,7 +174,6 @@ export class ProfilePhotoDriverPage {
       })
 
     })
-
   }
 
 }

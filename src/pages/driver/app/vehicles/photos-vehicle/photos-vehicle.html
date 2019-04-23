@@ -16,11 +16,11 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" [src]="front" (click)="setPicture('front')">
+                <img class="p-photos" [src]="vehicleLicenseFront" (click)="setPicture('vehicleLicenseFront')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" [src]="rear" (click)="setPicture('rear')">
+                <img class="p-photos" [src]="vehicleLicenseRear" (click)="setPicture('vehicleLicenseRear')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
@@ -30,11 +30,11 @@
             </ion-row>
             <ion-row justify-content-center>
                 <ion-col col-4>
-                    <img class="p-photos" [src]="Lrfron" (click)="setPicture('Lrfron')">
+                    <img class="p-photos" [src]="trailerLicenseFront" (click)="setPicture('trailerLicenseFront')">
                     <p class="p-summary">Frontal</p>
                 </ion-col>
                 <ion-col col-4 offset-3>
-                    <img class="p-photos" [src]="LrRear" (click)="setPicture('LrRear')">
+                    <img class="p-photos" [src]="trailerLicenseBack" (click)="setPicture('trailerLicenseBack')">
                     <p class="p-summary">Trasera</p>
                 </ion-col>
         </ion-row>
@@ -44,11 +44,11 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" [src]="SoatFron" (click)="setPicture('SoatFron')">
+                <img class="p-photos" [src]="soatFront" (click)="setPicture('soatFront')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" [src]="SoatRear" (click)="setPicture('SoatRear')">
+                <img class="p-photos" [src]="soatBack" (click)="setPicture('soatBack')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
@@ -58,11 +58,11 @@
         </ion-row>
         <ion-row justify-content-center>
             <ion-col col-4>
-                <img class="p-photos" [src]="TecnoFron" (click)="setPicture('TecnoFron')">
+                <img class="p-photos" [src]="tecnoFront" (click)="setPicture('tecnoFront')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" [src]="TecnoRear" (click)="setPicture('TecnoRear')">
+                <img class="p-photos" [src]="tecnoBack" (click)="setPicture('tecnoBack')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>

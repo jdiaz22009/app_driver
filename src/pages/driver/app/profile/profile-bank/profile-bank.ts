@@ -1,15 +1,13 @@
 import { Component, ViewChild } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, ModalController, Content } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { AlertsProvider } from '@providers/alerts'
-import { FirebaseProvider } from '@providers/firebase';
-import { StorageDb } from '@providers/storageDb';
+import { FirebaseProvider } from '@providers/firebase'
+import { StorageDb } from '@providers/storageDb'
 import { MediaProvider } from '@providers/media'
 import { CONFIG } from '@providers/config'
-
-
-
 
 
 @IonicPage()
@@ -22,27 +20,28 @@ export class ProfileBankDriverPage {
 
   bankForm: FormGroup
   bankForm0: FormGroup
+
   show_nequi: number = 0
   show_bank: number = 0
-  // checknequi: boolean;
-  // checkbank: boolean;
+  show_nequi_balance: number = 0
+  show_bank_balance: number = 0
+  step_form: number = 0
+
   disablenequi: boolean = false;
   disableBank: boolean = false;
   disablenequi_balance: boolean = false;
   disableBank_balance: boolean = false;
-  profile_bank: any = {}
+
   nophonto: string = './assets/imgs/no_photo.png'
   bankCertificate: string = this.nophonto
   holdingLetter: string = this.nophonto
   bankCertificate_balance: string = this.nophonto
   holdingLetter_balance: string = this.nophonto
 
-
-  show_nequi_balance: number = 0
-  show_bank_balance: number = 0
+  profile_bank: any = {}
   user: any
   driver: any
-  step_form: number = 0
+
 
   step_images: any = [
     './assets/imgs/step-1-2.png',
@@ -177,9 +176,10 @@ export class ProfileBankDriverPage {
 
     this.show_nequi = 1
     this.show_bank = 0
-    console.log('--ProfileBank-- ionViewDidLoad show_nequi: ', this.show_nequi)
-    console.log('--ProfileBank-- ionViewDidLoad show_bank: ', this.show_bank)
-    this.getDriver()
+
+
+    // this.getDriver()
+
     this.bankForm.controls['checknequi'].setValue(true)
     this.bankForm.controls['checkbank'].setValue(false)
     this.bankForm0.controls['equal'].setValue(false)
@@ -225,8 +225,6 @@ export class ProfileBankDriverPage {
         console.log('--ProfileBank-- this.user.pago_saldo.igual_anticipo: ', this.user.pago_saldo.igual_anticipo)
 
       }
-
-
 
       if (this.user.pago_saldo != undefined && this.user.pago_saldo.billetera.numero_celular.length > 0) {
         this.bankForm0.controls['checknequi_balance'].setValue(true)
@@ -282,32 +280,26 @@ export class ProfileBankDriverPage {
   // }
 
 
-  async getDriver() {
-    this.auth.getDriver().then(res => {
-      const photo = res['data']['id_driver'].banco
-      this.driver = res['data']['id_driver']
-      console.log(photo, 'photo response')
-      if (photo !== undefined && photo.img_certificacion !== undefined) {
-        this.bankCertificate = photo.img_certificacion
-      }
-      if (photo !== undefined && photo.img_tenencia !== undefined) {
-        this.holdingLetter = photo.img_tenencia
-      }
-
-
-
-
-    })
-  }
+  // async getDriver() {
+  //   this.auth.getDriver().then(res => {
+  //     const photo = res['data']['id_driver'].banco
+  //     this.driver = res['data']['id_driver']
+  //     console.log(photo, 'photo response')
+  //     if (photo !== undefined && photo.img_certificacion !== undefined) {
+  //       this.bankCertificate = photo.img_certificacion
+  //     }
+  //     if (photo !== undefined && photo.img_tenencia !== undefined) {
+  //       this.holdingLetter = photo.img_tenencia
+  //     }
+  //   })
+  // }
 
 
 
   async getUserId() {
-    const id = await this.db.getItem(CONFIG.localdb.USER_KEY)
-      .then(res => {
-        return res.userId
-      })
-    return id
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+      return res.userId
+    })
   }
 
   async saveBank() {
@@ -651,16 +643,7 @@ export class ProfileBankDriverPage {
         const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
         modal.onDidDismiss(data => {
           if (data) {
-            console.log(data, 'data res')
-            const photo = data.cropResult
-            if (modelPicture === 'bankCertificate') {
-              this.bankCertificate = photo;
-
-            } else if (modelPicture === 'holdingLetter') {
-              this.holdingLetter = photo
-
-            }
-
+            this[modelPicture] = data.cropResult
           }
         })
         modal.present()
@@ -762,7 +745,9 @@ export class ProfileBankDriverPage {
       this.profile_bank.equal = true
       this.disableBank_balance = true
       this.disablenequi_balance = true
-      this.getDriver()
+
+      // this.getDriver()
+
       console.log('--ProfileBank-- checkselectequal driver: ', this.driver)
       console.log('--ProfileBank-- checkselectequal user: ', this.user)
 
