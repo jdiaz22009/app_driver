@@ -41,8 +41,8 @@ export class ProfilePhotoDriverPage {
   }
 
   ionViewDidLoad() {
-    // this.getProfilePicture()
-    this.testMap()
+    this.getProfilePicture()
+    // this.testMap()
 
   }
 
@@ -65,42 +65,15 @@ export class ProfilePhotoDriverPage {
 
     const results = dataUpload.map(obj =>{
       return this.fire.uploadPicture(obj.model, obj.id, obj.name).then(res => {
-
         return dataArray[obj.name] = res
-        // if (obj.name === 'idFront') {
-        //   dataArray.idFront = res
-        // }
-
-        // if (obj.name === 'idBack') {
-        //   dataArray.idBack = res
-        // }
-
-        // if (obj.name === 'licenseFront') {
-        //   dataArray.licenseFront = res
-        // }
-
-        // if (obj.name === 'licenseBack') {
-        //   dataArray.licenseBack = res
-        // }
-
-        // if (item.name === 'driverImg') {
-        //   dataArray.driverImg = res
-        // }
-        // return {
-        //   url: res,
-        //   name: obj.name
-        // }
       }).catch(e => {
         console.error('error upload ' + e.message)
       })
-
     })
 
     Promise.all(results).then(completed =>{
       console.log('completed ' + completed)
-      // console.log('completed ' + JSON.stringify(completed))
       console.log('dataArrayComplete ' + JSON.stringify(dataArray))
-
     })
 
 
@@ -282,69 +255,94 @@ export class ProfilePhotoDriverPage {
       dataArray.driverImg = this.driverImg === this.noImg ? null : this.driverImg
     }
 
-    const indexArray = arrayImgs.length
-    let countUpload = 0
-
-    const uploadEnd = await arrayImgs.forEach((item, index) => {
-      const img = item.model.substring(23)
-      console.log(item.model)
-      this.fire.uploadPicture(img, item.id, item.name).then(res => {
-        console.log(res)
-        console.log('indexArray ' + indexArray + ' count ' + countUpload)
-        console.log('index ' + index + 'indexArray -1 ' + (indexArray -1))
-
-        if (item.name === 'idFront') {
-          dataArray.idFront = res
-        }
-
-        if (item.name === 'idBack') {
-          dataArray.idBack = res
-        }
-
-        if (item.name === 'licenseFront') {
-          dataArray.licenseFront = res
-        }
-
-        if (item.name === 'licenseBack') {
-          dataArray.licenseBack = res
-        }
-
-        if (item.name === 'driverImg') {
-          dataArray.driverImg = res
-        }
-
-        // if (index == indexArray -1) {
-
-        // }
-
-        countUpload++
-
-        if(countUpload === indexArray -1){
-          return 1
-        }
-
-      //   if(countUpload === indexArray -1){
-      //     console.log('data Arr ' + JSON.stringify(dataArray))
-      //     this.fire.saveImageProfilePath(dataArray, userId).then(() => {
-      //       console.log('save image path ')
-      //     }).catch(e => {
-      //       console.error('error dont save image paht ' + e)
-      //     })
-      //     loader.dismiss()
-      //     this.alerts.showAlert('', 'Se han guardado los datos correctamente')
-      // }
-
+    const results = arrayImgs.map(obj =>{
+      const img = obj.model.substring(23)
+      return this.fire.uploadPicture(img, obj.id, obj.name).then(res => {
+        return dataArray[obj.name] = res
       }).catch(e => {
         console.error('error upload ' + e.message)
-        if (index == indexArray - 1) {
-          loader.dismiss()
-          this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
-        }
+        loader.dismiss()
+        this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
+      })
+    })
+
+    Promise.all(results).then(completed =>{
+      console.log('completed ' + completed)
+      console.log('dataArrayComplete ' + JSON.stringify(dataArray))
+
+      this.fire.saveImageProfilePath(dataArray, userId).then(() => {
+        console.log('save image path ')
+        loader.dismiss()
+        this.alerts.showAlert('', 'Se han guardado los datos correctamente')
+      }).catch(e => {
+        console.error('error dont save image paht ' + e)
+        loader.dismiss()
+        this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
       })
 
     })
 
-    console.log('end Upload ' + uploadEnd)
+
+    // const uploadEnd = await arrayImgs.forEach((item, index) => {
+    //   const img = item.model.substring(23)
+    //   console.log(item.model)
+    //   this.fire.uploadPicture(img, item.id, item.name).then(res => {
+    //     console.log(res)
+    //     console.log('indexArray ' + indexArray + ' count ' + countUpload)
+    //     console.log('index ' + index + 'indexArray -1 ' + (indexArray -1))
+
+    //     if (item.name === 'idFront') {
+    //       dataArray.idFront = res
+    //     }
+
+    //     if (item.name === 'idBack') {
+    //       dataArray.idBack = res
+    //     }
+
+    //     if (item.name === 'licenseFront') {
+    //       dataArray.licenseFront = res
+    //     }
+
+    //     if (item.name === 'licenseBack') {
+    //       dataArray.licenseBack = res
+    //     }
+
+    //     if (item.name === 'driverImg') {
+    //       dataArray.driverImg = res
+    //     }
+
+    //     // if (index == indexArray -1) {
+
+    //     // }
+
+    //     countUpload++
+
+    //     if(countUpload === indexArray -1){
+    //       return 1
+    //     }
+
+    //   //   if(countUpload === indexArray -1){
+    //   //     console.log('data Arr ' + JSON.stringify(dataArray))
+    //   //     this.fire.saveImageProfilePath(dataArray, userId).then(() => {
+    //   //       console.log('save image path ')
+    //   //     }).catch(e => {
+    //   //       console.error('error dont save image paht ' + e)
+    //   //     })
+    //   //     loader.dismiss()
+    //   //     this.alerts.showAlert('', 'Se han guardado los datos correctamente')
+    //   // }
+
+    //   }).catch(e => {
+    //     console.error('error upload ' + e.message)
+    //     if (index == indexArray - 1) {
+    //       loader.dismiss()
+    //       this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
+    //     }
+    //   })
+
+    // })
+
+
 
   }
 
