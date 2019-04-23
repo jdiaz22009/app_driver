@@ -34,11 +34,6 @@ export class ProfileDriverPage {
     public auth: DriverAuthProvider,
     public navParams: NavParams) {
 
-
-  }
-
-  ionViewDidLoad() {
-
   }
 
   ionViewDidEnter() {
@@ -49,7 +44,6 @@ export class ProfileDriverPage {
     this.auth.getDriver().then(res => {
       console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
-      console.log('--ProfileView-- getProfile userData: ', this.userData)
       this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' ' + this.toCapitalize(this.userData.segundo_nombre)
       this.percent_profile = res['data'].percent_profile
       this.travels = this.userData.cantidad_viajes === 0 ? 0 : this.userData.cantidad_viajes
@@ -57,10 +51,8 @@ export class ProfileDriverPage {
   }
 
   goPage(page) {
-    console.log(page)
     if (page === 'ProfileBankDriverPage') {
       this.navCtrl.setRoot(page, { profile: this.userData })
-      console.log('--ProfileView-- goPage userData: ', this.userData)
     }else if (page === 'ProfileBasicPage' || page === 'ProfileAdditionalDriverPage' || page === 'ProfileReferenceDriverPage') {
       this.navCtrl.push(page, { profile: this.userData })
     } else {

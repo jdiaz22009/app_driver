@@ -1,9 +1,9 @@
 
 <ion-header>
-        <ion-navbar>
-            <ion-title>Datos Bancarios</ion-title>
-        </ion-navbar>
-    </ion-header>
+    <ion-navbar>
+        <ion-title>Datos Bancarios</ion-title>
+    </ion-navbar>
+</ion-header>
 
 <ion-content>
     <img class="top-img" margin-top [src]="step_img">
@@ -15,16 +15,28 @@
             <ion-row justify-content-center>
                 <ion-col col-5>
                     <p>Billetera electrónica (Efecty)</p>
-                    <ion-checkbox color="btn" value="billetera" [formControl]="bankForm.controls['checknequi']" name="billetera"
-                        (ionChange)="checkselectNequi()"></ion-checkbox>
+                    <ion-checkbox
+                      color="btn"
+                      value="billetera"
+                      name="billetera"
+                      [formControl]="bankForm.controls['checknequi']"
+                      (ionChange)="checkselectNequi()">
+                    </ion-checkbox>
+
                 </ion-col>
                 <ion-col col-5>
                     <p>Cuenta bancaria</p>
-                    <ion-checkbox color="btn" value="bank" [formControl]="bankForm.controls['checkbank']" (ionChange)="checkselectBank()"></ion-checkbox>
+                    <ion-checkbox
+                      color="btn"
+                      value="bank"
+                      [formControl]="bankForm.controls['checkbank']"
+                      (ionChange)="checkselectBank()">
+                    </ion-checkbox>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col col-12>
+
                     <div *ngIf="show_nequi === 1">
                         <ion-item class=l-item>
                             <ion-label stacked>Número celular</ion-label>
@@ -40,9 +52,10 @@
                         </ion-item>
                         <ion-item class=l-item >
                             <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
-                            <img class="p-photos" [src]="bankCertificate" (click)="setPicture('bankCertificate')" >
+                            <img class="p-photos" [src]="advanceAutorization" (click)="setPicture('advanceAutorization')" >
                         </ion-item>
                     </div>
+
                     <div *ngIf="show_bank === 1">
                         <ion-item class=l-item>
                             <ion-label stacked>Nombre banco </ion-label>
@@ -74,12 +87,12 @@
                 <ion-row justify-content-center>
                     <ion-col col-4>
                         <p class="tx-title">Certificación Bancaria</p>
-                        <img class="p-photos" [src]="bankCertificate" (click)="setPicture('bankCertificate')" >
+                        <img class="p-photos" [src]="advanceCertificate" (click)="setPicture('advanceCertificate')" >
 
                     </ion-col>
                     <ion-col col-4 offset-3>
                         <p class="tx-title">Carta de Tenencia</p>
-                        <img class="p-photos" [src]="holdingLetter" (click)="setPicture('holdingLetter')" >
+                        <img class="p-photos" [src]="advanceLetter" (click)="setPicture('advanceLetter')" >
                     </ion-col>
                 </ion-row>
             </div>
@@ -126,7 +139,7 @@
                         </ion-item>
                         <ion-item class=l-item>
                             <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
-                            <img class="p-photos" [src]="bankCertificate_balance" (click)="setPicture('bankCertificate_balance')" >
+                            <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" >
                         </ion-item>
                     </div>
                     <div *ngIf="show_bank_balance === 1">
@@ -159,13 +172,13 @@
             <div *ngIf="show_bank_balance === 1">
                 <ion-row justify-content-center>
                     <ion-col col-4>
-                        <p class="tx-title">Certificación Bancaria</p> 
-                        <img class="p-photos" [src]="bankCertificate_balance" (click)="setPicture('bankCertificate_balance')" >
+                        <p class="tx-title">Certificación Bancaria</p>
+                        <img class="p-photos" [src]="balanceCertificate" (click)="setPicture('balanceCertificate')" >
 
                     </ion-col>
                     <ion-col col-4 offset-3>
                         <p class="tx-title">Carta de Tenencia</p>
-                        <img class="p-photos" [src]="holdingLetter_balance" (click)="setPicture('holdingLetter_balance')" >
+                        <img class="p-photos" [src]="balanceLetter" (click)="setPicture('balanceLetter')" >
                     </ion-col>
                 </ion-row>
             </div>

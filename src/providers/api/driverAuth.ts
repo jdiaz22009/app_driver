@@ -270,7 +270,6 @@ export class DriverAuthProvider {
   async bankData(data) {
     const url = this.api_url + this.driverUrl_path
     const token = await this.getToken()
-    console.log('--DriverAuth-- bankData data: ', data)
 
     if (data.type == 1) {
       const params = {
@@ -281,8 +280,6 @@ export class DriverAuthProvider {
         paso: data.paso,
         igual_anticipo : data.equal
       }
-      console.log('--DriverAuth-- bankData param: ', params)
-
       const headers = { 'Authorization': token, 'content-type': 'application/json' }
       try {
         return await this.apiClient.request('POST', url, params, headers)
@@ -304,8 +301,6 @@ export class DriverAuthProvider {
         paso: data.paso,
         igual_anticipo : data.equal
       }
-      console.log('--DriverAuth-- bankData params: ', params)
-
       const headers = { 'Authorization': token, 'content-type': 'application/json' }
       try {
         return await this.apiClient.request('POST', url, params, headers)
