@@ -45,12 +45,45 @@ export class FirebaseProvider{
 
    }
 
-   async saveImageProfilePath(data, userId){
-    return await this.database.ref(`drivers/${userId}`).set(data)
+   async saveImageProfilePath(mode, data, userId, vehicleId){
+     let reference = `drivers/${userId}`
+     switch(mode){
+       case 0:
+        reference += '/profile/myPhotos'
+       break;
+       case 1:
+        reference += '/profile/BankInformation'
+       break;
+       case 2:
+        reference += `/vehiclesDocumentation/${vehicleId}`
+       break;
+       case 3:
+        reference += `/vehiclesImages/${vehicleId}`
+       break;
+     }
+
+    return await this.database.ref(reference).set(data)
    }
 
-   getProfilePicture(id){
-    const imgRef = this.database.ref(`drivers/${id}`)
+   getProfilePicture(mode, userId, vehicleId){
+
+    let reference = `drivers/${userId}`
+     switch(mode){
+       case 0:
+        reference += '/profile/myPhotos'
+       break;
+       case 1:
+        reference += '/profile/BankInformation'
+       break;
+       case 2:
+        reference += `/vehiclesDocumentation/${vehicleId}`
+       break;
+       case 3:
+        reference += `/vehiclesImages/${vehicleId}`
+       break;
+     }
+
+    const imgRef = this.database.ref(reference)
     return new Promise((resolve, reject) =>{
       imgRef.once('value', (snap)=>{
         console.log(snap.val(),'snap de Picture')

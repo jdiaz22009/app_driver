@@ -10,22 +10,22 @@
 
         <ion-row justify-content-center class="mtc">
             <ion-col col-4>
-                <img class="p-photos" [src]="front" (click)="setPicture('front')">
+                <img class="p-photos" [src]="vehicleFront" (click)="setPicture('vehicleFront')">
                 <p class="p-summary">Frontal</p>
             </ion-col>
             <ion-col col-4 offset-3>
-                <img class="p-photos" [src]="rear" (click)="setPicture('rear')">
+                <img class="p-photos" [src]="vehicleBack" (click)="setPicture('vehicleBack')">
                 <p class="p-summary">Trasera</p>
             </ion-col>
         </ion-row>
 
         <ion-row justify-content-center>
           <ion-col col-4>
-              <img class="p-photos" [src]="Lrfron" (click)="setPicture('Lrfron')">
+              <img class="p-photos" [src]="vehicleRight" (click)="setPicture('vehicleRight')">
               <p class="p-summary">Lateral Izquierda</p>
           </ion-col>
           <ion-col col-4 offset-3>
-              <img class="p-photos" [src]="LrRear" (click)="setPicture('LrRear')">
+              <img class="p-photos" [src]="vehicleLeft" (click)="setPicture('vehicleLeft')">
               <p class="p-summary">Lateral Derecha</p>
           </ion-col>
         </ion-row>

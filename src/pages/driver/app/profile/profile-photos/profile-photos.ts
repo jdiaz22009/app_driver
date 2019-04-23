@@ -22,6 +22,8 @@ export class ProfilePhotoDriverPage {
   licenseBack: string = this.noImg
   driverImg: string = this.noImg
 
+  pictureMode: number = 0
+
   picturesObj = [
     {name: 'idFront'},
     {name: 'idBack'},
@@ -54,7 +56,7 @@ export class ProfilePhotoDriverPage {
     loader.present()
     const userId = await this.getUserId()
 
-    this.fire.getProfilePicture(userId).then(res =>{
+    this.fire.getProfilePicture(this.pictureMode, userId, null).then(res =>{
 
       if(res !== null){
         this.picturesObj.map(picture =>{
@@ -163,7 +165,7 @@ export class ProfilePhotoDriverPage {
 
     Promise.all(results).then(completed =>{
       console.log('completed ' + completed)
-      this.fire.saveImageProfilePath(dataArray, userId).then(() => {
+      this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() => {
         console.log('save image path ')
         loader.dismiss()
         this.alerts.showAlert('', 'Se han guardado los datos correctamente')

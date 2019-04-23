@@ -407,19 +407,20 @@ export class ProfileBankDriverPage {
 
               console.log('dataArray' + dataArray)
 
-              if (index == indexArray - 1) {
-                this.fire.saveImageProfilePath(dataArray, userID)
-                  .then(res => {
-                    this.auth.saveUrl(bank).then(response => {
-                      console.log(response, 'response')
-                    })
-                    console.log('save image path' + res)
-                  })
-                  .catch(e => {
-                    console.error('Error dont save image path' + e)
-                  })
-                this.alert.showAlert('', 'Se han guardado los datos correctamente')
-              }
+              // if (index == indexArray - 1) {
+              //   this.fire.saveImageProfilePath(dataArray, userID)
+              //     .then(res => {
+              //       this.auth.saveUrl(bank).then(response => {
+              //         console.log(response, 'response')
+              //       })
+              //       console.log('save image path' + res)
+              //     })
+              //     .catch(e => {
+              //       console.error('Error dont save image path' + e)
+              //     })
+              //   this.alert.showAlert('', 'Se han guardado los datos correctamente')
+              // }
+
             })
             .catch(e => {
               console.error('error upload ' + e)
@@ -557,19 +558,20 @@ export class ProfileBankDriverPage {
 
               console.log('dataArray' + dataArray)
 
-              if (index == indexArray - 1) {
-                this.fire.saveImageProfilePath(dataArray, userID)
-                  .then(res => {
-                    this.auth.saveUrl(bank).then(response => {
-                      console.log(response, 'response')
-                    })
-                    console.log('save image path' + res)
-                  })
-                  .catch(e => {
-                    console.error('Error dont save image path' + e)
-                  })
-                this.alert.showAlert('', 'Se han guardado los datos correctamente')
-              }
+              // if (index == indexArray - 1) {
+              //   this.fire.saveImageProfilePath(dataArray, userID)
+              //     .then(res => {
+              //       this.auth.saveUrl(bank).then(response => {
+              //         console.log(response, 'response')
+              //       })
+              //       console.log('save image path' + res)
+              //     })
+              //     .catch(e => {
+              //       console.error('Error dont save image path' + e)
+              //     })
+              //   this.alert.showAlert('', 'Se han guardado los datos correctamente')
+              // }
+
             })
             .catch(e => {
               console.error('error upload ' + e)

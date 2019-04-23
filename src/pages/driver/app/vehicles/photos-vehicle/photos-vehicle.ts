@@ -26,6 +26,9 @@ export class PhotosVehiclesDriverPage {
   tecnoFront: string = this.noImg
   tecnoBack: string = this.noImg
 
+  pictureMode: number = 2
+
+  vehicleId: string = ''
 
   picturesObj = [
     {name: 'vehicleLicenseFront'},
@@ -50,7 +53,9 @@ export class PhotosVehiclesDriverPage {
     private fire: FirebaseProvider,
     public driveAuth: DriverAuthProvider) {
 
-
+    const params = this.navParams.get('vehicle')
+    this.vehicleId = params._id
+    console.log('vehicle id ' + this.vehicleId)
   }
 
   ionViewDidLoad(){
@@ -62,7 +67,7 @@ export class PhotosVehiclesDriverPage {
     loader.present()
     const userId = await this.getUserId()
 
-    this.fire.getProfilePicture(userId).then(res =>{
+    this.fire.getProfilePicture(this.pictureMode, userId, this.vehicleId).then(res =>{
       if(res !== null){
         this.picturesObj.map(picture =>{
           if(res[picture.name] !== undefined && res[picture.name].includes('http')){
@@ -165,7 +170,7 @@ export class PhotosVehiclesDriverPage {
 
     Promise.all(results).then(completed =>{
       console.log('completed ' + completed)
-      this.fire.saveImageProfilePath(dataArray, userId).then(() => {
+      this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, this.vehicleId).then(() => {
         console.log('save image path ')
         loader.dismiss()
         this.alerts.showAlert('', 'Se han guardado los datos correctamente')
