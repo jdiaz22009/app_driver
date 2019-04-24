@@ -5,7 +5,6 @@ import { DataUser } from '@models/dataUser'
 
 import { StorageDb } from '@providers/storageDb'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
-
 @IonicPage()
 @Component({
   selector: 'profile-driver',
@@ -14,9 +13,13 @@ import { DriverAuthProvider } from '@providers/api/driverAuth'
 export class ProfileDriverPage {
 
   dataUser = {} as DataUser
+
   driver_name: string = ''
+
   percent_profile: number = 0
   travels: number = 0
+  inputCount: number = 46
+
   data: any = [
     { thumb: './assets/imgs/perfil4.png', title: 'Mis datos básicos', summary: 'Ingresa tus datos básicos', page: 'ProfileBasicPage' },
     { thumb: './assets/imgs/perfil4.png', title: 'Mis datos complementarios', summary: 'Ingresa tus datos complementarios', page: 'ProfileAdditionalDriverPage' },
@@ -24,8 +27,6 @@ export class ProfileDriverPage {
     { thumb: './assets/imgs/perfil.png', title: 'Mis referencias comerciales', summary: 'Ingresa los datos de quienes te conocen', page: 'ProfileReferenceDriverPage' },
     { thumb: './assets/imgs/perfil3.png', title: 'Mis fotos', summary: 'Sube fotos de tus documentos y tu perfil', page: 'ProfilePhotoDriverPage' }
   ]
-
-  inputCount: number = 46
   userData: any = []
 
   constructor(
@@ -42,7 +43,7 @@ export class ProfileDriverPage {
 
   getProfile() {
     this.auth.getDriver().then(res => {
-      console.log('user ' + JSON.stringify(res))
+      // console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
       this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' ' + this.toCapitalize(this.userData.segundo_nombre)
       this.percent_profile = res['data'].percent_profile

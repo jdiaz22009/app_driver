@@ -65,6 +65,11 @@ export class FirebaseProvider{
     return await this.database.ref(reference).set(data)
    }
 
+   async updateBankImagesPath(userId, data){
+    let reference = `drivers/${userId}/profile/BankInformation`
+    return await this.database.ref(reference).update(data)
+   }
+
    getProfilePicture(mode, userId, vehicleId){
 
     let reference = `drivers/${userId}`

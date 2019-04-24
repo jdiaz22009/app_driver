@@ -59,7 +59,7 @@ export class ProfileBankDriverPage {
   balanceCertificate: string = this.noImg
   balanceLetter: string = this.noImg
 
-  pictureMode: number = 0
+  pictureMode: number = 1
 
   picturesObj = [
     {name: 'advanceAutorization'},
@@ -153,6 +153,31 @@ export class ProfileBankDriverPage {
 
   ionViewDidLoad() {
     this.setBankInformation()
+    this.getProfilePicture()
+  }
+
+  async getProfilePicture(){
+    const loader = this.loadingCtrl.create({})
+    loader.present()
+    const userId = await this.getUserId()
+
+    this.fire.getProfilePicture(this.pictureMode, userId, null).then(res =>{
+
+      if(res !== null){
+        this.picturesObj.map(picture =>{
+          if(res[picture.name] !== undefined && res[picture.name].includes('http')){
+            this[picture.name] = res[picture.name]
+          }
+        })
+      }
+
+      loader.dismiss()
+
+    }).catch(e =>{
+      loader.dismiss()
+      console.error('error ' + e)
+    })
+
   }
 
   setBankInformation(){
@@ -230,7 +255,6 @@ export class ProfileBankDriverPage {
         this.bankForm0.controls['id_balance'].setValue(this.user.pago_saldo.banco.cedula_titular)
         this.bankForm0.controls['account_type_balance'].setValue(this.user.pago_saldo.banco.tipo_cuenta)
       }
-
     }
   }
 
@@ -267,7 +291,7 @@ export class ProfileBankDriverPage {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            console.log('cancel clicked');
+            console.log('cancel clicked')
           }
         }
       ]
@@ -370,39 +394,45 @@ export class ProfileBankDriverPage {
       this.disableBank_balance = true
       this.disablenequi_balance = true
 
-      this.bankForm0.controls['equal'].setValue(true)
+      if (this.user.pago_anticipo != undefined){
 
-      if (this.user.pago_anticipo != undefined
-        && this.user.pago_anticipo.billetera.numero_celular.length > 0) {
+        if(this.user.pago_anticipo.billetera.numero_celular.length > 0) {
 
-        this.show_nequi_balance = 1
-        this.show_bank_balance = 0
-        this.disableBank_balance = true
-        this.disablenequi_balance = true
+          this.show_nequi_balance = 1
+          this.show_bank_balance = 0
+          this.disableBank_balance = true
+          this.disablenequi_balance = true
 
-        this.bankForm0.controls['checknequi_balance'].setValue(true)
-        this.bankForm0.controls['checkbank_balance'].setValue(false)
-        this.bankForm0.controls['phone_balance'].setValue(this.user.pago_anticipo.billetera.numero_celular)
-        this.bankForm0.controls['name_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.nombre_beneficiario)
-        this.bankForm0.controls['id_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.identificacion_beneficiario)
+          this.bankForm0.controls['checknequi_balance'].setValue(true)
+          this.bankForm0.controls['checkbank_balance'].setValue(false)
+          this.bankForm0.controls['phone_balance'].setValue(this.user.pago_anticipo.billetera.numero_celular)
+          this.bankForm0.controls['name_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.nombre_beneficiario)
+          this.bankForm0.controls['id_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.identificacion_beneficiario)
 
-      } else if (this.user.pago_anticipo.banco.nombre_banco.length > 0) {
+          this.balanceAutorization = this.advanceAutorization
 
-        this.show_nequi_balance = 0
-        this.show_bank_balance = 1
-        this.disableBank_balance = true
-        this.disablenequi_balance = true
+        } else if (this.user.pago_anticipo.banco.nombre_banco.length > 0) {
 
-        this.bankForm0.controls['checknequi_balance'].setValue(false)
-        this.bankForm0.controls['checkbank_balance'].setValue(true)
-        this.bankForm0.controls['bank_balance'].setValue(this.user.pago_anticipo.banco.nombre_banco)
-        this.bankForm0.controls['account_balance'].setValue(this.user.pago_anticipo.banco.numero_cuenta)
-        this.bankForm0.controls['name_balance'].setValue(this.user.pago_anticipo.banco.nombre_titular)
-        this.bankForm0.controls['id_balance'].setValue(this.user.pago_anticipo.banco.cedula_titular)
-        this.bankForm0.controls['account_type_balance'].setValue(this.user.pago_anticipo.banco.tipo_cuenta)
+          this.show_nequi_balance = 0
+          this.show_bank_balance = 1
+          this.disableBank_balance = true
+          this.disablenequi_balance = true
+
+          this.balanceCertificate = this.advanceCertificate
+          this.balanceLetter = this.advanceLetter
+
+          this.bankForm0.controls['checknequi_balance'].setValue(false)
+          this.bankForm0.controls['checkbank_balance'].setValue(true)
+          this.bankForm0.controls['bank_balance'].setValue(this.user.pago_anticipo.banco.nombre_banco)
+          this.bankForm0.controls['account_balance'].setValue(this.user.pago_anticipo.banco.numero_cuenta)
+          this.bankForm0.controls['name_balance'].setValue(this.user.pago_anticipo.banco.nombre_titular)
+          this.bankForm0.controls['id_balance'].setValue(this.user.pago_anticipo.banco.cedula_titular)
+          this.bankForm0.controls['account_type_balance'].setValue(this.user.pago_anticipo.banco.tipo_cuenta)
+        }
+
       }
 
-    } else if (this.bankForm0.controls['equal'].value === false) {
+    }else {
 
       this.profile_bank.equal = false
       this.show_nequi_balance = 0
@@ -421,10 +451,10 @@ export class ProfileBankDriverPage {
       this.bankForm0.controls['id_balance'].setValue('')
       this.bankForm0.controls['account_type_balance'].setValue('')
     }
-
   }
 
-  async saveOnePicture(img, id, name){
+  async saveOnePicture(dataImg, id, name){
+    const img = dataImg.substring(23)
     return await this.fire.uploadPicture(img, id, name).then(res => {
       return res
     }).catch(e => {
@@ -433,12 +463,21 @@ export class ProfileBankDriverPage {
     })
   }
 
-  async savePicture(){
-
+  isBase64Img(str) {
+    try {
+        return str.includes('data:image/jpeg;base64')
+    } catch (e) {
+        return false
+    }
   }
 
   async saveBank() {
+
+    let dataArray = {}
+
     if (this.step_form === 0) {
+
+      console.log('dataArray (000) ' + JSON.stringify(dataArray))
 
       this.profile_bank.paso = 1
 
@@ -456,23 +495,36 @@ export class ProfileBankDriverPage {
         this.profile_bank.name = ''
         this.profile_bank.id = ''
         this.profile_bank.account_type = ''
+
         this.profile_bank.phone = this.bankForm.controls['phone'].value
         this.profile_bank.name_beneficiary = this.bankForm.controls['name_beneficiary'].value
         this.profile_bank.id_beneficiary = this.bankForm.controls['id_beneficiary'].value
         this.profile_bank.type = 1
 
-        //saveImages
-
         const userId = await this.getUserId()
 
-        this.saveOnePicture(this.advanceAutorization , userId, 'advanceAutorization').then(res =>{
-          console.log('save image ' + res)
-        })
-
+        if(this.advanceAutorization !== this.noImg && this.isBase64Img(this.advanceAutorization)){
+          this.saveOnePicture(this.advanceAutorization , userId, 'advanceAutorization').then(res =>{
+            console.log('save image ' + res)
+            if(res !== null){
+              dataArray['advanceAutorization']= res
+              this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
+                console.log('save path success ' + JSON.stringify(dataArray))
+              })
+            }
+          })
+        }else{
+          dataArray['advanceAutorization'] = this.advanceAutorization
+          this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
+            console.log('save path success ' + JSON.stringify(dataArray))
+          })
+        }
 
         this.auth.bankData(this.profile_bank).then(res => {
-          console.log(JSON.stringify(res))
-          this.alert.showAlert('Datos bancarios para pagos de anticipo', 'Se ha guardado correctamente')
+          if(res){
+            this.user = res['data']
+            this.alert.showAlert('Datos bancarios para pagos de anticipo', 'Se ha guardado correctamente')
+          }
         }).catch(e => {
           console.error(e)
           this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
@@ -481,10 +533,10 @@ export class ProfileBankDriverPage {
       } else if (this.bankForm.controls['checkbank'].value) {
 
         if(this.bankForm.controls['bank'].value === ''
-        || this.bankForm.controls['account'].value === ''
-        || this.bankForm.controls['name'].value === ''
-        || this.bankForm.controls['id'].value === ''
-        || this.bankForm.controls['account_type'].value === ''){
+          || this.bankForm.controls['account'].value === ''
+          || this.bankForm.controls['name'].value === ''
+          || this.bankForm.controls['id'].value === ''
+          || this.bankForm.controls['account_type'].value === ''){
           this.alert.showAlert('Error', 'Debes completar todos los campos para continuar')
           return
         }
@@ -500,57 +552,122 @@ export class ProfileBankDriverPage {
         this.profile_bank.account_type = this.bankForm.controls['account_type'].value
         this.profile_bank.type = 2
 
-        //saveImages
+        const userId = await this.getUserId()
+
+        let arrayImgs = []
+
+        let dataArray = {}
+
+        this.picturesObj.map(obj =>{
+          if(obj.name === 'advanceCertificate' || obj.name === 'advanceLetter'){
+              if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
+                arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
+              }else{
+                dataArray[obj.name] = this[obj.name] === this.noImg ? null : this[obj.name]
+              }
+          }
+        })
+
+        const results = arrayImgs.map(obj =>{
+          const img = obj.model.substring(23)
+          return this.fire.uploadPicture(img, obj.id, obj.name).then(res => {
+            return dataArray[obj.name] = res
+          }).catch(e => {
+            console.error('error upload ' + e.message)
+          })
+        })
+
+        Promise.all(results).then(completed =>{
+          console.log('completed ' + completed)
+          this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() => {
+            console.log('save image path ')
+            console.log('dataArray (0) ' + JSON.stringify(dataArray))
+          }).catch(e => {
+            console.error('Error to save image path ' + e)
+          })
+        })
 
         this.auth.bankData(this.profile_bank)
           .then(res => {
-            console.log(JSON.stringify(res))
-            this.alert.showAlert('Datos bancarios para pagos de anticipo', 'Se ha guardado correctamente')
+            if(res){
+              this.user = res['data']
+              this.alert.showAlert('Datos bancarios para pagos de anticipo', 'Se ha guardado correctamente')
+            }
           })
           .catch(error => {
             console.log(error)
             this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
           })
       }
+
       this.step_form++
       this.step_img = this.step_images[1]
       this.step_tittle = this.step_lable[1]
 
     } else if (this.step_form === 1) {
 
+      console.log('dataArray (1) ' + JSON.stringify(dataArray))
+
       this.profile_bank.paso = 2
 
-      if (this.bankForm0.controls['checknequi_balance'].value === true
-        && this.bankForm0.controls['phone_balance'].value != '' && this.bankForm0.controls['phone_balance'].value != this.user.pago_saldo.billetera.numero_celular
-        && this.bankForm0.controls['name_beneficiary_balance'].value != '' && this.bankForm0.controls['name_beneficiary_balance'].value != this.user.pago_saldo.billetera.nombre_beneficiario
-        && this.bankForm0.controls['id_beneficiary_balance'].value != '' && this.bankForm0.controls['id_beneficiary_balance'].value != this.user.pago_saldo.billetera.identificacion_beneficiario
-      ) {
+      if (this.bankForm0.controls['checknequi_balance'].value) {
+
+        if(this.bankForm0.controls['phone_balance'].value === ''
+          || this.bankForm0.controls['name_beneficiary_balance'].value === ''
+          || this.bankForm0.controls['id_beneficiary_balance'].value === ''){
+          this.alert.showAlert('Error', 'Debes completar todos los campos para continuar')
+          return
+        }
 
         this.profile_bank.bank = ''
         this.profile_bank.account = ''
         this.profile_bank.account_type = ''
+
         this.profile_bank.phone = this.bankForm0.controls['phone_balance'].value
         this.profile_bank.name_beneficiary = this.bankForm0.controls['name_beneficiary_balance'].value
         this.profile_bank.id_beneficiary = this.bankForm0.controls['id_beneficiary_balance'].value
         this.profile_bank.type = 1
 
+        const userId = await this.getUserId()
+
+        if(this.balanceAutorization !== this.noImg && this.isBase64Img(this.balanceAutorization)){
+          this.saveOnePicture(this.balanceAutorization , userId, 'balanceAutorization').then(res =>{
+            console.log('save image ' + res)
+            if(res !== null){
+              dataArray['balanceAutorization']= res
+              this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
+                console.log('save path success ' + JSON.stringify(dataArray) )
+              })
+            }
+          })
+        }else{
+          dataArray['balanceAutorization'] = this.balanceAutorization
+          console.log('else  balanceAutorization ' + JSON.stringify(dataArray))
+          this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
+            console.log('save path success ' + JSON.stringify(dataArray))
+          })
+        }
+
         this.auth.bankData(this.profile_bank).then(res => {
-          console.log(JSON.stringify(res))
-          this.alert.showAlert('Datos bancarios para pagos de saldos', 'Se ha guardado correctamente')
-          this.navCtrl.setRoot('home-drive')
+          if(res){
+            this.alert.showAlert('Datos bancarios para pagos de saldos', 'Se ha guardado correctamente')
+            this.navCtrl.setRoot('home-drive')
+          }
         }).catch(e => {
           console.error(e)
           this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
         })
 
-      }
-      if (this.bankForm0.controls['checkbank_balance'].value === true
-        && this.bankForm0.controls['bank_balance'].value != '' && this.bankForm0.controls['bank_balance'].value != this.user.pago_saldo.banco.nombre_banco
-        && this.bankForm0.controls['account_balance'].value != '' && this.bankForm0.controls['account_balance'].value != this.user.pago_saldo.banco.numero_cuenta
-        && this.bankForm0.controls['name_balance'].value != '' && this.bankForm0.controls['name_balance'].value != this.user.pago_saldo.banco.nombre_titular
-        && this.bankForm0.controls['id_balance'].value != '' && this.bankForm0.controls['id_balance'].value != this.user.pago_saldo.banco.cedula_titular
-        && this.bankForm0.controls['account_type_balance'].value != '' && this.bankForm0.controls['account_type_balance'].value != this.user.pago_saldo.banco.tipo_cuenta
-      ) {
+      }else if (this.bankForm0.controls['checkbank_balance'].value) {
+
+        if(this.bankForm0.controls['bank_balance'].value === ''
+          || this.bankForm0.controls['account_balance'].value === ''
+          || this.bankForm0.controls['name_balance'].value === ''
+          || this.bankForm0.controls['id_balance'].value === ''
+          || this.bankForm0.controls['account_type_balance'].value === ''){
+            this.alert.showAlert('Error', 'Debes completar todos los campos para continuar')
+            return
+        }
 
         this.profile_bank.phone = ''
         this.profile_bank.name_beneficiary = ''
@@ -563,18 +680,51 @@ export class ProfileBankDriverPage {
         this.profile_bank.account_type = this.bankForm0.controls['account_type_balance'].value
         this.profile_bank.type = 2
 
+        const userId = await this.getUserId()
+
+        let arrayImgs = []
+
+        let dataArray = {}
+
+        this.picturesObj.map(obj =>{
+          if(obj.name === 'balanceCertificate' || obj.name === 'balanceLetter'){
+              if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
+                arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
+              }else{
+                dataArray[obj.name] = this[obj.name] === this.noImg ? null : this[obj.name]
+              }
+          }
+        })
+
+        const results = arrayImgs.map(obj =>{
+          const img = obj.model.substring(23)
+          return this.fire.uploadPicture(img, obj.id, obj.name).then(res => {
+            return dataArray[obj.name] = res
+          }).catch(e => {
+            console.error('error upload ' + e.message)
+          })
+        })
+
+        Promise.all(results).then(completed =>{
+          console.log('completed ' + completed)
+          this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() => {
+            console.log('save image path ')
+          }).catch(e => {
+            console.error('Error to save image path ' + e)
+          })
+        })
+
         this.auth.bankData(this.profile_bank).then(res => {
-            console.log(JSON.stringify(res))
-            this.alert.showAlert('Datos bancarios para pagos de saldos', 'Se ha guardado correctamente')
-            this.navCtrl.setRoot('home-drive')
+            if(res){
+              this.alert.showAlert('Datos bancarios para pagos de saldos', 'Se ha guardado correctamente')
+              this.navCtrl.setRoot('home-drive')
+            }
         }).catch(error => {
             console.log(error)
             this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
         })
-      }
 
-      // this.scrollToTop()
-      // this.navCtrl.setRoot('home-drive')
+      }
     }
   }
 
