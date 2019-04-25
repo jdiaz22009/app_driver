@@ -1,13 +1,12 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams , ActionSheetController, ModalController,LoadingController} from 'ionic-angular'
+
 import { MediaProvider } from '@providers/media'
 import { StorageDb } from '@providers/storageDb'
 import { FirebaseProvider } from '@providers/firebase'
 import { AlertsProvider } from '@providers/alerts'
-import { DriverAuthProvider } from '@providers/api/driverAuth'
-
+import { CartProvider } from '@providers/api/cart'
 import { CONFIG } from '@providers/config'
-
 
 @IonicPage()
 @Component({
@@ -44,7 +43,8 @@ export class PhotosMyVehiclesDriverPage {
     public actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private fire: FirebaseProvider,
-    public driveAuth: DriverAuthProvider) {
+    private cart: CartProvider
+    ) {
 
       const params = this.navParams.get('vehicle')
       this.vehicleId = params._id
@@ -178,6 +178,10 @@ export class PhotosMyVehiclesDriverPage {
         console.error('Error to save image path ' + e)
         loader.dismiss()
         this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
+      })
+
+      this.cart.updateVehicleImages(dataArray, this.vehicleId).then(res =>{
+        console.log('save path to mongo server success ' + res)
       })
 
     })

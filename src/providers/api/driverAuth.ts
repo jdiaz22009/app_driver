@@ -29,9 +29,6 @@ export class DriverAuthProvider {
   save_url: string = CONFIG.api.drivers.saveUrl
   coming_soon: string = CONFIG.api.drivers.comingSoon
 
-  // updatedrivers_path:string = CONFIG.api.drivers.updateConductor
-  // updateDriverC_path: string = CONFIG.api.drivers.updateDriverC
-
   api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
   getDevDrivers: string = CONFIG.dev.getDrivers
   login_path_dev: string = CONFIG.dev.login
@@ -230,6 +227,54 @@ export class DriverAuthProvider {
       vencimiento_licencia: driver.vencimiento_licencia,
       tipo_sangre: driver.tipo_sangre,
       genero: driver.genero
+    }
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+  async updateBankInformationPhotos(imgArray) {
+    const url = this.api_url + this.updatedrivers_path
+    const token = await this.getToken()
+
+    const params = {
+      BankInformation:{
+        advanceAutorization: imgArray.advanceAutorization === null ? '' : imgArray.advanceAutorization,
+        advanceCertificate: imgArray.advanceCertificate === null ? '' : imgArray.advanceCertificate,
+        advanceLetter: imgArray.advanceLetter === null ? '' : imgArray.advanceLetter,
+        balanceAutorization: imgArray.balanceAutorization === null ? '' : imgArray.balanceAutorization,
+        balanceCertificate: imgArray.balanceCertificate === null ? '' : imgArray.balanceCertificate,
+        balanceLetter: imgArray.balanceLetter === null ? '' : imgArray.balanceLetter
+      }
+    }
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+
+  async updateDriverMyPhotos(imgArray) {
+    const url = this.api_url + this.updatedrivers_path
+    const token = await this.getToken()
+
+    const params = {
+      myPhotos: {
+        idFront: imgArray.idFront === null ? '' : imgArray.idFront,
+        idBack: imgArray.idBack === null ? '' : imgArray.idBack,
+        licenseFront: imgArray.licenseFront === null ? '' : imgArray.licenseFront,
+        licenseBack: imgArray.licenseBack === null ? '' : imgArray.licenseBack,
+        driverImg: imgArray.driverImg === null ? '' : imgArray.driverImg
+      }
+
     }
 
     const headers = { 'Authorization': token, 'content-type': 'application/json' }

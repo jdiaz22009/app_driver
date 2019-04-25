@@ -230,6 +230,54 @@ export class CartProvider {
     }
   }
 
+  async updateVehicleImages(imgArray, id){
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+
+    const params = {
+      vehiclesImages:{
+        vehicleFront: imgArray.vehicleFront === null ? '' : imgArray.vehicleFront,
+        vehicleBack: imgArray.vehicleBack === null ? '' : imgArray.vehicleBack,
+        vehicleRight: imgArray.vehicleRight === null ? '' : imgArray.vehicleRight,
+        vehicleLeft: imgArray.vehicleLeft === null ? '' : imgArray.vehicleLeft
+      }
+    }
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async updateVehiclesDocumentationImages(imgArray, id){
+    const url = this.api_url + this.updateVehicle_path + '/' + id
+    const token = await this.getToken()
+
+    const params = {
+      vehiclesImages:{
+        vehicleLicenseFront: imgArray.vehicleLicenseFront === null ? '' : imgArray.vehicleLicenseFront,
+        vehicleLicenseRear: imgArray.vehicleLicenseRear === null ? '' : imgArray.vehicleLicenseRear,
+        trailerLicenseFront: imgArray.trailerLicenseFront === null ? '' : imgArray.trailerLicenseFront,
+        trailerLicenseBack: imgArray.trailerLicenseBack === null ? '' : imgArray.trailerLicenseBack,
+        soatFront: imgArray.soatFront === null ? '' : imgArray.soatFront,
+        soatBack: imgArray.soatBack === null ? '' : imgArray.soatBack,
+        tecnoFront: imgArray.tecnoFront === null ? '' : imgArray.tecnoFront,
+        tecnoBack: imgArray.tecnoBack === null ? '' : imgArray.tecnoBack
+      }
+    }
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, params, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
 
   async getVehiclesList() {
     const url = this.api_url + this.getVehicles_path

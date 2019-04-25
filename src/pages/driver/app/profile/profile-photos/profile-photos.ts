@@ -176,6 +176,10 @@ export class ProfilePhotoDriverPage {
         this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
       })
 
+      this.driveAuth.updateDriverMyPhotos(dataArray).then(res =>{
+        console.log('save path to mongo server success ' + res)
+      })
+
     })
   }
 
