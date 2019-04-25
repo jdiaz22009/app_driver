@@ -14,7 +14,7 @@
                 <form [formGroup]="registerForm">
                     <ion-item class=l-item>
                         <ion-label stacked>Confirma tu número de cédula <small class="l-requerido">*</small></ion-label>
-                        <ion-input [formControl]="registerForm.controls['id']" (ionBlur)="checkId()" type="tel">
+                        <ion-input #verifyId [formControl]="registerForm.controls['id']" (ionBlur)="checkId()" type="tel">
                         </ion-input>
                     </ion-item>
 
@@ -61,7 +61,7 @@
                     </div>
                     <ion-row justify-content-center>
                         <div class="terms">
-                            <a href="http://cargaya.com/wp-content/uploads/2019/04/Terminos-y-Condiciones-Conductores-20190419.pdf"> 
+                            <a href="http://cargaya.com/wp-content/uploads/2019/04/Terminos-y-Condiciones-Conductores-20190419.pdf">
                                 <ion-checkbox color="btn"  [formControl]="registerForm.controls['terms']" (ionChange)="checkTerms()"
                                     class="check"></ion-checkbox>
                                 He leido los términos y condiciones

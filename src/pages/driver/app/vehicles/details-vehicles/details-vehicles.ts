@@ -37,7 +37,7 @@ export class DetailsVehiclesDriverPage {
     this.cartApi.getVehicleById(id).then(res =>{
       this.vehicle = res['data']
       this.showInformation = true
-      console.log(JSON.stringify(res))
+      // console.log(JSON.stringify(res))
     })
   }
 

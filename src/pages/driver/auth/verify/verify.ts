@@ -13,35 +13,35 @@ export class VerifyDriverPage {
   timer: any
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams    
+    public navCtrl: NavController,
+    public navParams: NavParams
     ) {
 
-      
+
     }
-  ionViewDidLoad() {    
+  ionViewDidLoad() {
     this.startTimerDown(this.fiveMinutes)
-  } 
+  }
 
   ionViewDidLeave(){
     if(this.timer != null)
-    clearInterval(this.timer)    
+    clearInterval(this.timer)
   }
 
-  startTimerDown(duration){    
+  startTimerDown(duration){
 
     let prevTime = duration
 
     this.timer = setInterval(()=>{
-      
+
       let minutes = prevTime / 60
-      let seconds = prevTime % 60    
+      let seconds = prevTime % 60
       let seconds_s = seconds < 10 ? "0" + seconds : seconds
 
       this.counter_time =  parseInt(minutes.toString(), 10) + ':' + seconds_s
-      
+
       prevTime --
 
-    },1000)    
-  }  
+    },1000)
+  }
 }

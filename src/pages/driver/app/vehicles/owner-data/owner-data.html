@@ -30,7 +30,7 @@
                 <ion-col>
                   <p text-center class="tx-title">Información De:</p>
                 </ion-col>
-              </ion-row> 
+              </ion-row>
               <ion-row justify-content-center>
                 <ion-col col-4 offset-2>
                   <p class="tx-title">Propietario</p>
@@ -106,26 +106,35 @@
           </ion-row>
 
           <ion-row>
-            <ion-col col-6> 
+            <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>País de domicilio</ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_country']" type="text" disabled="{{disableowner}}"></ion-input>
+                <ion-select [formControl]="ownerForm.controls['owner_country']">
+                  <ion-option value="Colombia">Colombia</ion-option>
+                </ion-select>
               </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Departamento de domicilio</ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_department']" type="text" disabled="{{disableowner}}"></ion-input>
+                <ion-select
+                  [formControl]="ownerForm.controls['owner_department']"
+                  (ionChange)="getCity(0)">
+                  <ion-option *ngFor="let item of departmentsOptions" value="{{item}}">{{item}}</ion-option>
+                </ion-select>
               </ion-item>
             </ion-col>
           </ion-row>
-
 
           <ion-row>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Municipio de domicilio</ion-label>
-                <ion-input [formControl]="ownerForm.controls['owner_state']" type="text" disabled="{{disableowner}}"></ion-input>
+                <ion-select
+                disabled="{{disableowner}}"
+                [formControl]="ownerForm.controls['owner_state']">
+                  <ion-option *ngFor="let item of citiesOptions" value="{{item}}">{{item}}</ion-option>
+                </ion-select>
               </ion-item>
             </ion-col>
             <ion-col col-6>
@@ -156,8 +165,6 @@
   </form>
 
 
-
-
   </div>
 
   <div *ngIf="show_type === 1">
@@ -182,15 +189,17 @@
           <ion-item class=l-item>
             <ion-label stacked>País</ion-label>
             <ion-select [formControl]="ownerForm0.controls['owner_country']">
-              <ion-option value="id">Colombia</ion-option>
+              <ion-option value="Colombia">Colombia</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
         <ion-col col-6>
           <ion-item class=l-item>
             <ion-label stacked>Departamento </ion-label>
-            <ion-select [formControl]="ownerForm0.controls['owner_department']">
-              <ion-option value="id">Valle Del Cauca</ion-option>
+            <ion-select
+              [formControl]="ownerForm0.controls['owner_department']"
+              (ionChange)="getCity(1)">
+              <ion-option *ngFor="let item of departmentsOptions" value="{{item}}">{{item}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -200,8 +209,9 @@
         <ion-col col-6>
           <ion-item class=l-item>
             <ion-label stacked>Municipio</ion-label>
-            <ion-select [formControl]="ownerForm0.controls['owner_municipality']">
-              <ion-option value="id">Cali</ion-option>
+            <ion-select
+              [formControl]="ownerForm0.controls['owner_municipality']">
+                <ion-option *ngFor="let item of citiesOptions" value="{{item}}">{{item}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -209,7 +219,6 @@
           <ion-item class=l-item>
             <ion-label stacked>Dirección </ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_address']" type="text"></ion-input>
-
           </ion-item>
         </ion-col>
       </ion-row>
@@ -219,14 +228,12 @@
           <ion-item class=l-item>
             <ion-label stacked>Celular</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_mobile']" type="number"></ion-input>
-
           </ion-item>
         </ion-col>
         <ion-col col-6>
           <ion-item class=l-item>
             <ion-label stacked>Teléfono </ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_phone']" type="number"></ion-input>
-
           </ion-item>
         </ion-col>
       </ion-row>
@@ -240,14 +247,12 @@
           <ion-item class=l-item>
             <ion-label stacked>Primer Nombre</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_first_name_legal_rep']" type="text"></ion-input>
-
           </ion-item>
         </ion-col>
         <ion-col col-6>
           <ion-item class=l-item>
             <ion-label stacked>Segundo Nombre</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_second_name_legal_rep']" type="text"></ion-input>
-
           </ion-item>
         </ion-col>
       </ion-row>
@@ -257,14 +262,12 @@
           <ion-item class=l-item>
             <ion-label stacked>Primer Apellido</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_surname_legal_rep']" type="text"></ion-input>
-
           </ion-item>
         </ion-col>
         <ion-col col-6>
           <ion-item class=l-item>
             <ion-label stacked>Segundo Apellido</ion-label>
             <ion-input [formControl]="ownerForm0.controls['owner_second_surname_legal_rep']" type="text"></ion-input>
-
           </ion-item>
         </ion-col>
       </ion-row>
@@ -273,14 +276,12 @@
               <ion-item class=l-item>
                 <ion-label stacked>Documento de identidad #</ion-label>
                 <ion-input [formControl]="ownerForm0.controls['owner_number_id_legal_rep']" type="text"></ion-input>
-    
               </ion-item>
             </ion-col>
             <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Celular #</ion-label>
                   <ion-input [formControl]="ownerForm0.controls['owner_phone_legal_rep']" type="text"></ion-input>
-      
                 </ion-item>
               </ion-col>
       </ion-row>
@@ -289,7 +290,6 @@
         <ion-item class=l-item>
           <ion-label stacked>Email</ion-label>
           <ion-input [formControl]="ownerForm0.controls['owner_email_legal_rep']" type="text"></ion-input>
-
         </ion-item>
       </ion-row>
 
@@ -299,5 +299,5 @@
 
 </ion-content>
 <ion-footer>
-  <button margin-top (click)="save()" [disabled]="!ownerForm.valid" ion-button full color="btn">{{btn_txt}}</button>
+  <button margin-top (click)="save()" [disabled]="!ownerForm.valid || !ownerForm0.valid" ion-button full color="btn">{{btn_txt}}</button>
 </ion-footer>

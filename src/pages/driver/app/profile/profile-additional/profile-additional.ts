@@ -1,10 +1,10 @@
-import { CitiesProvider } from '@providers/cities';
 import { Component, ViewChild } from '@angular/core'
 import { IonicPage, NavController, NavParams, Content, LoadingController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { DataUserC } from '@models/dataUserC'
 
+import { CitiesProvider } from '@providers/cities'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { AlertsProvider } from '@providers/alerts'
 
@@ -61,7 +61,6 @@ export class ProfileAdditionalDriverPage {
     { value: 'C3', name: 'C3' },
   ]
 
-
   user: any
 
   constructor(
@@ -117,12 +116,10 @@ export class ProfileAdditionalDriverPage {
     const department = this.profileForm.controls['state'].value
     if(department !== ''){
       const i = this.departmentsOptions.indexOf(department)
-      // console.log('get city ' + department + ' ' + i)
       this.cities.getCities(i).then(res =>{
         this.citiesOptions = res
       })
     }
-
   }
 
   setForms() {
