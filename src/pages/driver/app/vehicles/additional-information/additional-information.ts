@@ -14,7 +14,7 @@ import { CartProvider } from '@providers/api/cart'
 export class AdditionalInfoVehiclesDriverPage {
 
   cart = {} as Cart
-  cartForm: FormGroup 
+  cartForm: FormGroup
   @ViewChild(Content) content: Content
 
   step_form: number = 0
@@ -63,6 +63,10 @@ export class AdditionalInfoVehiclesDriverPage {
     { value: 'Colombia', name: 'Colombia' }
   ]
   vehicle: any
+
+  prevPlate: boolean = false
+  plate: string
+
   constructor(
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -261,7 +265,7 @@ export class AdditionalInfoVehiclesDriverPage {
     })
   }
 
-  save() { 
+  save() {
 
     if (this.step_form === 0) {
       console.log('-AditionalInfo- StepForm 0')
@@ -391,6 +395,8 @@ export class AdditionalInfoVehiclesDriverPage {
           loader.dismiss()
           this.alert.showAlert('Error', 'Ha ocurrido un error actualizando tu vehículo, intenta de nuevo.')
         })
+      }else{
+        this.navCtrl.pop()
       }
     }
   }
@@ -408,6 +414,23 @@ export class AdditionalInfoVehiclesDriverPage {
     }
     if (this.vehicleForm.controls[property] !== undefined) {
       this.vehicleForm.controls[property].setValue(value)
+    }
+  }
+
+  onChangePlate(v){
+    let plate = v._value.toString().toUpperCase()
+    if(plate.length <= 7){
+      if(plate.length < 3){
+        this.prevPlate = false
+      }
+      if(plate.length === 3 && !this.prevPlate){
+        this.prevPlate = true
+        plate += '-'
+      }
+      this.plate = plate
+      this.vehicleForm0.controls['trailer_plate'].setValue(plate)
+    }else{
+      this.vehicleForm0.controls['trailer_plate'].setValue(this.plate)
     }
   }
 

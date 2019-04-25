@@ -29,12 +29,8 @@ export class ModalRadioDriverComponent {
     }
 
     if(this.radio != ''){
-
+      this.selected = this.radio
     }
-  }
-
-  onItemSelected(e){
-    // console.log(e + ' ' + this.selected)
   }
 
   goBack(mode){

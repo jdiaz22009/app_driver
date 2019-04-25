@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Cart } from '@models/cart'
@@ -23,12 +23,44 @@ export class InformationVehiclesDriverPage {
 
   vehicle: any
 
+  vehicle_class = {
+    title: 'Clase de vehículo',
+    options: [
+      {value: 'Camioneta', name: 'Camioneta', checked: false},
+      {value: 'Turbo', name: 'Turbo', checked: false},
+      {value: 'Sencillo', name:'Sencillo', checked: false},
+      {value: 'Doble Troque', name:'Doble Troque', checked: false},
+      {value: 'Cuatro Manos', name:'Cuatro Manos', checked: false},
+      {value: 'Minimula', name:'Minimula', checked: false},
+      {value: 'Tracto Camión', name:'Tracto Camión', checked: false}
+    ]
+  }
+
+  vehicle_bodywork = {
+    title: 'Tipo de carrocería',
+    options: [
+      {value: 'Carry', name: 'Carry', checked: false},
+      {value: 'Estacas', name: 'Estacas', checked: false},
+      {value: 'Furgón', name:'Furgón', checked: false},
+      {value: 'Furgón Refrigerado', name:'Furgón Refrigerado', checked: false},
+      {value: 'Platón', name:'Platón', checked: false},
+      {value: 'Plancha', name:'Plancha', checked: false},
+      {value: 'Cisterna', name:'Cisterna', checked: false},
+      {value: 'Tanque', name:'Tanque', checked: false},
+      {value: 'Volco', name:'Volco', checked: false},
+      {value: 'Contenedor', name:'Contenedor', checked: false},
+      // {value: 'Cama Baja', name:'Cama Baja', checked: false},
+      // {value: 'Niñera', name:'Niñera', checked: false}
+    ]
+  }
+
   constructor(
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
     public alert: AlertsProvider,
     public cartApi: CartProvider,
+    public modalCtrl: ModalController,
     public navParams: NavParams) {
 
       this.vehicle = navParams.get('vehicle')
@@ -44,7 +76,7 @@ export class InformationVehiclesDriverPage {
         model: ['', Validators.required],
         brand: ['', Validators.required]
       })
- 
+
       this.cartForm.controls['license_plate'].setValue(this.vehicle.placa)
       this.cartForm.controls['type'].setValue(this.vehicle.clase_vehiculo)
       this.cartForm.controls['bodywork'].setValue(this.vehicle.tipo_carroceria)
@@ -72,6 +104,34 @@ export class InformationVehiclesDriverPage {
       this.cartForm.controls['license_plate'].setValue(this.plate)
     }
 
+  }
+
+  showModal(mode){
+    console.log('show modal radio ' + mode)
+    let options
+    let radio
+    if(mode === 0){
+        options = this.vehicle_class
+        radio = this.cartForm.controls['type'].value
+    }else if(mode === 1){
+        options = this.vehicle_bodywork
+        radio = this.cartForm.controls['bodywork'].value
+    }
+    const modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
+    modal.present()
+
+    modal.onDidDismiss((data) =>{
+      console.log('onDismiss ' + JSON.stringify(data) + ' MODE ' + mode + " " + data)
+      if(mode === 0){
+        if(data != null){
+          this.cartForm.controls['type'].setValue(data.radio)
+        }
+      }else if(mode === 1){
+        if(data != null){
+          this.cartForm.controls['bodywork'].setValue(data.radio)
+        }
+      }
+    })
   }
 
   save(){

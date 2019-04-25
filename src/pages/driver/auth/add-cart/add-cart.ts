@@ -156,9 +156,9 @@ export class AddCartDriverPage {
 
     }
 
-    onChangeModel(v){
+    // onChangeModel(v){
       // let model = v._value.toString().toUpperCase()
-      console.log(this.cartForm.controls['model'].value)
+      // console.log(this.cartForm.controls['model'].value)
       // let model = v._value.toString().toUpperCase()
       // console.log(model +  ' ' + model.length +' ' + this.prevModel)
       // console.log(typeof(model))
@@ -175,7 +175,7 @@ export class AddCartDriverPage {
       // }else{
       //   this.prevModel = model
       // }
-    }
+    // }
 
     showModal(mode){
       console.log('show modal radio ' + mode)

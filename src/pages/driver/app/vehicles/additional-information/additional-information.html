@@ -40,7 +40,7 @@
                         (ionChange)="checkRepoYes()"></ion-checkbox>
                     </ion-col>
                     <ion-col col-4>
-                      <p class="tx-title">No</p> 
+                      <p class="tx-title">No</p>
                       <ion-checkbox color="btn"  checked="false" [formControl]="vehicleForm.controls['repowering_no']"
                         (ionChange)="checkRepoNo()"></ion-checkbox>
                     </ion-col>
@@ -94,7 +94,7 @@
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Peso vacío (Ton)</ion-label>
-                  <ion-input [formControl]="vehicleForm.controls['weight']" type="number">
+                  <ion-input [formControl]="vehicleForm.controls['weight']" type="tel">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -102,7 +102,7 @@
               <ion-col col-6>
                 <ion-item class=l-item>
                   <ion-label stacked>Capacidad (Ton)</ion-label>
-                  <ion-input [formControl]="vehicleForm.controls['capacity']" type="number">
+                  <ion-input [formControl]="vehicleForm.controls['capacity']" type="tel">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -204,7 +204,7 @@
               </ion-row>
               <ion-row justify-content-center>
                 <ion-col col-4 offset-2>
-                  <p class="tx-title">Si</p> 
+                  <p class="tx-title">Si</p>
                   <ion-checkbox color="btn"  checked="false" [formControl]="vehicleForm0.controls['trailer_yes']"
                     (ionChange)="checkTraileYes()"></ion-checkbox>
                 </ion-col>
@@ -228,9 +228,15 @@
                 <ion-col col-6>
                   <ion-item class=l-item>
                     <ion-label stacked>Modelo de trailer</ion-label>
-                    <ion-input [formControl]="vehicleForm0.controls['trailer_model']" (ionChange)="toCapitalize($event, 'trailer_model')"
+                    <ion-datetime
+                      displayFormat="YYYY"
+                      pickerFormat="YYYY"
+                      min="1950" max="2020"
+                      [formControl]="vehicleForm0.controls['trailer_model']">
+                    </ion-datetime>
+                    <!-- <ion-input [formControl]="vehicleForm0.controls['trailer_model']" (ionChange)="toCapitalize($event, 'trailer_model')"
                       type="number">
-                    </ion-input>
+                    </ion-input> -->
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -238,9 +244,14 @@
                 <ion-col col-6>
                   <ion-item class=l-item>
                     <ion-label stacked>Placa de trailer</ion-label>
-                    <ion-input [formControl]="vehicleForm0.controls['trailer_plate']" (ionChange)="toCapitalize($event, 'trailer_plate')"
-                      type="text">
+                    <ion-input
+                      type="text" maxlength="7"
+                      [formControl]="vehicleForm0.controls['trailer_plate']"
+                      (ionChange)="onChangePlate($event)">
                     </ion-input>
+                    <!-- <ion-input [formControl]="vehicleForm0.controls['trailer_plate']" (ionChange)="toCapitalize($event, 'trailer_plate')"
+                      type="text">
+                    </ion-input>-->
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -308,4 +319,4 @@
   <button *ngIf="step_form === 0" margin-top (click)="save()" [disabled]="!vehicleForm.valid" ion-button full color="btn">{{btn_title}}</button>
   <button *ngIf="step_form === 1" margin-top (click)="save()" [disabled]="!vehicleForm0.valid" ion-button full color="btn">{{btn_title}}</button>
   <button *ngIf="step_form === 2" margin-top (click)="save()" [disabled]="!vehicleForm1.valid" ion-button full color="btn">{{btn_title}}</button>
-</ion-footer> 
+</ion-footer>

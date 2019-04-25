@@ -8,7 +8,7 @@
  <ion-list radio-group margin-top [(ngModel)]="selected">
   <ion-item *ngFor="let item of data">
     <ion-label>{{item.name}}</ion-label>
-    <ion-radio value="{{item.value}}" (ionSelect)="onItemSelected(item)"></ion-radio>
+    <ion-radio value="{{item.value}}"></ion-radio>
   </ion-item>
  </ion-list>
 
