@@ -172,6 +172,7 @@ export class PhotosMyVehiclesDriverPage {
       this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, this.vehicleId).then(() => {
         console.log('save image path ')
         loader.dismiss()
+        this.navCtrl.pop()
         this.alerts.showAlert('', 'Se han guardado los datos correctamente')
       }).catch(e => {
         console.error('Error to save image path ' + e)
