@@ -44,4 +44,8 @@ export class ListVehiclesDriverPage {
     this.navCtrl.push('AddCartDriverPage', {id: this.userId , mode: 1 })
   }
 
+  removeVehicle(vehicle){
+
+  }
+
 }

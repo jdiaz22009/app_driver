@@ -73,7 +73,7 @@ export class RegisterSharedPage {
   ionViewDidLoad(){
     setTimeout(() => {
       this.idInput.setFocus()
-    },1000)
+    },200)
   }
 
   checkTerms() {
