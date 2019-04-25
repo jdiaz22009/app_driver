@@ -157,13 +157,24 @@ export class AddCartDriverPage {
     }
 
     onChangeModel(v){
-      let model = v._value.toString().toUpperCase()
-      console.log(model +  ' ' + model.length +' ' + this.prevModel)
-      if(model.length > 4){
-        this.cartForm.controls['model'].setValue(this.prevModel)
-      }else{
-        this.prevModel = model
-      }
+      // let model = v._value.toString().toUpperCase()
+      console.log(this.cartForm.controls['model'].value)
+      // let model = v._value.toString().toUpperCase()
+      // console.log(model +  ' ' + model.length +' ' + this.prevModel)
+      // console.log(typeof(model))
+      // const numdel = parseInt(model)
+      // console.log(numdel + ' ' + typeof(numdel))
+      // if(numdel >= 1950 && numdel <= 2020){
+      //   console.log('is it')
+      // }else{
+      //   console.log('none')
+      // }
+
+      // if(model.length > 4){
+      //   this.cartForm.controls['model'].setValue(this.prevModel)
+      // }else{
+      //   this.prevModel = model
+      // }
     }
 
     showModal(mode){

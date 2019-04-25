@@ -29,10 +29,11 @@
 
                         <ion-item class=l-item>
                             <ion-label stacked>Modelo <small class="l-requerido">*</small></ion-label>
-                            <ion-input [formControl]="cartForm.controls['model']" maxlength="4" type="number" (ionChange)="onChangeModel($event)"></ion-input>
+                            <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" min="1950" max="2020" [formControl]="cartForm.controls['model']" (ionChange)="onChangeModel($event)"></ion-datetime>
+                            <!-- <ion-input [formControl]="cartForm.controls['model']" maxlength="4" type="number" (ionChange)="onChangeModel($event)"></ion-input> -->
                         </ion-item>
 
-                        <ion-item class=l-item> 
+                        <ion-item class=l-item>
                             <ion-label stacked>Marca <small class="l-requerido">*</small></ion-label>
                             <ion-input
                               [formControl]="cartForm.controls['brand']"
