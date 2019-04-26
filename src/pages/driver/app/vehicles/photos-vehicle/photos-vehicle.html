@@ -25,18 +25,18 @@
             </ion-col>
         </ion-row>
 
-        <ion-row>
-                <p class="tx-title">Licencia Tránsito remolque (Trailer)</p>
-            </ion-row>
-            <ion-row justify-content-center>
-                <ion-col col-4>
-                    <img class="p-photos" [src]="trailerLicenseFront" (click)="setPicture('trailerLicenseFront')">
-                    <p class="p-summary">Frontal</p>
-                </ion-col>
-                <ion-col col-4 offset-3>
-                    <img class="p-photos" [src]="trailerLicenseBack" (click)="setPicture('trailerLicenseBack')">
-                    <p class="p-summary">Trasera</p>
-                </ion-col>
+        <ion-row *ngIf="vehicleTrailer">
+            <p class="tx-title">Licencia Tránsito remolque (Trailer)</p>
+        </ion-row>
+        <ion-row *ngIf="vehicleTrailer" justify-content-center>
+            <ion-col col-4>
+                <img class="p-photos" [src]="trailerLicenseFront" (click)="setPicture('trailerLicenseFront')">
+                <p class="p-summary">Frontal</p>
+            </ion-col>
+            <ion-col col-4 offset-3>
+                <img class="p-photos" [src]="trailerLicenseBack" (click)="setPicture('trailerLicenseBack')">
+                <p class="p-summary">Trasera</p>
+            </ion-col>
         </ion-row>
 
         <ion-row>

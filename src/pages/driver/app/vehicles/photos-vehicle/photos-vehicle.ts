@@ -30,6 +30,7 @@ export class PhotosVehiclesDriverPage {
   pictureMode: number = 2
 
   vehicleId: string = ''
+  vehicleTrailer: boolean = false
 
   picturesObj = [
     {name: 'vehicleLicenseFront'},
@@ -56,7 +57,14 @@ export class PhotosVehiclesDriverPage {
     public driveAuth: DriverAuthProvider) {
 
     const params = this.navParams.get('vehicle')
+    console.log(JSON.stringify(params))
     this.vehicleId = params._id
+    if(params.trailer === undefined || params.trailer === 'no'){
+      this.vehicleTrailer = false
+    }else{
+      this.vehicleTrailer = true
+    }
+
   }
 
   ionViewDidLoad(){
