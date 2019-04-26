@@ -26,22 +26,23 @@ home-driver {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2rem;
-    width: 50%;
+    // margin-top: 2rem;
+    width: 48%;
   }
 
   .tpaga-logo{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2rem;
-    width: 50%;
+    // margin-top: 2rem;
+    width: 40%;
   }
 
   .find-tx{
     text-align: center;
     color: color($colors, txt1) !important;
     font-size: 1.5rem;
+    margin-top: 1rem;
   }
 
 }
