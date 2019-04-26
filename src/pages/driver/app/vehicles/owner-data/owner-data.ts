@@ -75,6 +75,21 @@ export class OwnerDataVehiclesDriverPage {
       }else if(this.vehicle['propietario'] === 'No'){
         this.ownerForm.controls['owner_yes'].setValue(false)
         this.ownerForm.controls['owner_no'].setValue(true)
+
+        this.is_owner = 0
+
+        if(this.vehicle['tenedor'] !== undefined){
+          if(this.vehicle['tenedor'] === 'Si'){
+            this.ownerForm.controls['owner_prop_yes'].setValue(false)
+            this.ownerForm.controls['owner_prop_no'].setValue(true)
+          }else if(this.vehicle['tenedor'] === 'No'){
+            this.ownerForm.controls['owner_prop_yes'].setValue(true)
+            this.ownerForm.controls['owner_prop_no'].setValue(false)
+          }
+        }else{
+          this.ownerForm.controls['owner_prop_yes'].setValue(false)
+          this.ownerForm.controls['owner_prop_no'].setValue(false)
+        }
       }
     }else{
       this.ownerForm.controls['owner_yes'].setValue(false)
@@ -389,7 +404,7 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_prop_no'].setValue(false)
       this.cart.fork_info = 'No'
     } else if (this.ownerForm.controls['owner_prop_yes'].value === false) {
-      this.cart.fork_info = ''
+      this.cart.fork_info = 'Si'
     }
   }
 
@@ -398,7 +413,7 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_prop_yes'].setValue(false)
       this.cart.fork_info = 'Si'
     } else if (this.ownerForm.controls['owner_prop_no'].value === false) {
-      this.cart.fork_info = ''
+      this.cart.fork_info = 'No'
     }
   }
 
