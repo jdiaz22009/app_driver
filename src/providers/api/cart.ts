@@ -257,7 +257,7 @@ export class CartProvider {
     const token = await this.getToken()
 
     const params = {
-      vehiclesImages:{
+      vehiclesDocumentation:{
         vehicleLicenseFront: imgArray.vehicleLicenseFront === null ? '' : imgArray.vehicleLicenseFront,
         vehicleLicenseRear: imgArray.vehicleLicenseRear === null ? '' : imgArray.vehicleLicenseRear,
         trailerLicenseFront: imgArray.trailerLicenseFront === null ? '' : imgArray.trailerLicenseFront,
