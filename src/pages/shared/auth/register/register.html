@@ -12,9 +12,10 @@
             <ion-col col-12>
 
                 <form [formGroup]="registerForm">
-                    <ion-item class=l-item>
+                    <ion-item class=l-item> 
                         <ion-label stacked>Confirma tu número de cédula <small class="l-requerido">*</small></ion-label>
-                        <ion-input #verifyId [formControl]="registerForm.controls['id']" (ionBlur)="checkId()" type="tel">
+                        <!-- <ion-input #verifyId [formControl]="registerForm.controls['id']" (ionBlur)="checkId()" type="tel"> -->
+                            <ion-input [formControl]="registerForm.controls['id']" (ionBlur)="checkId()" type="tel">
                         </ion-input>
                     </ion-item>
 

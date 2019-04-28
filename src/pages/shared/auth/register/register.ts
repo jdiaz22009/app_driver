@@ -17,7 +17,7 @@ import { CONFIG } from '@providers/config'
 })
 export class RegisterSharedPage {
 
-  @ViewChild('verifyId') idInput
+  // @ViewChild('verifyId') idInput
 
   user = {} as RegisterDriver
   login = {} as User
@@ -70,11 +70,11 @@ export class RegisterSharedPage {
 
   }
 
-  ionViewDidLoad(){
-    setTimeout(() => {
-      this.idInput.setFocus()
-    },200)
-  }
+  // ionViewDidLoad(){
+  //   setTimeout(() => {
+  //     this.idInput.setFocus()
+  //   },200)
+  // }
 
   checkTerms() {
     console.log('--Registrer CheckTerms--', this.registerForm.controls['terms'].value)
