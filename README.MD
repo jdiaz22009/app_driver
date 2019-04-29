@@ -12,7 +12,7 @@
 
 - Android:   npm run android
 - Navegador: npm start
-
+              http://localhost:8100/ionic-lab 
 #    Comandos Git
 - GIT Rep: https://gitlab.com/cargaya_dev/app_conductor.git 
 - git add -A .; git commit -am "__ : ____"; git push origin ___;
