@@ -32,7 +32,9 @@ export class InformationVehiclesDriverPage {
       {value: 'Doble Troque', name:'Doble Troque', checked: false},
       {value: 'Cuatro Manos', name:'Cuatro Manos', checked: false},
       {value: 'Minimula', name:'Minimula', checked: false},
-      {value: 'Tracto Camión', name:'Tracto Camión', checked: false}
+      {value: 'Tracto Camión', name:'Tracto Camión', checked: false},
+      {value: 'Cama Baja', name:'Cama Baja', checked: false},
+      {value: 'Niñera', name:'Niñera', checked: false},
     ]
   }
 
