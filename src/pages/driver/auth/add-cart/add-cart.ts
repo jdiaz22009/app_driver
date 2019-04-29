@@ -34,8 +34,6 @@ export class AddCartDriverPage {
       {value: 'Cuatro Manos', name:'Cuatro Manos', checked: false},
       {value: 'Minimula', name:'Minimula', checked: false},
       {value: 'Tracto Camión', name:'Tracto Camión', checked: false},
-      {value: 'Cama Baja', name:'Cama Baja', checked: false},
-      {value: 'Niñera', name:'Niñera', checked: false},
     ]
   }
 
@@ -52,8 +50,8 @@ export class AddCartDriverPage {
       {value: 'Tanque', name:'Tanque', checked: false},
       {value: 'Volco', name:'Volco', checked: false},
       {value: 'Contenedor', name:'Contenedor', checked: false},
-      // {value: 'Cama Baja', name:'Cama Baja', checked: false},
-      // {value: 'Niñera', name:'Niñera', checked: false}
+      {value: 'Cama Baja', name:'Cama Baja', checked: false},
+      {value: 'Niñera', name:'Niñera', checked: false}
     ]
   }
 
