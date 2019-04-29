@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
+import { AlertsProvider } from '@providers/alerts'
 import { CartProvider } from '@providers/api/cart'
 
 @IonicPage()
@@ -16,7 +17,8 @@ export class ListVehiclesDriverPage {
   constructor(
     public navCtrl: NavController,
     public cart: CartProvider,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public alerts: AlertsProvider
     ) {
 
 
@@ -46,6 +48,17 @@ export class ListVehiclesDriverPage {
 
   removeVehicle(vehicle){
 
+      this.alerts.showConfirm('Eliminar Vehículo', '¿Deseas eliminar este vehículo?, ten en cuenta que no puedes deshacer esta opción en el futuro.', 'Aceptar', 'Cancelar').then(res =>{
+        if(res === 1){
+          this.cart.removeVehicle(vehicle._id).then(() =>{
+            this.getVehicles()
+          }).catch(e =>{
+            console.error(e)
+            this.alerts.showAlert('Error', 'Ha ocurrido un error al eliminar el vehículo')
+
+          })
+        }
+    })
   }
 
 }
