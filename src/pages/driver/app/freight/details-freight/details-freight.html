@@ -32,19 +32,19 @@
                     <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Tipo</p>
                     <p class="tx-summary">{{offer.clase_vehiculo}}</p>
                     <p class="tx-title"><ion-icon name="custom-weight" class="icon-info"></ion-icon> Peso</p>
-                    <p class="tx-summary">{{offer.peso_carga_max}}</p>
+                    <p class="tx-summary">{{offer.peso_carga_max}} TON</p>
                     <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha de Cargue</p>
-                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
+                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Flete</p>
                     <p class="tx-summary">{{offer.flete | currency:'USD':'symbol':'4.0-0'}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Cargue Conductor</p>
                     <p class="tx-summary">{{offer.cargue | currency:'USD':'symbol':'4.0-0'}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Anticipo</p>
-                    <p class="tx-summary">{{offer.anticipo}} %</p>
+                    <p class="tx-summary">{{offer.anticipo}}%</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Contra Entrega</p>
-                    <p class="tx-summary">{{offer.contraEntrega}}</p>
+                    <p class="tx-summary">{{offer.fpcontraEntrega}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Clientes a Entregar</p>
-                    <p class="tx-summary"></p>
+                    <p class="tx-summary">{{offer.clase_cliente}}</p>
                   </ion-col>
                   <ion-col col-6>
                     <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Carrocería</p>
@@ -52,15 +52,15 @@
                     <p class="tx-title"><ion-icon name="custom-volumen" class="icon-info"></ion-icon> Volumen</p>
                     <p class="tx-summary">{{offer.volumen}}</p>
                     <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha Descargue</p>
-                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy , h:mm a'}}</p>
+                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> x Tonelada</p>
-                    <p class="tx-summary"></p>
+                    <p class="tx-summary">{{offer.val_peso | currency:'USD':'symbol':'4.0-0'}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Descargue Conductor</p>
-                    <p class="tx-summary"></p>
+                    <p class="tx-summary">{{offer.descargue | currency:'USD':'symbol':'4.0-0'}}</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Saldo</p>
-                    <p class="tx-summary"></p>
+                    <p class="tx-summary">{{offer.contraEntrega}}%</p>
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Tiempo Saldo</p>
-                    <p class="tx-summary"></p>
+                    <p class="tx-summary">{{offer.tiempoSaldo}}</p>
                   </ion-col>
               </ion-row>
           </ion-grid>
@@ -71,15 +71,117 @@
   <ion-card>
       <ion-card-content>
         <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Observaciones</h3>
-        <!-- <p class="tx-summary">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p> -->
+        <p class="tx-summary">{{offer.Robservaciones}} </p>
       </ion-card-content>
   </ion-card>
 
 
   <ion-card class="c-req">
       <ion-card-content>
-        <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Requisitos</h3>
-        <!-- <p class="tx-summary">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p> -->
+        <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Requisitos</h3>  
+        
+        <ion-row *ngFor="let item of requirementsOpt">
+            <ion-col col-7>    
+                <p class="tx-title">{{item.title}}</p>        
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer[item.model])}}</p>
+            </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">ARP</p>        
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.Rarp)}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Salud</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.Rsalud)}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Pensión</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.Rpension)}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">GPS</p>      
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.Rgps)}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Trabajo en Alturas</p>   
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.RtrabajoAltura)}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Manejo de Alimentos</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.RmanejoAlimentos)}}</p>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Certificado de Fumigación</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.RcertificadoFumigacion)}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Sustancias Peligrosas</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.RsustanciaPeligrosa)}}</p>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">kit de Derrames</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.RkitDerrames)}}</p>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+            <ion-col col-7>    
+                <p class="tx-title">Elemento de Fumigación</p>
+            </ion-col>
+            <ion-col>
+                <p class="tx-summary">{{getRequirements(offer.RelementoFumigacion)}}</p>
+            </ion-col>
+        </ion-row>         -->
+        
       </ion-card-content>
   </ion-card>
 

@@ -17,6 +17,19 @@ export class DetailsFreightDriverPage {
   mode: number
   author_id: string
 
+  requirementsOpt = [
+    {title: 'ARP', model: 'Rarp'},
+    {title: 'Salud', model: 'Rsalud'},
+    {title: 'Pensión', model: 'Rpension'},
+    {title: 'GPS', model: 'Rgps'},
+    {title: 'Trabajo en Alturas', model: 'RtrabajoAltura'},
+    {title: 'Manejo de Alimentos', model: 'RmanejoAlimentos'},
+    {title: 'Certificado de Fumigación', model: 'RcertificadoFumigacion'},
+    {title: 'Sustancias Peligrosas', model: 'RsustanciaPeligrosa'},
+    {title: 'Kit de Derrames', model: 'RkitDerrames'},
+    {title: 'Elemento de Fumigación', model: 'RelementoFumigacion'},
+  ]
+
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -62,9 +75,8 @@ export class DetailsFreightDriverPage {
     modal.present()
   } 
 
-  shared(freight){
+  shared(freight){   
     
-    // console.log(JSON.stringify(freight))        
     const initDate = new Date(freight.inicio).toLocaleDateString()        
     const message = `Oferta CargaYa 
                       Detalle: ${freight.Robservaciones} 
@@ -73,14 +85,20 @@ export class DetailsFreightDriverPage {
                       Origen: ${freight.ciudad_origen} ,
                       Desitno: ${freight.ciudad_destino} ,  
                       ID: ${freight._id} 
-                      Ingresa a nuestra app y postúlate` 
-    // const message = `Oferta CargaYa Detalle: ${freight.Robservaciones} Flete: $${freight.flete}, Fecha de inicio: ${initDate}, Origen: ${freight.ciudad_origen}, Desitno: ${freight.ciudad_destino}, ID: ${freight._id}, Ingresa a nuestra app y postúlate` 
+                      Ingresa a nuestra app y postúlate`     
 
     const subject  = 'Carga Disponible, postulate'
     const file = null
     const url = null
 
     this.socialSharing.share(message, subject, file, url)
+  }
+
+  getRequirements(state){
+    if(state){
+      return 'Si'
+    }
+    return 'No'
   }
 
 
