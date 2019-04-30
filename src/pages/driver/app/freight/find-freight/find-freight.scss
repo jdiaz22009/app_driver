@@ -12,6 +12,10 @@ find-freight-driver{
     margin-bottom: 5rem;
   }
 
+  .card-md p {
+    margin: 0!important;
+  }
+
   .card-offert{
 
     margin-top: 1rem;
@@ -40,7 +44,7 @@ find-freight-driver{
   .c-date{
     color: color($colors, txwhite);
     font-size: 1.2rem;
-    margin-right: 1rem;
+    padding-right: 1rem;
     font-weight: 500;
   }
 

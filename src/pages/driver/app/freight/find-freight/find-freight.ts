@@ -41,7 +41,6 @@ export class FindFreightDriverPage {
     })
     return id
   }
-
   async getFreights(){
     const userId = await this.getUserId()
     console.log('UserId ' + userId)
@@ -83,8 +82,8 @@ export class FindFreightDriverPage {
   doRefresh(refresher) {    
     this.getFreights()
     setTimeout(() => {
-      refresher.complete();
-    }, 2000);
+      refresher.complete()
+    }, 2000)
   }
 
   shared(freight){
