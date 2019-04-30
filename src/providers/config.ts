@@ -9,9 +9,11 @@ export const CONFIG = {
     phone: '+573103999999'
   },
   api:{
-    url: 'http://142.93.52.217',
+    // url: 'http://142.93.52.217',
+    url: 'https://cargaya.live',
     urldev: 'http://localhost',
-    port: '5000',
+    // port: '5000',
+    port: '',
     jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YzMyNjQ5NDBjMDMyNzBhNWVjZmU4MjMiLCJyb2wiOiIxIiwiaWF0IjoxNTQ2ODA3NDEzLCJleHAiOjE5ODg2NTcwMTN9.VpkGt9VEyG78b5umMEINdCFqvvffmjE-rHhjbmKnHiQ',
     path:{
       login: '/api/v1/auth/login',

@@ -2,6 +2,8 @@ import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import 'rxjs/add/operator/map'
 
+import { SocialSharing } from '@ionic-native/social-sharing'
+
 import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
 import { FreightProvider } from '@providers/api/freight'
@@ -20,7 +22,8 @@ export class FindFreightDriverPage {
     public navCtrl: NavController,
     public apiFreight: FreightProvider,
     public db: StorageDb,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private socialSharing: SocialSharing) {
 
   }
 
@@ -47,7 +50,6 @@ export class FindFreightDriverPage {
     .then(res =>{
       const data = res['data']
       // data.reverse()
-
       const array = []
       data.forEach(e => {
          const drivers = e['postulantes']
@@ -66,7 +68,6 @@ export class FindFreightDriverPage {
       if(array.length > 0){
         array.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
       }
-
       // console.log(JSON.stringify(data))
       this.offers = array
 
@@ -82,9 +83,36 @@ export class FindFreightDriverPage {
   doRefresh(refresher) {    
     this.getFreights()
     setTimeout(() => {
-      // console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
+  }
+
+  shared(freight){
+    
+    console.log(JSON.stringify(freight))    
+
+    // const initDate = new Date(freight.inicio).toLocaleDateString() //.toLocaleString()
+    const initDate = new Date(freight.inicio).toLocaleDateString()    
+    // const initDate = freight.inicio.substring(0,10)
+    console.log(initDate)
+    
+    const message = `Oferta CargaYa 
+                      Detalle: ${freight.Robservaciones} 
+                      Flete: ${freight.flete} , 
+                      Fecha de inicio: ${initDate}, 
+                      Origen: ${freight.ciudad_origen} ,
+                      Desitno: ${freight.ciudad_destino} ,  
+                      ID: ${freight._id} 
+                      Ingresa a nuestra app y postúlate` 
+
+
+    // const message = `Oferta CargaYa Detalle: ${freight.Robservaciones} Flete: $${freight.flete}, Fecha de inicio: ${initDate}, Origen: ${freight.ciudad_origen}, Desitno: ${freight.ciudad_destino}, ID: ${freight._id}, Ingresa a nuestra app y postúlate` 
+
+    const subject  = 'Carga Disponible, postulate'
+    const file = null
+    const url = null
+
+    this.socialSharing.share(message, subject, file, url)
   }
 
 }

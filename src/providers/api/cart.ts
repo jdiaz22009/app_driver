@@ -12,7 +12,8 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class CartProvider {
 
-  api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  api_url: string = CONFIG.api.url
 
   add_path: string = CONFIG.api.cart.add
   getClass_path: string = CONFIG.api.cart.getClass

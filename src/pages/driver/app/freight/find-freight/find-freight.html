@@ -29,7 +29,7 @@
                         <span>{{item.ciudad_destino}}</span>
                       </p>
                   </ion-col>
-                  <ion-col col-3 class="c-shared">
+                  <ion-col col-3 class="c-shared" (click)="shared(item)">
                       <button ion-fab mini color="btn">
                           <ion-icon name="md-share"></ion-icon>
                       </button>
