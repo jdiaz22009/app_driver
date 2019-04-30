@@ -15,9 +15,43 @@
                 </ion-row>
               <ion-row justify-content-center>
                   <ion-col col-8 class="location">
-                      <p class="tx-title"><ion-icon name="custom-location" color="mapblue" class="map-icon"></ion-icon> Origen <span class="city">{{offer.ciudad_origen}}</span></p>
+
+
+                      <ion-row>
+                          <ion-col col-4>
+                              <p class="tx-title mi">
+                                  <ion-icon name="md-pin" color="statusbar"></ion-icon>
+                                  Origen
+                              </p>
+                          </ion-col>
+                          <ion-col>
+                              <span class="tx-summary ">{{offer.ciudad_origen}}</span>
+                          </ion-col>
+                        </ion-row>
+  
+                        <ion-row>
+                            <ion-col col-4>
+                                <p class="tx-title mi">
+                                    <ion-icon name="md-pin" color="btn"></ion-icon>
+                                    Destino
+                                  </p>
+                            </ion-col>
+                            <ion-col>
+                                <span class="tx-summary">{{offer.ciudad_destino}}</span>
+                            </ion-col>
+                        </ion-row>
+                      
+                    <!-- <p class="tx-title">
+                        <ion-icon name="custom-location" color="mapblue" class="map-icon"></ion-icon> 
+                        Origen 
+                        <span class="city">{{offer.ciudad_origen}}</span></p>
                       <br>
-                      <p class="tx-title"><ion-icon name="custom-location" color="mapgreen" class="map-icon"></ion-icon> Destino <span class="city">{{offer.ciudad_destino}}</span></p>
+                      <p class="tx-title">
+                        <ion-icon name="custom-location" color="mapgreen" class="map-icon"></ion-icon> 
+                        Destino 
+                        <span class="city">{{offer.ciudad_destino}}</span>
+                      </p> -->
+
                   </ion-col>
                   <ion-col offset-1 col-3 (click)="shared(offer)">
                       <button ion-fab mini color="btn">
