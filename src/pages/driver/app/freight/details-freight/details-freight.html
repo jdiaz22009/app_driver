@@ -19,7 +19,7 @@
                       <br>
                       <p class="tx-title"><ion-icon name="custom-location" color="mapgreen" class="map-icon"></ion-icon> Destino <span class="city">{{offer.ciudad_destino}}</span></p>
                   </ion-col>
-                  <ion-col offset-1 col-3>
+                  <ion-col offset-1 col-3 (click)="shared(offer)">
                       <button ion-fab mini color="btn">
                         <ion-icon name="md-share">
                       </ion-icon></button>

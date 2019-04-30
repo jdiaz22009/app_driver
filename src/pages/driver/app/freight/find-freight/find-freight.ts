@@ -89,13 +89,8 @@ export class FindFreightDriverPage {
 
   shared(freight){
     
-    console.log(JSON.stringify(freight))    
-
-    // const initDate = new Date(freight.inicio).toLocaleDateString() //.toLocaleString()
-    const initDate = new Date(freight.inicio).toLocaleDateString()    
-    // const initDate = freight.inicio.substring(0,10)
-    console.log(initDate)
-    
+    // console.log(JSON.stringify(freight))        
+    const initDate = new Date(freight.inicio).toLocaleDateString()        
     const message = `Oferta CargaYa 
                       Detalle: ${freight.Robservaciones} 
                       Flete: ${freight.flete} , 
@@ -104,8 +99,6 @@ export class FindFreightDriverPage {
                       Desitno: ${freight.ciudad_destino} ,  
                       ID: ${freight._id} 
                       Ingresa a nuestra app y postúlate` 
-
-
     // const message = `Oferta CargaYa Detalle: ${freight.Robservaciones} Flete: $${freight.flete}, Fecha de inicio: ${initDate}, Origen: ${freight.ciudad_origen}, Desitno: ${freight.ciudad_destino}, ID: ${freight._id}, Ingresa a nuestra app y postúlate` 
 
     const subject  = 'Carga Disponible, postulate'
