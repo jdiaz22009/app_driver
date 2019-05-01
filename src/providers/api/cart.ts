@@ -189,6 +189,7 @@ export class CartProvider {
       prop_direccion: cart.owner_address,
       prop_celular: cart.owner_mobil,
       prop_telefono: cart.owner_phone,
+      prop_email : cart.owner_email,
       propietario : cart.owner,
       tenedor : cart.fork_info
     }

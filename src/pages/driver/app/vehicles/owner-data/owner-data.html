@@ -151,13 +151,19 @@
                 <ion-label stacked>Celular </ion-label>
                 <ion-input [formControl]="ownerForm.controls['owner_mobil']" type="number" disabled="{{disableowner}}"></ion-input>
               </ion-item>
-            </ion-col>
+            </ion-col> 
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Teléfono </ion-label>
                 <ion-input [formControl]="ownerForm.controls['owner_phone']" type="number" disabled="{{disableowner}}"></ion-input>
               </ion-item>
             </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-item class=l-item>
+              <ion-label stacked>Email </ion-label>
+              <ion-input [formControl]="ownerForm.controls['owner_email']" type="email" disabled="{{disableowner}}"></ion-input>
+            </ion-item>
           </ion-row>
         </div>
       </ion-grid>

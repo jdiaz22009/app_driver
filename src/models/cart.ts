@@ -32,8 +32,8 @@ export interface Cart {
   gps_id: string;
   gps_user: string;
   gps_password: string;
-  fork_info:string;
-  owner : string;
+  fork_info: string;
+  owner: string;
   owner_type: string;
   owner_id_type: string;
   owner_id: string;
@@ -45,6 +45,7 @@ export interface Cart {
   owner_address: string;
   owner_mobil: string;
   owner_phone: string;
+  owner_email: string;
   owner_business_name: string;
   owner_nit: string;
   owner_country: string;
@@ -56,7 +57,7 @@ export interface Cart {
   owner_surname_legal_rep: string;
   owner_second_surname_legal_rep: string;
   owner_number_id_legal_rep: string;
-  owner_phone_legal_rep : string;
+  owner_phone_legal_rep: string;
   owner_email_legal_rep: string;
 
 }

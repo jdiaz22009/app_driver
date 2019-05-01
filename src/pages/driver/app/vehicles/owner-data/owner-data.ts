@@ -61,90 +61,91 @@ export class OwnerDataVehiclesDriverPage {
     this.getDepartment()
   }
 
-  setForm(){
+  setForm() {
     console.log(JSON.stringify(this.vehicle))
 
-    if(this.vehicle === undefined || this.vehicle === null){
+    if (this.vehicle === undefined || this.vehicle === null) {
       return
     }
 
-    if(this.vehicle['propietario'] !== undefined){
-      if(this.vehicle['propietario'] === 'Si'){
+    if (this.vehicle['propietario'] !== undefined) {
+      if (this.vehicle['propietario'] === 'Si') {
         this.ownerForm.controls['owner_yes'].setValue(true)
         this.ownerForm.controls['owner_no'].setValue(false)
-      }else if(this.vehicle['propietario'] === 'No'){
+      } else if (this.vehicle['propietario'] === 'No') {
         this.ownerForm.controls['owner_yes'].setValue(false)
         this.ownerForm.controls['owner_no'].setValue(true)
 
         this.is_owner = 0
 
-        if(this.vehicle['tenedor'] !== undefined){
-          if(this.vehicle['tenedor'] === 'Si'){
+        if (this.vehicle['tenedor'] !== undefined) {
+          if (this.vehicle['tenedor'] === 'Si') {
             this.ownerForm.controls['owner_prop_yes'].setValue(false)
             this.ownerForm.controls['owner_prop_no'].setValue(true)
-          }else if(this.vehicle['tenedor'] === 'No'){
+          } else if (this.vehicle['tenedor'] === 'No') {
             this.ownerForm.controls['owner_prop_yes'].setValue(true)
             this.ownerForm.controls['owner_prop_no'].setValue(false)
           }
-        }else{
+        } else {
           this.ownerForm.controls['owner_prop_yes'].setValue(false)
           this.ownerForm.controls['owner_prop_no'].setValue(false)
         }
       }
-    }else{
+    } else {
       this.ownerForm.controls['owner_yes'].setValue(false)
       this.ownerForm.controls['owner_no'].setValue(false)
     }
 
     console.log(this.vehicle['prop_tipo_persona'])
 
-    if(this.vehicle['prop_tipo_persona'] !== undefined){
+    if (this.vehicle['prop_tipo_persona'] !== undefined) {
       this.ownerForm.controls['owner_type'].setValue(this.vehicle['prop_tipo_persona'])
-      if(this.vehicle['prop_tipo_persona'] === 'natural'){
+      if (this.vehicle['prop_tipo_persona'] === 'natural') {
 
         const objArray = [
-          {item: 'prop_tipo_identificacion', form: 'owner_id_type'},
-          {item: 'prop_identificacion', form: 'owner_id'},
-          {item: 'prop_primer_nombre', form: 'owner_first_name'},
-          {item: 'prop_segundo_nombre', form: 'owner_second_name'},
-          {item: 'prop_primer_apellido', form: 'owner_first_lastname'},
-          {item: 'prop_segundo_apellido', form: 'owner_second_lastname'},
-          {item: 'prop_pais', form: 'owner_country'},
-          {item: 'prop_departamento', form: 'owner_department'},
-          {item: 'prop_municipio', form: 'owner_state'},
-          {item: 'prop_direccion', form: 'owner_address'},
-          {item: 'prop_celular', form: 'owner_mobil'},
-          {item: 'prop_telefono', form: 'owner_phone'}
+          { item: 'prop_tipo_identificacion', form: 'owner_id_type' },
+          { item: 'prop_identificacion', form: 'owner_id' },
+          { item: 'prop_primer_nombre', form: 'owner_first_name' },
+          { item: 'prop_segundo_nombre', form: 'owner_second_name' },
+          { item: 'prop_primer_apellido', form: 'owner_first_lastname' },
+          { item: 'prop_segundo_apellido', form: 'owner_second_lastname' },
+          { item: 'prop_pais', form: 'owner_country' },
+          { item: 'prop_departamento', form: 'owner_department' },
+          { item: 'prop_municipio', form: 'owner_state' },
+          { item: 'prop_direccion', form: 'owner_address' },
+          { item: 'prop_celular', form: 'owner_mobil' },
+          { item: 'prop_telefono', form: 'owner_phone' },
+          { item: 'prop_email', form: 'owner_email' }
         ]
 
-        objArray.map(item =>{
-          if(this.vehicle[item.item] !== undefined){
+        objArray.map(item => {
+          if (this.vehicle[item.item] !== undefined) {
             this.ownerForm.controls[item.form].setValue(this.vehicle[item.item])
           }
         })
 
       }
-    }else{
+    } else {
       const objArray = [
-        {item: 'prop_razon_social', form: 'owner_business_name'},
-        {item: 'prop_nit', form: 'owner_nit'},
-        {item: 'prop_pais', form: 'owner_country'},
-        {item: 'prop_departamento', form: 'owner_department'},
-        {item: 'prop_municipio_negocio', form: 'owner_municipality'},
-        {item: 'prop_direccion_negocio', form: 'owner_address'},
-        {item: 'prop_celular_negocio', form: 'owner_mobile'},
-        {item: 'prop_telefono_negocio', form: 'owner_phone'},
-        {item: 'prop_repre_primer_nombre', form: 'owner_first_name_legal_rep'},
-        {item: 'prop_repre_segundo_nombre', form: 'owner_second_name_legal_rep'},
-        {item: 'prop_repre_primer_apellido', form: 'owner_surname_legal_rep'},
-        {item: 'prop_repre_segundo_apellido', form: 'owner_second_surname_legal_rep'},
-        {item: 'prop_repre_documento', form: 'owner_number_id_legal_rep'},
-        {item: 'prop_repre_celular', form: 'owner_phone_legal_rep'},
-        {item: 'prop_repre_email', form: 'owner_email_legal_rep'}
+        { item: 'prop_razon_social', form: 'owner_business_name' },
+        { item: 'prop_nit', form: 'owner_nit' },
+        { item: 'prop_pais', form: 'owner_country' },
+        { item: 'prop_departamento', form: 'owner_department' },
+        { item: 'prop_municipio_negocio', form: 'owner_municipality' },
+        { item: 'prop_direccion_negocio', form: 'owner_address' },
+        { item: 'prop_celular_negocio', form: 'owner_mobile' },
+        { item: 'prop_telefono_negocio', form: 'owner_phone' },
+        { item: 'prop_repre_primer_nombre', form: 'owner_first_name_legal_rep' },
+        { item: 'prop_repre_segundo_nombre', form: 'owner_second_name_legal_rep' },
+        { item: 'prop_repre_primer_apellido', form: 'owner_surname_legal_rep' },
+        { item: 'prop_repre_segundo_apellido', form: 'owner_second_surname_legal_rep' },
+        { item: 'prop_repre_documento', form: 'owner_number_id_legal_rep' },
+        { item: 'prop_repre_celular', form: 'owner_phone_legal_rep' },
+        { item: 'prop_repre_email', form: 'owner_email_legal_rep' }
       ]
 
-      objArray.map(item =>{
-        if(this.vehicle[item.item] !== undefined){
+      objArray.map(item => {
+        if (this.vehicle[item.item] !== undefined) {
           this.ownerForm0.controls[item.form].setValue(this.vehicle[item.item])
         }
       })
@@ -152,7 +153,7 @@ export class OwnerDataVehiclesDriverPage {
 
   }
 
-  buildFormOwner(){
+  buildFormOwner() {
 
     this.ownerForm = this.formBuilder.group({
       owner_yes: ['', Validators.compose([
@@ -188,6 +189,8 @@ export class OwnerDataVehiclesDriverPage {
       owner_mobil: ['', Validators.compose([
         Validators.minLength(0)])],
       owner_phone: ['', Validators.compose([
+        Validators.minLength(0)])],
+      owner_email: ['', Validators.compose([
         Validators.minLength(0)])]
     })
 
@@ -226,26 +229,26 @@ export class OwnerDataVehiclesDriverPage {
     })
   }
 
-  getDepartment(){
-    this.cities.getAllData().then(() =>{
-      this.cities.getDepartments().then(res =>{
+  getDepartment() {
+    this.cities.getAllData().then(() => {
+      this.cities.getDepartments().then(res => {
         this.departmentsOptions = res
         this.getCity(0)
       })
     })
   }
 
-  getCity(mode){
+  getCity(mode) {
     let department
-    if(mode === 0){
+    if (mode === 0) {
       department = this.ownerForm.controls['owner_department'].value
-    }else if(mode === 1){
+    } else if (mode === 1) {
       department = this.ownerForm0.controls['owner_department'].value
     }
 
-    if(department !== ''){
+    if (department !== '') {
       const i = this.departmentsOptions.indexOf(department)
-      this.cities.getCities(i).then(res =>{
+      this.cities.getCities(i).then(res => {
         this.citiesOptions = res
       })
     }
@@ -278,11 +281,12 @@ export class OwnerDataVehiclesDriverPage {
       this.cart.owner_address = this.ownerForm.controls['owner_address'].value
       this.cart.owner_mobil = this.ownerForm.controls['owner_mobil'].value
       this.cart.owner_phone = this.ownerForm.controls['owner_phone'].value
+      this.cart.owner_email = this.ownerForm.controls['owner_email'].value
 
       console.log(JSON.stringify(this.cart))
 
       this.cartApi.updateVehicleAddOwnerNat(this.cart, this.vehicle._id).then(res => {
-        if(res){
+        if (res) {
           loader.dismiss()
           this.navCtrl.pop()
           this.alert.showAlert('Información Actualizada', 'Se ha actualizado tu vehículo correctamente')
@@ -336,7 +340,7 @@ export class OwnerDataVehiclesDriverPage {
   }
 
   ckOwnerYes() {
-    if(this.ownerForm.controls['owner_yes'].value) {
+    if (this.ownerForm.controls['owner_yes'].value) {
       this.ownerForm.controls['owner_no'].setValue(false)
       this.is_owner = 1
       this.disableowner = true
@@ -354,7 +358,8 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_address'].setValue(this.userData.direccion)
       this.ownerForm.controls['owner_mobil'].setValue(this.userData.celular)
       this.ownerForm.controls['owner_phone'].setValue(this.userData.telefono_1)
-    }else {
+      this.ownerForm.controls['owner_email'].setValue(this.userData.email)
+    } else {
       this.is_owner = 1
       this.disableowner = false
       this.cart.owner = ''
@@ -371,6 +376,7 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_address'].setValue('')
       this.ownerForm.controls['owner_mobil'].setValue('')
       this.ownerForm.controls['owner_phone'].setValue('')
+      this.ownerForm.controls['owner_email'].setValue('')
     }
   }
 
@@ -393,6 +399,7 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_address'].setValue('')
       this.ownerForm.controls['owner_mobil'].setValue('')
       this.ownerForm.controls['owner_phone'].setValue('')
+      this.ownerForm.controls['owner_email'].setValue('')
     } else if (this.ownerForm.controls['owner_no'].value === false) {
       this.is_owner = 1
       this.cart.owner = ''
