@@ -340,12 +340,8 @@ export class OwnerDataVehiclesDriverPage {
   }
 
   ckOwnerYes() {
-<<<<<<< HEAD
-    if (this.ownerForm.controls['owner_yes'].value) {
-=======
     if(this.ownerForm.controls['owner_yes'].value) {
       console.log(JSON.stringify(this.userData))
->>>>>>> bd4177d5c97b0c0a1857da1d1560a22de7b11e54
       this.ownerForm.controls['owner_no'].setValue(false)
       this.is_owner = 1
       this.disableowner = true
