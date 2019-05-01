@@ -15,7 +15,8 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class DriverAuthProvider {
 
-  api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  api_url: string = CONFIG.api.url
 
   getDriver_path: string = CONFIG.api.drivers.getDrivers
   login_path: string = CONFIG.api.drivers.login

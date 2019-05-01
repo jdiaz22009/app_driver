@@ -12,7 +12,8 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class CartProvider {
 
-  api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  api_url: string = CONFIG.api.url
 
   add_path: string = CONFIG.api.cart.add
   getClass_path: string = CONFIG.api.cart.getClass
@@ -21,7 +22,7 @@ export class CartProvider {
   getMyVehicle_path: string = CONFIG.api.cart.getMyVehicle
   getMySelected_path: string = CONFIG.api.cart.getMySelect
   inService_path: string = CONFIG.api.cart.updateVehicle
-  removeVehicle_path: string = ''
+  removeVehicle_path: string = CONFIG.api.cart.deleteVehicle
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -324,6 +325,15 @@ export class CartProvider {
     const url = this.api_url + this.removeVehicle_path + '/' + id
 
     const token = await this.getToken()
+
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+    try {
+      return await this.apiClient.request('DELETE', url, null, headers)
+    } catch (e) {
+      throw e
+    }
+
+
   }
 
 }

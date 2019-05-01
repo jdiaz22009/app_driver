@@ -36,9 +36,6 @@ export class MyApp {
     this.loadApp()
   }
 
-
-
-
   loadApp() {
     this.platform.ready().then(() => {
 
@@ -68,7 +65,7 @@ export class MyApp {
         );
 
         this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
-      
+
       }
 
       firebase.initializeApp(FIREBASE_CONFIG)

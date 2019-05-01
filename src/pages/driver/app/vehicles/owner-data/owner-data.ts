@@ -340,7 +340,12 @@ export class OwnerDataVehiclesDriverPage {
   }
 
   ckOwnerYes() {
+<<<<<<< HEAD
     if (this.ownerForm.controls['owner_yes'].value) {
+=======
+    if(this.ownerForm.controls['owner_yes'].value) {
+      console.log(JSON.stringify(this.userData))
+>>>>>>> bd4177d5c97b0c0a1857da1d1560a22de7b11e54
       this.ownerForm.controls['owner_no'].setValue(false)
       this.is_owner = 1
       this.disableowner = true
@@ -354,7 +359,8 @@ export class OwnerDataVehiclesDriverPage {
       this.ownerForm.controls['owner_second_lastname'].setValue(this.userData.segundo_apellido)
       this.ownerForm.controls['owner_country'].setValue(this.userData.pais)
       this.ownerForm.controls['owner_department'].setValue(this.userData.departamento)
-      this.ownerForm.controls['owner_state'].setValue(this.userData.ciudad)
+      this.getCity(0)
+      this.ownerForm.controls['owner_state'].patchValue(this.userData.ciudad)
       this.ownerForm.controls['owner_address'].setValue(this.userData.direccion)
       this.ownerForm.controls['owner_mobil'].setValue(this.userData.celular)
       this.ownerForm.controls['owner_phone'].setValue(this.userData.telefono_1)

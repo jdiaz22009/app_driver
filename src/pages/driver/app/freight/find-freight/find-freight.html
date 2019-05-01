@@ -18,18 +18,33 @@
             <ion-grid>
               <ion-row>
                   <ion-col col-9>
-                      <p class="tx-title mi">
-                        <ion-icon name="md-pin" color="statusbar"></ion-icon>
-                        Origen
-                        <span>{{item.ciudad_origen}}</span>
-                      </p>
-                      <p class="tx-title mi">
-                        <ion-icon name="md-pin" color="btn"></ion-icon>
-                        Destino
-                        <span>{{item.ciudad_destino}}</span>
-                      </p>
+                      <ion-row>
+                        <ion-col col-4>
+                            <p class="tx-title mi">
+                                <ion-icon name="md-pin" color="statusbar"></ion-icon>
+                                Origen
+                            </p>
+                        </ion-col>
+                        <ion-col>
+                            <span class="tx-summary ">{{item.ciudad_origen}}</span>
+                        </ion-col>
+                      </ion-row>
+
+                      <ion-row>
+                          <ion-col col-4>
+                              <p class="tx-title mi">
+                                  <ion-icon name="md-pin" color="btn"></ion-icon>
+                                  Destino
+                                </p>
+                          </ion-col>
+                          <ion-col>
+                              <span class="tx-summary">{{item.ciudad_destino}}</span>
+                          </ion-col>
+                      </ion-row>
+                      
+                      
                   </ion-col>
-                  <ion-col col-3 class="c-shared">
+                  <ion-col col-2 class="c-shared" (click)="shared(item)">
                       <button ion-fab mini color="btn">
                           <ion-icon name="md-share"></ion-icon>
                       </button>
@@ -38,19 +53,20 @@
               </ion-row>
 
               <ion-row>
-                  <ion-col col-7>
+                  <ion-col col-6>
                     <p class="tx-title">Tipo</p>
                     <p class="tx-summary">{{item.tipo_carroceria}}</p>
                     <p class="tx-title">Peso</p>
-                    <p class="tx-summary">{{item.peso_carga_max}}</p>
+                    <p class="tx-summary">{{item.peso_carga_max}} TON</p>
                     <p class="tx-title">Flete</p>
                     <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
                   </ion-col>
-                  <ion-col col-5 class="no-padding">
+                  <ion-col col-6 class="no-padding">
                     <p class="tx-title">Carrocería</p>
                     <p class="tx-summary"> {{item.clase_vehiculo}}</p>
                     <p class="tx-title">Fecha de Carga</p>
-                    <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
+                    <!-- <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p> -->
+                    <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy'}}</p>
                     <br>
                     <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">
 

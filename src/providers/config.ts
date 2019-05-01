@@ -9,9 +9,11 @@ export const CONFIG = {
     phone: '+573103999999'
   },
   api:{
-    url: 'http://142.93.52.217',
+    // url: 'http://142.93.52.217',
+    url: 'https://cargaya.live',
     urldev: 'http://localhost',
-    port: '5000',
+    // port: '5000',
+    port: '',
     jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YzMyNjQ5NDBjMDMyNzBhNWVjZmU4MjMiLCJyb2wiOiIxIiwiaWF0IjoxNTQ2ODA3NDEzLCJleHAiOjE5ODg2NTcwMTN9.VpkGt9VEyG78b5umMEINdCFqvvffmjE-rHhjbmKnHiQ',
     path:{
       login: '/api/v1/auth/login',
@@ -37,7 +39,8 @@ export const CONFIG = {
       getVehicles: '/api/v1/auth/conductores/get-vehicles',
       getMyVehicle: '/api/v1/auth/conductores/get-my-vehicle',
       updateVehicle: '/api/v1/auth/conductores/update-my-vehicle',
-      getMySelect: '/api/v1/auth/conductores/get-my-vehicle-select'
+      getMySelect: '/api/v1/auth/conductores/get-my-vehicle-select',
+      deleteVehicle: '/api/v1/auth/vehicles/delete'
     },
     offer:{
       get: '/api/v1/offers/get-offers',

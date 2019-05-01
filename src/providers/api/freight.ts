@@ -10,7 +10,8 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class FreightProvider{
 
-  api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
+  api_url: string = CONFIG.api.url
 
   get_path: string = CONFIG.api.offer.get
   getById_path: string = CONFIG.api.offer.getById
@@ -131,7 +132,7 @@ export class FreightProvider{
     const params = qs.stringify({
       id: offer_id,
       titulo: 'Nuevo Oferente',
-      cuerpo: 'conductor postulado'
+      cuerpo: 'Conductor postulado'
     })
 
     try{

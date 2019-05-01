@@ -35,8 +35,18 @@ android:roundIcon="@mipmap/ic_launcher_round
 -> Generate APK (v1 v2)
 name file : cargaya.jks
 password keystore: cargaya2017
-key alias: cargayaexpress
+alias: cargayaexpress
 key password: cargaya2017
+
+# Build from Ionic/Cordova CLI
+
+```
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cargaya.jks app-release-unsigned.apk cargayaexpress
+```
+
+```
+~/Library/Android/sdk/build-tools/26.0.3/zipalign -v 4 app-release-unsigned.apk cargaya.apk
+```
 
 Google Store:
 Usuario servicliente@cargaya.com
