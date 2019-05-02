@@ -241,7 +241,8 @@ export class CartProvider {
         vehicleFront: imgArray.vehicleFront === null ? '' : imgArray.vehicleFront,
         vehicleBack: imgArray.vehicleBack === null ? '' : imgArray.vehicleBack,
         vehicleRight: imgArray.vehicleRight === null ? '' : imgArray.vehicleRight,
-        vehicleLeft: imgArray.vehicleLeft === null ? '' : imgArray.vehicleLeft
+        vehicleLeft: imgArray.vehicleLeft === null ? '' : imgArray.vehicleLeft,
+        vehicleCab: imgArray.vehicleCab === null ? '' : imgArray.vehicleCab
       }
     }
 

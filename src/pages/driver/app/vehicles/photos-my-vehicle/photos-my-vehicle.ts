@@ -21,6 +21,7 @@ export class PhotosMyVehiclesDriverPage {
   vehicleBack: string = this.noImg
   vehicleRight: string = this.noImg
   vehicleLeft: string = this.noImg
+  vehicleCab: string = this.noImg
 
   pictureMode: number = 3
 
@@ -31,6 +32,7 @@ export class PhotosMyVehiclesDriverPage {
     {name: 'vehicleBack'},
     {name: 'vehicleRight'},
     {name: 'vehicleLeft'},
+    {name: 'vehicleCab'}
   ]
 
   constructor(
