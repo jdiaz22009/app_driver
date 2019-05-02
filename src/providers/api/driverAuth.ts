@@ -239,6 +239,7 @@ export class DriverAuthProvider {
     }
   }
   async updateBankInformationPhotos(imgArray) {
+    console.log(JSON.stringify(imgArray))
     const url = this.api_url + this.updatedrivers_path
     const token = await this.getToken()
 

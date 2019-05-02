@@ -12,7 +12,6 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class CartProvider {
 
-  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
   api_url: string = CONFIG.api.url
 
   add_path: string = CONFIG.api.cart.add
@@ -274,29 +273,6 @@ export class CartProvider {
     }
   }
 
-  // async updateBankInformationImages(imgArray, id){
-  //   const url = this.api_url + this.updateVehicle_path + '/' + id
-  //   const token = await this.getToken()
-
-  //   const params = {
-  //     bankInformation:{
-  //       advanceAutorization: imgArray.advanceAutorization === null ? '' : imgArray.advanceAutorization ,
-  //       advanceCertificate: imgArray.advanceCertificate === null ? '' : imgArray.advanceCertificate ,
-  //       advanceLetter: imgArray.advanceLetter === null ? '' : imgArray.advanceLetter ,
-  //       balanceAutorization: imgArray.balanceAutorization === null ? '' : imgArray.balanceAutorization ,
-  //       balanceCertificate: imgArray.balanceCertificate === null ? '' : imgArray.balanceCertificate ,
-  //       balanceLetter: imgArray.balanceLetter === null ? '' : imgArray.balanceLetter
-  //     }
-  //   }
-
-  //   const headers = { 'Authorization': token, 'content-type': 'application/json' }
-
-  //   try {
-  //     return await this.apiClient.request('PUT', url, params, headers)
-  //   } catch (e) {
-  //     throw e
-  //   }
-  // }
 
   async updateVehiclesDocumentationImages(imgArray, id){
     const url = this.api_url + this.updateVehicle_path + '/' + id
@@ -376,7 +352,6 @@ export class CartProvider {
     } catch (e) {
       throw e
     }
-
 
   }
 

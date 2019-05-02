@@ -73,11 +73,6 @@ export class FirebaseProvider{
     return await this.database.ref(reference).update(data)
    }
 
-  //  async updateHoldermagesPath(userId, data){
-  //   let reference = `drivers/${userId}/profile/HolderInformation`
-  //   return await this.database.ref(reference).update(data)
-  //  }
-
    getProfilePicture(mode, userId, vehicleId){
 
     let reference = `drivers/${userId}`
