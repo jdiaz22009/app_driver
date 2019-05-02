@@ -34,13 +34,29 @@
               <ion-row justify-content-center>
                 <ion-col col-4 offset-2>
                   <p class="tx-title">Propietario</p>
-                  <ion-checkbox color="btn"  [formControl]="ownerForm.controls['owner_prop_yes']" (ionChange)="ckOwnerProYes()"></ion-checkbox>
+                  <ion-checkbox
+                    color="btn"
+                    [formControl]="ownerForm.controls['owner_prop_yes']"
+                    (ionChange)="ckOwnerProYes()">
+                  </ion-checkbox>
                 </ion-col>
                 <ion-col col-4>
                   <p class="tx-title">Tenedor</p>
-                  <ion-checkbox color="btn"  [formControl]="ownerForm.controls['owner_prop_no']" (ionChange)="ckOwnerProNo()"></ion-checkbox>
+                  <ion-checkbox
+                    color="btn"
+                    [formControl]="ownerForm.controls['owner_prop_no']"
+                    (ionChange)="ckOwnerProNo()">
+                  </ion-checkbox>
                 </ion-col>
               </ion-row>
+
+              <ion-row *ngIf="showImageLetter" justify-content-center>
+                <ion-col col-4>
+                    <img class="p-photos" [src]="holderLetter" (click)="setPicture('holderLetter')">
+                    <p class="p-summary">Carta de tenencia</p>
+                </ion-col>
+              </ion-row>
+
             </ion-grid>
       </div>
 
@@ -151,7 +167,7 @@
                 <ion-label stacked>Celular </ion-label>
                 <ion-input [formControl]="ownerForm.controls['owner_mobil']" type="number" disabled="{{disableowner}}"></ion-input>
               </ion-item>
-            </ion-col> 
+            </ion-col>
             <ion-col col-6>
               <ion-item class=l-item>
                 <ion-label stacked>Teléfono </ion-label>

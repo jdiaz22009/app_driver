@@ -208,7 +208,7 @@ export class DriverAuthProvider {
   async updateDriverC(driver: DataUserC) {
     const url = this.api_url + this.updatedrivers_path
     const token = await this.getToken()
-    console.log('--DriverAuth-- updateDriverC driver: ', driver)
+    console.log('--DriverAuth-- updateDriverC driver: ', JSON.stringify(driver))
 
     const params = {
       fecha_expedicion_cedula: driver.fecha_expedicion_cedula,
@@ -243,7 +243,7 @@ export class DriverAuthProvider {
     const token = await this.getToken()
 
     const params = {
-      BankInformation:{
+      bankInformation:{
         advanceAutorization: imgArray.advanceAutorization === null ? '' : imgArray.advanceAutorization,
         advanceCertificate: imgArray.advanceCertificate === null ? '' : imgArray.advanceCertificate,
         advanceLetter: imgArray.advanceLetter === null ? '' : imgArray.advanceLetter,

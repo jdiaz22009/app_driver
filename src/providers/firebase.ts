@@ -60,6 +60,9 @@ export class FirebaseProvider{
        case 3:
         reference += `/vehiclesImages/${vehicleId}`
        break;
+       case 4:
+        reference += `/ownerImages/${vehicleId}`
+       break;
      }
 
     return await this.database.ref(reference).set(data)
@@ -69,6 +72,11 @@ export class FirebaseProvider{
     let reference = `drivers/${userId}/profile/BankInformation`
     return await this.database.ref(reference).update(data)
    }
+
+  //  async updateHoldermagesPath(userId, data){
+  //   let reference = `drivers/${userId}/profile/HolderInformation`
+  //   return await this.database.ref(reference).update(data)
+  //  }
 
    getProfilePicture(mode, userId, vehicleId){
 
@@ -85,6 +93,9 @@ export class FirebaseProvider{
        break;
        case 3:
         reference += `/vehiclesImages/${vehicleId}`
+       break;
+       case 4:
+        reference += `/ownerImages/${vehicleId}`
        break;
      }
 

@@ -477,8 +477,6 @@ export class ProfileBankDriverPage {
 
     if (this.step_form === 0) {
 
-      console.log('dataArray (000) ' + JSON.stringify(dataArray))
-
       this.profile_bank.paso = 1
 
       if (this.bankForm.controls['checknequi'].value) {
@@ -508,18 +506,14 @@ export class ProfileBankDriverPage {
             console.log('save image ' + res)
             if(res !== null){
               dataArray['advanceAutorization']= res
-              // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
-              //   console.log('save path success ' + JSON.stringify(dataArray))
-              // })
               this.fire.updateBankImagesPath(userId, dataArray)
+              this.auth.updateBankInformationPhotos(dataArray)
             }
           })
         }else{
           dataArray['advanceAutorization'] = this.advanceAutorization
-          // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
-          //   console.log('save path success ' + JSON.stringify(dataArray))
-          // })
           this.fire.updateBankImagesPath(userId, dataArray)
+          this.auth.updateBankInformationPhotos(dataArray)
         }
 
         this.auth.bankData(this.profile_bank).then(res => {
@@ -582,12 +576,7 @@ export class ProfileBankDriverPage {
         Promise.all(results).then(completed =>{
           console.log('completed ' + completed)
           this.fire.updateBankImagesPath(userId, dataArray)
-          // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() => {
-          //   console.log('save image path ')
-          //   console.log('dataArray (0) ' + JSON.stringify(dataArray))
-          // }).catch(e => {
-          //   console.error('Error to save image path ' + e)
-          // })
+          this.auth.updateBankInformationPhotos(dataArray)
         })
 
         this.auth.bankData(this.profile_bank)
@@ -642,15 +631,13 @@ export class ProfileBankDriverPage {
               //   console.log('save path success ' + JSON.stringify(dataArray) )
               // })
               this.fire.updateBankImagesPath(userId, dataArray)
+              this.auth.updateBankInformationPhotos(dataArray)
             }
           })
         }else{
           dataArray['balanceAutorization'] = this.balanceAutorization
-          console.log('else  balanceAutorization ' + JSON.stringify(dataArray))
-          // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
-          //   console.log('save path success ' + JSON.stringify(dataArray))
-          // })
           this.fire.updateBankImagesPath(userId, dataArray)
+          this.auth.updateBankInformationPhotos(dataArray)
         }
 
         this.auth.bankData(this.profile_bank).then(res => {
@@ -713,6 +700,7 @@ export class ProfileBankDriverPage {
         Promise.all(results).then(completed =>{
           console.log('completed ' + completed)
           this.fire.updateBankImagesPath(userId, dataArray)
+          this.auth.updateBankInformationPhotos(dataArray)
           // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() => {
           //   console.log('save image path ')
           // }).catch(e => {

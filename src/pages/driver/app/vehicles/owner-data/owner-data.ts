@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Cart } from '@models/cart'
@@ -8,7 +8,10 @@ import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { CartProvider } from '@providers/api/cart'
 import { CitiesProvider } from '@providers/cities'
-
+import { FirebaseProvider } from '@providers/firebase'
+import { StorageDb } from '@providers/storageDb'
+import { CONFIG } from '@providers/config'
+import { MediaProvider } from '@providers/media'
 @IonicPage()
 @Component({
   selector: 'owner-data',
@@ -20,26 +23,33 @@ export class OwnerDataVehiclesDriverPage {
   ownerForm0: FormGroup
 
   cart = {} as Cart
+
   vehicle: any
   owner: any
   userData: any = []
-
-  step_form: number = 0
-  is_owner: number = 1
-  disableowner: boolean = false
-
-
   step_images: any = [
     './assets/imgs/step-1-2.png',
     './assets/imgs/step-2-2.png'
   ]
-  step_img: string = this.step_images[0]
-  btn_txt: string = 'Guardar'
-
   departmentsOptions: any = []
   citiesOptions: any = []
 
+  picturesObj = [
+    {name: 'holderLetter'}
+  ]
+
+  step_form: number = 0
+  is_owner: number = 1
   show_type: number = 0
+  pictureMode: number = 4
+
+  disableowner: boolean = false
+  showImageLetter: boolean = false
+
+  step_img: string = this.step_images[0]
+  btn_txt: string = 'Guardar'
+  noImg: string = './assets/imgs/no_photo.png'
+  holderLetter: string = this.noImg
 
   constructor(
     public navCtrl: NavController,
@@ -49,6 +59,11 @@ export class OwnerDataVehiclesDriverPage {
     public cartApi: CartProvider,
     public alert: AlertsProvider,
     public cities: CitiesProvider,
+    public media: MediaProvider,
+    public fire: FirebaseProvider,
+    public db: StorageDb,
+    public actionSheetCtrl: ActionSheetController,
+    private modalCtrl: ModalController,
     public loadingCtrl: LoadingController) {
 
     this.vehicle = navParams.get('vehicle')
@@ -59,6 +74,7 @@ export class OwnerDataVehiclesDriverPage {
   ionViewDidLoad() {
     this.getProfile()
     this.getDepartment()
+    this.getProfilePicture()
   }
 
   setForm() {
@@ -80,9 +96,11 @@ export class OwnerDataVehiclesDriverPage {
 
         if (this.vehicle['tenedor'] !== undefined) {
           if (this.vehicle['tenedor'] === 'Si') {
+            this.showImageLetter = true
             this.ownerForm.controls['owner_prop_yes'].setValue(false)
             this.ownerForm.controls['owner_prop_no'].setValue(true)
           } else if (this.vehicle['tenedor'] === 'No') {
+            this.showImageLetter = false
             this.ownerForm.controls['owner_prop_yes'].setValue(true)
             this.ownerForm.controls['owner_prop_no'].setValue(false)
           }
@@ -229,6 +247,76 @@ export class OwnerDataVehiclesDriverPage {
     })
   }
 
+  async getProfilePicture(){
+    const loader = this.loadingCtrl.create({})
+    loader.present()
+    const userId = await this.getUserId()
+
+    this.fire.getProfilePicture(this.pictureMode, userId, this.vehicle._id).then(res =>{
+
+      if(res !== null){
+        this.picturesObj.map(picture =>{
+          if(res[picture.name] !== undefined && res[picture.name].includes('http')){
+            this[picture.name] = res[picture.name]
+          }
+        })
+      }
+
+      loader.dismiss()
+
+    }).catch(e =>{
+      loader.dismiss()
+      console.error('error ' + e)
+    })
+
+  }
+
+  setPicture(id) {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Subir foto',
+      buttons: [
+        {
+          text: 'Tomar Foto',
+          role: 'takePicure',
+          handler: () => {
+            this.takePicture(id, 1)
+
+          }
+        },
+        {
+          text: 'Seleccionar de Galeria',
+          role: 'takePicture',
+          handler: () => {
+            this.takePicture(id, 0)
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('cancel clicked')
+          }
+        }
+      ]
+    })
+    actionSheet.present()
+  }
+
+  takePicture(modelPicture, mode) {
+    this.media.takePicture(mode)
+      .then(res => {
+        const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
+        modal.onDidDismiss(data => {
+          if (data) {
+            this[modelPicture] = data.cropResult
+          }
+        })
+        modal.present()
+      }).catch(e => {
+        console.error(e)
+      })
+  }
+
   getDepartment() {
     this.cities.getAllData().then(() => {
       this.cities.getDepartments().then(res => {
@@ -256,12 +344,35 @@ export class OwnerDataVehiclesDriverPage {
 
   getProfile() {
     this.auth.getDriver().then(res => {
-      // console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
     })
   }
 
-  save() {
+  async saveOnePicture(dataImg, id, name){
+    const img = dataImg.substring(23)
+    return await this.fire.uploadPicture(img, id, name).then(res => {
+      return res
+    }).catch(e => {
+      console.error('error upload ' + e.message)
+      return null
+    })
+  }
+
+  isBase64Img(str) {
+    try {
+        return str.includes('data:image/jpeg;base64')
+    } catch (e) {
+        return false
+    }
+  }
+
+  async getUserId() {
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+      return res.userId
+    })
+  }
+
+  async save() {
     const loader = this.loadingCtrl.create({})
     loader.present()
     this.cart.owner_type = this.ownerForm.controls['owner_type'].value
@@ -284,6 +395,30 @@ export class OwnerDataVehiclesDriverPage {
       this.cart.owner_email = this.ownerForm.controls['owner_email'].value
 
       console.log(JSON.stringify(this.cart))
+
+
+      const userId = await this.getUserId()
+
+      let dataArray = {}
+
+      if(this.holderLetter !== this.noImg && this.isBase64Img(this.holderLetter)){
+        this.saveOnePicture(this.holderLetter , userId, 'holderLetter').then(res =>{
+          console.log('save image ' + res)
+          if(res !== null){
+            dataArray['holderLetter']= res
+            this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, this.vehicle._id)
+            this.cartApi.updateVehicleHolderImages(dataArray, this.vehicle._id).then(res =>{
+              console.log('save path to mongo server success ' + res)
+            })
+          }
+        })
+      }else{
+        dataArray['holderLetter'] = this.holderLetter
+        this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, this.vehicle._id)
+        this.cartApi.updateVehicleHolderImages(dataArray, this.vehicle._id).then(res =>{
+          console.log('save path to mongo server success ' + res)
+        })
+      }
 
       this.cartApi.updateVehicleAddOwnerNat(this.cart, this.vehicle._id).then(res => {
         if (res) {
@@ -409,20 +544,23 @@ export class OwnerDataVehiclesDriverPage {
   }
 
   ckOwnerProYes() {
-    if (this.ownerForm.controls['owner_prop_yes'].value === true) {
+    this.showImageLetter = false
+    if(this.ownerForm.controls['owner_prop_yes'].value) {
       this.ownerForm.controls['owner_prop_no'].setValue(false)
       this.cart.fork_info = 'No'
-    } else if (this.ownerForm.controls['owner_prop_yes'].value === false) {
+    }else{
       this.cart.fork_info = 'Si'
     }
   }
 
   ckOwnerProNo() {
-    if (this.ownerForm.controls['owner_prop_no'].value === true) {
+    if (this.ownerForm.controls['owner_prop_no'].value) {
+      this.showImageLetter = true
       this.ownerForm.controls['owner_prop_yes'].setValue(false)
       this.cart.fork_info = 'Si'
-    } else if (this.ownerForm.controls['owner_prop_no'].value === false) {
+    } else {
       this.cart.fork_info = 'No'
+      this.showImageLetter = false
     }
   }
 

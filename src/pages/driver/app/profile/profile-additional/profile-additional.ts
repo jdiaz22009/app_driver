@@ -77,14 +77,22 @@ export class ProfileAdditionalDriverPage {
     this.user = this.navParams.get('profile')
 
     if (this.user != null) {
-      console.log(this.user.ciudad)
-      this.profileForm.controls['date'].setValue(this.user.fecha_expedicion_cedula)
-      this.profileForm.controls['place'].setValue(this.user.lugar_expedicion_cedula)
-      this.profileForm.controls['country'].setValue(this.user.pais)
-      this.profileForm.controls['state'].setValue(this.user.departamento)
-      this.profileForm.controls['city'].patchValue(this.user.ciudad)
-      this.profileForm.controls['address'].setValue(this.user.direccion)
-      this.profileForm.controls['phone'].setValue(this.user.telefono_1)
+
+      const dateForm = this.user.fecha_expedicion_cedula !== undefined ? this.user.fecha_expedicion_cedula : ''
+      const placeForm = this.user.lugar_expedicion_cedula !== undefined ? this.user.lugar_expedicion_cedula : ''
+      const countryForm = this.user.pais !== undefined ? this.user.pais : ''
+      const stateForm = this.user.departamento !== undefined ? this.user.departamento : ''
+      const cityForm = this.user.ciudad !== undefined ? this.user.ciudad : ''
+      const addressForm = this.user.direccion !== undefined ? this.user.direccion : ''
+      const phone = this.user.telefono_1 !== undefined ? this.user.telefono_1 : ''
+
+      this.profileForm.controls['date'].setValue(dateForm)
+      this.profileForm.controls['place'].setValue(placeForm)
+      this.profileForm.controls['country'].setValue(countryForm)
+      this.profileForm.controls['state'].setValue(stateForm)
+      this.profileForm.controls['city'].patchValue(cityForm)
+      this.profileForm.controls['address'].setValue(addressForm)
+      this.profileForm.controls['phone'].setValue(phone)
 
       this.profileForm_0.controls['date'].setValue(this.user.fecha_nacimiento)
       this.profileForm_0.controls['place'].setValue(this.user.lugar_nacimiento)
@@ -114,7 +122,7 @@ export class ProfileAdditionalDriverPage {
 
   getCity(){
     const department = this.profileForm.controls['state'].value
-    if(department !== ''){
+    if(department !== undefined && department !== ''){
       const i = this.departmentsOptions.indexOf(department)
       this.cities.getCities(i).then(res =>{
         this.citiesOptions = res
@@ -223,7 +231,6 @@ export class ProfileAdditionalDriverPage {
         loader.present()
 
         this.auth.updateDriverC(this.driver).then(res => {
-          console.log(res)
           console.log(JSON.stringify(res))
           loader.dismiss()
           this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
@@ -238,7 +245,6 @@ export class ProfileAdditionalDriverPage {
       this.step_img = this.step_images[1]
       this.scrollToTop()
     } else if (this.step_form === 1) {
-      // console.log('--ProfileAditional--  step_form 1 driver: ', this.driver)
 
       if (
         this.profileForm_0.controls['date'].value !== this.driver.fecha_nacimiento
@@ -267,7 +273,6 @@ export class ProfileAdditionalDriverPage {
         loader.present()
 
         this.auth.updateDriverC(this.driver).then(res => {
-          console.log(res)
           console.log(JSON.stringify(res))
           loader.dismiss()
           this.alert.showAlert('Perfil Actualizado', 'Se ha actualizado tu perfil correctamente')
