@@ -51,12 +51,10 @@ export class AddCartDriverPage {
       {value: 'Volco', name:'Volco', checked: false},
       {value: 'Porta Contenedor', name:'Porta Contenedor', checked: false},
       {value: 'Contenedor', name:'Contenedor', checked: false},
-      {value: 'Portacontenedor', name:'Portacontenedor', checked: false},
       {value: 'Cama Baja', name:'Cama Baja', checked: false},
       {value: 'Niñera', name:'Niñera', checked: false}
     ]
   }
-
 
   constructor(
     public navCtrl: NavController,
