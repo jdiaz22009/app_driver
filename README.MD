@@ -12,9 +12,9 @@
 
 - Android:   npm run android
 - Navegador: npm start
-              http://localhost:8100/ionic-lab 
+              http://localhost:8100/ionic-lab
 #    Comandos Git
-- GIT Rep: https://gitlab.com/cargaya_dev/app_conductor.git 
+- GIT Rep: https://gitlab.com/cargaya_dev/app_conductor.git
 - git add -A .; git commit -am "__ : ____"; git push origin ___;
 - git add -A .
 - git commit -am "rama: descripción"
@@ -48,12 +48,18 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cargaya.jks app
 ~/Library/Android/sdk/build-tools/26.0.3/zipalign -v 4 app-release-unsigned.apk cargaya.apk
 ```
 
-Google Store:
-Usuario servicliente@cargaya.com
+# Google Store:
+Usuario servicliente@cargaya.com \
 Clave Servicomex2019-
 
 # Accesos
-User:   14989044
-Pass:   14989044
+ * User:   14989044
+ * Pass:   14989044
+
+## Add android icon to Manifest
+
+```
+android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
+```
 
 

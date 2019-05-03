@@ -1,8 +1,9 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, MenuController, LoadingController, ModalController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, MenuController, LoadingController, ModalController, Platform } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Keyboard } from '@ionic-native/keyboard'
+import { AppVersion } from '@ionic-native/app-version'
 
 import { User } from '@models/user'
 
@@ -33,6 +34,7 @@ export class LoginSharedPage {
   hideFooter: boolean = false
   user_type: string = ''
   mode: string
+  version: string = ''
 
   constructor(
     public navCtrl: NavController,
@@ -45,7 +47,9 @@ export class LoginSharedPage {
     public modalCtrl: ModalController,
     public db: StorageDb,
     public menu: MenuController,
-    public keyboard: Keyboard
+    public plt: Platform,
+    public keyboard: Keyboard,
+    public appVersion: AppVersion
     ) {
 
       this.idForm = this.formBuilder.group({
@@ -81,10 +85,20 @@ export class LoginSharedPage {
     this.keyboard.onKeyboardHide().subscribe(data =>{
       this.hideFooter = false
     })
+
+    this.getAppVersion()
   }
 
   ionViewDidEnter() {
     this.sectionSelected = 1
+  }
+
+  getAppVersion(){
+    if(this.plt.is('cordova')){
+      this.appVersion.getVersionNumber().then(res =>{
+        this.version = res
+      })
+    }
   }
 
   validateId(){
@@ -198,6 +212,6 @@ export class LoginSharedPage {
   resetPassword(){
     const modal = this.modalCtrl.create('ModalForgotPasswordComponent', null, { cssClass: 'modal-id' })
     modal.present()
-  } 
+  }
 
 }

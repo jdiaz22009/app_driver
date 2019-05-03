@@ -1,5 +1,8 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, ModalController } from 'ionic-angular'
+import { IonicPage, NavController, ModalController, Platform } from 'ionic-angular'
+
+import { AppVersion } from '@ionic-native/app-version'
+
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 @IonicPage({
@@ -12,12 +15,28 @@ import { DriverAuthProvider } from '@providers/api/driverAuth'
 })
 export class HomeDriverPage {
 
+  version: string = ''
+
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public auth: DriverAuthProvider,
+    public plt: Platform,
+    private appVersion: AppVersion
   ) {
 
+  }
+
+  ionViewDidLoad(){
+    this.getAppVersion()
+  }
+
+  getAppVersion(){
+    if(this.plt.is('cordova')){
+      this.appVersion.getVersionNumber().then(res =>{
+        this.version = res
+      })
+    }
   }
 
   goPage(page) {
