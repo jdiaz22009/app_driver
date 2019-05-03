@@ -54,6 +54,28 @@ export class MyApp {
           this.buildNotification(data, data.wasTapped)
         })
 
+
+        // this.localNotifications.on('click').subscribe((notification) =>{
+        //   console.log('localNotifications click ' + notification)
+        //   // this.nav.push('DetailsFreightDriverPage', { id: data.id })
+        // })
+
+        // this.localNotifications.on('schedule').subscribe((notification) =>{
+        //   console.log('localNotifications schedule ' + notification)
+        // })
+
+        // this.localNotifications.on('trigger').subscribe((notification) =>{
+        //   console.log('localNotifications trigger ' + notification)
+        // })
+
+        // this.localNotifications.on('update').subscribe((notification) =>{
+        //   console.log('localNotifications update ' + notification)
+        // })
+
+        // this.localNotifications.on('clear').subscribe((notification) =>{
+        //   console.log('localNotifications clear ' + notification)
+        // })
+
         if (!this.localNotifications.hasPermission()) {
           this.localNotifications.requestPermission()
         }
@@ -87,11 +109,6 @@ export class MyApp {
           text: data.body,
           icon: 'ic_notifications_small',
           smallIcon: 'ic_notification_small'
-        })
-
-        this.localNotifications.on('click').subscribe(notify =>{
-          console.log(notify)
-          this.nav.push('DetailsFreightDriverPage', { id: data.id })
         })
 
       } else {

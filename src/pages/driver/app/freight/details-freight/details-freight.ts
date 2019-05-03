@@ -39,15 +39,20 @@ export class DetailsFreightDriverPage {
 
      this.id = this.navParams.get('id')
      console.log('offer ID ' + this.id)
-     this.getOfferById(this.id)
-      //this.getOfferById('5ccc9aaf324f961e7c4b51e4')
+    //  this.getOfferById(this.id)
 
+  }
+
+  ionViewDidLoad(){
+    setTimeout(() =>{
+      this.getOfferById(this.id)
+    }, 500)
   }
 
   getOfferById(id){
     this.freight.getOfferById(id).then(res =>{
       if(res){
-        console.log(JSON.stringify(res))
+        // console.log(JSON.stringify(res))
         this.offer = res['data'].data
         console.log(JSON.stringify(this.offer))
         this.author_id = this.offer['author']._id
