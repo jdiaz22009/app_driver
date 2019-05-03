@@ -107,8 +107,8 @@ export class MyApp {
           id: data.id,
           title: data.title,
           text: data.body,
-          icon: 'ic_notifications_small',
-          smallIcon: 'ic_notification_small'
+          // icon: 'https://firebasestorage.googleapis.com/v0/b/cargaya-1548175297295.appspot.com/o/notify-ya.png?alt=media&token=7b7ecfa7-be7e-402c-bbf1-f4e0c05c6e31',
+          // smallIcon: 'ic_notifications_small'
         })
 
       } else {

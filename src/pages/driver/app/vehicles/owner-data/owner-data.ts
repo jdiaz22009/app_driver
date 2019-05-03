@@ -50,6 +50,7 @@ export class OwnerDataVehiclesDriverPage {
   btn_txt: string = 'Guardar'
   noImg: string = './assets/imgs/no_photo.png'
   holderLetter: string = this.noImg
+  email_validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(
     public navCtrl: NavController,
@@ -209,7 +210,9 @@ export class OwnerDataVehiclesDriverPage {
       owner_phone: ['', Validators.compose([
         Validators.minLength(0)])],
       owner_email: ['', Validators.compose([
-        Validators.minLength(0)])]
+        Validators.minLength(0),
+        Validators.pattern(this.email_validator)
+      ])]
     })
 
 
