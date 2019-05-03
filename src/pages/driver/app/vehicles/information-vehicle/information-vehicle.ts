@@ -48,6 +48,7 @@ export class InformationVehiclesDriverPage {
       {value: 'Cisterna', name:'Cisterna', checked: false},
       {value: 'Tanque', name:'Tanque', checked: false},
       {value: 'Volco', name:'Volco', checked: false},
+      {value: 'Porta Contenedor', name:'Porta Contenedor', checked: false},
       {value: 'Contenedor', name:'Contenedor', checked: false},
       {value: 'Cama Baja', name:'Cama Baja', checked: false},
       {value: 'Niñera', name:'Niñera', checked: false}
