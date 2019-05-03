@@ -49,6 +49,7 @@ export class AddCartDriverPage {
       {value: 'Cisterna', name:'Cisterna', checked: false},
       {value: 'Tanque', name:'Tanque', checked: false},
       {value: 'Volco', name:'Volco', checked: false},
+      {value: 'Porta Contenedor', name:'Porta Contenedor', checked: false},
       {value: 'Contenedor', name:'Contenedor', checked: false},
       {value: 'Portacontenedor', name:'Portacontenedor', checked: false},
       {value: 'Cama Baja', name:'Cama Baja', checked: false},
