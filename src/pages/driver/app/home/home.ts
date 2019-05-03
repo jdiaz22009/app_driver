@@ -16,6 +16,7 @@ import { DriverAuthProvider } from '@providers/api/driverAuth'
 export class HomeDriverPage {
 
   version: string = ''
+  offerCount: number = 0
 
   constructor(
     public navCtrl: NavController,
@@ -29,6 +30,16 @@ export class HomeDriverPage {
 
   ionViewDidLoad(){
     this.getAppVersion()
+    this.getOfferCount()
+  }
+
+  getOfferCount(){
+    this.auth.getOfferCount().then(res =>{
+      // console.log(res)
+      if(res){
+        this.offerCount = res['data'].disponibles
+      }
+    })
   }
 
   getAppVersion(){

@@ -37,24 +37,29 @@ export class DetailsFreightDriverPage {
     public navParams: NavParams,
     private socialSharing: SocialSharing) {
 
-     this.mode = this.navParams.get('mode') 
      this.id = this.navParams.get('id')
+     console.log('offer ID ' + this.id)
      this.getOfferById(this.id)
+      //this.getOfferById('5ccc9aaf324f961e7c4b51e4')
+
   }
 
   getOfferById(id){
     this.freight.getOfferById(id).then(res =>{
-      this.offer = res['data'].data
-      console.log(JSON.stringify(this.offer))
-      this.author_id = this.offer['author']._id
+      if(res){
+        console.log(JSON.stringify(res))
+        this.offer = res['data'].data
+        console.log(JSON.stringify(this.offer))
+        this.author_id = this.offer['author']._id
+      }
     })
   }
 
   accept(){
     this.freight.postulateToOffer(this.offer._id).then(res =>{
       const data = res['data']
-      console.log(JSON.stringify(data)) 
-      if(data){       
+      console.log(JSON.stringify(data))
+      if(data){
         this.freight.pushToOffer(this.author_id, this.offer._id).then(res => console.log(JSON.stringify(res)))
         this.showModalAccept()
       }
@@ -73,19 +78,19 @@ export class DetailsFreightDriverPage {
       }
     })
     modal.present()
-  } 
+  }
 
-  shared(freight){   
-    
-    const initDate = new Date(freight.inicio).toLocaleDateString()        
-    const message = `Oferta CargaYa 
-                      Detalle: ${freight.Robservaciones} 
-                      Flete: ${freight.flete} , 
-                      Fecha de inicio: ${initDate}, 
+  shared(freight){
+
+    const initDate = new Date(freight.inicio).toLocaleDateString()
+    const message = `Oferta CargaYa
+                      Detalle: ${freight.Robservaciones}
+                      Flete: ${freight.flete} ,
+                      Fecha de inicio: ${initDate},
                       Origen: ${freight.ciudad_origen} ,
-                      Desitno: ${freight.ciudad_destino} ,  
-                      ID: ${freight._id} 
-                      Ingresa a nuestra app y postúlate`     
+                      Desitno: ${freight.ciudad_destino} ,
+                      ID: ${freight._id}
+                      Ingresa a nuestra app y postúlate`
 
     const subject  = 'Carga Disponible, postulate'
     const file = null

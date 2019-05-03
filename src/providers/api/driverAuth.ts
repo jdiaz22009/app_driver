@@ -29,6 +29,7 @@ export class DriverAuthProvider {
   create_reference: string = CONFIG.api.drivers.create_reference
   save_url: string = CONFIG.api.drivers.saveUrl
   coming_soon: string = CONFIG.api.drivers.comingSoon
+  offerCount: string = CONFIG.api.drivers.offerCount
 
   api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
   getDevDrivers: string = CONFIG.dev.getDrivers
@@ -399,8 +400,17 @@ export class DriverAuthProvider {
     return await this.db.deleteDB()
   }
 
+  async getOfferCount() {
 
+    const token = await this.getToken()
+    const url = this.api_url + this.offerCount
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
-
+    try {
+      return await this.apiClient.request('GET', url, null, headers)
+    } catch (e) {
+      throw e
+    }
+  }
 
 }

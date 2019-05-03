@@ -11,7 +11,7 @@ import { FreightProvider } from '@providers/api/freight'
   templateUrl: 'my-freight.html'
 })
 export class MyFreightDriverPage {
-  
+
   allOffers: any = []
   assignedOffers: any = []
   historyOffers: any = []
@@ -45,26 +45,32 @@ export class MyFreightDriverPage {
 
     const userId = await this.getUserId()
     this.offer.getDriverMyOffers().then(res =>{
-      console.log(JSON.stringify(res))
+      // console.log(JSON.stringify(res))
       const data = res['data']['data']
 
       if(data.length > 0){
-        for(let i of data){          
-          if(i.driverselected !== undefined && i.driverselected !== null ){
-            if(i['driverselected']._id === userId){
-              this.assignedOffers.push(i)
-            }else{
-              this.allOffers.push(i)
-            }
+        for(let i of data){
+          if(i['driverselected'] !== undefined
+            && i['driverselected'] !== null
+            && i['driverselected'].length > 0 ){
+
+              for(let y of i['driverselected']){
+                if(y._id === userId){
+                  this.assignedOffers.push(i)
+                }else{
+                  this.allOffers.push(i)
+                }
+              }
+
           }else{
             this.allOffers.push(i)
           }
         }
-     }      
+     }
     })
   }
 
-  freightDetails(freight){    
+  freightDetails(freight){
     this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 1})
   }
 

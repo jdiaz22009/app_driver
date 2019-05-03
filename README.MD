@@ -62,4 +62,10 @@ Clave Servicomex2019-
 android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
 ```
 
+## roadMap
+
+pushNotification View byId
+pushNotification icon
+
+
 

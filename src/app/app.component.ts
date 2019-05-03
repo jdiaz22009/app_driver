@@ -5,7 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar'
 import { SplashScreen } from '@ionic-native/splash-screen'
 import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { AndroidPermissions } from '@ionic-native/android-permissions'
 
 import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
@@ -82,19 +82,35 @@ export class MyApp {
       if (mode) {
         console.log('Received in background ', JSON.stringify(data))
         this.localNotifications.schedule({
-          id: 1,
+          id: data.id,
           title: data.title,
-          text: data.body
+          text: data.body,
+          icon: 'ic_notifications_small',
+          smallIcon: 'ic_notification_small'
+        })
+
+        this.localNotifications.on('click').subscribe(notify =>{
+          console.log(notify)
+          this.nav.push('DetailsFreightDriverPage', { id: data.id })
         })
 
       } else {
         console.log('Received in foreground ', JSON.stringify(data))
-        const id = data.id
-        this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
-          if (res === 1) {
-            this.nav.push('DetailsFreightDriverPage', { id: id })
-          }
-        })
+        const type = data.type
+        if(type === 'notification_offers'){
+          this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
+            if (res === 1) {
+              this.nav.push('DetailsFreightDriverPage', { id: data.id })
+            }
+          })
+        }else if(type === 'notification_asign'){
+          this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
+            if (res === 1) {
+              //accept offer
+            }
+          })
+        }
+
       }
     }
   }

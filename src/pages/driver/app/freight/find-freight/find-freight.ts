@@ -76,10 +76,11 @@ export class FindFreightDriverPage {
   }
 
   freightDetails(freight){
-    this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 0})
+    // this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 0})
+    this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id })
   }
 
-  doRefresh(refresher) {    
+  doRefresh(refresher) {
     this.getFreights()
     setTimeout(() => {
       refresher.complete()
@@ -87,18 +88,18 @@ export class FindFreightDriverPage {
   }
 
   shared(freight){
-    
-    // console.log(JSON.stringify(freight))        
-    const initDate = new Date(freight.inicio).toLocaleDateString()        
-    const message = `Oferta CargaYa 
-                      Detalle: ${freight.Robservaciones} 
-                      Flete: ${freight.flete} , 
-                      Fecha de inicio: ${initDate}, 
+
+    // console.log(JSON.stringify(freight))
+    const initDate = new Date(freight.inicio).toLocaleDateString()
+    const message = `Oferta CargaYa
+                      Detalle: ${freight.Robservaciones}
+                      Flete: ${freight.flete} ,
+                      Fecha de inicio: ${initDate},
                       Origen: ${freight.ciudad_origen} ,
-                      Desitno: ${freight.ciudad_destino} ,  
-                      ID: ${freight._id} 
-                      Ingresa a nuestra app y postúlate` 
-    // const message = `Oferta CargaYa Detalle: ${freight.Robservaciones} Flete: $${freight.flete}, Fecha de inicio: ${initDate}, Origen: ${freight.ciudad_origen}, Desitno: ${freight.ciudad_destino}, ID: ${freight._id}, Ingresa a nuestra app y postúlate` 
+                      Desitno: ${freight.ciudad_destino} ,
+                      ID: ${freight._id}
+                      Ingresa a nuestra app y postúlate`
+    // const message = `Oferta CargaYa Detalle: ${freight.Robservaciones} Flete: $${freight.flete}, Fecha de inicio: ${initDate}, Origen: ${freight.ciudad_origen}, Desitno: ${freight.ciudad_destino}, ID: ${freight._id}, Ingresa a nuestra app y postúlate`
 
     const subject  = 'Carga Disponible, postulate'
     const file = null

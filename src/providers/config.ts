@@ -31,7 +31,8 @@ export const CONFIG = {
       wayTopay: '/api/v1/auth/conductores/forma-pago',
       create_reference:'/api/v1/auth/conductores/referencias',
       saveUrl:'/api/v1/auth/conductores/save-url',
-      comingSoon:'/api/v1/auth/conductores/comingsoon'
+      comingSoon:'/api/v1/auth/conductores/comingsoon',
+      offerCount: '/api/v1/offers/libres'
     },
     cart:{
       getClass: '/api/v1/auth/vehicles/get-vehicle-class',
