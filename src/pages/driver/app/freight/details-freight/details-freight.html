@@ -28,7 +28,7 @@
                               <span class="tx-summary ">{{offer.ciudad_origen}}</span>
                           </ion-col>
                         </ion-row>
-  
+
                         <ion-row>
                             <ion-col col-4>
                                 <p class="tx-title mi">
@@ -40,17 +40,6 @@
                                 <span class="tx-summary">{{offer.ciudad_destino}}</span>
                             </ion-col>
                         </ion-row>
-                      
-                    <!-- <p class="tx-title">
-                        <ion-icon name="custom-location" color="mapblue" class="map-icon"></ion-icon> 
-                        Origen 
-                        <span class="city">{{offer.ciudad_origen}}</span></p>
-                      <br>
-                      <p class="tx-title">
-                        <ion-icon name="custom-location" color="mapgreen" class="map-icon"></ion-icon> 
-                        Destino 
-                        <span class="city">{{offer.ciudad_destino}}</span>
-                      </p> -->
 
                   </ion-col>
                   <ion-col offset-1 col-3 (click)="shared(offer)">
@@ -112,110 +101,17 @@
 
   <ion-card class="c-req">
       <ion-card-content>
-        <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Requisitos</h3>  
-        
+        <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Requisitos</h3>
+
         <ion-row *ngFor="let item of requirementsOpt">
-            <ion-col col-7>    
-                <p class="tx-title">{{item.title}}</p>        
+            <ion-col col-7>
+                <p class="tx-title">{{item.title}}</p>
             </ion-col>
             <ion-col>
                 <p class="tx-summary">{{getRequirements(offer[item.model])}}</p>
             </ion-col>
         </ion-row>
 
-        <!-- <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">ARP</p>        
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.Rarp)}}</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Salud</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.Rsalud)}}</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Pensión</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.Rpension)}}</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">GPS</p>      
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.Rgps)}}</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Trabajo en Alturas</p>   
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.RtrabajoAltura)}}</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Manejo de Alimentos</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.RmanejoAlimentos)}}</p>
-            </ion-col>
-        </ion-row>
-
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Certificado de Fumigación</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.RcertificadoFumigacion)}}</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Sustancias Peligrosas</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.RsustanciaPeligrosa)}}</p>
-            </ion-col>
-        </ion-row>
-
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">kit de Derrames</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.RkitDerrames)}}</p>
-            </ion-col>
-        </ion-row>
-
-
-        <ion-row>
-            <ion-col col-7>    
-                <p class="tx-title">Elemento de Fumigación</p>
-            </ion-col>
-            <ion-col>
-                <p class="tx-summary">{{getRequirements(offer.RelementoFumigacion)}}</p>
-            </ion-col>
-        </ion-row>         -->
-        
       </ion-card-content>
   </ion-card>
 

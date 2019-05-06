@@ -56,32 +56,9 @@ export class MyApp {
           this.buildNotification(data, data.wasTapped)
         })
 
-
-        // this.localNotifications.on('click').subscribe((notification) =>{
-        //   console.log('localNotifications click ' + notification)
-        //   // this.nav.push('DetailsFreightDriverPage', { id: data.id })
-        // })
-
-        // this.localNotifications.on('schedule').subscribe((notification) =>{
-        //   console.log('localNotifications schedule ' + notification)
-        // })
-
-        // this.localNotifications.on('trigger').subscribe((notification) =>{
-        //   console.log('localNotifications trigger ' + notification)
-        // })
-
-        // this.localNotifications.on('update').subscribe((notification) =>{
-        //   console.log('localNotifications update ' + notification)
-        // })
-
-        // this.localNotifications.on('clear').subscribe((notification) =>{
-        //   console.log('localNotifications clear ' + notification)
-        // })
-
         if (!this.localNotifications.hasPermission()) {
           this.localNotifications.requestPermission()
         }
-
 
         this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA).then(
           result => console.log('Has permission?', result.hasPermission),
@@ -108,10 +85,7 @@ export class MyApp {
         this.localNotifications.schedule({
           id: data.id,
           title: data.title,
-          text: data.body,
-          // icon: 'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png'
-          // icon: 'https://firebasestorage.googleapis.com/v0/b/cargaya-1548175297295.appspot.com/o/notify-ya.png?alt=media&token=7b7ecfa7-be7e-402c-bbf1-f4e0c05c6e31',
-          // smallIcon: 'ic_notifications_small'
+          text: data.body
         })
 
       } else {

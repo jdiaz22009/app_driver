@@ -76,8 +76,7 @@ export class FindFreightDriverPage {
   }
 
   freightDetails(freight){
-    // this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 0})
-    this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id })
+    this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 0})
   }
 
   doRefresh(refresher) {
