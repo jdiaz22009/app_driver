@@ -38,7 +38,7 @@ export class MyApp {
     this.loadApp()
   }
 
-  loadApp() {
+  async loadApp() {
     this.platform.ready().then(() => {
 
       if (this.platform.is('cordova')) {
@@ -51,6 +51,12 @@ export class MyApp {
           console.log('fire token ' + token)
           this.db.setItem(CONFIG.localdb.USER_FIRETOKEN, token)
         })
+
+        this.fcm.onTokenRefresh().subscribe(token => {
+          console.log('fire onTokenRefresh ' + token)
+          this.db.setItem(CONFIG.localdb.USER_FIRETOKEN, token)
+          //update on cargaYa server
+        });
 
         this.fcm.onNotification().subscribe(data => {
           this.buildNotification(data, data.wasTapped)
@@ -67,6 +73,35 @@ export class MyApp {
 
         this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
 
+        // this.localNotifications.on('click').subscribe((data) =>{
+        //   this.nav.push('DetailsFreightDriverPage', { id: data.id, mode: 0})
+        //   // console.log(data)
+        //   // this.nav.push('FindFreightDriverPage')
+        // })
+
+        // this.localNotifications.fireQueuedEvents().then(res =>{
+        //   console.log('fire queued ' + res)
+        // })
+
+        // this.localNotifications.getTriggered().then(res =>{
+        //   console.log('fire getTriggered ' + res)
+        // })
+
+        // this.localNotifications.on('trigger').subscribe((response) =>     {
+        //   console.log('on trigger' + response)
+        // })
+
+        // this.localNotifications.getScheduled().then(res =>{
+        //   console.log('getScheduled ' + res)
+        //   console.log('getScheduled ' + JSON.stringify(res))
+        // })
+
+        // this.db.getItem('notifyId').then(res =>{
+        //   console.log('notifyId ' + res)
+        //   console.log('notifyId ' + JSON.stringify(res))
+        // })
+
+
       }
 
       firebase.initializeApp(FIREBASE_CONFIG)
@@ -82,11 +117,17 @@ export class MyApp {
     if (data) {
       if (mode) {
         console.log('Received in background ', JSON.stringify(data))
+
+        // this.db.setItem('notifyId', data.id)
+
         this.localNotifications.schedule({
           id: data.id,
           title: data.title,
-          text: data.body
+          text: data.body,
+          smallIcon: 'res://notification_icon'
         })
+
+      }
 
       } else {
         console.log('Received in foreground ', JSON.stringify(data))
@@ -115,7 +156,6 @@ export class MyApp {
 
       }
     }
-  }
 
 }
 
