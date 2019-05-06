@@ -10,6 +10,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions'
 import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
 
+import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { AlertsProvider } from '@providers/alerts'
 import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
@@ -28,6 +29,7 @@ export class MyApp {
     public statusBar: StatusBar,
     public fcm: FCM,
     public db: StorageDb,
+    public driverAuth: DriverAuthProvider,
     public alerts: AlertsProvider,
     public androidPermissions: AndroidPermissions,
     private localNotifications: LocalNotifications,
@@ -107,6 +109,7 @@ export class MyApp {
           id: data.id,
           title: data.title,
           text: data.body,
+          // icon: 'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png'
           // icon: 'https://firebasestorage.googleapis.com/v0/b/cargaya-1548175297295.appspot.com/o/notify-ya.png?alt=media&token=7b7ecfa7-be7e-402c-bbf1-f4e0c05c6e31',
           // smallIcon: 'ic_notifications_small'
         })
@@ -124,6 +127,14 @@ export class MyApp {
           this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
             if (res === 1) {
               //accept offer
+              this.driverAuth.acceptTheOffer(data.id).then(res =>{
+                if(res){
+                  this.alerts.showAlert('Oferta Aceptada', 'Ya puedes preparte para iniciar el viaje.')
+                }
+              }).catch(e =>{
+                console.error(e)
+                this.alerts.showAlert('Error', 'No se ha podido realizar la operación.')
+              })
             }
           })
         }
@@ -131,6 +142,7 @@ export class MyApp {
       }
     }
   }
+
 }
 
 

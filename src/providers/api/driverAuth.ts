@@ -30,6 +30,7 @@ export class DriverAuthProvider {
   save_url: string = CONFIG.api.drivers.saveUrl
   coming_soon: string = CONFIG.api.drivers.comingSoon
   offerCount: string = CONFIG.api.drivers.offerCount
+  acceptOffer: string = CONFIG.api.offer.acceptOffer
 
   api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
   getDevDrivers: string = CONFIG.dev.getDrivers
@@ -53,6 +54,13 @@ export class DriverAuthProvider {
       return res.token
     })
     return token != null ? token : ''
+  }
+
+  async getUserId(){
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+      return res.userId
+    })
+
   }
 
   async getFireToken() {
@@ -408,6 +416,20 @@ export class DriverAuthProvider {
 
     try {
       return await this.apiClient.request('GET', url, null, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async acceptTheOffer(offerId){
+
+    const token = await this.getToken()
+    const userId = await this.getUserId()
+    const url = this.api_url + this.acceptOffer + `/${offerId}/${userId}`
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, null, headers)
     } catch (e) {
       throw e
     }
