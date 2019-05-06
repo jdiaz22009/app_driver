@@ -63,38 +63,38 @@ export class MyFreightDriverPage {
           //aprobado
           //asignado
 
-          // if(i['postulantes'] !== undefined
-          // && i['postulantes'] !== null
-          //   && i['postulantes'].length > 0){
+          if(i['postulantes'] !== undefined
+          && i['postulantes'] !== null
+            && i['postulantes'].length > 0){
 
-          //     for(let y of i['postulantes']){
-          //       if(y._id === userId){
-          //         i['estado_flete'] = 'postulado'
-          //       }
-          //     }
-          // }
+              for(let y of i['postulantes']){
+                if(y._id === userId){
+                  i['estado_flete'] = 'postulado'
+                }
+              }
+          }
 
-          // if(i['pre_selected'] !== undefined
-          // && i['pre_selected'] !== null
-          //   && i['pre_selected'].length > 0){
+          if(i['pre_selected'] !== undefined
+          && i['pre_selected'] !== null
+            && i['pre_selected'].length > 0){
 
-          //     for(let y of i['pre_selected']){
-          //       if(y._id === userId){
-          //         i['estado_flete'] = 'Pre-seleccionado'
-          //       }
-          //     }
-          // }
+              for(let y of i['pre_selected']){
+                if(y._id === userId){
+                  i['estado_flete'] = 'Pre-seleccionado'
+                }
+              }
+          }
 
-          // if(i['aprobados'] !== undefined
-          // && i['aprobados'] !== null
-          //   && i['aprobados'].length > 0){
+          if(i['aprobados'] !== undefined
+          && i['aprobados'] !== null
+            && i['aprobados'].length > 0){
 
-          //     for(let y of i['aprobados']){
-          //       if(y._id === userId){
-          //         i['estado_flete'] = 'Aprobado'
-          //       }
-          //     }
-          // }
+              for(let y of i['aprobados']){
+                if(y._id === userId){
+                  i['estado_flete'] = 'Aprobado'
+                }
+              }
+          }
 
           if(i['asignados'] !== undefined
           && i['asignados'] !== null
