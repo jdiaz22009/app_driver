@@ -49,7 +49,7 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cargaya.jks app
 ```
 
 # Google Store:
-Usuario servicliente@cargaya.com \
+Usuario servicliente@cargaya.com
 Clave Servicomex2019-
 
 # Accesos
