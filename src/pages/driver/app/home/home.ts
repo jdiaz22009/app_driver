@@ -30,6 +30,10 @@ export class HomeDriverPage {
 
   ionViewDidLoad(){
     this.getAppVersion()
+
+  }
+
+  ionViewDidEnter() {
     this.getOfferCount()
   }
 
@@ -78,9 +82,8 @@ export class HomeDriverPage {
     }
     this.auth.ComingSoon(paramas).then(res => {
       console.log('--Home getComingSoonFletes-- res: ', res)
-
     }).catch(e => {
-      console.log('--Home getComingSoonFletes-- error: ', e)
+      console.error('--Home getComingSoonFletes-- error: ', e)
 
     })
   }
@@ -93,9 +96,8 @@ export class HomeDriverPage {
     }
     this.auth.ComingSoon(paramas).then(res => {
       console.log('--Home getComingSoonFletes-- res: ', res)
-
     }).catch(e => {
-      console.log('--Home getComingSoonFletes-- error: ', e)
+      console.error('--Home getComingSoonFletes-- error: ', e)
 
     })
   }
