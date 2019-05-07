@@ -13,9 +13,16 @@
 
       <ion-card class="card-offert">
           <ion-card-content>
-            <p class="c-date" text-end>Publicado {{item.fecha_creacion | date: 'dd/MM/yy , h:mm a' }}</p>
 
             <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <p class="c-date" text-start>{{item.pedido}} </p>
+                    </ion-col>
+                    <ion-col col-8>
+                        <p class="c-date" text-end>Publicado {{item.fecha_creacion | date: 'dd/MM/yy , h:mm a'}}</p>
+                    </ion-col>
+                </ion-row>
               <ion-row>
                   <ion-col col-9>
                       <ion-row>
@@ -41,8 +48,8 @@
                               <span class="tx-summary">{{item.ciudad_destino}}</span>
                           </ion-col>
                       </ion-row>
-                      
-                      
+
+
                   </ion-col>
                   <ion-col col-2 class="c-shared" (click)="shared(item)">
                       <button ion-fab mini color="btn">

@@ -380,6 +380,12 @@ export class OwnerDataVehiclesDriverPage {
     loader.present()
     this.cart.owner_type = this.ownerForm.controls['owner_type'].value
 
+    if(this.cart.owner_type === ''){
+      this.alert.showAlert('Error', 'Debes seleccionar el Tipo de persona para continuar.')
+      loader.dismiss()
+      return
+    }
+
 
     if (this.show_type === 0) {
       console.log('-OwnerData- StepForm 0')

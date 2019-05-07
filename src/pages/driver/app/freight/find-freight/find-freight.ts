@@ -55,7 +55,7 @@ export class FindFreightDriverPage {
          if(drivers.length > 0){
            let isDriver = false
             for(let i of drivers){
-              if(i._id !== userId){
+              if(i._id === userId){
                 isDriver = true
               }
             }
