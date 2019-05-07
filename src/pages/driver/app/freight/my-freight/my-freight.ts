@@ -20,7 +20,6 @@ export class MyFreightDriverPage {
 
   listType: string
 
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,27 +38,20 @@ export class MyFreightDriverPage {
   }
 
   async getUserId(){
-    const id = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
        return res.userId
-     })
-     return id
+    })
    }
 
   async getMyOffers(){
 
     const userId = await this.getUserId()
     this.offer.getDriverMyOffers().then(res =>{
-      console.log(JSON.stringify(res))
       const data = res['data']['data']
-
+      console.log(JSON.stringify(data))
       if(data.length > 0){
 
         let showAlert = true
-
-        //postulado
-        //preseleccionado
-        //aprobado
-        //asignado
 
         let opt = [
           { key: 'postulantes' , state: 'Postulado'},
@@ -70,70 +62,35 @@ export class MyFreightDriverPage {
 
         for(let i of data){
 
-          if(i['postulantes'] !== undefined
-          && i['postulantes'] !== null
-            && i['postulantes'].length > 0){
-
-              for(let y of i['postulantes']){
-                if(y._id === userId){
-                  i['estado_flete'] = 'postulado'
-                }
-              }
-          }
-
-          if(i['pre_selected'] !== undefined
-          && i['pre_selected'] !== null
-            && i['pre_selected'].length > 0){
-
-              for(let y of i['pre_selected']){
-                if(y._id === userId){
-                  i['estado_flete'] = 'Pre-seleccionado'
-                }
-              }
-          }
-
-          if(i['aprobados'] !== undefined
-          && i['aprobados'] !== null
-            && i['aprobados'].length > 0){
-
-              for(let y of i['aprobados']){
-                if(y._id === userId){
-                  i['estado_flete'] = 'Aprobado'
-                }
-              }
-          }
-
-          if(i['asignados'] !== undefined
-          && i['asignados'] !== null
-            && i['asignados'].length > 0){
-
-              for(let y of i['asignados']){
-                if(y === userId){
-                  i['estado_flete'] = 'asignado'
-                  if(showAlert){
-                    showAlert = false
-                    this.alerts.showAlert('Felicitaciones', 'Has sido seleccionado para un viaje, solo tienes que aceptarlo para comenzar tu viaje')
+            opt.map(y =>{
+              if(i[y.key] !== undefined && i[y.key] !== null && i[y.key].length > 0){
+                for(let o of i[y.key]){
+                  if(o._id === userId){
+                    i['estado_flete'] = y.state
                   }
                 }
               }
-          }
+            })
 
-          if(i['driverselected'] !== undefined
-            && i['driverselected'] !== null
-            && i['driverselected'].length > 0 ){
+            if(i['driverselected'] !== undefined
+              && i['driverselected'] !== null
+              && i['driverselected'].length > 0 ){
 
-              for(let y of i['driverselected']){
-                if(y._id === userId){
-                  this.assignedOffers.push(i)
-                }else{
-                  this.allOffers.push(i)
+                for(let y of i['driverselected']){
+                  if(y._id === userId){
+                    this.assignedOffers.push(i)
+                  }else{
+                    if(i['estado_flete'] === 'Asignado' && showAlert){
+                      showAlert = false
+                      this.alerts.showAlert('Felicitaciones', 'Has sido seleccionado para un viaje, solo tienes que aceptarlo para comenzar tu viaje')
+                    }
+                    this.allOffers.push(i)
+                  }
                 }
-              }
 
-          }else{
-            this.allOffers.push(i)
-          }
-
+            }else{
+              this.allOffers.push(i)
+            }
 
         }
      }

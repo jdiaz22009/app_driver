@@ -46,16 +46,21 @@ export class FindFreightDriverPage {
     console.log('UserId ' + userId)
 
     this.apiFreight.getOffert().then(res =>{
+      console.log(JSON.stringify(res))
       const data = res['data']
       const array = []
 
       data.forEach(e => {
          const drivers = e['postulantes']
          if(drivers.length > 0){
+           let isDriver = false
             for(let i of drivers){
               if(i._id !== userId){
-                array.push(e)
+                isDriver = true
               }
+            }
+            if(!isDriver){
+              array.push(e)
             }
          }else{
            array.push(e)

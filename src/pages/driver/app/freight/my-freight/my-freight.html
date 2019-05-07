@@ -51,7 +51,7 @@
                                   <p *ngIf="item.estado_flete !== undefined" class="tx-summary">{{item.estado_flete}}</p>
                               </ion-col>
                               <ion-col col-3>
-                                  <button *ngIf="item.estado_flete === 'asignado'" ion-button color="secondary" small (click)="acceptOffer(item._id)">Aceptar</button>
+                                  <button *ngIf="item.estado_flete === 'Asignado'" ion-button color="secondary" small (click)="acceptOffer(item._id)">Aceptar</button>
                               </ion-col>
                             </ion-row>
 
@@ -96,7 +96,7 @@
                                 <p class="tx-summary">{{item.tipo_carroceria}}</p>
 
                                 <p class="tx-title">Peso</p>
-                                <p class="tx-summary">{{item.peso_carga_max}}</p>
+                                <p class="tx-summary">{{item.peso_carga_max}} TON</p>
 
                                 <p class="tx-title">Flete</p>
                                 <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
@@ -106,7 +106,7 @@
                                 <p class="tx-summary"> {{item.clase_vehiculo}}</p>
 
                                 <p class="tx-title">Fecha de Carga</p>
-                                <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
+                                <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy'}}</p>
                                 <br>
                                 <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">
 
@@ -189,7 +189,7 @@
                                   <p class="tx-summary">{{item.tipo_carroceria}}</p>
 
                                   <p class="tx-title">Peso</p>
-                                  <p class="tx-summary">{{item.peso_carga_max}}</p>
+                                  <p class="tx-summary">{{item.peso_carga_max}} TON</p>
 
                                   <p class="tx-title">Flete</p>
                                   <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
@@ -199,7 +199,7 @@
                                   <p class="tx-summary"> {{item.clase_vehiculo}}</p>
 
                                   <p class="tx-title">Fecha de Carga</p>
-                                  <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
+                                  <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy'}}</p>
                                   <br>
                                   <img (click)="freight(item)" class="f-next" src="./assets/imgs/find_next.png">
 
