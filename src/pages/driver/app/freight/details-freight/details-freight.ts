@@ -66,7 +66,7 @@ export class DetailsFreightDriverPage {
   accept(){
     this.freight.postulateToOffer(this.offer._id).then(res =>{
       const data = res['data']
-      console.log(JSON.stringify(data))
+      // console.log(JSON.stringify(data))
       if(data['codigo'] !== undefined && data['codigo'] === 500){
         this.alerts.showAlert('Error', data['message'])
         return

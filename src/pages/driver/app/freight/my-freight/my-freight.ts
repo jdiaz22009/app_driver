@@ -52,7 +52,7 @@ export class MyFreightDriverPage {
     const userId = await this.getUserId()
     this.offer.getDriverMyOffers().then(res =>{
       const data = res['data']['data']
-      console.log(JSON.stringify(data))
+      // console.log(JSON.stringify(data))
       if(data.length > 0){
 
         let showAlert = true
@@ -84,6 +84,7 @@ export class MyFreightDriverPage {
                   if(y._id === userId){
                     this.assignedOffers.push(i)
                   }else{
+                    console.log('state ... (ELSE ) ' + i['estado_flete'])
                     if(i['estado_flete'] === 'Asignado' && showAlert){
                       showAlert = false
                       this.alerts.showAlert('Felicitaciones', 'Has sido seleccionado para un viaje, solo tienes que aceptarlo para comenzar tu viaje')
@@ -94,6 +95,11 @@ export class MyFreightDriverPage {
 
             }else{
               this.allOffers.push(i)
+              console.log('state ... ' + i['estado_flete'])
+              if(i['estado_flete'] === 'Asignado' && showAlert){
+                showAlert = false
+                this.alerts.showAlert('Felicitaciones', 'Has sido seleccionado para un viaje, solo tienes que aceptarlo para comenzar tu viaje')
+              }
             }
 
         }
