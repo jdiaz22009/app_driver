@@ -36,27 +36,25 @@ export class FindFreightDriverPage {
   }
 
   async getUserId(){
-   const id = await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
       return res.userId
     })
-    return id
   }
+
   async getFreights(){
     const userId = await this.getUserId()
     console.log('UserId ' + userId)
 
-    this.apiFreight.getOffert()
-    .then(res =>{
+    this.apiFreight.getOffert().then(res =>{
       const data = res['data']
-      // data.reverse()
       const array = []
+
       data.forEach(e => {
          const drivers = e['postulantes']
          if(drivers.length > 0){
             for(let i of drivers){
-              // console.log(i)
               if(i._id !== userId){
-                array.push(i)
+                array.push(e)
               }
             }
          }else{
@@ -67,6 +65,7 @@ export class FindFreightDriverPage {
       if(array.length > 0){
         array.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
       }
+      // console.log(JSON.stringify(array))
       // console.log(JSON.stringify(data))
       this.offers = array
 
@@ -87,7 +86,6 @@ export class FindFreightDriverPage {
   }
 
   shared(freight){
-
     // console.log(JSON.stringify(freight))
     const initDate = new Date(freight.inicio).toLocaleDateString()
     const message = `Oferta CargaYa

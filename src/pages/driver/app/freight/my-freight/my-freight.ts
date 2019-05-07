@@ -53,15 +53,22 @@ export class MyFreightDriverPage {
       const data = res['data']['data']
 
       if(data.length > 0){
+
         let showAlert = true
 
+        //postulado
+        //preseleccionado
+        //aprobado
+        //asignado
+
+        let opt = [
+          { key: 'postulantes' , state: 'Postulado'},
+          { key: 'pre_selected' , state: 'Pre-seleccionado'},
+          { key: 'aprobados' , state: 'Aprobado'},
+          { key: 'asignados' , state: 'Asignado'}
+        ]
+
         for(let i of data){
-
-
-          //postulado
-          //preseleccionado
-          //aprobado
-          //asignado
 
           if(i['postulantes'] !== undefined
           && i['postulantes'] !== null
