@@ -46,7 +46,7 @@ export class NavDriverComponent {
 
   availabilityChange(e, availability){
     this.cart.setInService(availability, this.vehicle_id).then(res =>{
-      // console.log('setInService' + JSON.stringify(res))
+      console.log('setInService' + JSON.stringify(res))
       console.log('setInService ' + availability)
       this.driver_available = availability
       this.setAvailabilityTx()

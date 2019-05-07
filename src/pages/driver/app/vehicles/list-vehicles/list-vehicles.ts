@@ -34,7 +34,7 @@ export class ListVehiclesDriverPage {
 
   getVehicles(){
     this.cart.getVehiclesList().then(res =>{
-      //console.log(JSON.stringify(res))
+      console.log(JSON.stringify(res))
       this.vehicles = res['data']['data']
       if(this.vehicles.length > 0){
         this.userId = this.vehicles[0].conductor
