@@ -124,7 +124,8 @@ export class MyApp {
           id: data.id,
           title: data.title,
           text: data.body,
-          smallIcon: 'res://drawable/ic_stat_trans2'
+          smallIcon: 'res://ic_stat_notification.png',
+          icon: 'res://drawable-hdpi/ic_stat_trans2.png'
           // smallIcon: 'file://assets/imgs/action_carts'
         })
 

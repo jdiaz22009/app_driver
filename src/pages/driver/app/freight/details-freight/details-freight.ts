@@ -95,23 +95,9 @@ export class DetailsFreightDriverPage {
   }
 
   shared(freight){
-    console.log(freight)
-    const initDate = new Date(freight.inicio).toLocaleDateString()
-    // const message = `Oferta CargaYa
-    //                   Detalle: ${freight.Robservaciones}
-    //                   Flete: ${freight.flete} ,
-    //                   Fecha de inicio: ${initDate},
-    //                   Origen: ${freight.ciudad_origen} ,
-    //                   Desitno: ${freight.ciudad_destino} ,
-    //                   ID: ${freight._id}
-    //                   Ingresa a nuestra app y postúlate`
+    // console.log(freight)
 
-    const message = `No DE PEDIDO: ${freight.pedido}.
-                     Ruta: ${freight.ciudad_origen}-${freight.ciudad_destino}.
-                     vehículo: ${freight.clase_vehiculo}-${freight.tipo_carroceria}.
-                     Peso: ${freight.peso_carga_max} TON.
-                     CONTACTO: ${freight.coordinador.primer_nombre} ${freight.coordinador.primer_apellido}, ${freight.coordinador.celular},
-                     Si quieres pago contra entrega, pregunta por PagaYa!!! http://tiny.cc/u09z5y`
+    const message = `No DE PEDIDO: ${freight.pedido}. Ruta: ${freight.ciudad_origen.toUpperCase()}-${freight.ciudad_destino.toUpperCase()}. Vehículo: ${freight.clase_vehiculo.toUpperCase()}-${freight.tipo_carroceria.toUpperCase()}. Peso: ${freight.peso_carga_max} TON. CONTACTO: ${freight.coordinador.primer_nombre.toUpperCase()} ${freight.coordinador.primer_apellido.toUpperCase()}, ${freight.coordinador.celular}, Si quieres pago contra entrega, pregunta por PagaYa!!! http://tiny.cc/u09z5y`
 
     const subject  = 'Carga Disponible, postulate'
     const file = null
