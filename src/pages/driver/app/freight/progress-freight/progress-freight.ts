@@ -45,8 +45,8 @@ export class ProgressFreightDriverPage {
 
     this.id = this.navParams.get('id')
     console.log(this.id)
-    // this.getOfferById(this.id)
-    this.getOfferById('5cd348882ce98522557052c7')
+    this.getOfferById(this.id)
+    // this.getOfferById('5cd348882ce98522557052c7')
 
     this.fileTransfer = this.transfer.create()
   }

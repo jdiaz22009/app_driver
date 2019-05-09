@@ -27,10 +27,6 @@ export class FindFreightDriverPage {
 
   }
 
-  ionViewDidLoad(){
-
-  }
-
   ionViewWillEnter(){
     this.getFreights()
   }
@@ -44,9 +40,8 @@ export class FindFreightDriverPage {
   async getFreights(){
     const userId = await this.getUserId()
     console.log('UserId ' + userId)
-
     this.apiFreight.getOffert().then(res =>{
-      console.log(JSON.stringify(res))
+      // console.log(JSON.stringify(res))
       const data = res['data']
       const array = []
 
@@ -91,9 +86,7 @@ export class FindFreightDriverPage {
   }
 
   shared(freight){
-    // console.log(JSON.stringify(freight))
     const message = `No DE PEDIDO: ${freight.pedido}. Ruta: ${freight.ciudad_origen.toUpperCase()}-${freight.ciudad_destino.toUpperCase()}. Vehículo: ${freight.clase_vehiculo.toUpperCase()}-${freight.tipo_carroceria.toUpperCase()}. Peso: ${freight.peso_carga_max} TON. CONTACTO: ${freight.coordinador.primer_nombre.toUpperCase()} ${freight.coordinador.primer_apellido.toUpperCase()}, ${freight.coordinador.celular}, Si quieres pago contra entrega, pregunta por PagaYa!!! http://tiny.cc/u09z5y`
-
     const subject  = 'Carga Disponible, postulate'
     const file = null
     const url = null

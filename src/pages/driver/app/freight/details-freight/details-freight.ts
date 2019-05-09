@@ -56,8 +56,8 @@ export class DetailsFreightDriverPage {
       if(res){
         // console.log(JSON.stringify(res))
         this.offer = res['data'].data
-        console.log(JSON.stringify(this.offer))
         this.author_id = this.offer['author']._id
+        // console.log(JSON.stringify(this.offer))
       }
     })
   }

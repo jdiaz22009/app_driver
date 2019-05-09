@@ -26,9 +26,13 @@
                   <ion-col col-9>
                       <ion-row>
                         <ion-col col-4>
-                            <p class="tx-title tcity">
+                              <p class="tx-title tcity">
                                 <ion-icon name="md-pin" color="statusbar"></ion-icon>
                                 Origen
+                              </p>
+                              <p class="tx-title">Diagonal 23 carrera 34</p>
+                              <p *ngIf="freight_state === 7 && offer.direccion_origen"  class="tx-title">
+                                  {{offer.direccion_origen}}
                               </p>
                         </ion-col>
                         <ion-col>
@@ -41,6 +45,10 @@
                               <p class="tx-title tcity">
                                   <ion-icon name="md-pin" color="btn"></ion-icon>
                                     Destino
+                                </p>
+                                <p class="tx-title">Calle 76 carrera 34 Chapinero</p>
+                                <p *ngIf="freight_state === 7 && offer.direccion_destino" class="tx-title">
+                                    {{offer.direccion_destino}}
                                 </p>
                           </ion-col>
                           <ion-col>
