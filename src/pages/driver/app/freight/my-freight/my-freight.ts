@@ -1,7 +1,7 @@
-import { AlertsProvider } from '@providers/alerts';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
+import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
@@ -84,7 +84,6 @@ export class MyFreightDriverPage {
                   if(y._id === userId){
                     this.assignedOffers.push(i)
                   }else{
-                    console.log('state ... (ELSE ) ' + i['estado_flete'])
                     if(i['estado_flete'] === 'Asignado' && showAlert){
                       showAlert = false
                       this.alerts.showAlert('Felicitaciones', 'Has sido seleccionado para un viaje, solo tienes que aceptarlo para comenzar tu viaje')
@@ -95,7 +94,6 @@ export class MyFreightDriverPage {
 
             }else{
               this.allOffers.push(i)
-              console.log('state ... ' + i['estado_flete'])
               if(i['estado_flete'] === 'Asignado' && showAlert){
                 showAlert = false
                 this.alerts.showAlert('Felicitaciones', 'Has sido seleccionado para un viaje, solo tienes que aceptarlo para comenzar tu viaje')

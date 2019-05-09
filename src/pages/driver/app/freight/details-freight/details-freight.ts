@@ -42,7 +42,6 @@ export class DetailsFreightDriverPage {
      this.mode = this.navParams.get('mode')
      this.id = this.navParams.get('id')
      console.log('offer ID ' + this.id)
-    //  this.getOfferById(this.id)
 
   }
 
