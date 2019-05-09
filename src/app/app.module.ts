@@ -14,6 +14,9 @@ import { LocalNotifications } from '@ionic-native/local-notifications'
 import { Camera } from '@ionic-native/camera'
 import { AndroidPermissions } from '@ionic-native/android-permissions'
 import { AppVersion } from '@ionic-native/app-version'
+import { FileOpener } from '@ionic-native/file-opener'
+import { FileTransfer } from '@ionic-native/file-transfer'
+import { File } from '@ionic-native/file'
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -51,11 +54,14 @@ import { MyApp } from './app.component'
     SocialSharing,
     FCM,
     LocalNotifications,
+    AndroidPermissions,
     Camera,
     AppVersion,
+    FileOpener,
+    FileTransfer,
+    File,
     API_MODULE,
     PROVIDERS_MODULE,
-    AndroidPermissions
   ]
 })
 export class AppModule {}
