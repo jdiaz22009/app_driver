@@ -37,7 +37,9 @@ export class ProgressFreightDriverPage {
     ) {
 
     this.id = this.navParams.get('id')
-    this.getOfferById(this.id)
+    console.log(this.id)
+    // this.getOfferById(this.id)
+    this.getOfferById('5cd348882ce98522557052c7')
   }
 
   getOfferById(id){
@@ -70,6 +72,12 @@ export class ProgressFreightDriverPage {
       console.log(JSON.stringify(res))
     })
 
+  }
+
+  openPDF(){
+    if(this.offer.orden_cargue !== undefined && this.offer.orden_cargue !== null){
+
+    }
   }
 
 }

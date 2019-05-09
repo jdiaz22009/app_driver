@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>   
+<ion-content>
 
       <ion-card class="card-offert">
 
@@ -28,8 +28,8 @@
                         <ion-col col-4>
                             <p class="tx-title tcity">
                                 <ion-icon name="md-pin" color="statusbar"></ion-icon>
-                                Origen                                            
-                              </p> 
+                                Origen
+                              </p>
                         </ion-col>
                         <ion-col>
                             <p class="tx-title">{{offer.ciudad_origen}}</p>
@@ -40,14 +40,14 @@
                           <ion-col col-4>
                               <p class="tx-title tcity">
                                   <ion-icon name="md-pin" color="btn"></ion-icon>
-                                    Destino                                           
-                                </p> 
+                                    Destino
+                                </p>
                           </ion-col>
                           <ion-col>
                               <p class="tx-title">{{offer.ciudad_destino}}</p>
                             </ion-col>
                         </ion-row>
-                      
+
                   </ion-col>
                   <ion-col col-3 class="c-shared">
                       <button ion-fab mini color="btn">
@@ -60,11 +60,11 @@
               <ion-row>
                   <ion-col col-6>
                     <p class="tx-title">Fecha Cargue</p>
-                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy , h:mm a'}}</p>                    
+                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
                   </ion-col>
-                  <ion-col col-6>                   
+                  <ion-col col-6>
                     <p class="tx-title">Fecha Descargue</p>
-                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy , h:mm a'}}</p>                                
+                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy , h:mm a'}}</p>
                   </ion-col>
               </ion-row>
 
@@ -72,6 +72,21 @@
 
           </ion-card-content>
       </ion-card>
+
+      <div *ngIf="freight_state === 7">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF()">PDF con orden de cargue enviada</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+
+
 
 
 

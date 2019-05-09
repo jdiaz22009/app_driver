@@ -1,4 +1,4 @@
-progress-freight-driver{  
+progress-freight-driver{
 
   .card-offert{
 
@@ -68,7 +68,17 @@ progress-freight-driver{
 
   .button-md{
     margin: 0 !important;
-    height: 5rem !important;
+    height: 5rem;
+  }
+
+  .btn-order{
+    color: #000000;
+    background-color: #fff;
+    border: #3F7CF5 1px solid;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    height: 3rem;
+
   }
 
 }
