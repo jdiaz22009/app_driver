@@ -74,10 +74,7 @@ export class ProgressFreightDriverPage {
 
   changeState(){
     const state = this.freight_state + 1 + ''
-    console.log(state)
-
     this.freight.updateOfferState(this.offer._id, state).then(res =>{
-      console.log(res)
       console.log(JSON.stringify(res))
     })
 
@@ -88,7 +85,6 @@ export class ProgressFreightDriverPage {
 
       const url = this.offer.orden_cargue
       const fileCargue = 'cargue.pdf'
-      console.log('openPDF')
 
       this.fileTransfer.download(url, this.file.dataDirectory + fileCargue).then((entry) => {
         console.log('download complete: ' + entry.toURL());
@@ -98,28 +94,6 @@ export class ProgressFreightDriverPage {
       }, (e) => {
         console.error(e)
       });
-
-      // this.file.checkFile(this.file.dataDirectory, fileCargue).then(res =>{
-      //   console.log('checkFile ' + res)
-      //   if(res){
-      //     console.log('open file')
-      //     this.fileOpener.open(this.file.dataDirectory + fileCargue, 'application/pdf')
-      //       .then(() => console.log('File is opened'))
-      //       .catch(e => console.error('Error opening file', e));
-
-      //   }else{
-      //     console.log('download file')
-      //     this.fileTransfer.download(url, this.file.dataDirectory + fileCargue).then((entry) => {
-      //       console.log('download complete: ' + entry.toURL());
-      //       this.fileOpener.open(entry.toURL(), 'application/pdf')
-      //       .then(() => console.log('File is opened'))
-      //       .catch(e => console.error('Error opening file', e));
-      //     }, (e) => {
-      //       console.error(e)
-      //     });
-      //   }
-      // })
-
     }
   }
 
