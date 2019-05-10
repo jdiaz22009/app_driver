@@ -21,6 +21,7 @@ export class FreightProvider{
   postulate_path: string = CONFIG.api.offer.postulate
   push_path: string = CONFIG.api.push.postPush
   updateOffert_path: string = CONFIG.api.offer.updateOffer
+  ordenCargue_path: String = CONFIG.api.offer.ordenCargue
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -145,7 +146,7 @@ export class FreightProvider{
 
 
   /**
-   * 
+   *
    * @param {string} id - offer id
    * @param {string} state -
      * Asignación aceptada  '6'
@@ -159,13 +160,13 @@ export class FreightProvider{
      * Cumplido enviado     '17'
      * Cumplido aprobado    '18'
      * Calificación Empresa '19'
-   *  
+   *
    */
   async updateOfferState(id, state){
 
     const url = this.api_url + this.updateOffert_path + '/' + id
     const token = await this.getToken()
-    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}   
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}
 
     const params = qs.stringify({
       id: state,
@@ -174,6 +175,17 @@ export class FreightProvider{
 
     try{
       return await this.apiClient.request('PUT', url, params, headers)
+    }catch(e){
+      throw e
+    }
+  }
+
+  async updateOfferOrdenCargue(id){
+    const url = this.api_url + this.ordenCargue_path + '/' + id
+    const token = await this.getToken()
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded'}
+    try{
+      return await this.apiClient.request('PUT', url, null, headers)
     }catch(e){
       throw e
     }

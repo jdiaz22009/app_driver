@@ -171,5 +171,5 @@
 </ion-content>
 
 <ion-footer>
-  <button color="btn" ion-button full (click)="changeState()">{{btnProgress}}</button>
+  <button color="btn" [disabled]="enabledBtn" ion-button full (click)="changeState()">{{btnProgress}}</button>
 </ion-footer>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 
 import { FileOpener } from '@ionic-native/file-opener'
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer'
@@ -21,6 +21,8 @@ export class ProgressFreightDriverPage {
   btnProgress: string = ''
 
   freight_state: number
+
+  enabledBtn: boolean = true
 
   progress: any = [
     'Voy en Camino a Cargar',
@@ -53,6 +55,7 @@ export class ProgressFreightDriverPage {
     public freight: FreightProvider,
     private fileOpener: FileOpener,
     private transfer: FileTransfer,
+    public loadingCtrl: LoadingController,
     private file: File
     ) {
 
@@ -70,6 +73,10 @@ export class ProgressFreightDriverPage {
       this.freight_state = this.offer['state'].sequence
       console.log('STATE  ' + this.freight_state)
       console.log(JSON.stringify(this.offer))
+
+      if(this.freight_state > 7 && this.offer.is_orden_cargue){
+        this.enabledBtn = true
+      }
 
       switch (this.freight_state) {
         case 4:
@@ -94,6 +101,8 @@ export class ProgressFreightDriverPage {
   }
 
   openPDF(){
+    const loader = this.loadingCtrl.create({})
+    loader.present()
     if(this.offer.orden_cargue !== undefined && this.offer.orden_cargue !== null){
 
       const url = this.offer.orden_cargue
@@ -101,11 +110,28 @@ export class ProgressFreightDriverPage {
 
       this.fileTransfer.download(url, this.file.dataDirectory + fileCargue).then((entry) => {
         console.log('download complete: ' + entry.toURL());
+        loader.dismiss()
         this.fileOpener.open(entry.toURL(), 'application/pdf')
-        .then(() => console.log('File is opened'))
+        .then(() =>{
+          console.log('File is opened')
+          this.freight.updateOfferOrdenCargue(this.offer._id).then(res =>{
+            if(res){
+              console.log(JSON.stringify(res))
+              const code = res['data'].code
+              if(code === 100){
+                console.log('cargue update')
+                this.getOfferById(this.id)
+              }
+            }
+
+          }).catch(e =>{
+            console.error('Cargue Error ' + e)
+          })
+        })
         .catch(e => console.error('Error opening file', e));
       }, (e) => {
         console.error(e)
+        loader.dismiss()
       });
     }
   }

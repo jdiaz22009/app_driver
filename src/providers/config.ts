@@ -52,7 +52,8 @@ export const CONFIG = {
       updateOfferState: '/api/v1/offers/set-step-offer',
       updateOffer: '/api/v1/offers/update-offer-state',
       getDriverMyOffers: '/api/v1/offers/get-my-offers-conductor',
-      acceptOffer: '/api/v1/offers/seleccionar'
+      acceptOffer: '/api/v1/offers/seleccionar',
+      ordenCargue: '/api/v1/offers/is-ordencargue'
     },
     push:{
       postPush: '/api/v1/auth/push'
