@@ -64,8 +64,11 @@ android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
 
 ## roadMap
 
-pushNotification View byId
-pushNotification icon
+* ~~pushNotification View byId~~
+* pushNotification icon
+* ~~show offer minor 6~~
+* show pdf major 7
+
 
 
 

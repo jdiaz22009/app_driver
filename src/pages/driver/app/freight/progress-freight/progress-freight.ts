@@ -34,6 +34,19 @@ export class ProgressFreightDriverPage {
     'Calificar empresa'
   ]
 
+  requirementsOpt = [
+    {title: 'ARP', model: 'Rarp'},
+    {title: 'Salud', model: 'Rsalud'},
+    {title: 'Pensión', model: 'Rpension'},
+    {title: 'GPS', model: 'Rgps'},
+    {title: 'Trabajo en Alturas', model: 'RtrabajoAltura'},
+    {title: 'Manejo de Alimentos', model: 'RmanejoAlimentos'},
+    {title: 'Certificado de Fumigación', model: 'RcertificadoFumigacion'},
+    {title: 'Sustancias Peligrosas', model: 'RsustanciaPeligrosa'},
+    {title: 'Kit de Derrames', model: 'RkitDerrames'},
+    {title: 'Elemento de Fumigación', model: 'RelementoFumigacion'},
+  ]
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -95,6 +108,13 @@ export class ProgressFreightDriverPage {
         console.error(e)
       });
     }
+  }
+
+  getRequirements(state){
+    if(state){
+      return 'Si'
+    }
+    return 'No'
   }
 
 }

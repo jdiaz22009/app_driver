@@ -25,35 +25,42 @@
               <ion-row>
                   <ion-col col-9>
                       <ion-row>
-                        <ion-col col-4>
+                        <ion-col col-4 class="col-pn">
                               <p class="tx-title tcity">
                                 <ion-icon name="md-pin" color="statusbar"></ion-icon>
                                 Origen
                               </p>
-                              <!-- <p class="tx-title">Diagonal 23 carrera 34</p>
-                              <p *ngIf="freight_state === 7 && offer.direccion_origen"  class="tx-title">
-                                  {{offer.direccion_origen}}
-                              </p> -->
                         </ion-col>
-                        <ion-col>
+                        <ion-col class="col-pn">
                             <p class="tx-title">{{offer.ciudad_origen}}</p>
+                          </ion-col>
+                      </ion-row>
+                      <ion-row>
+                          <ion-col class="col-pn">
+                              <p *ngIf="freight_state > 5 && offer.direccion_origen"  class="tx-title">
+                                  {{offer.direccion_origen}}
+                              </p>
                           </ion-col>
                       </ion-row>
 
                       <ion-row>
-                          <ion-col col-4>
+                          <ion-col col-4 class="col-pn">
                               <p class="tx-title tcity">
                                   <ion-icon name="md-pin" color="btn"></ion-icon>
                                     Destino
                                 </p>
-                                <!-- <p class="tx-title">Calle 76 carrera 34 Chapinero</p>
-                                <p *ngIf="freight_state === 7 && offer.direccion_destino" class="tx-title">
-                                    {{offer.direccion_destino}}
-                                </p> -->
                           </ion-col>
-                          <ion-col>
+                          <ion-col class="col-pn">
                               <p class="tx-title">{{offer.ciudad_destino}}</p>
                             </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col class="col-pn">
+                              <p *ngIf="freight_state > 5 && offer.direccion_destino" class="tx-title">
+                                  {{offer.direccion_destino}}
+                              </p>
+                          </ion-col>
+
                         </ion-row>
 
                   </ion-col>
@@ -68,11 +75,11 @@
               <ion-row>
                   <ion-col col-6>
                     <p class="tx-title">Fecha Cargue</p>
-                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy , h:mm a'}}</p>
+                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
                   </ion-col>
                   <ion-col col-6>
                     <p class="tx-title">Fecha Descargue</p>
-                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy , h:mm a'}}</p>
+                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p>
                   </ion-col>
               </ion-row>
 
@@ -81,7 +88,7 @@
           </ion-card-content>
       </ion-card>
 
-      <div *ngIf="freight_state === 7">
+      <div *ngIf="freight_state > 6">
 
         <ion-grid>
           <ion-row>
@@ -92,6 +99,74 @@
         </ion-grid>
 
       </div>
+
+
+      <ion-card class="card-offert">
+          <ion-card-content>
+              <ion-grid>
+                  <ion-row>
+                      <ion-col col-6>
+                        <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Tipo</p>
+                        <p class="tx-summary">{{offer.clase_vehiculo}}</p>
+                        <p class="tx-title"><ion-icon name="custom-weight" class="icon-info"></ion-icon> Peso</p>
+                        <p class="tx-summary">{{offer.peso_carga_max}} TON</p>
+                        <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha de Cargue</p>
+                        <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Flete</p>
+                        <p class="tx-summary">{{offer.flete | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Cargue Conductor</p>
+                        <p class="tx-summary">{{offer.cargue | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Anticipo</p>
+                        <p class="tx-summary">{{offer.anticipo}}%</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Contra Entrega</p>
+                        <p class="tx-summary">{{offer.fpcontraEntrega}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Clientes a Entregar</p>
+                        <p class="tx-summary">{{offer.clase_cliente}}</p>
+                      </ion-col>
+                      <ion-col col-6>
+                        <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Carrocería</p>
+                        <p class="tx-summary">{{offer.tipo_carroceria}}</p>
+                        <p class="tx-title"><ion-icon name="custom-volumen" class="icon-info"></ion-icon> Volumen</p>
+                        <p class="tx-summary">{{offer.volumen}}</p>
+                        <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha Descargue</p>
+                        <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> x Tonelada</p>
+                        <p class="tx-summary">{{offer.val_peso | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Descargue Conductor</p>
+                        <p class="tx-summary">{{offer.descargue | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Saldo</p>
+                        <p class="tx-summary">{{offer.contraEntrega}}%</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Tiempo Saldo</p>
+                        <p class="tx-summary">{{offer.tiempoSaldo}}</p>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+          <ion-card-content>
+            <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Observaciones</h3>
+            <p class="tx-summary">{{offer.Robservaciones}} </p>
+          </ion-card-content>
+      </ion-card>
+
+
+      <ion-card class="c-req">
+          <ion-card-content>
+            <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Requisitos</h3>
+
+            <ion-row *ngFor="let item of requirementsOpt">
+                <ion-col col-7>
+                    <p class="tx-title">{{item.title}}</p>
+                </ion-col>
+                <ion-col>
+                    <p class="tx-summary">{{getRequirements(offer[item.model])}}</p>
+                </ion-col>
+            </ion-row>
+
+          </ion-card-content>
+      </ion-card>
 
 </ion-content>
 

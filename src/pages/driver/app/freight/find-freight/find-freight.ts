@@ -46,20 +46,22 @@ export class FindFreightDriverPage {
       const array = []
 
       data.forEach(e => {
-         const drivers = e['postulantes']
-         if(drivers.length > 0){
-           let isDriver = false
-            for(let i of drivers){
-              if(i._id === userId){
-                isDriver = true
-              }
-            }
-            if(!isDriver){
-              array.push(e)
-            }
-         }else{
-           array.push(e)
-         }
+        if(e['state'].sequence < 5){
+          const drivers = e['postulantes']
+          if(drivers.length > 0){
+            let isDriver = false
+             for(let i of drivers){
+                 if(i._id === userId){
+                   isDriver = true
+               }
+             }
+             if(!isDriver){
+               array.push(e)
+             }
+          }else{
+            array.push(e)
+          }
+        }
       })
 
       if(array.length > 0){
