@@ -67,7 +67,7 @@ android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
 * ~~pushNotification View byId~~
 * pushNotification icon
 * ~~show offer minor 6~~
-* show pdf major 7
+* ~~show pdf major 7~~
 
 
 

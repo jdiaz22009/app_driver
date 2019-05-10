@@ -41,6 +41,7 @@
     "@ionic/storage": "2.2.0",
     "axios": "^0.18.0",
     "call-number": "1.0.1",
+    "cordova": "9.0.0",
     "cordova-android": "8.0.0",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-app-version": "^0.1.9",
