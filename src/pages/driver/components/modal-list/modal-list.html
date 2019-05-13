@@ -3,12 +3,13 @@
  <h3 class="tx">{{title}}</h3>
 
  <ion-list radio-group [(ngModel)]="selected">
-    <ion-item-group>
-      <ion-item-divider color="light">A</ion-item-divider>
-      <ion-item *ngFor="let item of data">
-    <ion-label>{{item.name}}</ion-label>
-    <ion-radio value="{{item.value}}"></ion-radio>
-  </ion-item>
+    <ion-item-group *ngFor="let item of data">
+      <ion-item-divider color="light">{{item.departamento}}</ion-item-divider>
+      <ion-item *ngFor="let city of item.ciudades">
+        <ion-label>{{city}}</ion-label>
+        <ion-radio value="{{city}}"></ion-radio>
+      </ion-item>
+    </ion-item-group>
  </ion-list>
 
 </ion-content>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
 import { IonicPage, ViewController, NavParams } from 'ionic-angular'
-
 @IonicPage()
 @Component({
   selector: 'modal-list-driver',
@@ -22,15 +21,20 @@ export class ModalListDriverComponent {
 
     const params = navParams.get('options')
     this.radio = navParams.get('radio')
-    console.log('radio ' + this.radio + " " + typeof(this.radio))
-    if(params != null){
-      this.title = params['title']
-      this.data = params['options']
-    }
 
-    if(this.radio != ''){
-      this.selected = this.radio
-    }
+    console.log(params)
+
+    setTimeout(() =>{
+      if(params != null){
+        this.title = params['title']
+        this.data = params['options']
+      }
+
+      if(this.radio != ''){
+        this.selected = this.radio
+      }
+    }, 500)
+
   }
 
   goBack(mode){

@@ -46,6 +46,6 @@ export class CitiesProvider{
   }
 
   async getAllRegions(){
-
+    return await this.http.get(this.zones_path).toPromise()
   }
 }

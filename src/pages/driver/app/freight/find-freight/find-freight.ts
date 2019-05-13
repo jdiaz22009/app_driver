@@ -1,3 +1,4 @@
+import { CitiesProvider } from '@providers/cities';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup } from '@angular/forms'
@@ -17,11 +18,12 @@ import { FreightProvider } from '@providers/api/freight'
 export class FindFreightDriverPage {
 
   offers: any = []
+  regions: any = []
   user_id: string
 
   iconBtnFilters =[
-    'ios-arrow-dropdown',
-    'ios-arrow-dropup'
+    'custom-arrow-down',
+    'custom-arrow-up'
   ]
 
   iconFilter = this.iconBtnFilters[0]
@@ -71,20 +73,22 @@ export class FindFreightDriverPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public modalCtrl: ModalController,
+    public cities: CitiesProvider,
     private socialSharing: SocialSharing) {
 
       this.findForm = this.formBuilder.group({
-        type: [''],
-        bodywork: [''],
+        type: [{value: '', disabled: true}],
+        bodywork: [{value: '', disabled: true}],
         date:[''],
-        origin: [''],
-        destination: ['']
+        origin: [{value: '', disabled: true}],
+        destination: [{value: '', disabled: true}]
       })
 
   }
 
   ionViewWillEnter(){
     this.getFreights()
+    this.getZones()
   }
 
   async getUserId(){
@@ -138,10 +142,15 @@ export class FindFreightDriverPage {
   }
 
   doRefresh(refresher) {
-    this.getFreights()
-    setTimeout(() => {
+    if(!this.hiddenFilters){
       refresher.complete()
-    }, 2000)
+    }else{
+      this.getFreights()
+      setTimeout(() => {
+        refresher.complete()
+      }, 2000)
+    }
+
   }
 
   shared(freight){
@@ -157,20 +166,36 @@ export class FindFreightDriverPage {
   showModal(mode){
     let options
     let radio
+    let modal
+
     if(mode === 0){
-        options = this.vehicle_class
-        radio = this.findForm.controls['type'].value
+      options = this.vehicle_class
+      radio = this.findForm.controls['type'].value
+      modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
     }else if(mode === 1){
-        options = this.vehicle_bodywork
-        radio = this.findForm.controls['bodywork'].value
+      options = this.vehicle_bodywork
+      radio = this.findForm.controls['bodywork'].value
+      modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
     }else if(mode === 2){
-      options = this.origin_list
+      // this.regions.title = 'Ciudad Origen'
+      // this.regions.
+      options = {
+        title: 'Ciudad Origen',
+        options: this.regions
+      }
       radio = this.findForm.controls['origin'].value
+      modal = this.modalCtrl.create('ModalListDriverComponent', {options, radio })
     }else if(mode === 3){
-      options = this.destination_list
+      // this.regions.title = 'Ciudad Destino'
+      // options = this.regions
+      options = {
+        title: 'Ciudad Destino',
+        options: this.regions
+      }
       radio = this.findForm.controls['destination'].value
+      modal = this.modalCtrl.create('ModalListDriverComponent', {options, radio })
     }
-    const modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
+
     modal.present()
 
     modal.onDidDismiss((data) =>{
@@ -213,6 +238,12 @@ export class FindFreightDriverPage {
   resetFilters(){
     this.findForm.reset()
     this.getFreights()
+  }
+
+  getZones(){
+    this.cities.getAllRegions().then(res =>{
+      this.regions = res
+    })
   }
 
 }

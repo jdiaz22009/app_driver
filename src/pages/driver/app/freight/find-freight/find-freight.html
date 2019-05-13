@@ -18,9 +18,9 @@
         <ion-col col-3>
           <p class="tx-title">Clase vehículo</p>
         </ion-col>
-        <ion-col>
-            <ion-item class=l-item (click)="showModal(0)">
-                <ion-input [formControl]="findForm.controls['type']" placeholder="Seleccione" disabled="true"></ion-input>
+        <ion-col (click)="showModal(0)">
+            <ion-item class=l-item>
+                <ion-input [formControl]="findForm.controls['type']" placeholder="Seleccione"></ion-input>
                 <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
             </ion-item>
         </ion-col>
@@ -30,9 +30,9 @@
         <ion-col col-3>
           <p class="tx-title">Carrocería</p>
         </ion-col>
-        <ion-col>
-            <ion-item class=l-item (click)="showModal(1)">
-                <ion-input [formControl]="findForm.controls['bodywork']" placeholder="Seleccione" disabled="true"></ion-input>
+        <ion-col (click)="showModal(1)">
+            <ion-item class=l-item>
+                <ion-input [formControl]="findForm.controls['bodywork']" placeholder="Seleccione"></ion-input>
                 <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
             </ion-item>
         </ion-col>
@@ -62,9 +62,9 @@
           <ion-col col-3>
             <p class="tx-title">Origen</p>
           </ion-col>
-          <ion-col>
-              <ion-item class=l-item (click)="showModal(2)">
-                  <ion-input [formControl]="findForm.controls['origin']" placeholder="Todos los origenes" disabled="true"></ion-input>
+          <ion-col (click)="showModal(2)">
+              <ion-item class=l-item>
+                  <ion-input [formControl]="findForm.controls['origin']" placeholder="Todos los origenes"></ion-input>
                   <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
               </ion-item>
 
@@ -75,9 +75,9 @@
           <ion-col col-3>
             <p class="tx-title">Destino</p>
           </ion-col>
-          <ion-col>
-              <ion-item class=l-item (click)="showModal(3)">
-                  <ion-input [formControl]="findForm.controls['destination']" placeholder="Todos los destinos" disabled="true"></ion-input>
+          <ion-col (click)="showModal(3)">
+              <ion-item class=l-item>
+                  <ion-input [formControl]="findForm.controls['destination']" placeholder="Todos los destinos"></ion-input>
                   <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
               </ion-item>
           </ion-col>
@@ -102,7 +102,7 @@
       <ion-col col-5>
           <hr class="c-divider">
       </ion-col>
-      <ion-col class="too-search">
+      <ion-col class="too-search" text-center>
           <button (click)="toogleSearch(iconFilter)" color="btn" ion-button icon-only clear>
               <ion-icon [name]="iconFilter"></ion-icon>
             </button>
