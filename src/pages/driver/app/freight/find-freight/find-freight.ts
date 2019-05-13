@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import 'rxjs/add/operator/map'
 
 import { SocialSharing } from '@ionic-native/social-sharing'
@@ -18,12 +19,67 @@ export class FindFreightDriverPage {
   offers: any = []
   user_id: string
 
+  iconBtnFilters =[
+    'ios-arrow-dropdown',
+    'ios-arrow-dropup'
+  ]
+
+  iconFilter = this.iconBtnFilters[0]
+  hiddenFilters = true
+
+  findForm: FormGroup
+
+  vehicle_class = {
+    title: 'Clase de vehículo',
+    options: [
+      {value: 'Camioneta', name: 'Camioneta', checked: false},
+      {value: 'Turbo', name: 'Turbo', checked: false},
+      {value: 'Sencillo', name:'Sencillo', checked: false},
+      {value: 'Doble Troque', name:'Doble Troque', checked: false},
+      {value: 'Cuatro Manos', name:'Cuatro Manos', checked: false},
+      {value: 'Minimula', name:'Minimula', checked: false},
+      {value: 'Tracto Camión', name:'Tracto Camión', checked: false},
+    ]
+  }
+
+  vehicle_bodywork = {
+    title: 'Tipo de carrocería',
+    options: [
+      {value: 'Carry', name: 'Carry', checked: false},
+      {value: 'Estacas', name: 'Estacas', checked: false},
+      {value: 'Furgón', name:'Furgón', checked: false},
+      {value: 'Furgón Refrigerado', name:'Furgón Refrigerado', checked: false},
+      {value: 'Platón', name:'Platón', checked: false},
+      {value: 'Plancha', name:'Plancha', checked: false},
+      {value: 'Cisterna', name:'Cisterna', checked: false},
+      {value: 'Tanque', name:'Tanque', checked: false},
+      {value: 'Volco', name:'Volco', checked: false},
+      {value: 'Porta Contenedor', name:'Porta Contenedor', checked: false},
+      {value: 'Contenedor', name:'Contenedor', checked: false},
+      {value: 'Cama Baja', name:'Cama Baja', checked: false},
+      {value: 'Niñera', name:'Niñera', checked: false}
+    ]
+  }
+
+  origin_list: any = []
+  destination_list: any = []
+
   constructor(
     public navCtrl: NavController,
     public apiFreight: FreightProvider,
     public db: StorageDb,
     public navParams: NavParams,
+    private formBuilder: FormBuilder,
+    public modalCtrl: ModalController,
     private socialSharing: SocialSharing) {
+
+      this.findForm = this.formBuilder.group({
+        type: [''],
+        bodywork: [''],
+        date:[''],
+        origin: [''],
+        destination: ['']
+      })
 
   }
 
@@ -38,8 +94,9 @@ export class FindFreightDriverPage {
   }
 
   async getFreights(){
+    this.offers = []
     const userId = await this.getUserId()
-    console.log('UserId ' + userId)
+
     this.apiFreight.getOffert().then(res =>{
       // console.log(JSON.stringify(res))
       const data = res['data']
@@ -94,6 +151,68 @@ export class FindFreightDriverPage {
     const url = null
 
     this.socialSharing.share(message, subject, file, url)
+  }
+
+
+  showModal(mode){
+    let options
+    let radio
+    if(mode === 0){
+        options = this.vehicle_class
+        radio = this.findForm.controls['type'].value
+    }else if(mode === 1){
+        options = this.vehicle_bodywork
+        radio = this.findForm.controls['bodywork'].value
+    }else if(mode === 2){
+      options = this.origin_list
+      radio = this.findForm.controls['origin'].value
+    }else if(mode === 3){
+      options = this.destination_list
+      radio = this.findForm.controls['destination'].value
+    }
+    const modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
+    modal.present()
+
+    modal.onDidDismiss((data) =>{
+      console.log('onDismiss ' + JSON.stringify(data) + ' MODE ' + mode + " " + data)
+      if(mode === 0){
+        if(data != null){
+          this.findForm.controls['type'].setValue(data.radio)
+        }
+      }else if(mode === 1){
+        if(data != null){
+          this.findForm.controls['bodywork'].setValue(data.radio)
+        }
+      }else if(mode === 2){
+        if(data != null){
+          this.findForm.controls['origin'].setValue(data.radio)
+        }
+      }else if(mode === 3){
+        if(data != null){
+          this.findForm.controls['destination'].setValue(data.radio)
+        }
+      }
+    })
+  }
+
+  search(){
+    console.log(this.findForm)
+  }
+
+  toogleSearch(icon){
+    const index = this.iconBtnFilters.indexOf(icon)
+    if(index === 0){
+      this.iconFilter = this.iconBtnFilters[1]
+      this.hiddenFilters = false
+    }else if(index === 1){
+      this.iconFilter = this.iconBtnFilters[0]
+      this.hiddenFilters = true
+    }
+  }
+
+  resetFilters(){
+    this.findForm.reset()
+    this.getFreights()
   }
 
 }

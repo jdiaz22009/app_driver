@@ -157,7 +157,6 @@ export class AddCartDriverPage {
     }
 
     showModal(mode){
-      console.log('show modal radio ' + mode)
       let options
       let radio
       if(mode === 0){

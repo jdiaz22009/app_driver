@@ -1,0 +1,27 @@
+<ion-content padding>
+
+ <h3 class="tx">{{title}}</h3>
+
+ <ion-list radio-group [(ngModel)]="selected">
+    <ion-item-group>
+      <ion-item-divider color="light">A</ion-item-divider>
+      <ion-item *ngFor="let item of data">
+    <ion-label>{{item.name}}</ion-label>
+    <ion-radio value="{{item.value}}"></ion-radio>
+  </ion-item>
+ </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-5>
+        <button ion-button color="btnd" (click)="goBack(0)">Cancelar</button>
+      </ion-col>
+      <ion-col col-5>
+        <button ion-button color="btn" (click)="goBack(1)">Seleccionar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

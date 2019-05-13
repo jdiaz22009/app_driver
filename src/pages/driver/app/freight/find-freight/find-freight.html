@@ -9,6 +9,111 @@
       </ion-refresher-content>
   </ion-refresher>
 
+  <ion-grid margin-top>
+
+    <div [ngClass]="hiddenFilters ? 'content-filters-hidden': 'content-filters-active'">
+
+
+      <ion-row>
+        <ion-col col-3>
+          <p class="tx-title">Clase vehículo</p>
+        </ion-col>
+        <ion-col>
+            <ion-item class=l-item (click)="showModal(0)">
+                <ion-input [formControl]="findForm.controls['type']" placeholder="Seleccione" disabled="true"></ion-input>
+                <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-3>
+          <p class="tx-title">Carrocería</p>
+        </ion-col>
+        <ion-col>
+            <ion-item class=l-item (click)="showModal(1)">
+                <ion-input [formControl]="findForm.controls['bodywork']" placeholder="Seleccione" disabled="true"></ion-input>
+                <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+          <ion-col col-3>
+            <p class="tx-title">Fecha</p>
+          </ion-col>
+          <ion-col>
+              <ion-item class=l-item>
+                  <ion-datetime
+                    displayFormat="MM/DD/YYYY"
+                    pickerFormat="MM/DD/YYYY"
+                    min="2018" max="2020"
+                    placeholder="Seleccione"
+                    [formControl]="findForm.controls['date']">
+                  </ion-datetime>
+                  <ion-icon name="md-calendar" class="search-icon" item-end></ion-icon>
+              </ion-item>
+
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-3>
+            <p class="tx-title">Origen</p>
+          </ion-col>
+          <ion-col>
+              <ion-item class=l-item (click)="showModal(2)">
+                  <ion-input [formControl]="findForm.controls['origin']" placeholder="Todos los origenes" disabled="true"></ion-input>
+                  <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
+              </ion-item>
+
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-3>
+            <p class="tx-title">Destino</p>
+          </ion-col>
+          <ion-col>
+              <ion-item class=l-item (click)="showModal(3)">
+                  <ion-input [formControl]="findForm.controls['destination']" placeholder="Todos los destinos" disabled="true"></ion-input>
+                  <ion-icon name="md-arrow-dropdown" class="search-icon" item-end></ion-icon>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+            <button color="btn" ion-button full (click)="search()">Buscar Ahora</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-center no-padding>
+          <p (click)="resetFilters()" class="tx-title">Quitar Filtros</p>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+
+    <ion-row>
+      <ion-col col-5>
+          <hr class="c-divider">
+      </ion-col>
+      <ion-col class="too-search">
+          <button (click)="toogleSearch(iconFilter)" color="btn" ion-button icon-only clear>
+              <ion-icon [name]="iconFilter"></ion-icon>
+            </button>
+      </ion-col>
+      <ion-col col-5>
+          <hr class="c-divider">
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
   <div class="card-content" *ngFor="let item of offers; let i = index">
 
       <ion-card class="card-offert">
@@ -72,7 +177,6 @@
                     <p class="tx-title">Carrocería</p>
                     <p class="tx-summary"> {{item.clase_vehiculo}}</p>
                     <p class="tx-title">Fecha de Carga</p>
-                    <!-- <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy , h:mm a'}}</p> -->
                     <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy'}}</p>
                     <br>
                     <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">
