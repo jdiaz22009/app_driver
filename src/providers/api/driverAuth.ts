@@ -15,12 +15,11 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class DriverAuthProvider {
 
-  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
   api_url: string = CONFIG.api.url
 
   getDriver_path: string = CONFIG.api.drivers.getDrivers
   login_path: string = CONFIG.api.drivers.login
-  verify_token_path: string = CONFIG.api.path.verify
+  verify_token_path: string = CONFIG.api.drivers.verifyToken
   validateId_path: string = CONFIG.api.drivers.validateId
   register_driver_path: string = CONFIG.api.drivers.register
   inService_path: string = CONFIG.api.drivers.setInServices
@@ -31,15 +30,6 @@ export class DriverAuthProvider {
   coming_soon: string = CONFIG.api.drivers.comingSoon
   offerCount: string = CONFIG.api.drivers.offerCount
   acceptOffer: string = CONFIG.api.offer.acceptOffer
-
-  api_url_dev: string = CONFIG.api.urldev + ':' + CONFIG.api.port
-  getDevDrivers: string = CONFIG.dev.getDrivers
-  login_path_dev: string = CONFIG.dev.login
-  validateId_path_dev: string = CONFIG.dev.validateId
-  register_driver_parth_dev: string = CONFIG.dev.register
-  inService_path_dev: string = CONFIG.dev.setInServices
-  updatedrivers_dev: string = CONFIG.dev.updateConductor
-
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -74,7 +64,6 @@ export class DriverAuthProvider {
 
   async verifyToken() {
     const token = await this.getToken()
-    console.log('token to verify ' + token)
     const url = this.api_url + this.verify_token_path
     const headers = { headers: { 'Authorization': token, 'content-type': 'application/x-www-form-urlencoded' } }
     try {
@@ -217,7 +206,6 @@ export class DriverAuthProvider {
   async updateDriverC(driver: DataUserC) {
     const url = this.api_url + this.updatedrivers_path
     const token = await this.getToken()
-    console.log('--DriverAuth-- updateDriverC driver: ', JSON.stringify(driver))
 
     const params = {
       fecha_expedicion_cedula: driver.fecha_expedicion_cedula,
@@ -248,7 +236,6 @@ export class DriverAuthProvider {
     }
   }
   async updateBankInformationPhotos(imgArray) {
-    console.log(JSON.stringify(imgArray))
     const url = this.api_url + this.updatedrivers_path
     const token = await this.getToken()
 
@@ -376,8 +363,6 @@ export class DriverAuthProvider {
     } catch (e) {
       throw e
     }
-
-
   }
 
   async saveUrl(params) {

@@ -73,35 +73,6 @@ export class MyApp {
 
         this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
 
-        // this.localNotifications.on('click').subscribe((data) =>{
-        //   this.nav.push('DetailsFreightDriverPage', { id: data.id, mode: 0})
-        //   // console.log(data)
-        //   // this.nav.push('FindFreightDriverPage')
-        // })
-
-        // this.localNotifications.fireQueuedEvents().then(res =>{
-        //   console.log('fire queued ' + res)
-        // })
-
-        // this.localNotifications.getTriggered().then(res =>{
-        //   console.log('fire getTriggered ' + res)
-        // })
-
-        // this.localNotifications.on('trigger').subscribe((response) =>     {
-        //   console.log('on trigger' + response)
-        // })
-
-        // this.localNotifications.getScheduled().then(res =>{
-        //   console.log('getScheduled ' + res)
-        //   console.log('getScheduled ' + JSON.stringify(res))
-        // })
-
-        // this.db.getItem('notifyId').then(res =>{
-        //   console.log('notifyId ' + res)
-        //   console.log('notifyId ' + JSON.stringify(res))
-        // })
-
-
       }
 
       firebase.initializeApp(FIREBASE_CONFIG)
@@ -117,8 +88,6 @@ export class MyApp {
     if (data) {
       if (mode) {
         console.log('Received in background ', JSON.stringify(data))
-
-        // this.db.setItem('notifyId', data.id)
 
         this.localNotifications.schedule({
           id: data.id,
@@ -143,7 +112,6 @@ export class MyApp {
         }else if(type === 'notification_asign'){
           this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
             if (res === 1) {
-              //accept offer
               this.driverAuth.acceptTheOffer(data.id).then(res =>{
                 if(res){
                   this.alerts.showAlert('Oferta Aceptada', 'Ya puedes preparte para iniciar el viaje.')

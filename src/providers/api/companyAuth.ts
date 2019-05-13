@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core'
 
-import qs from 'qs'
-
-import { CONFIG } from '../config'
-
 import { User } from '@models/user'
 
 

@@ -31,7 +31,6 @@ export class MainSharedPage {
 
   checkForSession(){
     this.db.getItem(CONFIG.localdb.USER_KEY).then(res =>{
-      console.log(res)
       if(res != null){
         this.showContent = false
         if(res['type'] === 'driver'){

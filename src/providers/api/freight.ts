@@ -10,7 +10,6 @@ import { StorageDb } from '@providers/storageDb'
 @Injectable()
 export class FreightProvider{
 
-  // api_url: string = CONFIG.api.url + ':' + CONFIG.api.port
   api_url: string = CONFIG.api.url
 
   get_path: string = CONFIG.api.offer.get
