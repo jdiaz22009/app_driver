@@ -33,7 +33,7 @@ export class ModalListDriverComponent {
       if(this.radio != ''){
         this.selected = this.radio
       }
-    }, 500)
+    }, 200)
 
   }
 
@@ -45,6 +45,12 @@ export class ModalListDriverComponent {
       options = this.selected
     }
     this.viewCtrl.dismiss({radio: options})
+  }
+
+  selectCity(city){
+    console.log(city)
+    this.selected = city
+    this.goBack(1)
   }
 
 }
