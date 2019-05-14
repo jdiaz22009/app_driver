@@ -5,7 +5,11 @@ import { FileOpener } from '@ionic-native/file-opener'
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
 
+import { FirebaseProvider } from '@providers/firebase'
+import { MediaProvider } from '@providers/media'
 import { FreightProvider } from '@providers/api/freight'
+import { StorageDb } from '@providers/storageDb'
+import { CONFIG } from '@providers/config'
 @IonicPage()
 @Component({
   selector: 'progress-freight-driver',
@@ -22,18 +26,47 @@ export class ProgressFreightDriverPage {
 
   freight_state: number
 
-  enabledBtn: boolean = true
+  // enabledBtn: boolean = true
+  enabledBtn: boolean = false
+
+  // progress: any = [
+  //   'Voy en Camino a Cargar',
+  //   'Llegue a origen',
+  //   'Iniciaron Cargue',
+  //   'Conductor Cargado',
+  //   'Voy en tránsito',
+  //   'Llegue a mi destino',
+  //   'Iniciaron descargue',
+  //   'Terminaron descargue Tomar foto soporte',
+  //   'Calificar empresa'
+  // ]
 
   progress: any = [
-    'Voy en Camino a Cargar',
-    'Llegue a origen',
-    'Iniciaron Cargue',
-    'Conductor Cargado',
-    'Voy en tránsito',
-    'Llegue a mi destino',
-    'Iniciaron descargue',
-    'Terminaron descargue Tomar foto soporte',
-    'Calificar empresa'
+    'Oferta Publicada',
+    'Vehículo Postulado',
+    'Vehículo Pre-seleccionado',
+    'Vehículo Aprobado',
+    'Vehículo Asignado',
+    'Asiganción Aceptada',
+    'Orden de Cargue Enviada',
+    'Anticipo Pre-Cargue Pagado',
+    'Vehículo en camino a cargar',
+    'Vehículo en origen',
+    'Vehículo Cargando',
+    'Vehículo Cargado', //foto
+    'Cargue Verificado',
+    'Anticipo Autorizado',
+    'Anticipo Pagado',
+    'Vehículo en tránsito',
+    'Vehículo en destino',
+    'Vehículo Descargando',
+    'Vehículo Descargado',
+    'Cumplido Enviado',
+    'Cumplido Aprobado',
+    'Saldo Aprobado',
+    'Saldo Pagado',
+    'Calificación Conductor',
+    'Calificación Empresa'
   ]
 
   requirementsOpt = [
@@ -56,6 +89,9 @@ export class ProgressFreightDriverPage {
     private fileOpener: FileOpener,
     private transfer: FileTransfer,
     public loadingCtrl: LoadingController,
+    public media: MediaProvider,
+    public fire: FirebaseProvider,
+    public db: StorageDb,
     private file: File
     ) {
 
@@ -65,39 +101,59 @@ export class ProgressFreightDriverPage {
     // this.getOfferById('5cd348882ce98522557052c7')
 
     this.fileTransfer = this.transfer.create()
+
   }
 
   getOfferById(id){
     this.freight.getOfferById(id).then(res =>{
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
-      console.log('STATE  ' + this.freight_state)
-      console.log(JSON.stringify(this.offer))
+      console.log(`STATE (${this.freight_state})`)
+      // console.log(JSON.stringify(this.offer))
 
-      if(this.freight_state > 7 && this.offer.is_orden_cargue){
-        this.enabledBtn = true
-      }
+      // if(this.freight_state > 7 && this.offer.is_orden_cargue){
+      //   this.enabledBtn = true
+      // }
 
-      switch (this.freight_state) {
-        case 4:
-          this.btnProgress = this.progress[0]
-        break;
-        case 5:
-          this.btnProgress = this.progress[1]
-        break;
-        default:
-          this.btnProgress = this.progress[0]
-          break;
-      }
+      this.btnProgress = this.progress[this.freight_state - 1]
     })
   }
 
-  changeState(){
+  async getUserId() {
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+      return res.userId
+    })
+  }
+
+  async changeState(){
+    if(this.freight_state === 12){
+        const userId = await this.getUserId()
+        const cargueName = 'Cargue_' + this.offer._id
+        this.media.takePictureWithWatermark().then(res =>{
+          console.log('takePictureWithWatermark success  + res')
+          const img = res.toString().substring(23)
+          console.log(img)
+          this.fire.uploadPicture(img, userId, cargueName).then(res =>{
+            console.log('uploadPicture ' + res)
+            this.fire.saveOfferLoad(res, userId, this.offer._id, cargueName).then(res =>{
+              console.log('upload picture')
+            }).catch(e => console.error(e))
+          }).catch(e => console.error(e))
+        })
+
+    }else{
+      this.updateOffertState()
+    }
+  }
+
+  updateOffertState(){
     const state = this.freight_state + 1 + ''
     this.freight.updateOfferState(this.offer._id, state).then(res =>{
-      console.log(JSON.stringify(res))
+      this.offer = res['data'].data
+      this.freight_state = this.offer['state'].sequence
+      console.log(`STATE (${this.freight_state})`)
+      this.btnProgress = this.progress[this.freight_state - 1]
     })
-
   }
 
   openPDF(){
@@ -113,13 +169,11 @@ export class ProgressFreightDriverPage {
         loader.dismiss()
         this.fileOpener.open(entry.toURL(), 'application/pdf')
         .then(() =>{
-          console.log('File is opened')
           this.freight.updateOfferOrdenCargue(this.offer._id).then(res =>{
             if(res){
               console.log(JSON.stringify(res))
               const code = res['data'].code
               if(code === 100){
-                console.log('cargue update')
                 this.getOfferById(this.id)
               }
             }
@@ -132,7 +186,7 @@ export class ProgressFreightDriverPage {
       }, (e) => {
         console.error(e)
         loader.dismiss()
-      });
+      })
     }
   }
 

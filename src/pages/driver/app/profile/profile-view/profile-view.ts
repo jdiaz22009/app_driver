@@ -43,8 +43,8 @@ export class ProfileDriverPage {
 
   getProfile() {
     this.auth.getDriver().then(res => {
-      // console.log('user ' + JSON.stringify(res))
       this.userData = res['data'].id_driver
+      console.log('userId ' + this.userData._id)
       this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' ' + this.toCapitalize(this.userData.segundo_nombre)
       this.percent_profile = res['data'].percent_profile
       this.travels = this.userData.cantidad_viajes === 0 ? 0 : this.userData.cantidad_viajes

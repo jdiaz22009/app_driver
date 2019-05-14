@@ -8,15 +8,12 @@ import 'firebase/storage'
 export class FirebaseProvider{
 
   database: any
-  driverRef: any
   storage: any
   imgRef: any
 
    constructor(){
 
       this.database = firebase.database()
-      this.driverRef = this.database.ref('/drivers')
-
       this.storage = firebase.storage()
 
    }
@@ -103,6 +100,11 @@ export class FirebaseProvider{
         reject(e)
       })
     })
+   }
+
+   async saveOfferLoad(data, userId, offerId, name ){
+    const reference = this.database.ref(`drivers/${userId}/offers/${offerId}/${name}`)
+    return await this.database.ref(reference).set(data)
    }
 
 }
