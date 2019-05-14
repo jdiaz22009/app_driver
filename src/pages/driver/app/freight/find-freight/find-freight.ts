@@ -77,11 +77,6 @@ export class FindFreightDriverPage {
     private socialSharing: SocialSharing) {
 
       this.findForm = this.formBuilder.group({
-        // type: [{value: '', disabled: true}],
-        // bodywork: [{value: '', disabled: true}],
-        // date:[''],
-        // origin: [{value: '', disabled: true}],
-        // destination: [{value: '', disabled: true}]
         type: [''],
         bodywork: [''],
         date:[''],
@@ -223,7 +218,12 @@ export class FindFreightDriverPage {
   }
 
   search(){
-    console.log(this.findForm)
+    this.apiFreight.getOffertByFilters(this.findForm.value).then(res =>{
+      console.log(res)
+      if(res && res['data'].code === 100){
+        this.offers = res['data'].searchOffer
+      }
+    })
   }
 
   toogleSearch(icon){

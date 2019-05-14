@@ -21,6 +21,7 @@ export class FreightProvider{
   push_path: string = CONFIG.api.push.postPush
   updateOffert_path: string = CONFIG.api.offer.updateOffer
   ordenCargue_path: String = CONFIG.api.offer.ordenCargue
+  getfilters_path: String = CONFIG.api.offer.getfilters
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -67,9 +68,30 @@ export class FreightProvider{
     }
   }
 
-  newOffert(){
+  async getOffertByFilters(filters){
 
+    const userId = await this.getUserId()
+    const url = this.api_url + this.getfilters_path + '/' +  userId
+    const token = await this.getToken()
+
+    const headers = {'Authorization' : token, 'content-type': 'application/x-www-form-urlencoded' }
+
+    const params = qs.stringify({
+      clase_vehiculo: filters.type,
+      tipo_carroceria: filters.bodywork,
+      ciudad_origen: filters.origin,
+      ciudad_destino: filters.destination,
+      fecha_creacion: filters.date
+    })
+
+    try{
+      return await this.apiClient.request('POST', url, params, headers)
+    }catch(e){
+      throw e
+    }
   }
+
+
 
   async getMyOffers(){
     const url = this.api_url + this.getMy_offers_path

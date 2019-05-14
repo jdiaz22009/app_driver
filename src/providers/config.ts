@@ -99,7 +99,8 @@ const dev = {
       updateOffer: '/api/v1/offers/update-offer-state',
       getDriverMyOffers: '/api/v1/offers/get-my-offers-conductor',
       acceptOffer: '/api/v1/offers/seleccionar',
-      ordenCargue: '/api/v1/offers/is-ordencargue'
+      ordenCargue: '/api/v1/offers/is-ordencargue',
+      getfilters: '/api/v1/offers/search'
     },
     push:{
       postPush: '/api/v1/auth/push'
