@@ -9,6 +9,8 @@ import { IonicPage, ViewController, NavParams } from 'ionic-angular'
 export class ModalListDriverComponent {
 
   data: any
+  dataPrev: any
+  dataFilter: any
   title: string = ''
   option: any
   selected: any
@@ -22,18 +24,17 @@ export class ModalListDriverComponent {
     const params = navParams.get('options')
     this.radio = navParams.get('radio')
 
-    console.log(params)
-
     setTimeout(() =>{
       if(params != null){
         this.title = params['title']
         this.data = params['options']
+        this.dataPrev = this.data
       }
 
       if(this.radio != ''){
         this.selected = this.radio
       }
-    }, 200)
+    }, 100)
 
   }
 
@@ -48,9 +49,27 @@ export class ModalListDriverComponent {
   }
 
   selectCity(city){
-    console.log(city)
     this.selected = city
     this.goBack(1)
+  }
+
+  getItems(ev: any) {
+    this.data = this.dataPrev
+    const val = ev.target.value
+    if (val && val.trim() != '') {
+      let dataArray = []
+      this.data.map(item =>{
+        item.ciudades.filter(city =>{
+          if((city.toLowerCase().indexOf(val.toLowerCase()) > -1)){
+            dataArray.push({
+              departamento: item.departamento,
+              ciudades: [city]
+            })
+          }
+        })
+      })
+      this.data = dataArray
+    }
   }
 
 }
