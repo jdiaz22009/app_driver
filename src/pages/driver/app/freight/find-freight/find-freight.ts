@@ -77,11 +77,16 @@ export class FindFreightDriverPage {
     private socialSharing: SocialSharing) {
 
       this.findForm = this.formBuilder.group({
-        type: [{value: '', disabled: true}],
-        bodywork: [{value: '', disabled: true}],
+        // type: [{value: '', disabled: true}],
+        // bodywork: [{value: '', disabled: true}],
+        // date:[''],
+        // origin: [{value: '', disabled: true}],
+        // destination: [{value: '', disabled: true}]
+        type: [''],
+        bodywork: [''],
         date:[''],
-        origin: [{value: '', disabled: true}],
-        destination: [{value: '', disabled: true}]
+        origin: [''],
+        destination: ['']
       })
 
   }
@@ -164,6 +169,7 @@ export class FindFreightDriverPage {
 
 
   showModal(mode){
+    console.log('showModal ' + mode)
     let options
     let radio
     let modal
@@ -177,8 +183,6 @@ export class FindFreightDriverPage {
       radio = this.findForm.controls['bodywork'].value
       modal = this.modalCtrl.create('ModalRadioDriverComponent', {options, radio })
     }else if(mode === 2){
-      // this.regions.title = 'Ciudad Origen'
-      // this.regions.
       options = {
         title: 'Ciudad Origen',
         options: this.regions
@@ -186,8 +190,6 @@ export class FindFreightDriverPage {
       radio = this.findForm.controls['origin'].value
       modal = this.modalCtrl.create('ModalListDriverComponent', {options, radio })
     }else if(mode === 3){
-      // this.regions.title = 'Ciudad Destino'
-      // options = this.regions
       options = {
         title: 'Ciudad Destino',
         options: this.regions
