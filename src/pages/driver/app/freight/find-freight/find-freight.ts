@@ -9,6 +9,7 @@ import { SocialSharing } from '@ionic-native/social-sharing'
 import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
 import { FreightProvider } from '@providers/api/freight'
+import { DriverAuthProvider } from '@providers/api/driverAuth'
 
 @IonicPage()
 @Component({
@@ -20,6 +21,8 @@ export class FindFreightDriverPage {
   offers: any = []
   regions: any = []
   user_id: string
+
+  offerCount: number = 0
 
   iconBtnFilters =[
     'custom-arrow-down',
@@ -73,6 +76,7 @@ export class FindFreightDriverPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public modalCtrl: ModalController,
+    public auth: DriverAuthProvider,
     public cities: CitiesProvider,
     private socialSharing: SocialSharing) {
 
@@ -89,6 +93,18 @@ export class FindFreightDriverPage {
   ionViewWillEnter(){
     this.getFreights()
     this.getZones()
+  }
+
+  ionViewDidEnter() {
+    this.getOfferCount()
+  }
+
+  getOfferCount(){
+    this.auth.getOfferCount().then(res =>{
+      if(res){
+        this.offerCount = res['data'].disponibles
+      }
+    })
   }
 
   async getUserId(){

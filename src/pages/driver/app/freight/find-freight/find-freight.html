@@ -84,7 +84,11 @@
 
       <ion-row>
         <ion-col>
-            <button color="btn" ion-button full (click)="search()">Buscar Ahora</button>
+
+            <div class="content-find">
+              <ion-badge class="badge-find">{{offerCount}}</ion-badge>
+              <button color="btn" class="money-logo" ion-button full (click)="search()">Buscar Ahora</button>
+            </div>
         </ion-col>
       </ion-row>
 

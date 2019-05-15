@@ -118,4 +118,21 @@ find-freight-driver{
       transition: visibility 0s linear 0.33s, opacity 0.33s linear;
   }
 
+  .content-find{
+
+    margin-left: auto;
+    margin-right: auto;
+
+    .badge-find{
+      position: absolute;
+      top: -5x;
+      left: 68%;
+      border-radius: 50%;
+      padding: 0.5rem 0.7rem;
+      background-color: red;
+      z-index: 10001;
+    }
+
+  }
+
 }
