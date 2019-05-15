@@ -107,4 +107,17 @@ export class FirebaseProvider{
     return await this.database.ref(reference).set(data)
    }
 
+   async getOfferLoad(userId, offerId){
+    const reference = this.database.ref(`drivers/${userId}/offers/${offerId}`)
+
+    return new Promise((resolve, reject) =>{
+      reference.once('value', (snap)=>{
+        console.log(snap.val(),'snap de Picture')
+        resolve(snap.val())
+      }, (e) =>{
+        reject(e)
+      })
+    })
+   }
+
 }

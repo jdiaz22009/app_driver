@@ -5,6 +5,7 @@ import { FileOpener } from '@ionic-native/file-opener'
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
 
+import { AlertsProvider } from '@providers/alerts'
 import { FirebaseProvider } from '@providers/firebase'
 import { MediaProvider } from '@providers/media'
 import { FreightProvider } from '@providers/api/freight'
@@ -19,6 +20,7 @@ export class ProgressFreightDriverPage {
 
   offer: any = []
   item: any
+  photoCargue: any = []
   fileTransfer: FileTransferObject
 
   id: string
@@ -91,6 +93,7 @@ export class ProgressFreightDriverPage {
     public loadingCtrl: LoadingController,
     public media: MediaProvider,
     public fire: FirebaseProvider,
+    public alert: AlertsProvider,
     public db: StorageDb,
     private file: File
     ) {
@@ -99,9 +102,20 @@ export class ProgressFreightDriverPage {
     console.log(this.id)
     this.getOfferById(this.id)
     // this.getOfferById('5cd348882ce98522557052c7')
-
     this.fileTransfer = this.transfer.create()
+  }
 
+  async getOfferLoadBackup(){
+    const userId = await this.getUserId()
+    const date = new Date().toLocaleString('en-GB', {"year":"2-digit","month":"2-digit","day":"2-digit","hour":"2-digit","minute":"2-digit"})
+    this.fire.getOfferLoad(userId, this.offer._id).then(res =>{
+      const key = Object.keys(res)
+      for(let i of key){
+        if(i.includes('Cargue_')){
+          this.photoCargue.push({img: res[i], date})
+        }
+      }
+    })
   }
 
   getOfferById(id){
@@ -116,6 +130,10 @@ export class ProgressFreightDriverPage {
       // }
 
       this.btnProgress = this.progress[this.freight_state - 1]
+      if(this.freight_state === 12){
+        this.getOfferLoadBackup()
+      }
+
     })
   }
 
@@ -127,20 +145,21 @@ export class ProgressFreightDriverPage {
 
   async changeState(){
     if(this.freight_state === 12){
-        const userId = await this.getUserId()
-        const cargueName = 'Cargue_' + this.offer._id
-        this.media.takePictureWithWatermark().then(res =>{
-          console.log('takePictureWithWatermark success  + res')
-          const img = res.toString().substring(23)
-          console.log(img)
-          this.fire.uploadPicture(img, userId, cargueName).then(res =>{
-            console.log('uploadPicture ' + res)
-            this.fire.saveOfferLoad(res, userId, this.offer._id, cargueName).then(res =>{
-              console.log('upload picture')
-            }).catch(e => console.error(e))
-          }).catch(e => console.error(e))
+      if(this.photoCargue.length > 0){
+        this.freight.saveOfferLoad(this.offer._id, this.photoCargue).then(res =>{
+          // console.log(JSON.stringify(res))
+          if(res){
+            const code = res['data'].code
+            if(code === 100 && res['data']['data'].photo_cargue.length > 0){
+              this.updateOffertState()
+            }else{
+              this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
+            }
+          }
         })
-
+      }else{
+        this.alert.showAlert('Error', 'Para continuar debes tomar una o más fotos del vehículo cargado.')
+      }
     }else{
       this.updateOffertState()
     }
@@ -177,7 +196,6 @@ export class ProgressFreightDriverPage {
                 this.getOfferById(this.id)
               }
             }
-
           }).catch(e =>{
             console.error('Cargue Error ' + e)
           })
@@ -195,6 +213,40 @@ export class ProgressFreightDriverPage {
       return 'Si'
     }
     return 'No'
+  }
+
+  async takeCarguePicture(){
+    const userId = await this.getUserId()
+    this.media.takePicture(1).then(res =>{
+      console.log(res)
+      const img = res.toString().substring(23)
+      const date = new Date().toLocaleString('en-GB', {"year":"2-digit","month":"2-digit","day":"2-digit","hour":"2-digit","minute":"2-digit"})
+      const name = 'Cargue_'+ new Date().getTime()
+
+      const loader = this.loadingCtrl.create({})
+      loader.present()
+
+      this.fire.uploadPicture(img, userId, name).then(url =>{
+
+        this.photoCargue.push({
+          img: url, date
+        })
+
+        this.fire.saveOfferLoad(url, userId, this.offer._id, name).then(res =>{
+          loader.dismiss()
+        }).catch(e =>{
+          console.error(e)
+          loader.dismiss()
+        })
+
+      }).catch(e =>{
+        console.log(e)
+        loader.dismiss()
+        this.alert.showAlert('Error', 'Error al subir fotos al servidor.')
+      })
+    }).catch(e =>{
+      console.error(e)
+    })
   }
 
 }

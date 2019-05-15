@@ -220,9 +220,16 @@ export class FindFreightDriverPage {
   search(){
     this.apiFreight.getOffertByFilters(this.findForm.value).then(res =>{
       console.log(res)
-      if(res && res['data'].code === 100){
-        this.offers = res['data'].searchOffer
+      if(res){
+        this.offers = res['data'].findOffers
       }
+      // if(res && res['data'].code === 100){
+      //   this.offers = res['data'].searchOffer
+      // }
+
+      // if(res['data'].code === 500){
+      //   this.offers = res['data'].searchOffer
+      // }
     })
   }
 

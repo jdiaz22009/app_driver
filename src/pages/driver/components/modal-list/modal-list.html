@@ -2,7 +2,7 @@
 
  <h3 class="tx">{{title}}</h3>
 
- <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+ <ion-searchbar placeholder="Buscar" (ionInput)="getItems($event)"></ion-searchbar>
 
 
  <ion-list *ngFor="let item of data">
