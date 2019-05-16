@@ -237,7 +237,7 @@ export class FindFreightDriverPage {
     this.apiFreight.getOffertByFilters(this.findForm.value).then(res =>{
       console.log(res)
       if(res){
-        this.offers = res['data'].findOffers
+        this.offers = res['data'].searchOffer
       }
       // if(res && res['data'].code === 100){
       //   this.offers = res['data'].searchOffer
