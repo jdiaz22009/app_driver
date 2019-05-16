@@ -19,7 +19,7 @@ export class DetailsFreightDriverPage {
   author_id: string
 
   requirementsOpt = [
-    {title: 'ARP', model: 'Rarp'},
+    {title: 'ARL', model: 'Rarp'},
     {title: 'Salud', model: 'Rsalud'},
     {title: 'Pensión', model: 'Rpension'},
     {title: 'GPS', model: 'Rgps'},
@@ -28,7 +28,7 @@ export class DetailsFreightDriverPage {
     {title: 'Certificado de Fumigación', model: 'RcertificadoFumigacion'},
     {title: 'Sustancias Peligrosas', model: 'RsustanciaPeligrosa'},
     {title: 'Kit de Derrames', model: 'RkitDerrames'},
-    {title: 'Elemento de Fumigación', model: 'RelementoFumigacion'},
+    {title: 'Elementos de protección Personal', model: 'RelementoFumigacion'},
   ]
 
   constructor(
