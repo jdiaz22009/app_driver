@@ -117,6 +117,7 @@ export class ProgressFreightDriverPage {
       //   this.enabledBtn = true
       // }
 
+      // if(this.freight_state === 6 || this.freight_state === 8){
       if(this.freight_state === 6){
         this.enabledBtn = true
       }
