@@ -118,7 +118,7 @@ export class FindFreightDriverPage {
     const userId = await this.getUserId()
 
     this.apiFreight.getOffert().then(res =>{
-      // console.log(JSON.stringify(res))
+      console.log(JSON.stringify(res))
       const data = res['data']
       const array = []
 
