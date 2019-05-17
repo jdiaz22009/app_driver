@@ -31,25 +31,13 @@ export class ProgressFreightDriverPage {
   // enabledBtn: boolean = true
   enabledBtn: boolean = false
 
-  // progress: any = [
-  //   'Voy en Camino a Cargar',
-  //   'Llegue a origen',
-  //   'Iniciaron Cargue',
-  //   'Conductor Cargado',
-  //   'Voy en tránsito',
-  //   'Llegue a mi destino',
-  //   'Iniciaron descargue',
-  //   'Terminaron descargue Tomar foto soporte',
-  //   'Calificar empresa'
-  // ]
-
   progress: any = [
     'Oferta Publicada',
     'Vehículo Postulado',
     'Vehículo Pre-seleccionado',
     'Vehículo Aprobado',
     'Vehículo Asignado',
-    'Asiganción Aceptada',
+    'Asignación Aceptada',
     'Orden de Cargue Enviada',
     'Anticipo Pre-Cargue Pagado',
     'Vehículo en camino a cargar',
@@ -123,11 +111,15 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      // console.log(JSON.stringify(this.offer))
+      console.log(JSON.stringify(this.offer))
 
-      // if(this.freight_state > 7 && this.offer.is_orden_cargue){
+      // if(this.freight_state > 6 && this.offer.is_orden_cargue){
       //   this.enabledBtn = true
       // }
+
+      if(this.freight_state === 6){
+        this.enabledBtn = true
+      }
 
       this.btnProgress = this.progress[this.freight_state - 1]
       if(this.freight_state === 12){

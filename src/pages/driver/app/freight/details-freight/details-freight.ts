@@ -54,7 +54,7 @@ export class DetailsFreightDriverPage {
   getOfferById(id){
     this.freight.getOfferById(id).then(res =>{
       if(res){
-        // console.log(JSON.stringify(res))
+        console.log(JSON.stringify(res))
         this.offer = res['data'].data
         this.author_id = this.offer['author']._id
         // console.log(JSON.stringify(this.offer))
@@ -66,15 +66,18 @@ export class DetailsFreightDriverPage {
     this.freight.postulateToOffer(this.offer._id).then(res =>{
       const data = res['data']
       // console.log(JSON.stringify(data))
-      if(data['codigo'] !== undefined && data['codigo'] === 500){
+      if(data['codigo'] !== undefined && data['codigo'] !== 100){
         this.alerts.showAlert('Error', data['message'])
         return
       }
 
-      if(data){
-        this.freight.pushToOffer(this.author_id, this.offer._id).then(res => console.log(JSON.stringify(res)))
-        this.showModalAccept()
+      if(data['codigo'] === 100){
+        if(data){
+          this.freight.pushToOffer(this.author_id, this.offer._id).then(res => console.log(JSON.stringify(res)))
+          this.showModalAccept()
+        }
       }
+
 
      }).catch(e =>{
       console.error(e)
