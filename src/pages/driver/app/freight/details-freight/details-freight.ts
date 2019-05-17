@@ -65,13 +65,13 @@ export class DetailsFreightDriverPage {
   accept(){
     this.freight.postulateToOffer(this.offer._id).then(res =>{
       const data = res['data']
-      // console.log(JSON.stringify(data))
-      if(data['codigo'] !== undefined && data['codigo'] !== 100){
+      console.log(JSON.stringify(res))
+      if(data['code'] !== undefined && data['code'] !== 100){
         this.alerts.showAlert('Error', data['message'])
         return
       }
 
-      if(data['codigo'] === 100){
+      if(data['code'] === 100){
         if(data){
           this.freight.pushToOffer(this.author_id, this.offer._id).then(res => console.log(JSON.stringify(res)))
           this.showModalAccept()
