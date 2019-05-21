@@ -39,7 +39,7 @@ export class ProgressFreightDriverPage {
     'Vehículo Asignado',
     'Asignación Aceptada',
     'Orden de Cargue Enviada',
-    'Anticipo Pre-Cargue Pagado',
+    'Anticipo Pre-Cargue Pagado', // salto, si no tiene anticipo precargue
     'Vehículo en camino a cargar',
     'Vehículo en origen',
     'Vehículo Cargando',
@@ -113,14 +113,7 @@ export class ProgressFreightDriverPage {
       console.log(`STATE (${this.freight_state})`)
       console.log(JSON.stringify(this.offer))
 
-      // if(this.freight_state > 6 && this.offer.is_orden_cargue){
-      //   this.enabledBtn = true
-      // }
-
-      // if(this.freight_state === 6 || this.freight_state === 8){
-      if(this.freight_state === 6){
-        this.enabledBtn = true
-      }
+      this.btnDisabledListener()
 
       this.btnProgress = this.progress[this.freight_state - 1]
       if(this.freight_state === 12){
@@ -128,6 +121,18 @@ export class ProgressFreightDriverPage {
       }
 
     })
+  }
+
+  btnDisabledListener(){
+    if(this.freight_state === 6 ||
+      // this.freight_state === 7 ||
+      // this.freight_state === 8 ||
+      this.freight_state === 13 ||
+      this.freight_state === 14 ||
+      this.freight_state === 15){
+
+      this.enabledBtn = true
+    }
   }
 
   async getUserId() {
@@ -144,7 +149,8 @@ export class ProgressFreightDriverPage {
           if(res){
             const code = res['data'].code
             if(code === 100 && res['data']['data'].photo_cargue.length > 0){
-              this.updateOffertState()
+              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')
+              //this.updateOffertState()
             }else{
               this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
             }
@@ -165,6 +171,7 @@ export class ProgressFreightDriverPage {
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
       this.btnProgress = this.progress[this.freight_state - 1]
+      this.btnDisabledListener()
     })
   }
 

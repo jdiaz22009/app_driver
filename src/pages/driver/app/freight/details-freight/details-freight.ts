@@ -115,5 +115,17 @@ export class DetailsFreightDriverPage {
     return 'No'
   }
 
+  getCurrency(value){
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
+    return formatter.format(value).replace(/\D00$/, '')
+  }
+
+  getTime = (time) => {
+    const d = new Date(time)
+    return d.toLocaleDateString('en-GB')
+  }
 
 }

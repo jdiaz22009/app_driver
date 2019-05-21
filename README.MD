@@ -69,6 +69,13 @@ android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
 * ~~show offer minor 6~~
 * ~~show pdf major 7~~
 
+si al asignar la oferta se le coloca valor del anticipo precargue,
+
+
+orden de cargue enviada.
+->
+
+
 
 
 

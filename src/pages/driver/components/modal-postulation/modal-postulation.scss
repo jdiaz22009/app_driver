@@ -1,5 +1,5 @@
 modal-postulation-driver {
-  
+
   .tx{
     text-align: center;
     font-weight: 500;
@@ -10,4 +10,7 @@ modal-postulation-driver {
     background-color: color($colors, statusbar);
   }
 
+  .button-md{
+    font-size: 1.2rem;
+  }
 }
