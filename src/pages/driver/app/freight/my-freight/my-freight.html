@@ -50,8 +50,14 @@
                               <ion-col col-6>
                                   <p *ngIf="item.estado_flete !== undefined" class="tx-summary">{{item.estado_flete}}</p>
                               </ion-col>
-                              <ion-col col-3>
-                                  <button *ngIf="item.estado_flete === 'Asignado'" ion-button color="secondary" small (click)="acceptOffer(item._id)">Aceptar</button>
+                            </ion-row>
+
+                            <ion-row *ngIf="item.estado_flete === 'Asignado'" justify-content-center>
+                              <ion-col col-4>
+                                  <button ion-button color="secondary" small (click)="acceptOffer(item._id)">Aceptar</button>
+                              </ion-col>
+                              <ion-col col-4>
+                                  <button ion-button color="danger" small (click)="cancerlOffer(item._id)">Cancelar</button>
                               </ion-col>
                             </ion-row>
 
@@ -92,7 +98,7 @@
 
                           <ion-row>
                               <ion-col col-7>
-                                <p class="tx-title">Tipo</p>
+                                <p class="tx-title">Clase de vehículo</p>
                                 <p class="tx-summary"> {{item.clase_vehiculo}}</p>
 
                                 <p class="tx-title">Peso</p>
@@ -185,7 +191,7 @@
 
                             <ion-row>
                                 <ion-col col-7>
-                                  <p class="tx-title">Tipo</p>
+                                  <p class="tx-title">Clase de vehículo</p>
                                   <p class="tx-summary"> {{item.clase_vehiculo}}</p>
 
                                   <p class="tx-title">Peso</p>

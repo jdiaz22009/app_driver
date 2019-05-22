@@ -30,6 +30,7 @@ export class DriverAuthProvider {
   coming_soon: string = CONFIG.api.drivers.comingSoon
   offerCount: string = CONFIG.api.drivers.offerCount
   acceptOffer: string = CONFIG.api.offer.acceptOffer
+  canceltOffer: string = CONFIG.api.offer.canceltOffer
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -411,6 +412,20 @@ export class DriverAuthProvider {
     const token = await this.getToken()
     const userId = await this.getUserId()
     const url = this.api_url + this.acceptOffer + `/${offerId}/${userId}`
+    const headers = { 'Authorization': token, 'content-type': 'application/json' }
+
+    try {
+      return await this.apiClient.request('PUT', url, null, headers)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async cancelTheOffer(offerId){
+
+    const token = await this.getToken()
+    const userId = await this.getUserId()
+    const url = this.api_url + this.canceltOffer + `/${offerId}/${userId}`
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
     try {
