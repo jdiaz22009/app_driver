@@ -38,7 +38,7 @@ export class ProgressFreightDriverPage {
     'Vehículo Aprobado',
     'Vehículo Asignado',
     'Asignación Aceptada',
-    'Orden de Cargue Enviada',
+    'Orden de Cargue Recibida', // 'Orden de Cargue Enviada'
     'Anticipo Pre-Cargue Pagado', // salto, si no tiene anticipo precargue
     'Vehículo en camino a cargar',
     'Vehículo en origen',
@@ -125,8 +125,8 @@ export class ProgressFreightDriverPage {
 
   btnDisabledListener(){
     if(this.freight_state === 6 ||
-      // this.freight_state === 7 ||
-      // this.freight_state === 8 ||
+      this.freight_state === 7 ||
+      this.freight_state === 8 ||
       this.freight_state === 13 ||
       this.freight_state === 14 ||
       this.freight_state === 15){

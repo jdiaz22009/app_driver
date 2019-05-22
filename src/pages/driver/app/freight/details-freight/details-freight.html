@@ -54,38 +54,56 @@
                   <ion-col col-6>
                     <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Tipo</p>
                     <p class="tx-summary">{{offer.clase_vehiculo}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-weight" class="icon-info"></ion-icon> Peso</p>
                     <p class="tx-summary">{{offer.peso_carga_max}} TON</p>
+
                     <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha de Cargue</p>
                     <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Flete</p>
                     <p class="tx-summary">{{offer.flete | currency:'USD':'symbol':'4.0-0'}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Cargue Conductor</p>
                     <p class="tx-summary">{{offer.cargue | currency:'USD':'symbol':'4.0-0'}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Anticipo</p>
                     <p class="tx-summary">{{offer.anticipo}}%</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Contra Entrega</p>
+
                     <p class="tx-summary">{{offer.fpcontraEntrega}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Clientes a Entregar</p>
                     <p class="tx-summary">{{offer.clase_cliente}}</p>
+
                   </ion-col>
                   <ion-col col-6>
                     <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Carrocería</p>
                     <p class="tx-summary">{{offer.tipo_carroceria}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-volumen" class="icon-info"></ion-icon> Volumen</p>
                     <p class="tx-summary">{{offer.volumen}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha Descargue</p>
                     <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> x Tonelada</p>
                     <!-- <p class="tx-summary">{{offer.val_peso | currency:'USD':'symbol':'4.0-0'}}</p> -->
-                    <p class="tx-summary">${{offer.val_peso}}</p>
+                    <!-- <p class="tx-summary">${{offer.val_peso}}</p> -->
+                    <p class="tx-summary">{{getCurrency(offer.val_peso)}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Descargue Conductor</p>
                     <!-- <p class="tx-summary">{{offer.descargue | currency:'USD':'symbol':'4.0-0'}}</p> -->
-                    <p class="tx-summary">${{offer.descargue}}</p>
+                    <!-- <p class="tx-summary">${{offer.descargue}}</p> -->
+                    <p class="tx-summary">{{getCurrency(offer.descargue)}}</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Saldo</p>
                     <p class="tx-summary">{{offer.contraEntrega}}%</p>
+
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Tiempo Saldo</p>
                     <p class="tx-summary">{{offer.tiempoSaldo}}</p>
+
                   </ion-col>
               </ion-row>
           </ion-grid>

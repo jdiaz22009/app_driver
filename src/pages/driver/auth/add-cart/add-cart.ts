@@ -112,7 +112,7 @@ export class AddCartDriverPage {
       console.log(JSON.stringify(this.cart))
 
       this.cartApi.add(this.cart).then(res =>{
-        console.log(res)
+        console.log(JSON.stringify(res))
         const code = res['data'].code
         if(code === 100){
           loader.dismiss()
