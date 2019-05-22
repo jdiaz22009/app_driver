@@ -136,7 +136,6 @@ export class MyFreightDriverPage {
         this.alerts.showAlert('Oferta Rechazada', 'Haz rechazado la oferta.')
         this.getMyOffers()
       }
-
     }).catch(e =>{
       console.error(e)
       this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')

@@ -102,7 +102,7 @@ const dev = {
       ordenCargue: '/api/v1/offers/is-ordencargue',
       getfilters: '/api/v1/offers/search',
       offerLoad: '/api/v1/offers/uploadphotoscargue',
-      canceltOffer: ''
+      canceltOffer: '/api/v1/offers/cancelarOffers'
     },
     push:{
       postPush: '/api/v1/auth/push'
