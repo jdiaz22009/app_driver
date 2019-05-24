@@ -56,10 +56,9 @@ export class NavDriverComponent {
 
   getMySelectedVehicle(){
     this.cart.getMySelected().then(res =>{
-      // console.log(JSON.stringify(res))
+      console.log(JSON.stringify(res))
       this.plate = res['data']['data'].placa
-      this.driver_available = res['data']['data'].state
-      // console.log('driver_available ' + this.driver_available)
+      this.driver_available = res['data']['data'].state      
       this.vehicle_id = res['data']['data']._id
       this.setAvailabilityTx()
     }).catch(e =>{

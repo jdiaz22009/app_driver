@@ -1,6 +1,9 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 
+import { Socket } from 'ng-socket-io'
+import { Observable } from 'rxjs/Observable'
+
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { CONFIG } from '@providers/config'
@@ -26,7 +29,8 @@ export class MyFreightDriverPage {
     public db: StorageDb,
     public offer: FreightProvider,
     public alerts: AlertsProvider,
-    public driverAuth: DriverAuthProvider
+    public driverAuth: DriverAuthProvider,
+    private socket: Socket
     ) {
 
 
@@ -35,6 +39,21 @@ export class MyFreightDriverPage {
   ionViewDidLoad(){
     this.listType = 'all'
     this.getMyOffers()
+
+    this.getOfferState().subscribe(state =>{
+      if(state){
+        this.getMyOffers()
+      }
+    })
+  }
+
+  getOfferState() {
+    return new Observable(observer => {
+      this.socket.on('offer_reload', (data) => {
+        console.log(data)
+        observer.next(data)
+      })
+    })    
   }
 
   async getUserId(){

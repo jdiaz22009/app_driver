@@ -1,6 +1,9 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 
+import { Socket } from 'ng-socket-io'
+import { Observable } from 'rxjs/Observable'
+
 import { FileOpener } from '@ionic-native/file-opener'
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
@@ -83,7 +86,8 @@ export class ProgressFreightDriverPage {
     public fire: FirebaseProvider,
     public alert: AlertsProvider,
     public db: StorageDb,
-    private file: File
+    private file: File,
+    private socket: Socket
     ) {
 
     this.id = this.navParams.get('id')
@@ -91,6 +95,25 @@ export class ProgressFreightDriverPage {
     this.getOfferById(this.id)
     // this.getOfferById('5cd348882ce98522557052c7')
     this.fileTransfer = this.transfer.create()
+  }
+
+  ionViewDidLoad(){
+    this.socket.connect()
+
+    this.getOfferState().subscribe(state =>{
+      if(state){
+        this.getOfferById(this.id)
+      }
+    })
+  }
+
+  getOfferState() {
+    return new Observable(observer => {
+      this.socket.on('offer_reload', (data) => {
+        console.log(data)
+        observer.next(data)
+      })
+    })    
   }
 
   async getOfferLoadBackup(){

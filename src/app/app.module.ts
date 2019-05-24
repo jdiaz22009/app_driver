@@ -22,8 +22,12 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { API_MODULE } from '../providers/api/index'
 import { PROVIDERS_MODULE } from '../providers/index'
+import { CONFIG } from '../providers/config'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io'
+const config: SocketIoConfig = { url: CONFIG.api.url_sockets, options: {} }
 
 import { MyApp } from './app.component'
 
@@ -38,6 +42,7 @@ import { MyApp } from './app.component'
 
     }),
     BrowserAnimationsModule,
+    SocketIoModule.forRoot(config), 
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

@@ -13,6 +13,7 @@ const prod = {
   },
   api:{
     url: 'https://cargaya.live',
+    url_sockets: '',
     drivers:{
       login: '/api/v1/auth/conductores/login',
       verifyToken: '/api/v1/auth/verify',
@@ -66,6 +67,7 @@ const dev = {
   },
   api:{
     url: 'https://api.cargaya.net',
+    url_sockets: 'https://api.cargaya.net',
     drivers:{
       login: '/api/v1/auth/conductores/login',
       verifyToken: '/api/v1/auth/verify',
