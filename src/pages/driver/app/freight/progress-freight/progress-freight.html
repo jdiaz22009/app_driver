@@ -19,6 +19,15 @@
                     </ion-col>
                 </ion-row>
 
+                <ion-row>
+                  <ion-col col-4>
+                      <p class="tx-title" text-start>Estado: </p>
+                  </ion-col>
+                  <ion-col col-8>
+                      <p class="tx-summary" text-end>{{getCurrentState()}}</p>
+                  </ion-col>
+              </ion-row>
+
             </ion-grid>
 
             <ion-grid>
@@ -105,7 +114,7 @@
         <p class="tx-title" no-padding no-margin text-center>Fotos del vehículo cargado</p>
         <ion-row>
           <ion-col text-center no-padding>
-              <button (click)="takeCarguePicture()" color="dark" ion-button icon-only clear large>
+              <button (click)="takePicture('cargue')" color="dark" ion-button icon-only clear large>
                 <ion-icon name="md-camera"></ion-icon>
               </button>
           </ion-col>
@@ -113,6 +122,27 @@
 
         <ion-row>
           <ion-col col-4 *ngFor="let item of photoCargue">
+              <ion-card>
+                <img [src]="item.img"/>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+
+      <div *ngIf="freight_state === 20">
+        <p class="tx-title" no-padding no-margin text-center>Fotos del Cumplido</p>
+        <ion-row>
+          <ion-col text-center no-padding>
+              <button (click)="takePicture('cumplido')" color="dark" ion-button icon-only clear large>
+                <ion-icon name="md-camera"></ion-icon>
+              </button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-4 *ngFor="let item of photoCumplido">
               <ion-card>
                 <img [src]="item.img"/>
               </ion-card>

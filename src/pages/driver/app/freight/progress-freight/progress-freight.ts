@@ -24,6 +24,7 @@ export class ProgressFreightDriverPage {
   offer: any = []
   item: any
   photoCargue: any = []
+  photoCumplido: any = []
   fileTransfer: FileTransferObject
 
   id: string
@@ -35,32 +36,34 @@ export class ProgressFreightDriverPage {
   enabledBtn: boolean = false
 
   progress: any = [
-    'Oferta Publicada',
-    'Vehículo Postulado',
-    'Vehículo Pre-seleccionado',
-    'Vehículo Aprobado',
-    'Vehículo Asignado',
-    'Asignación Aceptada',
-    'Orden de Cargue Recibida', // 'Orden de Cargue Enviada'
-    'Anticipo Pre-Cargue Pagado', // salto, si no tiene anticipo precargue
-    'Vehículo en camino a cargar',
-    'Vehículo en origen',
-    'Vehículo Cargando',
-    'Vehículo Cargado', //foto
-    'Cargue Verificado',
-    'Anticipo Autorizado',
-    'Anticipo Pagado',
-    'Vehículo en tránsito',
-    'Vehículo en destino',
-    'Vehículo Descargando',
-    'Vehículo Descargado',
-    'Cumplido Enviado',
-    'Cumplido Aprobado',
-    'Saldo Aprobado',
-    'Saldo Pagado',
-    'Calificación Conductor',
-    'Calificación Empresa'
+    'Oferta Publicada',               //1
+    'Vehículo Postulado',             //2
+    'Vehículo Pre-seleccionado',      //3
+    'Vehículo Aprobado',              //4
+    'Vehículo Asignado',              //5
+    'Asignación Aceptada',            //6
+    'Orden de Cargue Recibida',       //7 'Orden de Cargue Enviada'
+    'Anticipo Pre-Cargue Pagado',     //8 salto, si no tiene anticipo precargue
+    'Vehículo en camino a cargar',    //9
+    'Vehículo en origen',             //10
+    'Vehículo Cargando',              //11
+    'Vehículo Cargado',               //12 foto
+    'Cargue Verificado',              //13
+    'Anticipo Autorizado',            //14
+    'Anticipo Pagado',                //15
+    'Vehículo en tránsito',           //16
+    'Vehículo en destino',            //17
+    'Vehículo Descargando',           //18
+    'Vehículo Descargado',            //19
+    'Cumplido Enviado',               //20 foto del cumplido
+    'Cumplido Aprobado',              //21
+    'Saldo Aprobado',                 //22
+    'Saldo Pagado',                   //23
+    'Calificación Conductor',         //24
+    'Calificación Empresa'            //25
   ]
+
+  step_jump = [6, 7, 12, 13, 14, 15, 21, 22, 23, 25] 
 
   requirementsOpt = [
     {title: 'ARP', model: 'Rarp'},
@@ -136,21 +139,23 @@ export class ProgressFreightDriverPage {
       console.log(`STATE (${this.freight_state})`)
       console.log(JSON.stringify(this.offer))
       this.btnDisabledListener()
-      this.btnProgress = this.progress[this.freight_state - 1]
+      this.getTxBtn()
       if(this.freight_state === 12){
         this.getOfferLoadBackup()
       }
     })
   }
 
-  btnDisabledListener(){
-    if(this.freight_state === 6 ||
-      this.freight_state === 7 ||
-      this.freight_state === 8 ||
-      this.freight_state === 13 ||
-      this.freight_state === 14 ||
-      this.freight_state === 15){
+  getTxBtn(){
+    this.btnProgress = this.progress[this.freight_state]
+  }
 
+  getCurrentState(){
+    return this.progress[this.freight_state -1] 
+  }
+
+  btnDisabledListener(){    
+    if(this.step_jump.indexOf(this.freight_state) !== -1){
       this.enabledBtn = true
     }
   }
@@ -169,8 +174,7 @@ export class ProgressFreightDriverPage {
           if(res){
             const code = res['data'].code
             if(code === 100 && res['data']['data'].photo_cargue.length > 0){
-              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')
-              //this.updateOffertState()
+              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')              
             }else{
               this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
             }
@@ -179,9 +183,24 @@ export class ProgressFreightDriverPage {
       }else{
         this.alert.showAlert('Error', 'Para continuar debes tomar una o más fotos del vehículo cargado.')
       }
+    }else if(this.freight_state === 20){
+      if(this.photoCumplido.length > 0){
+          this.freight.saveOfferCumplido(this.offer._id, this.photoCumplido).then(res =>{
+            if(res){
+              const code = res['data'].code
+              if(code === 100 && res['data']['data'].photo_cumplido.length > 0){
+                this.alert.showAlert('Fotos enviadas', 'Las fotos del cumplido se han enviado para su verificación.')                
+              }else{
+                this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
+              }
+            }
+          })
+      }else{
+        this.alert.showAlert('Error', 'Para continuar debes tomar una foto del cumplido.')
+      }
     }else{
       this.updateOffertState()
-    }
+    }    
   }
 
   updateOffertState(){
@@ -191,7 +210,7 @@ export class ProgressFreightDriverPage {
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
       this.socket.emit('steps', { channel: 'offer_reload'})
-      this.btnProgress = this.progress[this.freight_state - 1]
+      this.getTxBtn()
       this.btnDisabledListener()
     })
   }
@@ -236,29 +255,40 @@ export class ProgressFreightDriverPage {
     return 'No'
   }
 
-  async takeCarguePicture(){
+  async takePicture(mode){
     const userId = await this.getUserId()
     this.media.takePicture(1).then(res =>{
       console.log(res)
       const img = res.toString().substring(23)
       const date = new Date().toLocaleString('en-GB', {"year":"2-digit","month":"2-digit","day":"2-digit","hour":"2-digit","minute":"2-digit"})
-      const name = 'Cargue_'+ new Date().getTime()
+      let name
+      if(mode === 'cargue'){
+        name = 'Cargue_'+ new Date().getTime()
+      }else if(mode === 'cumplido'){
+        name = 'Cumplido_'+ new Date().getTime()
+      }     
 
       const loader = this.loadingCtrl.create({})
       loader.present()
 
       this.fire.uploadPicture(img, userId, name).then(url =>{
 
-        this.photoCargue.push({
-          img: url, date
-        })
+        if(mode === 'cargue'){
+          this.photoCargue.push({
+            img: url, date
+          })
+        }else if(mode === 'cumplido'){
+          this.photoCumplido.push({
+            img: url, date
+          })
+        }
 
         this.fire.saveOfferLoad(url, userId, this.offer._id, name).then(res =>{
           loader.dismiss()
         }).catch(e =>{
           console.error(e)
           loader.dismiss()
-        })
+        })        
 
       }).catch(e =>{
         console.error(e)
@@ -268,6 +298,6 @@ export class ProgressFreightDriverPage {
     }).catch(e =>{
       console.error(e)
     })
-  }
+  }  
 
 }

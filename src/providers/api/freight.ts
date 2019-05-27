@@ -23,6 +23,7 @@ export class FreightProvider{
   ordenCargue_path: String = CONFIG.api.offer.ordenCargue
   getfilters_path: String = CONFIG.api.offer.getfilters
   offerLoad_path: String = CONFIG.api.offer.offerLoad
+  offerCumplido_path: String = CONFIG.api.offer.offerCumplido
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -91,8 +92,6 @@ export class FreightProvider{
       throw e
     }
   }
-
-
 
   async getMyOffers(){
     const url = this.api_url + this.getMy_offers_path
@@ -220,6 +219,22 @@ export class FreightProvider{
 
     const params = {
       photo_cargue: load
+    }
+    console.log('params post ' + JSON.stringify(params))
+    try{
+      return await this.apiClient.request('POST', url, params, headers)
+    }catch(e){
+      throw e
+    }
+  }
+
+  async saveOfferCumplido(offertId, load){
+    const url = this.api_url + this.offerLoad_path + '/' + offertId
+    const token = await this.getToken()
+    const headers = {'Authorization' : token, 'content-type': 'application/json' }
+
+    const params = {
+      photo_cumplido: load
     }
     console.log('params post ' + JSON.stringify(params))
     try{

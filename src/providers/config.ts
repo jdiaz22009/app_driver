@@ -104,7 +104,8 @@ const dev = {
       ordenCargue: '/api/v1/offers/is-ordencargue',
       getfilters: '/api/v1/offers/search',
       offerLoad: '/api/v1/offers/uploadphotoscargue',
-      canceltOffer: '/api/v1/offers/cancelarOffers'
+      canceltOffer: '/api/v1/offers/cancelarOffers',
+      offerCumplido: '/v1/offers/uploadcumplido'
     },
     push:{
       postPush: '/api/v1/auth/push'
