@@ -138,6 +138,7 @@ export class MyFreightDriverPage {
       console.log(JSON.stringify(res))
       if(res){
         this.alerts.showAlert('Oferta Aceptada', 'En viajes en curso encontrarás más información')
+        this.socket.emit('steps', { channel: 'offer_reload'})
         this.getMyOffers()
       }
 

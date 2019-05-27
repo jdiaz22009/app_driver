@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 
 import { SocialSharing } from '@ionic-native/social-sharing'
 
+import { Socket } from 'ng-socket-io'
+
 import { FreightProvider } from '@providers/api/freight'
 
 @IonicPage()
@@ -37,6 +39,7 @@ export class DetailsFreightDriverPage {
     public freight: FreightProvider,
     public navParams: NavParams,
     public alerts: AlertsProvider,
+    private socket: Socket,
     private socialSharing: SocialSharing) {
 
      this.mode = this.navParams.get('mode')
@@ -74,6 +77,7 @@ export class DetailsFreightDriverPage {
       if(data['code'] === 100){
         if(data){
           this.freight.pushToOffer(this.author_id, this.offer._id).then(res => console.log(JSON.stringify(res)))
+          this.socket.emit('steps', { channel: 'offer_reload'})
           this.showModalAccept()
         }
       }

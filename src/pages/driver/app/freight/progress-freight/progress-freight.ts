@@ -135,14 +135,11 @@ export class ProgressFreightDriverPage {
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
       console.log(JSON.stringify(this.offer))
-
       this.btnDisabledListener()
-
       this.btnProgress = this.progress[this.freight_state - 1]
       if(this.freight_state === 12){
         this.getOfferLoadBackup()
       }
-
     })
   }
 
@@ -193,6 +190,7 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
+      this.socket.emit('steps', { channel: 'offer_reload'})
       this.btnProgress = this.progress[this.freight_state - 1]
       this.btnDisabledListener()
     })
@@ -263,7 +261,7 @@ export class ProgressFreightDriverPage {
         })
 
       }).catch(e =>{
-        console.log(e)
+        console.error(e)
         loader.dismiss()
         this.alert.showAlert('Error', 'Error al subir fotos al servidor.')
       })
