@@ -38,11 +38,11 @@ export class MyFreightDriverPage {
 
   ionViewDidLoad(){
     this.listType = 'all'
-    this.getMyOffers(true)
+    this.getMyOffers()
 
-    this.getOfferState().subscribe(state =>{
+    this.getOfferState().subscribe(state =>{      
       if(state){
-        this.getMyOffers(false)
+        this.getMyOffers()
       }
     })
   }
@@ -62,19 +62,17 @@ export class MyFreightDriverPage {
     })
    }
 
-  async getMyOffers(reset: Boolean){
-
-    if(reset){
-      this.allOffers = []
-      this.assignedOffers = []
-      this.historyOffers = []
-    }    
+  async getMyOffers(){
 
     const userId = await this.getUserId()
     this.offer.getDriverMyOffers().then(res =>{
       const data = res['data']['data']
       console.log(JSON.stringify(data))
       if(data.length > 0){
+
+        this.allOffers = []
+        this.assignedOffers = []
+        this.historyOffers = []
 
         let showAlert = true
 
@@ -140,7 +138,7 @@ export class MyFreightDriverPage {
       console.log(JSON.stringify(res))
       if(res){
         this.alerts.showAlert('Oferta Aceptada', 'En viajes en curso encontrarás más información')
-        this.getMyOffers(true)
+        this.getMyOffers()
       }
 
     }).catch(e =>{
@@ -155,7 +153,7 @@ export class MyFreightDriverPage {
       console.log(JSON.stringify(res))
       if(res){
         this.alerts.showAlert('Oferta Rechazada', 'Haz rechazado la oferta.')
-        this.getMyOffers(true)
+        this.getMyOffers()
       }
     }).catch(e =>{
       console.error(e)
