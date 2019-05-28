@@ -1,4 +1,3 @@
-import { AlertsProvider } from '@providers/alerts';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular'
 
@@ -6,6 +5,7 @@ import { SocialSharing } from '@ionic-native/social-sharing'
 
 import { Socket } from 'ng-socket-io'
 
+import { AlertsProvider } from '@providers/alerts'
 import { FreightProvider } from '@providers/api/freight'
 
 @IonicPage()
@@ -82,7 +82,6 @@ export class DetailsFreightDriverPage {
         }
       }
 
-
      }).catch(e =>{
       console.error(e)
      })
@@ -101,35 +100,21 @@ export class DetailsFreightDriverPage {
   }
 
   shared(freight){
-    // console.log(freight)
-
     const message = `No DE PEDIDO: ${freight.pedido}. Ruta: ${freight.ciudad_origen.toUpperCase()}-${freight.ciudad_destino.toUpperCase()}. Vehículo: ${freight.clase_vehiculo.toUpperCase()}-${freight.tipo_carroceria.toUpperCase()}. Peso: ${freight.peso_carga_max} TON. CONTACTO: ${freight.coordinador.primer_nombre.toUpperCase()} ${freight.coordinador.primer_apellido.toUpperCase()}, ${freight.coordinador.celular}, Si quieres pago contra entrega, pregunta por PagaYa!!! http://tiny.cc/u09z5y`
-
     const subject  = 'Carga Disponible, postulate'
-    const file = null
-    const url = null
-
-    this.socialSharing.share(message, subject, file, url)
+    this.socialSharing.share(message, subject, null, null)
   }
 
   getRequirements(state){
-    if(state){
-      return 'Si'
-    }
-    return 'No'
+    return state ? 'Si': 'No'
   }
 
   getCurrency(value){
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
-    });
+    })
     return formatter.format(value).replace(/\D00$/, '')
-  }
-
-  getTime = (time) => {
-    const d = new Date(time)
-    return d.toLocaleDateString('en-GB')
   }
 
 }

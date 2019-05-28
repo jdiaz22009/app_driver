@@ -27,12 +27,11 @@ export class ProgressFreightDriverPage {
   photoCumplido: any = []
   fileTransfer: FileTransferObject
 
-  id: string
+  id: string = ''
   btnProgress: string = ''
 
   freight_state: number
 
-  // enabledBtn: boolean = true
   enabledBtn: boolean = false
 
   progress: any = [
@@ -63,7 +62,8 @@ export class ProgressFreightDriverPage {
     'Calificación Empresa'            //25
   ]
 
-  step_jump = [6, 7, 12, 13, 14, 15, 21, 22, 23, 25] 
+  //15
+  step_jump = [6, 7, 12, 13, 14, 20, 21, 22, 23, 25]
 
   requirementsOpt = [
     {title: 'ARP', model: 'Rarp'},
@@ -116,7 +116,7 @@ export class ProgressFreightDriverPage {
         console.log(data)
         observer.next(data)
       })
-    })    
+    })
   }
 
   async getOfferLoadBackup(){
@@ -137,7 +137,7 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      console.log(JSON.stringify(this.offer))
+      // console.log(JSON.stringify(this.offer))
       this.btnDisabledListener()
       this.getTxBtn()
       if(this.freight_state === 12){
@@ -151,10 +151,10 @@ export class ProgressFreightDriverPage {
   }
 
   getCurrentState(){
-    return this.progress[this.freight_state -1] 
+    return this.progress[this.freight_state -1]
   }
 
-  btnDisabledListener(){    
+  btnDisabledListener(){
     if(this.step_jump.indexOf(this.freight_state) !== -1){
       this.enabledBtn = true
     }
@@ -174,7 +174,7 @@ export class ProgressFreightDriverPage {
           if(res){
             const code = res['data'].code
             if(code === 100 && res['data']['data'].photo_cargue.length > 0){
-              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')              
+              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')
             }else{
               this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
             }
@@ -189,7 +189,7 @@ export class ProgressFreightDriverPage {
             if(res){
               const code = res['data'].code
               if(code === 100 && res['data']['data'].photo_cumplido.length > 0){
-                this.alert.showAlert('Fotos enviadas', 'Las fotos del cumplido se han enviado para su verificación.')                
+                this.alert.showAlert('Fotos enviadas', 'Las fotos del cumplido se han enviado para su verificación.')
               }else{
                 this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
               }
@@ -200,7 +200,7 @@ export class ProgressFreightDriverPage {
       }
     }else{
       this.updateOffertState()
-    }    
+    }
   }
 
   updateOffertState(){
@@ -249,10 +249,7 @@ export class ProgressFreightDriverPage {
   }
 
   getRequirements(state){
-    if(state){
-      return 'Si'
-    }
-    return 'No'
+    return state ? 'Si': 'No'
   }
 
   async takePicture(mode){
@@ -266,7 +263,7 @@ export class ProgressFreightDriverPage {
         name = 'Cargue_'+ new Date().getTime()
       }else if(mode === 'cumplido'){
         name = 'Cumplido_'+ new Date().getTime()
-      }     
+      }
 
       const loader = this.loadingCtrl.create({})
       loader.present()
@@ -288,7 +285,7 @@ export class ProgressFreightDriverPage {
         }).catch(e =>{
           console.error(e)
           loader.dismiss()
-        })        
+        })
 
       }).catch(e =>{
         console.error(e)
@@ -298,6 +295,6 @@ export class ProgressFreightDriverPage {
     }).catch(e =>{
       console.error(e)
     })
-  }  
+  }
 
 }
