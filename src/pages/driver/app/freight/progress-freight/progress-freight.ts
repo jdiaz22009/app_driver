@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 
 import { Socket } from 'ng-socket-io'
 import { Observable } from 'rxjs/Observable'
@@ -90,7 +90,8 @@ export class ProgressFreightDriverPage {
     public alert: AlertsProvider,
     public db: StorageDb,
     private file: File,
-    private socket: Socket
+    private socket: Socket,
+    public modalCtrl: ModalController,
     ) {
 
     this.id = this.navParams.get('id')
@@ -157,6 +158,10 @@ export class ProgressFreightDriverPage {
   btnDisabledListener(){
     if(this.step_jump.indexOf(this.freight_state) !== -1){
       this.enabledBtn = true
+    }
+
+    if(this.freight_state === 24){
+      this.showModalQualify()
     }
   }
 
@@ -295,6 +300,19 @@ export class ProgressFreightDriverPage {
     }).catch(e =>{
       console.error(e)
     })
+  }
+
+
+  showModalQualify(){
+    const modal = this.modalCtrl.create('ModalQualifyDriverComponent', null, { cssClass: 'modal-id' })
+    modal.onDidDismiss((data) =>{
+      // if(data['mode'] === 'find'){
+      //   this.navCtrl.popTo('FindFreightDriverPage')
+      // }else if(data['mode'] === 'home'){
+      //   this.navCtrl.setRoot('home-drive')
+      // }
+    })
+    modal.present()
   }
 
 }

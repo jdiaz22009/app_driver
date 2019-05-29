@@ -92,7 +92,7 @@ const dev = {
       deleteVehicle: '/api/v1/auth/vehicles/delete'
     },
     offer:{
-      get: '/api/v1/offers/get-offers',
+      get: '/api/v1/offers/get-offers-mobile',
       getById: '/api/v1/offers/get-offer-detail',
       new: '/api/v1/offers/new-offer',
       myOffers: '/api/v1/offers/get-my-offers',

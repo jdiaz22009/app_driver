@@ -40,7 +40,7 @@ export class MyFreightDriverPage {
     this.listType = 'all'
     this.getMyOffers()
 
-    this.getOfferState().subscribe(state =>{      
+    this.getOfferState().subscribe(state =>{
       if(state){
         this.getMyOffers()
       }
@@ -53,7 +53,7 @@ export class MyFreightDriverPage {
         console.log(data)
         observer.next(data)
       })
-    })    
+    })
   }
 
   async getUserId(){
@@ -150,16 +150,17 @@ export class MyFreightDriverPage {
 
   cancerlOffer(id){
     console.log('cancelar offer ' + id)
-    this.driverAuth.cancelTheOffer(id).then(res =>{
-      console.log(JSON.stringify(res))
-      if(res){
-        this.alerts.showAlert('Oferta Rechazada', 'Haz rechazado la oferta.')
-        this.getMyOffers()
-      }
-    }).catch(e =>{
-      console.error(e)
-      this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')
-    })
+    // this.driverAuth.cancelTheOffer(id).then(res =>{
+    //   console.log(JSON.stringify(res))
+    //   if(res){
+    //     this.alerts.showAlert('Oferta Rechazada', 'Haz rechazado la oferta.')
+    //     this.getMyOffers()
+    //     this.allOffers = []
+    //   }
+    // }).catch(e =>{
+    //   console.error(e)
+    //   this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')
+    // })
   }
 
 }

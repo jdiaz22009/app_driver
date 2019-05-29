@@ -1,6 +1,9 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, ModalController, Platform } from 'ionic-angular'
 
+import { Socket } from 'ng-socket-io'
+import { Observable } from 'rxjs/Observable'
+
 import { AppVersion } from '@ionic-native/app-version'
 
 import { AlertsProvider } from '@providers/alerts'
@@ -29,18 +32,36 @@ export class HomeDriverPage {
     public plt: Platform,
     public alerts: AlertsProvider,
     public cart: CartProvider,
-    private appVersion: AppVersion
+    private appVersion: AppVersion,
+    private socket: Socket
   ) {
 
   }
 
   ionViewDidLoad(){
     this.getAppVersion()
+
+    this.socket.connect()
+
+    this.observateNewOffers().subscribe(state =>{
+      if(state){
+        this.getOfferCount()
+      }
+    })
   }
 
   ionViewDidEnter() {
     this.getOfferCount()
     this.getVehicles()
+  }
+
+  observateNewOffers() {
+    return new Observable(observer => {
+      this.socket.on('new', (data) => {
+        console.log(data)
+        observer.next(data)
+      })
+    })
   }
 
   getOfferCount(){
