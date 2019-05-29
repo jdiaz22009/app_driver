@@ -105,7 +105,8 @@ const dev = {
       getfilters: '/api/v1/offers/search',
       offerLoad: '/api/v1/offers/uploadphotoscargue',
       canceltOffer: '/api/v1/offers/cancelarOffers',
-      offerCumplido: '/v1/offers/uploadcumplido'
+      offerCumplido: '/api/v1/offers/uploadcumplido',
+      qualifyCompany: '/api/v1/auth/calificar/entidad'
     },
     push:{
       postPush: '/api/v1/auth/push'

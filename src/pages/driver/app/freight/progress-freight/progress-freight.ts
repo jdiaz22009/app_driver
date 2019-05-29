@@ -34,6 +34,8 @@ export class ProgressFreightDriverPage {
 
   enabledBtn: boolean = false
 
+  authorId: string = ''
+
   progress: any = [
     'Oferta Publicada',               //1
     'Vehículo Postulado',             //2
@@ -109,6 +111,8 @@ export class ProgressFreightDriverPage {
         this.getOfferById(this.id)
       }
     })
+
+    // this.showModalQualify()
   }
 
   getOfferState() {
@@ -138,12 +142,17 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      // console.log(JSON.stringify(this.offer))
+      console.log(JSON.stringify(this.offer))
+
+      this.authorId = this.offer['author']._id
+
       this.btnDisabledListener()
       this.getTxBtn()
       if(this.freight_state === 12){
         this.getOfferLoadBackup()
       }
+
+      this.showModalQualify()
     })
   }
 
@@ -304,15 +313,16 @@ export class ProgressFreightDriverPage {
 
 
   showModalQualify(){
-    const modal = this.modalCtrl.create('ModalQualifyDriverComponent', null, { cssClass: 'modal-id' })
-    modal.onDidDismiss((data) =>{
-      // if(data['mode'] === 'find'){
-      //   this.navCtrl.popTo('FindFreightDriverPage')
-      // }else if(data['mode'] === 'home'){
-      //   this.navCtrl.setRoot('home-drive')
-      // }
-    })
+    const modal = this.modalCtrl.create(
+      'ModalQualifyDriverComponent',
+      { offerId: this.offer._id, authorId: this.authorId },
+      { cssClass: 'modal-lg' })
+
     modal.present()
   }
+
+//   this.state.socket.emit('new-offer',{
+//     channel: 'new'
+// });
 
 }

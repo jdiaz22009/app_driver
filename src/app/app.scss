@@ -132,6 +132,34 @@
 
 }
 
+.modal-lg{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-backdrop {
+      visibility: visible;
+  }
+
+  .modal-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: auto;
+    width: auto;
+    height: auto;
+    left: auto;
+    top: auto;
+    contain: content;
+    width: 80%;
+    height: 50%;
+    max-height: 60%;
+    border-radius: 20px;
+  }
+
+}
+
 .version-app{
   font-size: 1.2rem;
   color: #BDBDBD;
