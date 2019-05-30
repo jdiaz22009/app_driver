@@ -311,7 +311,6 @@ export class ProgressFreightDriverPage {
     })
   }
 
-
   showModalQualify(){
     const modal = this.modalCtrl.create(
       'ModalQualifyDriverComponent',
@@ -320,9 +319,5 @@ export class ProgressFreightDriverPage {
 
     modal.present()
   }
-
-//   this.state.socket.emit('new-offer',{
-//     channel: 'new'
-// });
 
 }

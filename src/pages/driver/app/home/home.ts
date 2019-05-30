@@ -44,6 +44,7 @@ export class HomeDriverPage {
     this.socket.connect()
 
     this.observateNewOffers().subscribe(state =>{
+      console.log(state)
       if(state){
         this.getOfferCount()
       }
@@ -57,7 +58,7 @@ export class HomeDriverPage {
 
   observateNewOffers() {
     return new Observable(observer => {
-      this.socket.on('new', (data) => {
+      this.socket.on('new_publish', (data) => {
         console.log(data)
         observer.next(data)
       })
@@ -66,7 +67,7 @@ export class HomeDriverPage {
 
   getOfferCount(){
     this.auth.getOfferCount().then(res =>{
-      // console.log(res)
+      // console.log('getOfferCount ' + res)
       if(res){
         this.offerCount = res['data'].disponibles
       }

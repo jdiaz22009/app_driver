@@ -4,6 +4,9 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { FormBuilder, FormGroup } from '@angular/forms'
 import 'rxjs/add/operator/map'
 
+import { Socket } from 'ng-socket-io'
+import { Observable } from 'rxjs/Observable'
+
 import { SocialSharing } from '@ionic-native/social-sharing'
 
 import { CONFIG } from '@providers/config'
@@ -78,7 +81,9 @@ export class FindFreightDriverPage {
     public modalCtrl: ModalController,
     public auth: DriverAuthProvider,
     public cities: CitiesProvider,
-    private socialSharing: SocialSharing) {
+    private socialSharing: SocialSharing,
+    private socket: Socket
+    ) {
 
       this.findForm = this.formBuilder.group({
         type: [''],
@@ -93,10 +98,29 @@ export class FindFreightDriverPage {
   ionViewWillEnter(){
     this.getFreights()
     this.getZones()
+
+    this.socket.connect()
+
+    this.observateNewOffers().subscribe(state =>{
+      console.log(state)
+      if(state){
+        this.getFreights()
+        this.getOfferCount()
+      }
+    })
   }
 
   ionViewDidEnter() {
     this.getOfferCount()
+  }
+
+  observateNewOffers() {
+    return new Observable(observer => {
+      this.socket.on('new_publish', (data) => {
+        console.log(data)
+        observer.next(data)
+      })
+    })
   }
 
   getOfferCount(){
@@ -114,10 +138,11 @@ export class FindFreightDriverPage {
   }
 
   async getFreights(){
-    this.offers = []
+    // this.offers = []
     const userId = await this.getUserId()
 
     this.apiFreight.getOffert().then(res =>{
+      this.offers = []
       console.log(JSON.stringify(res))
       const data = res['data']
       const array = []
