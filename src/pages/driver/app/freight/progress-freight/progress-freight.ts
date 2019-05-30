@@ -105,14 +105,11 @@ export class ProgressFreightDriverPage {
 
   ionViewDidLoad(){
     this.socket.connect()
-
     this.getOfferState().subscribe(state =>{
       if(state){
         this.getOfferById(this.id)
       }
     })
-
-    // this.showModalQualify()
   }
 
   getOfferState() {
@@ -128,10 +125,15 @@ export class ProgressFreightDriverPage {
     const userId = await this.getUserId()
     const date = new Date().toLocaleString('en-GB', {"year":"2-digit","month":"2-digit","day":"2-digit","hour":"2-digit","minute":"2-digit"})
     this.fire.getOfferLoad(userId, this.offer._id).then(res =>{
+      this.photoCargue = []
+      this.photoCumplido = []
       const key = Object.keys(res)
       for(let i of key){
         if(i.includes('Cargue_')){
           this.photoCargue.push({img: res[i], date})
+        }
+        if(i.includes('Cumplido_')){
+          this.photoCumplido.push({img: res[i], date})
         }
       }
     })
@@ -148,11 +150,11 @@ export class ProgressFreightDriverPage {
 
       this.btnDisabledListener()
       this.getTxBtn()
-      if(this.freight_state === 12){
+      if(this.freight_state === 11 ||  this.freight_state === 19){
         this.getOfferLoadBackup()
       }
 
-      this.showModalQualify()
+      // this.showModalQualify()
     })
   }
 
@@ -181,13 +183,14 @@ export class ProgressFreightDriverPage {
   }
 
   async changeState(){
-    if(this.freight_state === 12){
+    if(this.freight_state === 11){
       if(this.photoCargue.length > 0){
         this.freight.saveOfferLoad(this.offer._id, this.photoCargue).then(res =>{
           // console.log(JSON.stringify(res))
           if(res){
             const code = res['data'].code
             if(code === 100 && res['data']['data'].photo_cargue.length > 0){
+              this.updateOffertState()
               this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')
             }else{
               this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
@@ -197,12 +200,13 @@ export class ProgressFreightDriverPage {
       }else{
         this.alert.showAlert('Error', 'Para continuar debes tomar una o más fotos del vehículo cargado.')
       }
-    }else if(this.freight_state === 20){
+    }else if(this.freight_state === 19){
       if(this.photoCumplido.length > 0){
           this.freight.saveOfferCumplido(this.offer._id, this.photoCumplido).then(res =>{
             if(res){
               const code = res['data'].code
               if(code === 100 && res['data']['data'].photo_cumplido.length > 0){
+                this.updateOffertState()
                 this.alert.showAlert('Fotos enviadas', 'Las fotos del cumplido se han enviado para su verificación.')
               }else{
                 this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
@@ -224,6 +228,7 @@ export class ProgressFreightDriverPage {
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
       this.socket.emit('steps', { channel: 'offer_reload'})
+      this.socketUpdateStep(this.freight_state)
       this.getTxBtn()
       this.btnDisabledListener()
     })
@@ -318,6 +323,13 @@ export class ProgressFreightDriverPage {
       { cssClass: 'modal-lg' })
 
     modal.present()
+  }
+
+  socketUpdateStep(step){
+    this.socket.emit('steps', {
+      channel: 'sk-' + this.offer._id,
+      pasos: step
+    })
   }
 
 }
