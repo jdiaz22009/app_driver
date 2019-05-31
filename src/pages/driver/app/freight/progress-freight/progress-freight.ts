@@ -64,7 +64,6 @@ export class ProgressFreightDriverPage {
     'Calificación Empresa'            //25
   ]
 
-  //15
   step_jump = [6, 7, 12, 13, 14, 20, 21, 22, 23, 25]
 
   requirementsOpt = [
@@ -106,6 +105,7 @@ export class ProgressFreightDriverPage {
   ionViewDidLoad(){
     this.socket.connect()
     this.getOfferState().subscribe(state =>{
+      console.log('socket subscribe ' + JSON.stringify(state))
       if(state){
         this.getOfferById(this.id)
       }
@@ -144,7 +144,7 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      console.log(JSON.stringify(this.offer))
+      // console.log(JSON.stringify(this.offer))
 
       this.authorId = this.offer['author']._id
 
@@ -167,8 +167,11 @@ export class ProgressFreightDriverPage {
   }
 
   btnDisabledListener(){
+    console.log('btnListener ' + this.step_jump.indexOf(this.freight_state))
     if(this.step_jump.indexOf(this.freight_state) !== -1){
       this.enabledBtn = true
+    }else{
+      this.enabledBtn = false
     }
 
     if(this.freight_state === 24){

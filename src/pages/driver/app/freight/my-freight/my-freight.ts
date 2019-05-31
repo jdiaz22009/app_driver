@@ -67,7 +67,7 @@ export class MyFreightDriverPage {
     const userId = await this.getUserId()
     this.offer.getDriverMyOffers().then(res =>{
       const data = res['data']['data']
-      console.log(JSON.stringify(data))
+      // console.log(JSON.stringify(data))
       if(data.length > 0){
 
         this.allOffers = []
@@ -135,7 +135,7 @@ export class MyFreightDriverPage {
   acceptOffer(id){
     console.log('accept offer ' + id)
     this.driverAuth.acceptTheOffer(id).then(res =>{
-      console.log(JSON.stringify(res))
+      // console.log(JSON.stringify(res))
       if(res){
         this.alerts.showAlert('Oferta Aceptada', 'En viajes en curso encontrarás más información')
         this.socket.emit('steps', { channel: 'offer_reload'})
