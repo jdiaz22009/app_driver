@@ -59,7 +59,7 @@ export class ModalQualifyDriverComponent {
       }
     })
     console.log(JSON.stringify(this.btnRank))
-    this.qualify = itemIndex + 1
+    this.qualify =  itemIndex + 1
     // console.log('QUALIFY ' + this.qualify)
   }
 
@@ -70,7 +70,8 @@ export class ModalQualifyDriverComponent {
 
     this.freight.saveQualifyCompany(this.offerId, this.authorId, this.qualify, this.comment).then(res =>{
       console.log('saveQualify ' + JSON.stringify(res))
-      // this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')
+      this.alert.showAlert('Calificación', 'Hemos enviado la calificación')
+      this.viewCtrl.dismiss()
     }).catch(e =>{
       console.error(e)
       this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')

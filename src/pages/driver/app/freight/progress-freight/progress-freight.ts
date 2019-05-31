@@ -35,6 +35,8 @@ export class ProgressFreightDriverPage {
   enabledBtn: boolean = false
 
   authorId: string = ''
+  miQualify: string = ''
+  miComment: string = ''
 
   progress: any = [
     'Oferta Publicada',               //1
@@ -147,7 +149,7 @@ export class ProgressFreightDriverPage {
       // console.log(JSON.stringify(this.offer))
 
       this.authorId = this.offer['author']._id
-
+      this.setMyQualify()
       this.btnDisabledListener()
       this.getTxBtn()
       if(this.freight_state === 11 ||  this.freight_state === 19){
@@ -156,6 +158,29 @@ export class ProgressFreightDriverPage {
 
       // this.showModalQualify()
     })
+  }
+
+  async setMyQualify(){
+    const userId = await this.getUserId();
+
+    if(this.offer['asignados'] !== undefined && this.offer['asignados'].length > 0){
+
+      for(let i of this.offer['asignados']){
+        if(i['_id'] === userId){
+          console.log('USER ID ' + i['_id'])
+          for(let y of i['mis_calificaciones']) {
+            console.log('Mis Calificaciones  ' + y)
+            if(y['oferta'] === this.offer._id){
+              console.log('OfferID ' + y['_id'])
+              console.log('OfferID ' + JSON.stringify(y))
+              this.miQualify = y['calificacion'];
+              this.miComment = y['comentario']
+
+            }
+          }
+        }
+      }
+    }
   }
 
   getTxBtn(){
@@ -174,7 +199,7 @@ export class ProgressFreightDriverPage {
       this.enabledBtn = false
     }
 
-    if(this.freight_state === 24){
+    if(this.freight_state === 25){
       this.showModalQualify()
     }
   }
