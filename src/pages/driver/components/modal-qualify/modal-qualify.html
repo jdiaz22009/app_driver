@@ -1,0 +1,27 @@
+<ion-content padding>
+
+ <p class="tx">Calificar Empresa</p>
+
+ <ion-grid>
+    <ion-row justify-content-center>
+      <img class="icon-wheel" *ngFor="let item of btnRank" [src]="item.img" (click)="onQualify(item)">
+    </ion-row>
+
+    <ion-row justify-content-center class="row-area">
+      <ion-textarea [(ngModel)]="comment" rows="5" placeholder="Comentario"></ion-textarea>
+    </ion-row>
+
+    <ion-row justify-content-center class="row-area">
+        <ion-col>
+          <button (click)="goBack()" ion-button color="light" block>Cancelar</button>
+        </ion-col>
+        <ion-col>
+          <button (click)="send()" ion-button color="secondary" block>Enviar</button>
+        </ion-col>
+    </ion-row>
+
+ </ion-grid>
+
+
+
+</ion-content>

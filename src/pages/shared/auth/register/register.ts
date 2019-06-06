@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
@@ -16,8 +16,6 @@ import { CONFIG } from '@providers/config'
   templateUrl: 'register.html',
 })
 export class RegisterSharedPage {
-
-  // @ViewChild('verifyId') idInput
 
   user = {} as RegisterDriver
   login = {} as User
@@ -66,21 +64,12 @@ export class RegisterSharedPage {
       terms: ['']
     })
     this.registerForm.controls['terms'].setValue(false)
-
-
   }
 
-  // ionViewDidLoad(){
-  //   setTimeout(() => {
-  //     this.idInput.setFocus()
-  //   },200)
-  // }
-
   checkTerms() {
-    console.log('--Registrer CheckTerms--', this.registerForm.controls['terms'].value)
-    if (this.registerForm.controls['terms'].value === true) {
+    if (this.registerForm.controls['terms'].value) {
       this.chTerms = false
-    } else if (this.registerForm.controls['terms'].value === false) {
+    } else{
       this.chTerms = true
     }
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController } from 'ionic-angular'
+import { IonicPage } from 'ionic-angular'
 
 
 @IonicPage({
@@ -11,7 +11,7 @@ import { IonicPage, NavController } from 'ionic-angular'
   templateUrl: 'home.html'
 })
 export class HomeCompanyPage {
-  
+
   constructor(){
 
   }

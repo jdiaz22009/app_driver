@@ -24,6 +24,7 @@ export class FreightProvider{
   getfilters_path: String = CONFIG.api.offer.getfilters
   offerLoad_path: String = CONFIG.api.offer.offerLoad
   offerCumplido_path: String = CONFIG.api.offer.offerCumplido
+  qualifyCompany_path: String = CONFIG.api.offer.qualifyCompany
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -235,6 +236,26 @@ export class FreightProvider{
 
     const params = {
       photo_cumplido: load
+    }
+    console.log('params post ' + JSON.stringify(params))
+    try{
+      return await this.apiClient.request('POST', url, params, headers)
+    }catch(e){
+      throw e
+    }
+  }
+
+  async saveQualifyCompany(offertId, authorId, qualify, comment){
+    const url = this.api_url + this.qualifyCompany_path + '/' + authorId
+    const token = await this.getToken()
+    const userId = await this.getUserId()
+    const headers = {'Authorization' : token, 'content-type': 'application/json' }
+
+    const params = {
+      oferta: offertId,
+      conductor: userId,
+      calificacion: qualify,
+      comentario: comment
     }
     console.log('params post ' + JSON.stringify(params))
     try{

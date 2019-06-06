@@ -1,5 +1,5 @@
-const env = 'dev'
-// const env = 'prod'
+// const env = 'dev'
+const env = 'prod'
 
 const prod = {
   localdb:{
@@ -13,7 +13,7 @@ const prod = {
   },
   api:{
     url: 'https://cargaya.live',
-    url_sockets: '',
+    url_sockets: 'https://cargaya.live',
     drivers:{
       login: '/api/v1/auth/conductores/login',
       verifyToken: '/api/v1/auth/verify',
@@ -38,7 +38,7 @@ const prod = {
       deleteVehicle: '/api/v1/auth/vehicles/delete'
     },
     offer:{
-      get: '/api/v1/offers/get-offers',
+      get: '/api/v1/offers/get-offers-mobile',
       getById: '/api/v1/offers/get-offer-detail',
       new: '/api/v1/offers/new-offer',
       myOffers: '/api/v1/offers/get-my-offers',
@@ -47,7 +47,12 @@ const prod = {
       updateOffer: '/api/v1/offers/update-offer-state',
       getDriverMyOffers: '/api/v1/offers/get-my-offers-conductor',
       acceptOffer: '/api/v1/offers/seleccionar',
-      ordenCargue: '/api/v1/offers/is-ordencargue'
+      ordenCargue: '/api/v1/offers/is-ordencargue',
+      getfilters: '/api/v1/offers/search',
+      offerLoad: '/api/v1/offers/uploadphotoscargue',
+      canceltOffer: '/api/v1/offers/cancelarOffers',
+      offerCumplido: '/api/v1/offers/uploadcumplido',
+      qualifyCompany: '/api/v1/auth/calificar/entidad'
     },
     push:{
       postPush: '/api/v1/auth/push'
@@ -92,7 +97,7 @@ const dev = {
       deleteVehicle: '/api/v1/auth/vehicles/delete'
     },
     offer:{
-      get: '/api/v1/offers/get-offers',
+      get: '/api/v1/offers/get-offers-mobile',
       getById: '/api/v1/offers/get-offer-detail',
       new: '/api/v1/offers/new-offer',
       myOffers: '/api/v1/offers/get-my-offers',
@@ -105,7 +110,8 @@ const dev = {
       getfilters: '/api/v1/offers/search',
       offerLoad: '/api/v1/offers/uploadphotoscargue',
       canceltOffer: '/api/v1/offers/cancelarOffers',
-      offerCumplido: '/v1/offers/uploadcumplido'
+      offerCumplido: '/api/v1/offers/uploadcumplido',
+      qualifyCompany: '/api/v1/auth/calificar/entidad'
     },
     push:{
       postPush: '/api/v1/auth/push'

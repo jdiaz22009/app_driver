@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 
 import { Socket } from 'ng-socket-io'
 import { Observable } from 'rxjs/Observable'
@@ -27,13 +27,16 @@ export class ProgressFreightDriverPage {
   photoCumplido: any = []
   fileTransfer: FileTransferObject
 
-  id: string
+  id: string = ''
   btnProgress: string = ''
 
   freight_state: number
 
-  // enabledBtn: boolean = true
   enabledBtn: boolean = false
+
+  authorId: string = ''
+  miQualify: string = ''
+  miComment: string = ''
 
   progress: any = [
     'Oferta Publicada',               //1
@@ -63,7 +66,7 @@ export class ProgressFreightDriverPage {
     'Calificación Empresa'            //25
   ]
 
-  step_jump = [6, 7, 12, 13, 14, 15, 21, 22, 23, 25] 
+  step_jump = [6, 7, 12, 13, 14, 20, 21, 22, 23, 25]
 
   requirementsOpt = [
     {title: 'ARP', model: 'Rarp'},
@@ -90,7 +93,8 @@ export class ProgressFreightDriverPage {
     public alert: AlertsProvider,
     public db: StorageDb,
     private file: File,
-    private socket: Socket
+    private socket: Socket,
+    public modalCtrl: ModalController,
     ) {
 
     this.id = this.navParams.get('id')
@@ -102,8 +106,8 @@ export class ProgressFreightDriverPage {
 
   ionViewDidLoad(){
     this.socket.connect()
-
     this.getOfferState().subscribe(state =>{
+      console.log('socket subscribe ' + JSON.stringify(state))
       if(state){
         this.getOfferById(this.id)
       }
@@ -116,17 +120,22 @@ export class ProgressFreightDriverPage {
         console.log(data)
         observer.next(data)
       })
-    })    
+    })
   }
 
   async getOfferLoadBackup(){
     const userId = await this.getUserId()
     const date = new Date().toLocaleString('en-GB', {"year":"2-digit","month":"2-digit","day":"2-digit","hour":"2-digit","minute":"2-digit"})
     this.fire.getOfferLoad(userId, this.offer._id).then(res =>{
+      this.photoCargue = []
+      this.photoCumplido = []
       const key = Object.keys(res)
       for(let i of key){
         if(i.includes('Cargue_')){
           this.photoCargue.push({img: res[i], date})
+        }
+        if(i.includes('Cumplido_')){
+          this.photoCumplido.push({img: res[i], date})
         }
       }
     })
@@ -137,13 +146,41 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      console.log(JSON.stringify(this.offer))
+      // console.log(JSON.stringify(this.offer))
+
+      this.authorId = this.offer['author']._id
+      this.setMyQualify()
       this.btnDisabledListener()
       this.getTxBtn()
-      if(this.freight_state === 12){
+      if(this.freight_state === 11 ||  this.freight_state === 19){
         this.getOfferLoadBackup()
       }
+
+      // this.showModalQualify()
     })
+  }
+
+  async setMyQualify(){
+    const userId = await this.getUserId();
+
+    if(this.offer['asignados'] !== undefined && this.offer['asignados'].length > 0){
+
+      for(let i of this.offer['asignados']){
+        if(i['_id'] === userId){
+          console.log('USER ID ' + i['_id'])
+          for(let y of i['mis_calificaciones']) {
+            console.log('Mis Calificaciones  ' + y)
+            if(y['oferta'] === this.offer._id){
+              console.log('OfferID ' + y['_id'])
+              console.log('OfferID ' + JSON.stringify(y))
+              this.miQualify = y['calificacion'];
+              this.miComment = y['comentario']
+
+            }
+          }
+        }
+      }
+    }
   }
 
   getTxBtn(){
@@ -151,12 +188,19 @@ export class ProgressFreightDriverPage {
   }
 
   getCurrentState(){
-    return this.progress[this.freight_state -1] 
+    return this.progress[this.freight_state -1]
   }
 
-  btnDisabledListener(){    
+  btnDisabledListener(){
+    console.log('btnListener ' + this.step_jump.indexOf(this.freight_state))
     if(this.step_jump.indexOf(this.freight_state) !== -1){
       this.enabledBtn = true
+    }else{
+      this.enabledBtn = false
+    }
+
+    if(this.freight_state === 25){
+      this.showModalQualify()
     }
   }
 
@@ -167,14 +211,15 @@ export class ProgressFreightDriverPage {
   }
 
   async changeState(){
-    if(this.freight_state === 12){
+    if(this.freight_state === 11){
       if(this.photoCargue.length > 0){
         this.freight.saveOfferLoad(this.offer._id, this.photoCargue).then(res =>{
           // console.log(JSON.stringify(res))
           if(res){
             const code = res['data'].code
             if(code === 100 && res['data']['data'].photo_cargue.length > 0){
-              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')              
+              this.updateOffertState()
+              this.alert.showAlert('Fotos enviadas', 'Las fotos del vehículo cargado se han enviado para su verificación.')
             }else{
               this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
             }
@@ -183,13 +228,14 @@ export class ProgressFreightDriverPage {
       }else{
         this.alert.showAlert('Error', 'Para continuar debes tomar una o más fotos del vehículo cargado.')
       }
-    }else if(this.freight_state === 20){
+    }else if(this.freight_state === 19){
       if(this.photoCumplido.length > 0){
           this.freight.saveOfferCumplido(this.offer._id, this.photoCumplido).then(res =>{
             if(res){
               const code = res['data'].code
               if(code === 100 && res['data']['data'].photo_cumplido.length > 0){
-                this.alert.showAlert('Fotos enviadas', 'Las fotos del cumplido se han enviado para su verificación.')                
+                this.updateOffertState()
+                this.alert.showAlert('Fotos enviadas', 'Las fotos del cumplido se han enviado para su verificación.')
               }else{
                 this.alert.showAlert('Error', 'Ha ocurrido un error interno, intenta de nuevo.')
               }
@@ -200,7 +246,7 @@ export class ProgressFreightDriverPage {
       }
     }else{
       this.updateOffertState()
-    }    
+    }
   }
 
   updateOffertState(){
@@ -210,6 +256,7 @@ export class ProgressFreightDriverPage {
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
       this.socket.emit('steps', { channel: 'offer_reload'})
+      this.socketUpdateStep(this.freight_state)
       this.getTxBtn()
       this.btnDisabledListener()
     })
@@ -249,10 +296,7 @@ export class ProgressFreightDriverPage {
   }
 
   getRequirements(state){
-    if(state){
-      return 'Si'
-    }
-    return 'No'
+    return state ? 'Si': 'No'
   }
 
   async takePicture(mode){
@@ -266,7 +310,7 @@ export class ProgressFreightDriverPage {
         name = 'Cargue_'+ new Date().getTime()
       }else if(mode === 'cumplido'){
         name = 'Cumplido_'+ new Date().getTime()
-      }     
+      }
 
       const loader = this.loadingCtrl.create({})
       loader.present()
@@ -288,7 +332,7 @@ export class ProgressFreightDriverPage {
         }).catch(e =>{
           console.error(e)
           loader.dismiss()
-        })        
+        })
 
       }).catch(e =>{
         console.error(e)
@@ -298,6 +342,22 @@ export class ProgressFreightDriverPage {
     }).catch(e =>{
       console.error(e)
     })
-  }  
+  }
+
+  showModalQualify(){
+    const modal = this.modalCtrl.create(
+      'ModalQualifyDriverComponent',
+      { offerId: this.offer._id, authorId: this.authorId },
+      { cssClass: 'modal-lg' })
+
+    modal.present()
+  }
+
+  socketUpdateStep(step){
+    this.socket.emit('steps', {
+      channel: 'sk-' + this.offer._id,
+      pasos: step
+    })
+  }
 
 }

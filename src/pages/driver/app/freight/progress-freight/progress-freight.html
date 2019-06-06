@@ -20,13 +20,36 @@
                 </ion-row>
 
                 <ion-row>
-                  <ion-col col-4>
-                      <p class="tx-title" text-start>Estado: </p>
+                  <ion-col col-6>
+                      <p class="tx-title" text-start>Estado actual: </p>
                   </ion-col>
-                  <ion-col col-8>
-                      <p class="tx-summary" text-end>{{getCurrentState()}}</p>
+                  <ion-col col-6>
+                      <ion-badge color="secondary">{{getCurrentState()}}</ion-badge>
+                      <!-- <p class="tx-summary" text-end>{{getCurrentState()}}</p> -->
                   </ion-col>
               </ion-row>
+
+              <div *ngIf="freight_state >= 24">
+
+                <ion-row>
+                    <ion-col col-6>
+                        <p class="tx-title" text-start>Mi calificación: </p>
+                    </ion-col>
+                    <ion-col col-6>
+                        <p class="tx-summary" text-start>{{miQualify}}</p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-6>
+                        <p class="tx-title" text-start>Comentario: </p>
+                    </ion-col>
+                    <ion-col col-6>
+                        <p class="tx-summary" text-start>{{miComment}}</p>
+                    </ion-col>
+                </ion-row>
+
+              </div>
 
             </ion-grid>
 
@@ -110,7 +133,7 @@
       </div>
 
 
-      <div *ngIf="freight_state === 12">
+      <div *ngIf="freight_state === 11">
         <p class="tx-title" no-padding no-margin text-center>Fotos del vehículo cargado</p>
         <ion-row>
           <ion-col text-center no-padding>
@@ -131,7 +154,7 @@
       </div>
 
 
-      <div *ngIf="freight_state === 20">
+      <div *ngIf="freight_state === 19">
         <p class="tx-title" no-padding no-margin text-center>Fotos del Cumplido</p>
         <ion-row>
           <ion-col text-center no-padding>
