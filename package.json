@@ -42,7 +42,6 @@
     "axios": "^0.18.0",
     "call-number": "1.0.1",
     "cordova": "9.0.0",
-    "cordova-android": "8.0.0",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-badge": "^0.8.8",
@@ -74,7 +73,7 @@
     "zone.js": "0.8.29"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.2.3",
+    "@ionic/app-scripts": "^3.2.2",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
@@ -106,9 +105,7 @@
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-file": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   },
   "config": {
     "ionic_source_map_type": "source-map",
