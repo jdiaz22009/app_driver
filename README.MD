@@ -39,7 +39,7 @@ alias: cargayaexpress
 key password: cargaya2017
 
 # Build from Ionic/Cordova CLI
-
+ionic cordova build android --prod
 ```
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cargaya.jks app-release-unsigned.apk cargayaexpress
 ```
