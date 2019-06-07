@@ -12,8 +12,10 @@ const prod = {
     phone: '+573103999999'
   },
   api:{
-    url: 'https://cargaya.live',
-    url_sockets: 'https://cargaya.live',
+    // url: 'https://cargaya.live',
+    // url_sockets: 'https://cargaya.live',
+    url: 'https://api.cargaya.net',
+    url_sockets: 'https://api.cargaya.net',
     drivers:{
       login: '/api/v1/auth/conductores/login',
       verifyToken: '/api/v1/auth/verify',

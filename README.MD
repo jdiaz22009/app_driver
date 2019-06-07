@@ -75,7 +75,11 @@ si al asignar la oferta se le coloca valor del anticipo precargue,
 orden de cargue enviada.
 ->
 
-
+# Despliegues:
+* Producción:
+  - https://cargaya.live
+* Pruebas:
+  - https://api.cargaya.net
 
 
 
