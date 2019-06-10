@@ -112,7 +112,7 @@
                                 <p class="tx-summary">{{item.tipo_carroceria}}</p>
 
                                 <p class="tx-title">Fecha de Carga</p>
-                                <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy'}}</p>
+                                <p class="tx-summary">{{item.inicio * 1000 | date: 'dd/MM/yy'}}</p>
                                 <br>
                                 <img (click)="freightDetails(item)" class="f-next" src="./assets/imgs/find_next.png">
 
@@ -205,7 +205,7 @@
                                   <p class="tx-summary">{{item.tipo_carroceria}}</p>
 
                                   <p class="tx-title">Fecha de Carga</p>
-                                  <p class="tx-summary">{{item.inicio | date: 'dd/MM/yy'}}</p>
+                                  <p class="tx-summary">{{item.inicio * 1000 | date: 'dd/MM/yy'}}</p>
                                   <br>
                                   <img (click)="freight(item)" class="f-next" src="./assets/imgs/find_next.png">
 

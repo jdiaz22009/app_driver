@@ -10,7 +10,7 @@
                         <p class="c-date" text-start>{{offer.pedido}} </p>
                     </ion-col>
                     <ion-col col-8>
-                        <p class="c-date" text-end>Publicado {{offer.fecha_creacion | date: 'dd/MM/yy , h:mm a'}}</p>
+                        <p class="c-date" text-end>Publicado {{offer.fecha_creacion * 1000 | date: 'dd/MM/yy , h:mm a'}}</p>
                     </ion-col>
                 </ion-row>
               <ion-row justify-content-center>
@@ -59,7 +59,9 @@
                     <p class="tx-summary">{{offer.peso_carga_max}} TON</p>
 
                     <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha de Cargue</p>
-                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
+                    <!-- <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p> -->
+                    <p class="tx-summary">{{offer.inicio * 1000 | date: 'dd/MM/yy'}}</p>
+
 
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Flete</p>
                     <p class="tx-summary">{{offer.flete | currency:'USD':'symbol':'4.0-0'}}</p>
@@ -86,7 +88,8 @@
                     <p class="tx-summary">{{offer.volumen}}</p>
 
                     <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha Descargue</p>
-                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p>
+                    <!-- <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p> -->
+                    <p class="tx-summary">{{offer.fin * 1000 | date: 'dd/MM/yy'}}</p>
 
                     <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> x Tonelada</p>
                     <!-- <p class="tx-summary">{{offer.val_peso | currency:'USD':'symbol':'4.0-0'}}</p> -->

@@ -8,8 +8,8 @@ const prod = {
     USER_FIRETOKEN: 'user_firetoken_key'
   },
   support:{
-    whatsapp: '+573103999999',
-    phone: '+573103999999'
+    whatsapp: '+573205801985',
+    phone: '+573205801985'
   },
   api:{
     url: 'https://cargaya.live',
@@ -67,8 +67,8 @@ const dev = {
     USER_FIRETOKEN: 'user_firetoken_key'
   },
   support:{
-    whatsapp: '+573103999999',
-    phone: '+573103999999'
+    whatsapp: '+573205801985',
+    phone: '+573205801985'
   },
   api:{
     url: 'https://api.cargaya.net',
