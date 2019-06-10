@@ -104,9 +104,7 @@ export class MyFreightDriverPage {
                     this.assignedOffers.push(i)
                   }else{
                     if(i['estado_flete'] === 'Asignado' && showAlert){
-                      console.log('offfff xxx ' + JSON.stringify(i))
                       showAlert = false
-                      // this.alerts.showAlert('Felicitaciones!!!', `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`)
                       const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
                       this.alerts.showConfirm('Felicitaciones!!!', msd , 'Aceptar', 'Cancelar' ).then(res =>{
                         if(res === 1){
@@ -121,9 +119,7 @@ export class MyFreightDriverPage {
             }else{
               this.allOffers.push(i)
               if(i['estado_flete'] === 'Asignado' && showAlert){
-                console.log('offfff xxx ' + JSON.stringify(i))
                 showAlert = false
-                // this.alerts.showAlert('Felicitaciones!!!', `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`)
                 const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
                 this.alerts.showConfirm('Felicitaciones!!!', msd , 'Aceptar', 'Cancelar' ).then(res =>{
                   if(res === 1){
