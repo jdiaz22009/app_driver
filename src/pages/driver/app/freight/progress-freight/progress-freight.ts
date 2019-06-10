@@ -78,7 +78,7 @@ export class ProgressFreightDriverPage {
     {title: 'Certificado de Fumigación', model: 'RcertificadoFumigacion'},
     {title: 'Sustancias Peligrosas', model: 'RsustanciaPeligrosa'},
     {title: 'Kit de Derrames', model: 'RkitDerrames'},
-    {title: 'Elemento de Fumigación', model: 'RelementoFumigacion'},
+    {title: 'Elemento de Fumigación', model: 'RelementoFumigacion'}
   ]
 
   constructor(
