@@ -125,7 +125,32 @@
         <ion-grid>
           <ion-row>
             <ion-col text-center>
-              <button ion-button class="btn-order" (click)="openPDF()">PDF con orden de cargue enviada</button>
+              <button ion-button class="btn-order" (click)="openPDF('orden_cargue')">PDF con orden de cargue enviada</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+
+      <div *ngIf="freight_state >= 13">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('orden_manifiesto')">PDF con manifiesto enviado</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+      <div *ngIf="freight_state >= 13">
+
+        <ion-grid>
+          <ion-row *ngFor="let i of offer['orden_remesas']; let i = index">
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('orden_remesas', i )">PDF con remesa enviada</button>
             </ion-col>
           </ion-row>
         </ion-grid>

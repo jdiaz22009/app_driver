@@ -100,7 +100,6 @@ export class ProgressFreightDriverPage {
     this.id = this.navParams.get('id')
     console.log(this.id)
     this.getOfferById(this.id)
-    // this.getOfferById('5cd348882ce98522557052c7')
     this.fileTransfer = this.transfer.create()
   }
 
@@ -146,7 +145,7 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      // console.log(JSON.stringify(this.offer))
+      console.log(JSON.stringify(this.offer))
 
       this.authorId = this.offer['author']._id
       this.setMyQualify()
@@ -262,32 +261,47 @@ export class ProgressFreightDriverPage {
     })
   }
 
-  openPDF(){
+  openPDF(property, index){
     const loader = this.loadingCtrl.create({})
     loader.present()
-    if(this.offer.orden_cargue !== undefined && this.offer.orden_cargue !== null){
 
-      const url = this.offer.orden_cargue
-      const fileCargue = 'cargue.pdf'
+    if(this.offer[property] !== undefined && this.offer[property] !== null){
+
+      let url = this.offer[property]
+      let fileCargue = ''
+
+      if(property === 'orden_cargue'){
+        fileCargue = 'cargue.pdf'
+      }else if(property === 'orden_manifiesto'){
+        fileCargue = 'manifiesto.pdf'
+      }else if(property === 'orden_remesas'){
+        const indexRemesa = this.offer[property].indexOf(index)
+        fileCargue = `remesa_${indexRemesa}.pdf`
+        url = index
+        console.log('ulr ' + url + ' INDEX ' + fileCargue)
+
+      }
 
       this.fileTransfer.download(url, this.file.dataDirectory + fileCargue).then((entry) => {
         console.log('download complete: ' + entry.toURL());
         loader.dismiss()
         this.fileOpener.open(entry.toURL(), 'application/pdf')
         .then(() =>{
-          this.freight.updateOfferOrdenCargue(this.offer._id).then(res =>{
-            if(res){
-              console.log(JSON.stringify(res))
-              const code = res['data'].code
-              if(code === 100){
-                this.getOfferById(this.id)
+          if(property === 'orden_cargue'){
+            this.freight.updateOfferOrdenCargue(this.offer._id).then(res =>{
+              if(res){
+                console.log(JSON.stringify(res))
+                const code = res['data'].code
+                if(code === 100){
+                  this.getOfferById(this.id)
+                }
               }
-            }
-          }).catch(e =>{
-            console.error('Cargue Error ' + e)
-          })
+            }).catch(e =>{
+              console.error('Cargue Error ' + e)
+            })
+          }
         })
-        .catch(e => console.error('Error opening file', e));
+        .catch(e => console.error('Error opening file', e))
       }, (e) => {
         console.error(e)
         loader.dismiss()
