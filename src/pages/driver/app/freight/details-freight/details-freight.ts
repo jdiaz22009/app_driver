@@ -88,7 +88,7 @@ export class DetailsFreightDriverPage {
   }
 
   showModalAccept(){
-    const modal = this.modalCtrl.create('ModalPostulationDriverComponent', null, { cssClass: 'modal-id' })
+    const modal = this.modalCtrl.create('ModalPostulationDriverComponent', {offer: this.offer}, { cssClass: 'modal-id' })
     modal.onDidDismiss((data) =>{
       if(data['mode'] === 'find'){
         this.navCtrl.popTo('FindFreightDriverPage')

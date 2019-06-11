@@ -15,7 +15,7 @@
                         <p class="c-date" text-start>{{offer.pedido}} </p>
                     </ion-col>
                     <ion-col col-8>
-                        <p class="c-date" text-end>Publicado {{offer.fecha_creacion | date: 'dd/MM/yy , h:mm a'}}</p>
+                        <p class="c-date" text-end>Publicado {{offer.fecha_creacion * 1000 | date: 'dd/MM/yy , h:mm a'}}</p>
                     </ion-col>
                 </ion-row>
 

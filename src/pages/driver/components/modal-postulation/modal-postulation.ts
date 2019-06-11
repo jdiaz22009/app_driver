@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, ViewController } from 'ionic-angular'
+import { IonicPage, ViewController, NavParams } from 'ionic-angular'
 
 @IonicPage()
 @Component({
@@ -7,13 +7,16 @@ import { IonicPage, ViewController } from 'ionic-angular'
   templateUrl: 'modal-postulation.html'
 })
 
-export class ModalPostulationDriverComponent {  
-  
-  constructor(
-    public viewCtrl: ViewController
-  ){     
+export class ModalPostulationDriverComponent {
 
-  }  
+  offer: any
+
+  constructor(
+    public viewCtrl: ViewController,
+    public navParams: NavParams
+  ){
+    this.offer = this.navParams.get('offer')
+  }
 
   goBack(mode){
     this.viewCtrl.dismiss({mode: mode})

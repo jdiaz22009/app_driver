@@ -1,17 +1,17 @@
 <ion-content padding>
-  
+
  <p class="tx">Felicitaciones, te acabas de postular para transportar esta carga</p>
 
  <hr class="hr">
 
 <p class="tx">Contactar el despachador</p>
- <contact-shared></contact-shared>
+ <contact-shared mode="1" [offer]="offer"></contact-shared>
 
  <ion-grid>
    <ion-row justify-content-center>
       <button ion-button color="btn" round (click)="goBack('find')">Buscar mas cargas</button>
    </ion-row>
- </ion-grid> 
+ </ion-grid>
 
  <hr class="hr">
 
@@ -19,6 +19,6 @@
   <ion-row justify-content-center>
      <button ion-button color="statusbar" round (click)="goBack('home')">Regresar al menu principal</button>
   </ion-row>
-</ion-grid>  
+</ion-grid>
 
 </ion-content>
