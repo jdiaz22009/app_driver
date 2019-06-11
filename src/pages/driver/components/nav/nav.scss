@@ -14,12 +14,12 @@ nav-driver-component {
       color: white;
     }
 
-    .item-md{
+    .item-ios, .item-md{
       background-color: transparent !important;
       padding: 0 !important;
     }
 
-    .item-md .toggle-md{
+    .item-ios .toggle-ios, .item-md .toggle-md{
       padding: 12px 0px 12px 0px !important;
     }
 
@@ -27,7 +27,7 @@ nav-driver-component {
       display: none;
     }
 
-    .item-md.item-block .item-inner{
+    .item-ios.item-block .item-inner , .item-md.item-block .item-inner{
       border-bottom: none !important;
     }
     .item-block{
