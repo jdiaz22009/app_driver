@@ -21,15 +21,13 @@ export class SupportSharedPage {
     public alert: AlertsProvider,
     public menu: MenuController,
     private socialSharing: SocialSharing
-    ) {
+    ) {}
 
-
-    }
   ionViewDidLoad() {
 
   }
 
-  whatsapp(){    
+  whatsapp(){
     this.socialSharing.shareViaWhatsAppToReceiver(
       CONFIG.support.whatsapp,
       "Hola necesito soporte"

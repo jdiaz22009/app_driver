@@ -6,10 +6,12 @@ import { Observable } from 'rxjs/Observable'
 
 import { AppVersion } from '@ionic-native/app-version'
 import { Badge } from '@ionic-native/badge'
+import { SocialSharing } from '@ionic-native/social-sharing'
 
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { CartProvider } from '@providers/api/cart'
+import { CONFIG } from '@providers/config'
 
 @IonicPage({
   name: 'home-drive',
@@ -35,7 +37,8 @@ export class HomeDriverPage {
     public cart: CartProvider,
     private appVersion: AppVersion,
     private socket: Socket,
-    private badge: Badge
+    private badge: Badge,
+    private socialSharing: SocialSharing
   ) {
 
   }
@@ -155,6 +158,38 @@ export class HomeDriverPage {
     }catch(e){
       console.error(e)
     }
+  }
+
+  async getSupport(){
+    let msg = 'hola, soy '
+    const profile = await this.getDriverProfile()
+    if(profile){
+      const user = profile['data'].id_driver
+      const vehicleSelected = user.vehiculos.map(item =>{
+        if(item['select'] && item['state']) return item
+      })
+      const name = this.validateProperty(user.primer_nombre ) ?  user.primer_nombre.toUpperCase() : ''
+      const last_name = this.validateProperty(user.primer_apellido) ? user.primer_apellido.toUpperCase() : ''
+      const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
+      const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+      msg = `Hola, soy ${name} ${last_name} con tipo de vehículo ${vehicle_class}, placa número ${vehicle_plate} y cédula ${user.documento}, por favor necesito soporte.`
+    }
+
+    this.socialSharing.shareViaWhatsAppToReceiver(
+      CONFIG.support.whatsapp,
+      msg
+    )
+  }
+
+  async getDriverProfile(){
+    return await this.auth.getDriver()
+  }
+
+  validateProperty(property){
+    if(property !== undefined && property !== null && property !== ''){
+      return true
+    }
+    return false
   }
 
 }
