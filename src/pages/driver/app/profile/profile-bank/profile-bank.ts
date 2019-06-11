@@ -55,9 +55,11 @@ export class ProfileBankDriverPage {
   advanceAutorization: string = this.noImg
   advanceCertificate: string = this.noImg
   advanceLetter: string = this.noImg
+  advanceLetter1: string = this.noImg
   balanceAutorization: string = this.noImg
   balanceCertificate: string = this.noImg
   balanceLetter: string = this.noImg
+  balanceLetter1: string = this.noImg
 
   pictureMode: number = 1
 
@@ -65,9 +67,12 @@ export class ProfileBankDriverPage {
     {name: 'advanceAutorization'},
     {name: 'advanceCertificate'},
     {name: 'advanceLetter'},
+    {name: 'advanceLetter1'},
     {name: 'balanceAutorization'},
     {name: 'balanceCertificate'},
-    {name: 'balanceLetter'}
+    {name: 'balanceLetter'},
+    {name: 'balanceLetter1'}
+
   ]
 
   constructor(
@@ -421,6 +426,7 @@ export class ProfileBankDriverPage {
 
           this.balanceCertificate = this.advanceCertificate
           this.balanceLetter = this.advanceLetter
+          this.balanceLetter1 = this.advanceLetter1
 
           this.bankForm0.controls['checknequi_balance'].setValue(false)
           this.bankForm0.controls['checkbank_balance'].setValue(true)
@@ -555,7 +561,7 @@ export class ProfileBankDriverPage {
         let dataArray = {}
 
         this.picturesObj.map(obj =>{
-          if(obj.name === 'advanceCertificate' || obj.name === 'advanceLetter'){
+          if(obj.name === 'advanceCertificate' || obj.name === 'advanceLetter' || obj.name === 'advanceLetter1'){
               if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
                 arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
               }else{
@@ -679,7 +685,7 @@ export class ProfileBankDriverPage {
         let dataArray = {}
 
         this.picturesObj.map(obj =>{
-          if(obj.name === 'balanceCertificate' || obj.name === 'balanceLetter'){
+          if(obj.name === 'balanceCertificate' || obj.name === 'balanceLetter' || obj.name === 'balanceLetter1'){
               if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
                 arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
               }else{

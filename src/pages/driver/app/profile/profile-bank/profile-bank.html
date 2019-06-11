@@ -83,16 +83,24 @@
 
                 </ion-col>
             </ion-row>
-            <div *ngIf="show_bank === 1">
+            <div *ngIf="show_bank === 1" margin-bottom>
+                <p class="tx-title" text-center>Certificación Bancaria</p>
                 <ion-row justify-content-center>
                     <ion-col col-4>
-                        <p class="tx-title">Certificación Bancaria</p>
                         <img class="p-photos" [src]="advanceCertificate" (click)="setPicture('advanceCertificate')" >
+                    </ion-col>
+                </ion-row>
 
+                <p class="tx-title" text-center>Carta de Tenencia</p>
+
+                <ion-row justify-content-center>
+                    <ion-col col-4>
+                        <img class="p-photos" [src]="advanceLetter0" (click)="setPicture('advanceLetter0')" >
+                        <p class="p-summary">Frontal</p>
                     </ion-col>
                     <ion-col col-4 offset-3>
-                        <p class="tx-title">Carta de Tenencia</p>
-                        <img class="p-photos" [src]="advanceLetter" (click)="setPicture('advanceLetter')" >
+                        <img class="p-photos" [src]="advanceLetter1" (click)="setPicture('advanceLetter1')" >
+                        <p class="p-summary">Trasera</p>
                     </ion-col>
                 </ion-row>
             </div>

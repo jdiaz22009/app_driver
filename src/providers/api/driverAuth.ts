@@ -245,9 +245,11 @@ export class DriverAuthProvider {
         advanceAutorization: imgArray.advanceAutorization === null ? '' : imgArray.advanceAutorization,
         advanceCertificate: imgArray.advanceCertificate === null ? '' : imgArray.advanceCertificate,
         advanceLetter: imgArray.advanceLetter === null ? '' : imgArray.advanceLetter,
+        advanceLetter1: imgArray.advanceLetter1 === null ? '' : imgArray.advanceLetter1,
         balanceAutorization: imgArray.balanceAutorization === null ? '' : imgArray.balanceAutorization,
         balanceCertificate: imgArray.balanceCertificate === null ? '' : imgArray.balanceCertificate,
-        balanceLetter: imgArray.balanceLetter === null ? '' : imgArray.balanceLetter
+        balanceLetter: imgArray.balanceLetter === null ? '' : imgArray.balanceLetter,
+        balanceLetter1: imgArray.balanceLetter1 === null ? '' : imgArray.balanceLetter1
       }
     }
 
