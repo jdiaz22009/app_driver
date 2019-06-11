@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 import { AndroidPermissions } from '@ionic-native/android-permissions'
+import { Badge } from '@ionic-native/badge'
 
 import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
@@ -33,7 +34,8 @@ export class MyApp {
     public alerts: AlertsProvider,
     public androidPermissions: AndroidPermissions,
     private localNotifications: LocalNotifications,
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,
+    private badge: Badge) {
 
     this.loadApp()
   }
@@ -42,6 +44,8 @@ export class MyApp {
     this.platform.ready().then(() => {
 
       if (this.platform.is('cordova')) {
+
+        this.requestBadgePermission()
 
         this.fcm.subscribeToTopic('all').then(res => {
           console.log('subscribeToTopic')
@@ -83,7 +87,6 @@ export class MyApp {
     })
   }
 
-
   buildNotification(data, mode) {
     if (data) {
       if (mode) {
@@ -97,7 +100,6 @@ export class MyApp {
           icon: 'res://drawable-hdpi/ic_stat_trans2.png'
           // smallIcon: 'file://assets/imgs/action_carts'
         })
-
       }
 
       } else {
@@ -124,6 +126,16 @@ export class MyApp {
           })
         }
 
+      }
+    }
+
+    async requestBadgePermission(){
+      try{
+        let hasPermission = await this.badge.hasPermission()
+        console.log('badge permission ' + hasPermission)
+        if(!hasPermission) await this.badge.requestPermission()
+      }catch(e){
+        console.error('requestBadgePermission ' + e)
       }
     }
 

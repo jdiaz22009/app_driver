@@ -5,6 +5,7 @@ import { Socket } from 'ng-socket-io'
 import { Observable } from 'rxjs/Observable'
 
 import { AppVersion } from '@ionic-native/app-version'
+import { Badge } from '@ionic-native/badge'
 
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
@@ -33,7 +34,8 @@ export class HomeDriverPage {
     public alerts: AlertsProvider,
     public cart: CartProvider,
     private appVersion: AppVersion,
-    private socket: Socket
+    private socket: Socket,
+    private badge: Badge
   ) {
 
   }
@@ -70,6 +72,7 @@ export class HomeDriverPage {
       // console.log('getOfferCount ' + res)
       if(res){
         this.offerCount = res['data'].disponibles
+        this.setBadge(this.offerCount)
       }
     })
   }
@@ -142,6 +145,16 @@ export class HomeDriverPage {
   availability() {
     const modal = this.modalCtrl.create('AvailabilityDriverPage', null, { cssClass: 'modal-availability' })
     modal.present()
+  }
+
+  async setBadge(num){
+    try{
+      const io = await this.badge.isSupported()
+      console.log('badge support ' + io)
+      this.badge.set(num)
+    }catch(e){
+      console.error(e)
+    }
   }
 
 }

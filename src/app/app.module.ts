@@ -17,6 +17,7 @@ import { AppVersion } from '@ionic-native/app-version'
 import { FileOpener } from '@ionic-native/file-opener'
 import { FileTransfer } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
+import { Badge } from '@ionic-native/badge'
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -42,7 +43,7 @@ import { MyApp } from './app.component'
 
     }),
     BrowserAnimationsModule,
-    SocketIoModule.forRoot(config), 
+    SocketIoModule.forRoot(config),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -65,6 +66,7 @@ import { MyApp } from './app.component'
     FileOpener,
     FileTransfer,
     File,
+    Badge,
     API_MODULE,
     PROVIDERS_MODULE,
   ]
