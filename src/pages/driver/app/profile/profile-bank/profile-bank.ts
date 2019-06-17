@@ -57,6 +57,7 @@ export class ProfileBankDriverPage {
   advanceLetter: string = this.noImg
   advanceLetter1: string = this.noImg
   balanceAutorization: string = this.noImg
+  balanceAutorization1: string = this.noImg
   balanceCertificate: string = this.noImg
   balanceLetter: string = this.noImg
   balanceLetter1: string = this.noImg
@@ -69,6 +70,7 @@ export class ProfileBankDriverPage {
     {name: 'advanceLetter'},
     {name: 'advanceLetter1'},
     {name: 'balanceAutorization'},
+    {name: 'balanceAutorization1'},
     {name: 'balanceCertificate'},
     {name: 'balanceLetter'},
     {name: 'balanceLetter1'}
@@ -529,7 +531,7 @@ export class ProfileBankDriverPage {
           }
         }).catch(e => {
           console.error(e)
-          this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
+          this.alert.showAlert('Error', 'Ocurrió un error, intente de nuevo')
         })
 
       } else if (this.bankForm.controls['checkbank'].value) {

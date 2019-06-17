@@ -95,7 +95,7 @@
 
                 <ion-row justify-content-center>
                     <ion-col col-4>
-                        <img class="p-photos" [src]="advanceLetter0" (click)="setPicture('advanceLetter0')" >
+                        <img class="p-photos" [src]="advanceLetter" (click)="setPicture('advanceLetter')" >
                         <p class="p-summary">Frontal</p>
                     </ion-col>
                     <ion-col col-4 offset-3>
@@ -150,7 +150,15 @@
                         </ion-item>
                         <ion-item class=l-item>
                             <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
-                            <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" >
+                            <ion-row justify-content-center>
+                              <ion-col col-4>
+                                  <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" >
+                              </ion-col>
+                              <ion-col col-4 offset-3>
+                                  <img class="p-photos" [src]="balanceAutorization1" (click)="setPicture('balanceAutorization1')" >
+                              </ion-col>
+                          </ion-row>
+                            <!-- <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" > -->
                         </ion-item>
                     </div>
                     <div *ngIf="show_bank_balance === 1">
