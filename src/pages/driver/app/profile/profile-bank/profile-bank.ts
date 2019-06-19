@@ -53,6 +53,7 @@ export class ProfileBankDriverPage {
 
   noImg: string = './assets/imgs/no_photo.png'
   advanceAutorization: string = this.noImg
+  advanceAutorization1: string = this.noImg
   advanceCertificate: string = this.noImg
   advanceLetter: string = this.noImg
   advanceLetter1: string = this.noImg
@@ -66,6 +67,7 @@ export class ProfileBankDriverPage {
 
   picturesObj = [
     {name: 'advanceAutorization'},
+    {name: 'advanceAutorization1'},
     {name: 'advanceCertificate'},
     {name: 'advanceLetter'},
     {name: 'advanceLetter1'},
@@ -418,6 +420,7 @@ export class ProfileBankDriverPage {
           this.bankForm0.controls['id_beneficiary_balance'].setValue(this.user.pago_anticipo.billetera.identificacion_beneficiario)
 
           this.balanceAutorization = this.advanceAutorization
+          this.balanceAutorization1 = this.advanceAutorization1
 
         } else if (this.user.pago_anticipo.banco.nombre_banco.length > 0) {
 
@@ -509,20 +512,50 @@ export class ProfileBankDriverPage {
 
         const userId = await this.getUserId()
 
-        if(this.advanceAutorization !== this.noImg && this.isBase64Img(this.advanceAutorization)){
-          this.saveOnePicture(this.advanceAutorization , userId, 'advanceAutorization').then(res =>{
-            console.log('save image ' + res)
-            if(res !== null){
-              dataArray['advanceAutorization']= res
-              this.fire.updateBankImagesPath(userId, dataArray)
-              this.auth.updateBankInformationPhotos(dataArray)
-            }
+
+        let arrayImgs = []
+
+        let dataArray = {}
+
+        this.picturesObj.map(obj =>{
+          if(obj.name === 'advanceAutorization' || obj.name === 'advanceAutorization1'){
+              if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
+                arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
+              }else{
+                dataArray[obj.name] = this[obj.name] === this.noImg ? null : this[obj.name]
+              }
+          }
+        })
+
+        const results = arrayImgs.map(obj =>{
+          const img = obj.model.substring(23)
+          return this.fire.uploadPicture(img, obj.id, obj.name).then(res => {
+            return dataArray[obj.name] = res
+          }).catch(e => {
+            console.error('error upload ' + e.message)
           })
-        }else{
-          dataArray['advanceAutorization'] = this.advanceAutorization
+        })
+
+        Promise.all(results).then(completed =>{
+          console.log('completed ' + completed)
           this.fire.updateBankImagesPath(userId, dataArray)
           this.auth.updateBankInformationPhotos(dataArray)
-        }
+        })
+
+        // if(this.advanceAutorization !== this.noImg && this.isBase64Img(this.advanceAutorization)){
+        //   this.saveOnePicture(this.advanceAutorization , userId, 'advanceAutorization').then(res =>{
+        //     console.log('save image ' + res)
+        //     if(res !== null){
+        //       dataArray['advanceAutorization']= res
+        //       this.fire.updateBankImagesPath(userId, dataArray)
+        //       this.auth.updateBankInformationPhotos(dataArray)
+        //     }
+        //   })
+        // }else{
+        //   dataArray['advanceAutorization'] = this.advanceAutorization
+        //   this.fire.updateBankImagesPath(userId, dataArray)
+        //   this.auth.updateBankInformationPhotos(dataArray)
+        // }
 
         this.auth.bankData(this.profile_bank).then(res => {
           if(res){
@@ -630,23 +663,52 @@ export class ProfileBankDriverPage {
 
         const userId = await this.getUserId()
 
-        if(this.balanceAutorization !== this.noImg && this.isBase64Img(this.balanceAutorization)){
-          this.saveOnePicture(this.balanceAutorization , userId, 'balanceAutorization').then(res =>{
-            console.log('save image ' + res)
-            if(res !== null){
-              dataArray['balanceAutorization']= res
-              // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
-              //   console.log('save path success ' + JSON.stringify(dataArray) )
-              // })
-              this.fire.updateBankImagesPath(userId, dataArray)
-              this.auth.updateBankInformationPhotos(dataArray)
-            }
+        let arrayImgs = []
+
+        let dataArray = {}
+
+        this.picturesObj.map(obj =>{
+          if(obj.name === 'balanceAutorization' || obj.name === 'balanceAutorization1'){
+              if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
+                arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
+              }else{
+                dataArray[obj.name] = this[obj.name] === this.noImg ? null : this[obj.name]
+              }
+          }
+        })
+
+        const results = arrayImgs.map(obj =>{
+          const img = obj.model.substring(23)
+          return this.fire.uploadPicture(img, obj.id, obj.name).then(res => {
+            return dataArray[obj.name] = res
+          }).catch(e => {
+            console.error('error upload ' + e.message)
           })
-        }else{
-          dataArray['balanceAutorization'] = this.balanceAutorization
+        })
+
+        Promise.all(results).then(completed =>{
+          console.log('completed ' + completed)
           this.fire.updateBankImagesPath(userId, dataArray)
           this.auth.updateBankInformationPhotos(dataArray)
-        }
+        })
+
+        // if(this.balanceAutorization !== this.noImg && this.isBase64Img(this.balanceAutorization)){
+        //   this.saveOnePicture(this.balanceAutorization , userId, 'balanceAutorization').then(res =>{
+        //     console.log('save image ' + res)
+        //     if(res !== null){
+        //       dataArray['balanceAutorization']= res
+        //       // this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() =>{
+        //       //   console.log('save path success ' + JSON.stringify(dataArray) )
+        //       // })
+        //       this.fire.updateBankImagesPath(userId, dataArray)
+        //       this.auth.updateBankInformationPhotos(dataArray)
+        //     }
+        //   })
+        // }else{
+        //   dataArray['balanceAutorization'] = this.balanceAutorization
+        //   this.fire.updateBankImagesPath(userId, dataArray)
+        //   this.auth.updateBankInformationPhotos(dataArray)
+        // }
 
         this.auth.bankData(this.profile_bank).then(res => {
           if(res){

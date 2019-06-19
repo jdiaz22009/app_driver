@@ -36,44 +36,53 @@
             </ion-row>
             <ion-row>
                 <ion-col col-12>
-
                     <div *ngIf="show_nequi === 1">
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Número celular</ion-label>
                             <ion-input [formControl]="bankForm.controls['phone']" type="number" disabled="{{disablenequi}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Nombre completo beneficiario</ion-label>
                             <ion-input [formControl]="bankForm.controls['name_beneficiary']" type="text" disabled="{{disablenequi}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Número documento identidad beneficiario</ion-label>
                             <ion-input [formControl]="bankForm.controls['id_beneficiary']" type="number" disabled="{{disablenequi}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item >
-                            <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
-                            <img class="p-photos" [src]="advanceAutorization" (click)="setPicture('advanceAutorization')" >
-                        </ion-item>
+
+                        <p class="tx-title mt-3" text-center>Carta de autorización pago a terceros (si aplica)</p>
+                        <ion-row justify-content-center>
+                          <ion-col col-4>
+                              <img class="p-photos" [src]="advanceAutorization" (click)="setPicture('advanceAutorization')" >
+                              <p class="p-summary">Frontal</p>
+                          </ion-col>
+                          <ion-col col-4 offset-3>
+                              <img class="p-photos" [src]="advanceAutorization1" (click)="setPicture('advanceAutorization1')" >
+                              <p class="p-summary">Trasera</p>
+                          </ion-col>
+                        </ion-row>
+                            <!-- <img class="p-photos" [src]="advanceAutorization" (click)="setPicture('advanceAutorization')" > -->
+
                     </div>
 
                     <div *ngIf="show_bank === 1">
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Nombre banco </ion-label>
                             <ion-input type="text" [formControl]="bankForm.controls['bank']" disabled="{{disableBank}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Número de cuenta</ion-label>
                             <ion-input type="number" [formControl]="bankForm.controls['account']" disabled="{{disableBank}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Nombre titular</ion-label>
                             <ion-input type="text" [formControl]="bankForm.controls['name']" disabled="{{disableBank}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Cédula titular</ion-label>
                             <ion-input type="number" [formControl]="bankForm.controls['id']" disabled="{{disableBank}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Tipo cuenta</ion-label>
                             <ion-select [formControl]="bankForm.controls['account_type']" disabled="{{disableBank}}">
                                 <ion-option *ngFor="let item of type_account_category" value="{{item.value}}">{{item.name}}</ion-option>
@@ -134,51 +143,51 @@
             <ion-row>
                 <ion-col col-12>
                     <div *ngIf="show_nequi_balance === 1">
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Número celular</ion-label>
                             <ion-input [formControl]="bankForm0.controls['phone_balance']" type="number" disabled="{{disablenequi_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Nombre completo beneficiario</ion-label>
                             <ion-input [formControl]="bankForm0.controls['name_beneficiary_balance']" type="text"
                                 disabled="{{disablenequi_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Número documento identidad beneficiario</ion-label>
                             <ion-input [formControl]="bankForm0.controls['id_beneficiary_balance']" type="number"
                                 disabled="{{disablenequi_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
-                            <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
-                            <ion-row justify-content-center>
-                              <ion-col col-4>
-                                  <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" >
-                              </ion-col>
-                              <ion-col col-4 offset-3>
-                                  <img class="p-photos" [src]="balanceAutorization1" (click)="setPicture('balanceAutorization1')" >
-                              </ion-col>
-                          </ion-row>
+
+                        <p class="tx-title">Carta de autorización pago a terceros (si aplica)</p>
+                        <ion-row justify-content-center>
+                          <ion-col col-4>
+                              <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" >
+                          </ion-col>
+                          <ion-col col-4 offset-3>
+                              <img class="p-photos" [src]="balanceAutorization1" (click)="setPicture('balanceAutorization1')" >
+                          </ion-col>
+                        </ion-row>
                             <!-- <img class="p-photos" [src]="balanceAutorization" (click)="setPicture('balanceAutorization')" > -->
-                        </ion-item>
+
                     </div>
                     <div *ngIf="show_bank_balance === 1">
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Nombre banco </ion-label>
                             <ion-input type="text" [formControl]="bankForm0.controls['bank_balance']" disabled="{{disableBank_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Número de cuenta</ion-label>
                             <ion-input type="number" [formControl]="bankForm0.controls['account_balance']" disabled="{{disableBank_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Nombre titular</ion-label>
                             <ion-input type="text" [formControl]="bankForm0.controls['name_balance']" disabled="{{disableBank_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Cédula titular</ion-label>
                             <ion-input type="number" [formControl]="bankForm0.controls['id_balance']" disabled="{{disableBank_balance}}"></ion-input>
                         </ion-item>
-                        <ion-item class=l-item>
+                        <ion-item class="l-item">
                             <ion-label stacked>Tipo cuenta</ion-label>
                             <ion-select [formControl]="bankForm0.controls['account_type_balance']" disabled="{{disableBank_balance}}">
                                 <ion-option *ngFor="let item of type_account_category" value="{{item.value}}">{{item.name}}</ion-option>
@@ -189,7 +198,27 @@
                 </ion-col>
             </ion-row>
             <div *ngIf="show_bank_balance === 1">
+                <p class="tx-title" text-center>Certificación Bancaria</p>
                 <ion-row justify-content-center>
+                    <ion-col col-4>
+                        <img class="p-photos" [src]="balanceCertificate" (click)="setPicture('balanceCertificate')" >
+                    </ion-col>
+                </ion-row>
+
+                <p class="tx-title" text-center>Carta de Tenencia</p>
+
+                <ion-row justify-content-center>
+                    <ion-col col-4>
+                        <img class="p-photos" [src]="balanceLetter" (click)="setPicture('balanceLetter')" >
+                        <p class="p-summary">Frontal</p>
+                    </ion-col>
+                    <ion-col col-4 offset-3>
+                        <img class="p-photos" [src]="balanceLetter1" (click)="setPicture('balanceLetter1')" >
+                        <p class="p-summary">Trasera</p>
+                    </ion-col>
+                </ion-row>
+
+                <!-- <ion-row justify-content-center>
                     <ion-col col-4>
                         <p class="tx-title">Certificación Bancaria</p>
                         <img class="p-photos" [src]="balanceCertificate" (click)="setPicture('balanceCertificate')" >
@@ -199,7 +228,7 @@
                         <p class="tx-title">Carta de Tenencia</p>
                         <img class="p-photos" [src]="balanceLetter" (click)="setPicture('balanceLetter')" >
                     </ion-col>
-                </ion-row>
+                </ion-row> -->
             </div>
         </form>
     </div>
