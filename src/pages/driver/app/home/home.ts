@@ -25,6 +25,7 @@ export class HomeDriverPage {
 
   version: string = ''
   offerCount: number = 0
+  pendingCount: number = 0
 
   cantOpenFind: boolean = false
 

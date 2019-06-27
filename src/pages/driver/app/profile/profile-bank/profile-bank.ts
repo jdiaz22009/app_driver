@@ -629,7 +629,7 @@ export class ProfileBankDriverPage {
           })
           .catch(error => {
             console.log(error)
-            this.alert.showAlert('Error', 'Ocurrio un error, intente de nuevo')
+            this.alert.showAlert('Error', 'Ocurrió un error, intente de nuevo')
           })
       }
 

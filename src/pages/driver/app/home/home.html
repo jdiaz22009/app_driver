@@ -9,7 +9,11 @@
                 <p class="h-summary">Mis vehículos</p>
             </ion-col>
             <ion-col col-4 offset-3 (click)="goPage('MyFreightDriverPage')">
-                <img class="h-actions" src="./assets/imgs/action_loads.png">
+                <div class="content-freight">
+                  <ion-badge *ngIf="pendingCount > 0" class="badge-find">{{pendingCount}}</ion-badge>
+                  <!-- <ion-badge class="badge-find">{{pendingCount}}</ion-badge> -->
+                  <img class="h-actions" src="./assets/imgs/action_loads.png">
+                </div>
                 <p class="h-summary">Mis fletes</p>
             </ion-col>
         </ion-row>

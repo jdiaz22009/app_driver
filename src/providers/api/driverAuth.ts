@@ -243,16 +243,19 @@ export class DriverAuthProvider {
     const params = {
       bankInformation:{
         advanceAutorization: imgArray.advanceAutorization === null ? '' : imgArray.advanceAutorization,
+        advanceAutorization1: imgArray.advanceAutorization1 === null ? '' : imgArray.advanceAutorization1,
         advanceCertificate: imgArray.advanceCertificate === null ? '' : imgArray.advanceCertificate,
         advanceLetter: imgArray.advanceLetter === null ? '' : imgArray.advanceLetter,
         advanceLetter1: imgArray.advanceLetter1 === null ? '' : imgArray.advanceLetter1,
         balanceAutorization: imgArray.balanceAutorization === null ? '' : imgArray.balanceAutorization,
+        balanceAutorization1: imgArray.balanceAutorization1 === null ? '' : imgArray.balanceAutorization1,
         balanceCertificate: imgArray.balanceCertificate === null ? '' : imgArray.balanceCertificate,
         balanceLetter: imgArray.balanceLetter === null ? '' : imgArray.balanceLetter,
         balanceLetter1: imgArray.balanceLetter1 === null ? '' : imgArray.balanceLetter1
       }
     }
 
+    console.log(JSON.stringify(params))
     const headers = { 'Authorization': token, 'content-type': 'application/json' }
 
     try {

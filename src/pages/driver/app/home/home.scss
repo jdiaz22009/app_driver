@@ -33,6 +33,27 @@ home-driver {
     margin-bottom: 0.3rem;
   }
 
+  .content-freight{
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+    .money-logo{
+      display: block;
+      width: 100%;
+    }
+
+    .badge-find{
+      position: absolute;
+      top: 10px;
+      left: 70%;
+      border-radius: 50%;
+      padding: 0.7rem;
+      background-color: red;
+    }
+  }
+
   .content-find{
 
     margin-left: auto;
@@ -52,7 +73,6 @@ home-driver {
       padding: 1rem;
       background-color: red;
     }
-
   }
 
 }

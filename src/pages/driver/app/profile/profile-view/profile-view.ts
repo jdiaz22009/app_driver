@@ -43,7 +43,7 @@ export class ProfileDriverPage {
 
   getProfile() {
     this.auth.getDriver().then(res => {
-      // console.log(JSON.stringify(res))
+      console.log(JSON.stringify(res))
       this.userData = res['data'].id_driver
       console.log('userId ' + this.userData._id)
       this.driver_name = this.toCapitalize(this.userData.primer_nombre) + ' ' + this.toCapitalize(this.userData.segundo_nombre)
