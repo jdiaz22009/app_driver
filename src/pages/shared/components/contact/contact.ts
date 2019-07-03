@@ -31,7 +31,7 @@ export class ContactSharedComponent {
 
   async ngAfterViewInit(){
     this.emailTxt = this.textDefault[this.mode].email
-
+    // console.log('offert to modal ' + JSON.stringify(this.offer))
     if(this.offer !== undefined){
       const profile = await this.getDriverProfile()
       if(profile){
@@ -64,13 +64,27 @@ export class ContactSharedComponent {
   }
 
   call(){
-    this.callNumber.callNumber(CONFIG.support.phone, true)
+    let phoneNumber = ''
+    if(this.offer !== undefined){
+      phoneNumber = this.offer['author'].telefono_1
+    }else{
+      phoneNumber = CONFIG.support.phone
+    }
+    console.log('phoneNumber ' + phoneNumber)
+    this.callNumber.callNumber(phoneNumber, true)
     .then(res => console.log('Launched dialer!', res))
     .catch(err => console.log('Error launching dialer', err))
   }
 
   email(){
-    this.socialSharing.shareViaEmail(this.emailTxt, 'Soporte app móvil', ['info@cargaya.com']).then(() => {
+    let emailContact
+    if(this.offer !== undefined){
+      emailContact = this.offer['author'].email_cooporativo
+    }else{
+      emailContact = CONFIG.support.email
+    }
+    console.log('email ' + emailContact)
+    this.socialSharing.shareViaEmail(this.emailTxt, 'Soporte app móvil', [emailContact]).then(() => {
       console.log('Success!')
     }).catch((e) => {
       console.error('Error! ' + e)
@@ -78,8 +92,15 @@ export class ContactSharedComponent {
   }
 
   whatsapp(){
+    let whatsappNumber = ''
+    if(this.offer !== undefined){
+      whatsappNumber =  this.offer['author'].telefono_1
+    }else{
+      whatsappNumber = CONFIG.support.whatsapp
+    }
+    console.log('whatsapp ' + whatsappNumber)
     this.socialSharing.shareViaWhatsAppToReceiver(
-      CONFIG.support.whatsapp,
+      whatsappNumber,
       this.whatsappTxt
     )
   }
