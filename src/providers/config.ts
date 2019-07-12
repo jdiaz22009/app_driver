@@ -72,8 +72,8 @@ const dev = {
     phone: '+573205801985'
   },
   api:{
-    url: 'https://api.cargaya.net',
-    url_sockets: 'https://api.cargaya.net',
+    url: 'https://devcargaya.com',
+    url_sockets: 'https://devcargaya.com',
     drivers:{
       login: '/api/v1/auth/conductores/login',
       verifyToken: '/api/v1/auth/verify',
