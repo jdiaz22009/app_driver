@@ -69,7 +69,8 @@ const dev = {
   },
   support:{
     whatsapp: '+573205801985',
-    phone: '+573205801985'
+    phone: '+573205801985',
+    email: 'info@cargaya.com'
   },
   api:{
     url: 'https://devcargaya.com',
