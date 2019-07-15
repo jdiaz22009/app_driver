@@ -1,7 +1,8 @@
-const env = 'dev'
-// const env = 'prod'
+// const env = 'dev'
+const env = 'prod'
 
 const prod = {
+  environment: 'prod',
   localdb:{
     USER_KEY: 'user_key',
     USER_DATA_KEY: 'user_data_key',
@@ -13,8 +14,10 @@ const prod = {
     email: 'info@cargaya.com'
   },
   api:{
-    url: 'https://cargaya.live',
-    url_sockets: 'https://cargaya.live',
+    // url: 'https://cargaya.live',
+    // url_sockets: 'https://cargaya.live',
+    url: 'https://prodcargaya.com',
+    url_sockets: 'https://prodcargaya.com',
     drivers:{
       login: '/api/v1/auth/conductores/login',
       verifyToken: '/api/v1/auth/verify',
@@ -62,6 +65,7 @@ const prod = {
 }
 
 const dev = {
+  environment: 'dev',
   localdb:{
     USER_KEY: 'user_key',
     USER_DATA_KEY: 'user_data_key',

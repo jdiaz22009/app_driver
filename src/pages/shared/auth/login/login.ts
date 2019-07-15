@@ -35,6 +35,7 @@ export class LoginSharedPage {
   user_type: string = ''
   mode: string
   version: string = ''
+  envVersion: string = ''
 
   constructor(
     public navCtrl: NavController,
@@ -78,6 +79,12 @@ export class LoginSharedPage {
 
   ionViewDidLoad() {
     this.menu.enable(false)
+    if(CONFIG.environment === 'dev'){
+      this.envVersion = 'Beta'
+    }else{
+      this.envVersion = ''
+    }
+
     this.keyboard.onKeyboardShow().subscribe(data =>{
       this.hideFooter = true
     })
