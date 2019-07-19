@@ -31,7 +31,7 @@ export class ContactSharedComponent {
 
   async ngAfterViewInit(){
     this.emailTxt = this.textDefault[this.mode].email
-    // console.log('offert to modal ' + JSON.stringify(this.offer))
+    console.log('offert to modal ' + JSON.stringify(this.offer))
     if(this.offer !== undefined){
       const profile = await this.getDriverProfile()
       if(profile){

@@ -279,7 +279,10 @@ export class ProgressFreightDriverPage {
         fileCargue = `remesa_${indexRemesa}.pdf`
         url = index
         console.log('ulr ' + url + ' INDEX ' + fileCargue)
-
+      }else if(property === 'other_documents'){
+        const indexDocumentos = this.offer[property].indexOf(index)
+        fileCargue = `documentos_${indexDocumentos}.pdf`
+        url = index
       }
 
       this.fileTransfer.download(url, this.file.dataDirectory + fileCargue).then((entry) => {

@@ -29,6 +29,8 @@ export class HomeDriverPage {
 
   cantOpenFind: boolean = false
 
+  envVersion: string = ''
+
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -46,6 +48,12 @@ export class HomeDriverPage {
 
   ionViewDidLoad(){
     this.getAppVersion()
+
+    if(CONFIG.environment === 'dev'){
+      this.envVersion = 'Beta'
+    }else{
+      this.envVersion = ''
+    }
 
     this.socket.connect()
 

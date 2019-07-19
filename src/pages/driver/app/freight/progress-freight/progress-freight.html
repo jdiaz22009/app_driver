@@ -120,7 +120,7 @@
           </ion-card-content>
       </ion-card>
 
-      <div *ngIf="freight_state > 6">
+      <div *ngIf="offer['orden_cargue'] !== undefined && offer['orden_cargue'] !== null && offer['orden_cargue'] !== ''">
 
         <ion-grid>
           <ion-row>
@@ -133,7 +133,7 @@
       </div>
 
 
-      <div *ngIf="freight_state >= 13">
+      <div *ngIf="offer['orden_manifiesto'] !== undefined && offer['orden_manifiesto'] !== null && offer['orden_manifiesto'] !== ''">
 
         <ion-grid>
           <ion-row>
@@ -145,12 +145,24 @@
 
       </div>
 
-      <div *ngIf="freight_state >= 13">
+      <div *ngIf="offer['orden_remesas'] !== undefined && offer['orden_remesas'] !== null && offer['orden_remesas'].length > 0">
 
         <ion-grid>
           <ion-row *ngFor="let i of offer['orden_remesas']; let i = index">
             <ion-col text-center>
               <button ion-button class="btn-order" (click)="openPDF('orden_remesas', i )">PDF con remesa enviada</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+      <div *ngIf="offer['other_documents'] !== undefined && offer['other_documents'] !== null && offer['other_documents'].length > 0">
+
+        <ion-grid>
+          <ion-row *ngFor="let i of offer['other_documents']; let i = index">
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('other_documents', i )">PDF Otros Documentos</button>
             </ion-col>
           </ion-row>
         </ion-grid>
