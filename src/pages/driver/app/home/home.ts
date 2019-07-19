@@ -162,7 +162,7 @@ export class HomeDriverPage {
   }
 
   async getSupport(){
-    let msg = 'hola, soy '
+    let msg = 'Hola, soy '
     const profile = await this.getDriverProfile()
     if(profile){
       const user = profile['data'].id_driver

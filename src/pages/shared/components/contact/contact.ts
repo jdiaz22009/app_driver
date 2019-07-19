@@ -94,7 +94,7 @@ export class ContactSharedComponent {
   whatsapp(){
     let whatsappNumber = ''
     if(this.offer !== undefined){
-      whatsappNumber =  this.offer['author'].telefono_1
+      whatsappNumber =  '+57' + this.offer['author'].telefono_1
     }else{
       whatsappNumber = CONFIG.support.whatsapp
     }
