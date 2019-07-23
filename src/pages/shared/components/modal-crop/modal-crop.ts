@@ -45,8 +45,8 @@ export class ModalCropSharedComponent {
 		// Cannot set keepAspect to false on rounded cropper
 		this.cropperSettings.keepAspect = true
 
-    this.cropperSettings.croppedWidth = 200
-    this.cropperSettings.croppedHeight = 200
+    this.cropperSettings.croppedWidth = 500
+    this.cropperSettings.croppedHeight = 500
     this.cropperSettings.canvasWidth = 400
 		this.cropperSettings.canvasHeight = 400
 

@@ -121,13 +121,15 @@ export class PhotosVehiclesDriverPage {
 
   takePicture(modelPicture, mode){
     this.media.takePicture(mode).then(res =>{
-      const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
-      modal.onDidDismiss(data =>{
-        if(data){
-          this[modelPicture] = data.cropResult
-        }
-      })
-      modal.present()
+      // const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
+      // modal.onDidDismiss(data =>{
+      //   if(data){
+      //     this[modelPicture] = data.cropResult
+      //   }
+      // })
+      // modal.present()
+     this[modelPicture] = res
+
     }).catch(e =>{
       console.error(e)
     })

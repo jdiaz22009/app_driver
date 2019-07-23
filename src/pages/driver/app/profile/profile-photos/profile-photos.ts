@@ -25,11 +25,11 @@ export class ProfilePhotoDriverPage {
   pictureMode: number = 0
 
   picturesObj = [
-    {name: 'idFront'},
-    {name: 'idBack'},
-    {name: 'licenseFront'},
-    {name: 'licenseBack'},
-    {name: 'driverImg'}
+    { name: 'idFront' },
+    { name: 'idBack' },
+    { name: 'licenseFront' },
+    { name: 'licenseBack' },
+    { name: 'driverImg' }
   ]
 
   constructor(
@@ -51,16 +51,16 @@ export class ProfilePhotoDriverPage {
     this.getProfilePicture()
   }
 
-  async getProfilePicture(){
+  async getProfilePicture() {
     const loader = this.loadingCtrl.create({})
     loader.present()
     const userId = await this.getUserId()
 
-    this.fire.getProfilePicture(this.pictureMode, userId, null).then(res =>{
+    this.fire.getProfilePicture(this.pictureMode, userId, null).then(res => {
 
-      if(res !== null){
-        this.picturesObj.map(picture =>{
-          if(res[picture.name] !== undefined && res[picture.name].includes('http')){
+      if (res !== null) {
+        this.picturesObj.map(picture => {
+          if (res[picture.name] !== undefined && res[picture.name].includes('http')) {
             this[picture.name] = res[picture.name]
           }
         })
@@ -68,7 +68,7 @@ export class ProfilePhotoDriverPage {
 
       loader.dismiss()
 
-    }).catch(e =>{
+    }).catch(e => {
       loader.dismiss()
       console.error('error ' + e)
     })
@@ -105,16 +105,18 @@ export class ProfilePhotoDriverPage {
     actionSheet.present()
   }
 
-  takePicture(modelPicture, mode){
-    this.media.takePicture(mode).then(res =>{
-      const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
-      modal.onDidDismiss(data =>{
-        if(data){
-          this[modelPicture] = data.cropResult
-        }
-      })
-      modal.present()
-    }).catch(e =>{
+  takePicture(modelPicture, mode) {
+    this.media.takePicture(mode).then(res => {
+      // const modal = this.modalCtrl.create('ModalCropSharedComponent', { picture: res })
+      // modal.onDidDismiss(data =>{
+      //   if(data){
+      //     this[modelPicture] = data.cropResult
+      //   }
+      // })
+      // modal.present()
+      this[modelPicture] = res
+      
+    }).catch(e => {
       console.error(e)
     })
   }
@@ -127,9 +129,9 @@ export class ProfilePhotoDriverPage {
 
   isBase64Img(str) {
     try {
-        return str.includes('data:image/jpeg;base64')
+      return str.includes('data:image/jpeg;base64')
     } catch (e) {
-        return false
+      return false
     }
   }
 
@@ -144,15 +146,15 @@ export class ProfilePhotoDriverPage {
 
     let dataArray = {}
 
-    this.picturesObj.map(obj =>{
-      if(this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])){
-        arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name})
-      }else{
+    this.picturesObj.map(obj => {
+      if (this[obj.name] != this.noImg && this.isBase64Img(this[obj.name])) {
+        arrayImgs.push({ model: this[obj.name], id: userId, name: obj.name })
+      } else {
         dataArray[obj.name] = this[obj.name] === this.noImg ? null : this[obj.name]
       }
     })
 
-    const results = arrayImgs.map(obj =>{
+    const results = arrayImgs.map(obj => {
       const img = obj.model.substring(23)
       return this.fire.uploadPicture(img, obj.id, obj.name).then(res => {
         return dataArray[obj.name] = res
@@ -163,7 +165,7 @@ export class ProfilePhotoDriverPage {
       })
     })
 
-    Promise.all(results).then(completed =>{
+    Promise.all(results).then(completed => {
       console.log('completed ' + completed)
       this.fire.saveImageProfilePath(this.pictureMode, dataArray, userId, null).then(() => {
         console.log('save image path ')
@@ -176,7 +178,7 @@ export class ProfilePhotoDriverPage {
         this.alerts.showAlert('Error', 'Ha ocurrido un problema, por favor intente de nuevo')
       })
 
-      this.driveAuth.updateDriverMyPhotos(dataArray).then(res =>{
+      this.driveAuth.updateDriverMyPhotos(dataArray).then(res => {
         console.log('save path to mongo server success ' + res)
       })
 
