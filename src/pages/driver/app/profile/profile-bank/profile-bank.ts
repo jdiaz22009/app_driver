@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, ModalController, Content } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, Content } from 'ionic-angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { DriverAuthProvider } from '@providers/api/driverAuth'
@@ -90,7 +90,7 @@ export class ProfileBankDriverPage {
     public media: MediaProvider,
     public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
-    private modalCtrl: ModalController
+    // private modalCtrl: ModalController
 
   ) {
 

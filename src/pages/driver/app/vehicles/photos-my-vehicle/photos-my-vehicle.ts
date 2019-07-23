@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams , ActionSheetController, ModalController,LoadingController} from 'ionic-angular'
+import { IonicPage, NavController, NavParams , ActionSheetController , LoadingController} from 'ionic-angular'
 
 import { MediaProvider } from '@providers/media'
 import { StorageDb } from '@providers/storageDb'
@@ -43,7 +43,7 @@ export class PhotosMyVehiclesDriverPage {
     public alerts: AlertsProvider,
     public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
-    private modalCtrl: ModalController,
+    // private modalCtrl: ModalController,
     private fire: FirebaseProvider,
     private cart: CartProvider
     ) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, LoadingController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular'
 
 import { AlertsProvider } from '@providers/alerts'
 import { MediaProvider } from '@providers/media'
@@ -39,7 +39,7 @@ export class ProfilePhotoDriverPage {
     public alerts: AlertsProvider,
     public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
-    private modalCtrl: ModalController,
+    // private modalCtrl: ModalController,
     private fire: FirebaseProvider,
     public driveAuth: DriverAuthProvider,
     public navParams: NavParams) {
@@ -115,7 +115,7 @@ export class ProfilePhotoDriverPage {
       // })
       // modal.present()
       this[modelPicture] = res
-      
+
     }).catch(e => {
       console.error(e)
     })
