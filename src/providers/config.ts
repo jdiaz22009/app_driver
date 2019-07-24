@@ -1,6 +1,5 @@
 const env = 'dev'
 //const env = 'prod'
-
 const prod = {
   environment: 'prod',
   localdb:{
