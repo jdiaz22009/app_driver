@@ -145,7 +145,7 @@ export class ProgressFreightDriverPage {
       this.offer = res['data'].data
       this.freight_state = this.offer['state'].sequence
       console.log(`STATE (${this.freight_state})`)
-      console.log(JSON.stringify(this.offer))
+      console.log(JSON.stringify(this.offer), 'OFFERS')
 
       this.authorId = this.offer['author']._id
       this.setMyQualify()
