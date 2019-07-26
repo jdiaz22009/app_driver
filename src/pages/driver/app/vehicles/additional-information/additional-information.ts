@@ -156,7 +156,7 @@ export class AdditionalInfoVehiclesDriverPage {
         // Validators.required
       ])],
       chassis: ['', Validators.compose([
-        Validators.minLength(3),
+        // Validators.minLength(3),
         // Validators.required
       ])],
       gas: ['', Validators.compose([
