@@ -66,7 +66,7 @@ export class ContactSharedComponent {
   call(){
     let phoneNumber = ''
     if(this.offer !== undefined){
-      phoneNumber = this.offer['author']['responsable'].celular
+      phoneNumber = this.offer['coordinador'].celular
     }else{
       phoneNumber = CONFIG.support.phone
     }
@@ -80,7 +80,7 @@ export class ContactSharedComponent {
     let emailContact
     if(this.offer !== undefined){
       // emailContact = this.offer['author'].email_cooporativo
-      emailContact = this.offer['author']['responsable'].email
+      emailContact = this.offer['coordinador'].email
     }else{
       emailContact = CONFIG.support.email
     }
@@ -95,7 +95,7 @@ export class ContactSharedComponent {
   whatsapp(){
     let whatsappNumber = ''
     if(this.offer !== undefined){
-      whatsappNumber =  '+57' + this.offer['author']['responsable'].celular
+      whatsappNumber =  '+57' + this.offer['coordinador'].celular
     }else{
       whatsappNumber = CONFIG.support.whatsapp
     }
