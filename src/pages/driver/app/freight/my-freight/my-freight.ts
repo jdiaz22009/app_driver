@@ -76,15 +76,15 @@ export class MyFreightDriverPage {
 
         let showAlert = true
 
+        let assign = []
+
         let opt = [
           { key: 'postulantes', state: 'Postulado' },
           { key: 'pre_selected', state: 'Pre-seleccionado' },
           { key: 'aprobados', state: 'Aprobado' },
           { key: 'asignados', state: 'Asignado' }
         ]
-
         for (let i of data) {
-
           opt.map(y => {
             if (i[y.key] !== undefined && i[y.key] !== null && i[y.key].length > 0) {
               for (let o of i[y.key]) {
@@ -98,10 +98,12 @@ export class MyFreightDriverPage {
           if (i['driverselected'] !== undefined
             && i['driverselected'] !== null
             && i['driverselected'].length > 0) {
-
             for (let y of i['driverselected']) {
               if (y._id === userId) {
-                this.assignedOffers.push(i).reverse()
+                 assign.push(i)
+                 this.assignedOffers = assign.reverse()
+                 console.log(JSON.stringify(this.assignedOffers),'assing')
+                //console.log(JSON.stringify(assign),'assing')
               } else {
                 if (i['estado_flete'] === 'Asignado' && showAlert) {
                   showAlert = false
