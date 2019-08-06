@@ -43,6 +43,10 @@ export class ListVehiclesDriverPage {
   }
 
   addVehicle(){
+    if(this.vehicles.length >= 1){
+      this.alerts.showAlert('Advertencia', 'Solo puedes tener un vehículo')
+      return
+    }
     this.navCtrl.push('AddCartDriverPage', {id: this.userId , mode: 1 })
   }
 

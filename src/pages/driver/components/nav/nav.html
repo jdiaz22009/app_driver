@@ -18,7 +18,7 @@
                     <ion-col col-7>
                         <p class="nav-tx-available">{{tx_available}} - {{plate}}</p>
                     </ion-col>
-                    <ion-col col-4>
+                    <ion-col col-4 *ngIf="showSwitch">
                         <ion-item >
                             <ion-toggle color="btn" [(ngModel)]="driver_available" (ionChange)="availabilityChange($event, driver_available)"></ion-toggle>
                         </ion-item>

@@ -21,6 +21,7 @@ export class NavDriverComponent {
   modeTitle: boolean = false
   driver_available: boolean = false
   nav_ava: boolean = false
+  showSwitch: boolean = false
 
   constructor(
     public navCtrl: NavController,
@@ -58,7 +59,7 @@ export class NavDriverComponent {
     this.cart.getMySelected().then(res =>{
       console.log(JSON.stringify(res))
       this.plate = res['data']['data'].placa
-      this.driver_available = res['data']['data'].state      
+      this.driver_available = res['data']['data'].state
       this.vehicle_id = res['data']['data']._id
       this.setAvailabilityTx()
     }).catch(e =>{
