@@ -76,7 +76,7 @@ export class MyFreightDriverPage {
 
         let showAlert = true
 
-        let assign = []
+        // let assign = []
 
         let opt = [
           { key: 'postulantes', state: 'Postulado' },
@@ -99,40 +99,49 @@ export class MyFreightDriverPage {
             && i['driverselected'] !== null
             && i['driverselected'].length > 0) {
             for (let y of i['driverselected']) {
-              if (y._id === userId) {
-                 assign.push(i)
-                 this.assignedOffers = assign.reverse()
-                 console.log(JSON.stringify(this.assignedOffers),'assing')
 
-                //  this.assignedOffers = this.assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+              if(i['state'].sequence === 99){
+                this.historyOffers.push(i)
+              }else{
+                if (y._id === userId) {
+                  this.assignedOffers.push(i)
+                  // assign.push(i)
+                  // this.assignedOffers = assign.reverse()
+                  // console.log(JSON.stringify(this.assignedOffers),'assing')
 
-
-                //console.log(JSON.stringify(assign),'assing')
-              } else {
-                if (i['estado_flete'] === 'Asignado' && showAlert) {
-                  showAlert = false
-                  const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-                  this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
-                    if (res === 1) {
-                      this.acceptOffer(i._id)
-                    }
-                  })
-                }
-                this.allOffers.push(i).reverse()
+               } else {
+                 if (i['estado_flete'] === 'Asignado' && showAlert) {
+                   showAlert = false
+                   const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
+                   this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+                     if (res === 1) {
+                       this.acceptOffer(i._id)
+                     }
+                   })
+                 }
+                //  this.allOffers.push(i).reverse()
+                this.allOffers.push(i)
+               }
               }
+
             }
 
           } else {
-            this.allOffers.push(i)
-            if (i['estado_flete'] === 'Asignado' && showAlert) {
-              showAlert = false
-              const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-              this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
-                if (res === 1) {
-                  this.acceptOffer(i._id)
-                }
-              })
+            if(i['state'].sequence === 99){
+              // this.historyOffers.push(i)
+            }else{
+              this.allOffers.push(i)
+              if (i['estado_flete'] === 'Asignado' && showAlert) {
+                showAlert = false
+                const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
+                this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+                  if (res === 1) {
+                    this.acceptOffer(i._id)
+                  }
+                })
+              }
             }
+
           }
 
         }
@@ -140,6 +149,7 @@ export class MyFreightDriverPage {
         this.allOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
         this.assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
         this.historyOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+        console.log('history ' + JSON.stringify(this.historyOffers))
       }
     })
   }
