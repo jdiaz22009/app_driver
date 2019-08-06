@@ -103,6 +103,10 @@ export class MyFreightDriverPage {
                  assign.push(i)
                  this.assignedOffers = assign.reverse()
                  console.log(JSON.stringify(this.assignedOffers),'assing')
+
+                //  this.assignedOffers = this.assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+
+
                 //console.log(JSON.stringify(assign),'assing')
               } else {
                 if (i['estado_flete'] === 'Asignado' && showAlert) {
@@ -132,6 +136,10 @@ export class MyFreightDriverPage {
           }
 
         }
+
+        this.allOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+        this.assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+        this.historyOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
       }
     })
   }
