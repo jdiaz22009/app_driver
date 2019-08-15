@@ -65,8 +65,11 @@ export class MyFreightDriverPage {
   async getMyOffers() {
 
     const userId = await this.getUserId()
-    this.offer.getDriverMyOffers().then(res => {
-      const data = res['data']['data']
+
+    const myOffers = await this.offer.getDriverMyOffers()
+    if(myOffers){
+
+      const data = myOffers['data']['data']
       console.log(JSON.stringify(data))
       if (data.length > 0) {
 
@@ -151,7 +154,11 @@ export class MyFreightDriverPage {
         this.historyOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
         console.log('history ' + JSON.stringify(this.historyOffers))
       }
-    })
+
+    }
+
+
+
   }
 
   freightDetails(freight) {

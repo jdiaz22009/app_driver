@@ -119,6 +119,7 @@ export class LoginSharedPage {
 
   validateDriver(id){
     this.driverAuth.validateId(id).then(res =>{
+      console.log('validate driver ' + JSON.stringify(res))
       this.checkValidate(id, res)
     })
   }
@@ -142,7 +143,7 @@ export class LoginSharedPage {
 
     this.user.id = parseInt(this.idForm.controls['id'].value)
     this.user.password = this.passwordForm.controls['password'].value
-
+    console.log('login baby')
     if(this.mode === 'driver'){
       this.loginDriver()
     }else if(this.mode === 'company'){
@@ -182,7 +183,7 @@ export class LoginSharedPage {
   }
 
   checkResponse(res){
-    // console.log('login response ' + JSON.stringify(res))
+    console.log('login response ' + JSON.stringify(res))
     const code = res['data'].code
 
     if(code === 100){
