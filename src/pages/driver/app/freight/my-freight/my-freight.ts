@@ -4,11 +4,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { Socket } from 'ng-socket-io'
 import { Observable } from 'rxjs/Observable'
 
+import _ from 'lodash'
+
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
 import { FreightProvider } from '@providers/api/freight'
+
 
 @IonicPage()
 @Component({
@@ -22,6 +25,8 @@ export class MyFreightDriverPage {
   historyOffers: any = []
 
   listType: string
+
+  showAlert: boolean = true
 
   constructor(
     public navCtrl: NavController,
@@ -62,24 +67,38 @@ export class MyFreightDriverPage {
     })
   }
 
+  validateArray(data){
+    return (data !== undefined && data !== null && Array.isArray(data) && data.length > 0)
+  }
+
+  validateOffer(i){
+    if (i['estado_flete'] === 'Asignado' && this.showAlert) {
+      this.showAlert = false
+      const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
+      this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+        if (res === 1) {
+          this.acceptOffer(i._id)
+        }
+      })
+    }
+  }
+
   async getMyOffers() {
 
     const userId = await this.getUserId()
 
     const myOffers = await this.offer.getDriverMyOffers()
+
     if(myOffers){
 
       const data = myOffers['data']['data']
       console.log(JSON.stringify(data))
-      if (data.length > 0) {
+
+      if (this.validateArray(data)) {
 
         this.allOffers = []
         this.assignedOffers = []
         this.historyOffers = []
-
-        let showAlert = true
-
-        // let assign = []
 
         let opt = [
           { key: 'postulantes', state: 'Postulado' },
@@ -87,9 +106,11 @@ export class MyFreightDriverPage {
           { key: 'aprobados', state: 'Aprobado' },
           { key: 'asignados', state: 'Asignado' }
         ]
+
         for (let i of data) {
+
           opt.map(y => {
-            if (i[y.key] !== undefined && i[y.key] !== null && i[y.key].length > 0) {
+            if(this.validateArray(i[y.key])){
               for (let o of i[y.key]) {
                 if (o._id === userId) {
                   i['estado_flete'] = y.state
@@ -98,66 +119,141 @@ export class MyFreightDriverPage {
             }
           })
 
-          if (i['driverselected'] !== undefined
-            && i['driverselected'] !== null
-            && i['driverselected'].length > 0) {
-            for (let y of i['driverselected']) {
+          let addToArray = true
 
+
+          if(this.validateArray(i['driverselected'])){
+
+            if (i['driverselected'][0] !== undefined && i['driverselected'][0]._id === userId) {
               if(i['state'].sequence === 99){
-                this.historyOffers.push(i)
+                if(addToArray){
+                  addToArray = false
+                  this.historyOffers.push(i)
+                }
               }else{
-                if (y._id === userId) {
+                if(addToArray){
+                  addToArray = false
                   this.assignedOffers.push(i)
-                  // assign.push(i)
-                  // this.assignedOffers = assign.reverse()
-                  // console.log(JSON.stringify(this.assignedOffers),'assing')
-
-               } else {
-                 if (i['estado_flete'] === 'Asignado' && showAlert) {
-                   showAlert = false
-                   const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-                   this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
-                     if (res === 1) {
-                       this.acceptOffer(i._id)
-                     }
-                   })
-                 }
-                //  this.allOffers.push(i).reverse()
-                this.allOffers.push(i)
-               }
-              }
-
-            }
-
-          } else {
-            if(i['state'].sequence === 99){
-              // this.historyOffers.push(i)
-            }else{
-              this.allOffers.push(i)
-              if (i['estado_flete'] === 'Asignado' && showAlert) {
-                showAlert = false
-                const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-                this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
-                  if (res === 1) {
-                    this.acceptOffer(i._id)
-                  }
-                })
+                }
               }
             }
 
+          }else if(this.validateArray(i['asignados'])){
+
+            if (i['asignados'][0] !== undefined && i['asignados'][0]._id === userId) {
+              if(i['state'].sequence > 5){
+                if(addToArray){
+                  addToArray = false
+                  this.assignedOffers.push(i)
+                }
+              }else{
+                if(addToArray){
+                  addToArray = false
+                  this.allOffers.push(i)
+                }
+              }
+
+              this.validateOffer(i)
+            }
+
+          }else if(this.validateArray(i['postulantes'])){
+
+              const isMyUser = i['postulantes'].find(item =>{
+                return item._id === userId
+              })
+              // console.log('myUser ' + JSON.stringify(isMyUser) + ' ' + typeof(isMyUser))
+
+              if(isMyUser !== undefined && isMyUser !== null && typeof(isMyUser) === 'object'){
+                if(addToArray){
+                  addToArray = false
+                  this.allOffers.push(i)
+                }
+              }
           }
 
+
+
+          // if(this.validateArray(i['driverselected'])){ // only a driver
+
+          //   for (let y of i['driverselected']) {
+
+          //       if (y._id === userId) {
+
+          //         if(i['state'].sequence === 99){
+          //           this.historyOffers.push(i)
+          //         }else{
+          //           this.assignedOffers.push(i)
+          //         }
+
+          //         if (i['estado_flete'] === 'Asignado' && this.showAlert) {
+          //          this.showAlert = false
+          //          const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
+          //          this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+          //            if (res === 1) {
+          //              this.acceptOffer(i._id)
+          //            }
+          //          })
+          //         }
+
+          //       }
+
+
+
+          //     // if(i['state'].sequence === 99){
+          //     //   this.historyOffers.push(i)
+          //     // }else{
+          //     //   if (y._id === userId) {
+          //     //     this.assignedOffers.push(i)
+          //     //     // assign.push(i)
+          //     //     // this.assignedOffers = assign.reverse()
+          //     //     // console.log(JSON.stringify(this.assignedOffers),'assing')
+
+          //     //  } else {
+          //     //    if (i['estado_flete'] === 'Asignado' && showAlert) {
+          //     //      showAlert = false
+          //     //      const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
+          //     //      this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+          //     //        if (res === 1) {
+          //     //          this.acceptOffer(i._id)
+          //     //        }
+          //     //      })
+          //     //    }
+          //     //   //  this.allOffers.push(i).reverse()
+          //     //   this.allOffers.push(i)
+          //     //  }
+          //     // }
+
+          //   }
+
+          // } else {
+
+          //   if(this.validateArray(i['postulantes']) ){
+
+          //     const isMyUser = i['postulantes'].find(item =>{
+          //       return item._id === userId
+          //     })
+          //     // console.log('myUser ' + JSON.stringify(isMyUser) + ' ' + typeof(isMyUser))
+
+          //     if(isMyUser !== undefined && isMyUser !== null && typeof(isMyUser) === 'object'){
+          //       this.allOffers.push(i)
+          //       this.validateOffer(i)
+          //     }
+
+          //   }
+          // }
         }
+
+        // this.allOffers = _.uniq(_.map(this.allOffers, '_id'))
+        // this.assignedOffers = _.uniq(_.map(this.assignedOffers, '_id'))
+        // this.historyOffers = _.uniq(_.map(this.historyOffers, '_id'))
 
         this.allOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
         this.assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
         this.historyOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
-        console.log('history ' + JSON.stringify(this.historyOffers))
+
       }
 
     }
-
-
 
   }
 
