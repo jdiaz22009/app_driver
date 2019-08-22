@@ -1,0 +1,266 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Historial</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+      <ion-card class="card-offert">
+
+          <ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <p class="c-date" text-start>{{offer.pedido}} </p>
+                    </ion-col>
+                    <ion-col col-8>
+                        <p class="c-date" text-end>Publicado {{offer.fecha_creacion | date: 'dd/MM/yy , h:mm a'}}</p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col col-6>
+                      <p class="tx-title" text-start>Estado actual: </p>
+                  </ion-col>
+                  <ion-col col-6>
+                      <ion-badge color="secondary">Oferta Finalizada</ion-badge>
+                  </ion-col>
+              </ion-row>
+
+              <div *ngIf="freight_state >= 24">
+
+                <ion-row>
+                    <ion-col col-6>
+                        <p class="tx-title" text-start>Mi calificación: </p>
+                    </ion-col>
+                    <ion-col col-6>
+                        <p class="tx-summary" text-start>{{miQualify}}</p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-6>
+                        <p class="tx-title" text-start>Comentario: </p>
+                    </ion-col>
+                    <ion-col col-6>
+                        <p class="tx-summary" text-start>{{miComment}}</p>
+                    </ion-col>
+                </ion-row>
+
+              </div>
+
+            </ion-grid>
+
+            <ion-grid>
+              <ion-row>
+                  <ion-col col-9>
+                      <ion-row>
+                        <ion-col col-4 class="col-pn">
+                              <p class="tx-title tcity">
+                                <ion-icon name="md-pin" color="statusbar"></ion-icon>
+                                Origen
+                              </p>
+                        </ion-col>
+                        <ion-col class="col-pn">
+                            <p class="tx-title">{{offer.ciudad_origen}}</p>
+                          </ion-col>
+                      </ion-row>
+                      <ion-row>
+                          <ion-col class="col-pn">
+                              <p *ngIf="freight_state > 5 && offer.direccion_origen"  class="tx-title">
+                                  {{offer.direccion_origen}}
+                              </p>
+                          </ion-col>
+                      </ion-row>
+
+                      <ion-row>
+                          <ion-col col-4 class="col-pn">
+                              <p class="tx-title tcity">
+                                  <ion-icon name="md-pin" color="btn"></ion-icon>
+                                    Destino
+                                </p>
+                          </ion-col>
+                          <ion-col class="col-pn">
+                              <p class="tx-title">{{offer.ciudad_destino}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col class="col-pn">
+                              <p *ngIf="freight_state > 5 && offer.direccion_destino" class="tx-title">
+                                  {{offer.direccion_destino}}
+                              </p>
+                          </ion-col>
+
+                        </ion-row>
+
+                  </ion-col>
+                  <ion-col col-3 class="c-shared">
+                      <button ion-fab mini color="btn">
+                          <ion-icon name="md-share"></ion-icon>
+                      </button>
+                      <p class="tx-share">Compartir</p>
+                  </ion-col>
+              </ion-row>
+
+              <ion-row>
+                  <ion-col col-6>
+                    <p class="tx-title">Fecha Cargue</p>
+                    <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
+                  </ion-col>
+                  <ion-col col-6>
+                    <p class="tx-title">Fecha Descargue</p>
+                    <p class="tx-summary">{{offer.fin | date: 'dd/MM/yy'}}</p>
+                  </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card-content>
+      </ion-card>
+
+      <div *ngIf="offer['orden_cargue'] !== undefined && offer['orden_cargue'] !== null && offer['orden_cargue'] !== ''">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('orden_cargue')">PDF con orden de cargue enviada</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+
+      <div *ngIf="offer['orden_manifiesto'] !== undefined && offer['orden_manifiesto'] !== null && offer['orden_manifiesto'] !== ''">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('orden_manifiesto')">PDF con manifiesto enviado</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+      <div *ngIf="offer['orden_remesas'] !== undefined && offer['orden_remesas'] !== null && offer['orden_remesas'].length > 0">
+
+        <ion-grid>
+          <ion-row *ngFor="let i of offer['orden_remesas']; let i = index">
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('orden_remesas', i )">PDF con remesa enviada</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+      <div *ngIf="offer['other_documents'] !== undefined && offer['other_documents'] !== null && offer['other_documents'].length > 0">
+
+        <ion-grid>
+          <ion-row *ngFor="let i of offer['other_documents']; let i = index">
+            <ion-col text-center>
+              <button ion-button class="btn-order" (click)="openPDF('other_documents', i )">PDF Otros Documentos</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+
+      <div>
+        <p class="tx-title" no-padding no-margin text-center>Fotos del vehículo cargado</p>
+
+        <ion-row>
+          <ion-col col-4 *ngFor="let item of photoCargue">
+              <ion-card>
+                <img [src]="item.img"/>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+
+      <div>
+        <p class="tx-title" no-padding no-margin text-center>Fotos del Cumplido</p>
+
+        <ion-row>
+          <ion-col col-4 *ngFor="let item of photoCumplido">
+              <ion-card>
+                <img [src]="item.img"/>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <ion-card class="card-offert">
+          <ion-card-content>
+              <ion-grid>
+                  <ion-row>
+                      <ion-col col-6>
+                        <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon>Clase de vehículo</p>
+                        <p class="tx-summary">{{offer.clase_vehiculo}}</p>
+                        <p class="tx-title"><ion-icon name="custom-weight" class="icon-info"></ion-icon> Peso</p>
+                        <p class="tx-summary">{{offer.peso_carga_max}} TON</p>
+                        <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha de Cargue</p>
+                        <p class="tx-summary">{{offer.inicio | date: 'dd/MM/yy'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Flete</p>
+                        <p class="tx-summary">{{offer.flete | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Cargue Conductor</p>
+                        <p class="tx-summary">{{offer.cargue | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Anticipo</p>
+                        <p class="tx-summary">{{offer.anticipo}}%</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Contra Entrega</p>
+                        <p class="tx-summary">{{offer.fpcontraEntrega}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Clientes a Entregar</p>
+                        <p class="tx-summary">{{offer.clase_cliente}}</p>
+                      </ion-col>
+                      <ion-col col-6>
+                        <p class="tx-title"><ion-icon name="custom-truck" class="icon-info"></ion-icon> Carrocería</p>
+                        <p class="tx-summary">{{offer.tipo_carroceria}}</p>
+                        <p class="tx-title"><ion-icon name="custom-volumen" class="icon-info"></ion-icon> Volumen</p>
+                        <p class="tx-summary">{{offer.volumen}}</p>
+                        <p class="tx-title"><ion-icon name="custom-calendar" class="icon-info"></ion-icon> Fecha Descargue</p>
+                        <p class="tx-summary">{{offer.fin * 1000 | date: 'dd/MM/yy'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> x Tonelada</p>
+                        <p class="tx-summary">{{offer.val_peso | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Descargue Conductor</p>
+                        <p class="tx-summary">{{offer.descargue | currency:'USD':'symbol':'4.0-0'}}</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Saldo</p>
+                        <p class="tx-summary">{{offer.contraEntrega}}%</p>
+                        <p class="tx-title"><ion-icon name="custom-dolar" class="icon-info"></ion-icon> Tiempo Saldo</p>
+                        <p class="tx-summary">{{offer.tiempoSaldo}}</p>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+          <ion-card-content>
+            <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Observaciones</h3>
+            <p class="tx-summary">{{offer.Robservaciones}} </p>
+          </ion-card-content>
+      </ion-card>
+
+
+      <ion-card class="c-req">
+          <ion-card-content>
+            <h3 class="tx-title nt"><ion-icon name="custom-mark" class="icon-info"></ion-icon> Requisitos</h3>
+
+            <ion-row *ngFor="let item of requirementsOpt">
+                <ion-col col-7>
+                    <p class="tx-title">{{item.title}}</p>
+                </ion-col>
+                <ion-col>
+                    <p class="tx-summary">{{getRequirements(offer[item.model])}}</p>
+                </ion-col>
+            </ion-row>
+
+          </ion-card-content>
+      </ion-card>
+
+</ion-content>

@@ -261,6 +261,10 @@ export class MyFreightDriverPage {
     this.navCtrl.push('DetailsFreightDriverPage', { id: freight._id, mode: 1 })
   }
 
+  freightHistoryDetails(freight){
+    this.navCtrl.push('HistoryFreightDriverPage', { id: freight._id })
+  }
+
   freight(freight) {
     this.navCtrl.push('ProgressFreightDriverPage', { id: freight._id })
   }
