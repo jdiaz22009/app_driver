@@ -92,8 +92,13 @@ my-freight-driver{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;    
+    width: 50%;
     margin-top: 2rem;
+  }
+
+  .email-contact{
+    font-size: 3.5rem;
+    color: color($colors, mapgreen);
   }
 
 }

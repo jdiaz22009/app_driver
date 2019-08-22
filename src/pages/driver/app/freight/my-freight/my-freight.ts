@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable'
 
 import _ from 'lodash'
 
+import { SocialSharing } from '@ionic-native/social-sharing'
+
 import { AlertsProvider } from '@providers/alerts'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
 import { CONFIG } from '@providers/config'
@@ -35,7 +37,8 @@ export class MyFreightDriverPage {
     public offer: FreightProvider,
     public alerts: AlertsProvider,
     public driverAuth: DriverAuthProvider,
-    private socket: Socket
+    private socket: Socket,
+    private socialSharing: SocialSharing
   ) {
 
 
@@ -161,7 +164,6 @@ export class MyFreightDriverPage {
               const isMyUser = i['postulantes'].find(item =>{
                 return item._id === userId
               })
-              // console.log('myUser ' + JSON.stringify(isMyUser) + ' ' + typeof(isMyUser))
 
               if(isMyUser !== undefined && isMyUser !== null && typeof(isMyUser) === 'object'){
                 if(addToArray){
@@ -171,81 +173,7 @@ export class MyFreightDriverPage {
               }
           }
 
-
-
-          // if(this.validateArray(i['driverselected'])){ // only a driver
-
-          //   for (let y of i['driverselected']) {
-
-          //       if (y._id === userId) {
-
-          //         if(i['state'].sequence === 99){
-          //           this.historyOffers.push(i)
-          //         }else{
-          //           this.assignedOffers.push(i)
-          //         }
-
-          //         if (i['estado_flete'] === 'Asignado' && this.showAlert) {
-          //          this.showAlert = false
-          //          const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-          //          this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
-          //            if (res === 1) {
-          //              this.acceptOffer(i._id)
-          //            }
-          //          })
-          //         }
-
-          //       }
-
-
-
-          //     // if(i['state'].sequence === 99){
-          //     //   this.historyOffers.push(i)
-          //     // }else{
-          //     //   if (y._id === userId) {
-          //     //     this.assignedOffers.push(i)
-          //     //     // assign.push(i)
-          //     //     // this.assignedOffers = assign.reverse()
-          //     //     // console.log(JSON.stringify(this.assignedOffers),'assing')
-
-          //     //  } else {
-          //     //    if (i['estado_flete'] === 'Asignado' && showAlert) {
-          //     //      showAlert = false
-          //     //      const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-          //     //      this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
-          //     //        if (res === 1) {
-          //     //          this.acceptOffer(i._id)
-          //     //        }
-          //     //      })
-          //     //    }
-          //     //   //  this.allOffers.push(i).reverse()
-          //     //   this.allOffers.push(i)
-          //     //  }
-          //     // }
-
-          //   }
-
-          // } else {
-
-          //   if(this.validateArray(i['postulantes']) ){
-
-          //     const isMyUser = i['postulantes'].find(item =>{
-          //       return item._id === userId
-          //     })
-          //     // console.log('myUser ' + JSON.stringify(isMyUser) + ' ' + typeof(isMyUser))
-
-          //     if(isMyUser !== undefined && isMyUser !== null && typeof(isMyUser) === 'object'){
-          //       this.allOffers.push(i)
-          //       this.validateOffer(i)
-          //     }
-
-          //   }
-          // }
         }
-
-        // this.allOffers = _.uniq(_.map(this.allOffers, '_id'))
-        // this.assignedOffers = _.uniq(_.map(this.assignedOffers, '_id'))
-        // this.historyOffers = _.uniq(_.map(this.historyOffers, '_id'))
 
         this.allOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
         this.assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
@@ -300,4 +228,43 @@ export class MyFreightDriverPage {
     // })
   }
 
+  async emailContact(item){
+    console.log('email contact '+ JSON.stringify(item))
+    const email = item['coordinador'].email
+    console.log('email coordinator ' + email )
+
+    const userId = await this.getUserId()
+
+    const obj = item['postulantes'].find(item =>{
+      return item._id === userId
+    })
+
+
+    const vehicleSelected = obj.vehiculos.map(item =>{
+      if(item['select'] && item['state']) return item
+    })
+
+    const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
+    const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
+    const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
+    const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+
+    const msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, favor contactarme al celular ${obj.celular}  `
+
+
+    console.log('msg ..... ' + msg)
+
+    this.socialSharing.shareViaEmail(msg, 'Soporte app móvil', [email]).then(() => {
+      console.log('Success!')
+    }).catch((e) => {
+      console.error('Error! ' + e)
+    })
+  }
+
+  validateProperty(property){
+    if(property !== undefined && property !== null && property !== ''){
+      return true
+    }
+    return false
+  }
 }
