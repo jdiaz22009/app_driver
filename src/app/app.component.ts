@@ -108,18 +108,18 @@ export class MyApp {
 
   buildNotification(data, mode) {
     if (data) {
-      if (mode) {
-        console.log('Received in background ', JSON.stringify(data))
+        if (mode) {
+          console.log('Received in background ', JSON.stringify(data))
 
-        this.localNotifications.schedule({
-          id: data.id,
-          title: data.title,
-          text: data.body,
-          smallIcon: 'res://ic_stat_notification.png',
-          icon: 'res://drawable-hdpi/ic_stat_trans2.png'
-          // smallIcon: 'file://assets/imgs/action_carts'
-        })
-      }
+          this.localNotifications.schedule({
+            id: data.id,
+            title: data.title,
+            text: data.body,
+            smallIcon: 'res://ic_stat_notification.png',
+            icon: 'res://drawable-hdpi/ic_stat_trans2.png'
+            // smallIcon: 'file://assets/imgs/action_carts'
+          })
+        }
 
       } else {
         console.log('Received in foreground ', JSON.stringify(data))
