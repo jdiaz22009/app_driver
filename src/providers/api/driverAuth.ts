@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Platform } from 'ionic-angular'
 
+import { FCM } from "@ionic-native/fcm"
+
 import qs from 'qs'
 
 import { CONFIG } from '../config'
@@ -35,7 +37,8 @@ export class DriverAuthProvider {
   constructor(
     public apiClient: ApiClientProvider,
     public db: StorageDb,
-    public plt: Platform
+    public plt: Platform,
+    public fcm: FCM
   ) {
 
   }
@@ -56,8 +59,10 @@ export class DriverAuthProvider {
 
   async getFireToken() {
     try {
-      const token = await this.db.getItem(CONFIG.localdb.USER_FIRETOKEN)
-      return token != null ? token : 'no token'
+      // const token = await this.db.getItem(CONFIG.localdb.USER_FIRETOKEN)
+      // return token != null ? token : 'no token'
+     return await this.fcm.getToken()
+
     } catch (e) {
       throw e
     }

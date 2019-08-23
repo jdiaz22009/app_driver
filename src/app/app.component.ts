@@ -106,7 +106,10 @@ export class MyApp {
     })
   }
 
+
+  //notification: title, body, data: type
   buildNotification(data, mode) {
+    console.log('data from firebase messages ' + JSON.stringify(data), ' mode ' + mode)
     if (data) {
         if (mode) {
           console.log('Received in background ', JSON.stringify(data))
@@ -119,34 +122,34 @@ export class MyApp {
             icon: 'res://drawable-hdpi/ic_stat_trans2.png'
             // smallIcon: 'file://assets/imgs/action_carts'
           })
+        }else {
+          console.log('Received in foreground ', JSON.stringify(data))
+          const type = data.type
+          if(type === 'notification_offers'){
+            this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
+              if (res === 1) {
+                this.nav.push('DetailsFreightDriverPage', { id: data.id })
+              }
+            })
+          }else if(type === 'notification_asign'){
+            this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
+              if (res === 1) {
+                this.driverAuth.acceptTheOffer(data.id).then(res =>{
+                  if(res){
+                    this.alerts.showAlert('Oferta Aceptada', 'Ya puedes preparte para iniciar el viaje.')
+                  }
+                }).catch(e =>{
+                  console.error(e)
+                  this.alerts.showAlert('Error', 'No se ha podido realizar la operación.')
+                })
+              }
+            })
+          }
+
         }
 
-      } else {
-        console.log('Received in foreground ', JSON.stringify(data))
-        const type = data.type
-        if(type === 'notification_offers'){
-          this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
-            if (res === 1) {
-              this.nav.push('DetailsFreightDriverPage', { id: data.id })
-            }
-          })
-        }else if(type === 'notification_asign'){
-          this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
-            if (res === 1) {
-              this.driverAuth.acceptTheOffer(data.id).then(res =>{
-                if(res){
-                  this.alerts.showAlert('Oferta Aceptada', 'Ya puedes preparte para iniciar el viaje.')
-                }
-              }).catch(e =>{
-                console.error(e)
-                this.alerts.showAlert('Error', 'No se ha podido realizar la operación.')
-              })
-            }
-          })
-        }
-
-      }
     }
+  }
 
     async requestBadgePermission(){
       try{

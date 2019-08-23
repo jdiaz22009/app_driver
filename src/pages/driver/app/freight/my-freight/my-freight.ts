@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { Socket } from 'ng-socket-io'
 import { Observable } from 'rxjs/Observable'
 
-import _ from 'lodash'
+// import _ from 'lodash'
 
 import { SocialSharing } from '@ionic-native/social-sharing'
 
