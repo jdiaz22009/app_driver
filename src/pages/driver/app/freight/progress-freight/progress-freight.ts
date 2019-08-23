@@ -81,6 +81,8 @@ export class ProgressFreightDriverPage {
     {title: 'Elemento de Fumigación', model: 'RelementoFumigacion'}
   ]
 
+  modalQualify: boolean = true
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -362,12 +364,16 @@ export class ProgressFreightDriverPage {
   }
 
   showModalQualify(){
-    const modal = this.modalCtrl.create(
-      'ModalQualifyDriverComponent',
-      { offerId: this.offer._id, authorId: this.authorId },
-      { cssClass: 'modal-lg' })
+    if(this.modalQualify){
+      this.modalQualify = false
 
-    modal.present()
+      const modal = this.modalCtrl.create(
+        'ModalQualifyDriverComponent',
+        { offerId: this.offer._id, authorId: this.authorId },
+        { cssClass: 'modal-lg' })
+
+      modal.present()
+    }
   }
 
   socketUpdateStep(step){
