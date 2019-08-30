@@ -285,6 +285,8 @@ export class MyApp {
 
             let addToArray = true
 
+            //state 100 Oferta Cancelada
+            //state
 
             if(this.validateArray(i['driverselected'])){
 
