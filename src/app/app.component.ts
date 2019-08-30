@@ -16,6 +16,7 @@ import { AlertsProvider } from '@providers/alerts'
 import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
 import { NetworkProvider } from '@providers/network'
+import { FreightProvider } from '@providers/api/freight'
 
 @Component({
   templateUrl: 'app.html'
@@ -28,6 +29,8 @@ export class MyApp {
 
   alertNetwork: any = null
   loader: any
+
+  showNotification: boolean = true
 
   constructor(
     public platform: Platform,
@@ -42,6 +45,7 @@ export class MyApp {
     private badge: Badge,
     private networkProvider: NetworkProvider,
     public events: Events,
+    public offer: FreightProvider,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController) {
 
@@ -103,6 +107,10 @@ export class MyApp {
       this.statusBar.backgroundColorByHexString('#0154a0')
       this.splashScreen.hide()
 
+      setTimeout(() =>{
+        this.getMyOffers() // valdidate to show assign popup
+      }, 2000)
+
     })
   }
 
@@ -123,27 +131,34 @@ export class MyApp {
             // smallIcon: 'file://assets/imgs/action_carts'
           })
         }else {
-          console.log('Received in foreground ', JSON.stringify(data))
-          const type = data.type
-          if(type === 'notification_offers'){
-            this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
-              if (res === 1) {
-                this.nav.push('DetailsFreightDriverPage', { id: data.id })
-              }
-            })
-          }else if(type === 'notification_asign'){
-            this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
-              if (res === 1) {
-                this.driverAuth.acceptTheOffer(data.id).then(res =>{
-                  if(res){
-                    this.alerts.showAlert('Oferta Aceptada', 'Ya puedes preparte para iniciar el viaje.')
-                  }
-                }).catch(e =>{
-                  console.error(e)
-                  this.alerts.showAlert('Error', 'No se ha podido realizar la operación.')
-                })
-              }
-            })
+
+          if(this.showNotification){
+            this.showNotification = false
+            console.log('Received in foreground ', JSON.stringify(data))
+            const type = data.type
+            if(type === 'notification_offers'){
+              this.alerts.showConfirm(data.title, data.body, 'ver', 'cancelar').then(res => {
+                this.showNotification = true
+                if (res === 1) {
+                  this.nav.push('DetailsFreightDriverPage', { id: data.id })
+                }
+              })
+            }else if(type === 'notification_asign'){
+              this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
+                this.showNotification = true
+                if (res === 1) {
+                  this.driverAuth.acceptTheOffer(data.id).then(res =>{
+                    if(res){
+                      this.alerts.showAlert('Oferta Aceptada', 'Ya puedes preparte para iniciar el viaje.')
+                    }
+                  }).catch(e =>{
+                    console.error(e)
+                    this.alerts.showAlert('Error', 'No se ha podido realizar la operación.')
+                  })
+                }
+              })
+            }
+
           }
 
         }
@@ -194,23 +209,6 @@ export class MyApp {
       }
     }
 
-    // showAlertNetWork(){
-    //   if(this.alertNetwork == null){
-    //     this.alerts.showConfirm('Sin Internet', 'Revisa tu conexión a Internet', 'conectar', 'cancelar').then(res =>{
-    //       if(res === 1){
-    //         this.dismissAlerNetwork()
-    //         this.showLoader()
-    //         setTimeout(() => {
-    //           this.dismissLoader()
-    //           if(!this.networkProvider.getType()){
-    //               this.showAlertNetWork()
-    //           }
-    //         }, 1500)
-    //       }
-    //     })
-    //   }
-    // }
-
     dismissAlerNetwork(){
       this.alertNetwork.dismiss()
       this.alertNetwork = null
@@ -223,6 +221,144 @@ export class MyApp {
 
     dismissLoader(){
       this.loader.dismiss()
+    }
+
+    async getUserId() {
+      return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+        return res === null ? null : res.userId
+      })
+    }
+
+    validateArray(data){
+      return (data !== undefined && data !== null && Array.isArray(data) && data.length > 0)
+    }
+
+    validateOffer(i){
+      if (i['estado_flete'] === 'Asignado' && this.showNotification) {
+        this.showNotification = false
+        const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
+        this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+          if (res === 1) {
+            this.acceptOffer(i._id)
+          }
+        })
+      }
+    }
+
+    async getMyOffers() {
+
+      const userId = await this.getUserId()
+
+      if(userId === null) return
+
+      const myOffers = await this.offer.getDriverMyOffers()
+
+      if(myOffers){
+
+        const data = myOffers['data']['data']
+        // console.log(JSON.stringify(data))
+
+        if (this.validateArray(data)) {
+
+          let allOffers = []
+          let assignedOffers = []
+          let historyOffers = []
+
+          let opt = [
+            { key: 'postulantes', state: 'Postulado' },
+            { key: 'pre_selected', state: 'Pre-seleccionado' },
+            { key: 'aprobados', state: 'Aprobado' },
+            { key: 'asignados', state: 'Asignado' }
+          ]
+
+          for (let i of data) {
+
+            opt.map(y => {
+              if(this.validateArray(i[y.key])){
+                for (let o of i[y.key]) {
+                  if (o._id === userId) {
+                    i['estado_flete'] = y.state
+                  }
+                }
+              }
+            })
+
+            let addToArray = true
+
+
+            if(this.validateArray(i['driverselected'])){
+
+              if (i['driverselected'][0] !== undefined && i['driverselected'][0]._id === userId) {
+                if(i['state'].sequence === 99){
+                  if(addToArray){
+                    addToArray = false
+                    historyOffers.push(i)
+                  }
+                }else{
+                  if(addToArray){
+                    addToArray = false
+                    assignedOffers.push(i)
+                  }
+                }
+              }
+
+            }else if(this.validateArray(i['asignados'])){
+
+              if (i['asignados'][0] !== undefined && i['asignados'][0]._id === userId) {
+                if(i['state'].sequence > 5){
+                  if(addToArray){
+                    addToArray = false
+                    assignedOffers.push(i)
+                  }
+                }else{
+                  if(addToArray){
+                    addToArray = false
+                    allOffers.push(i)
+                  }
+                }
+
+                this.validateOffer(i)
+              }
+
+            }else if(this.validateArray(i['postulantes'])){
+
+                const isMyUser = i['postulantes'].find(item =>{
+                  return item._id === userId
+                })
+
+                if(isMyUser !== undefined && isMyUser !== null && typeof(isMyUser) === 'object'){
+                  if(addToArray){
+                    addToArray = false
+                    allOffers.push(i)
+                  }
+                }
+            }
+
+          }
+
+          allOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+          assignedOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+          historyOffers.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+
+        }
+
+      }
+
+    }
+
+    acceptOffer(id) {
+      console.log('accept offer ' + id)
+      this.driverAuth.acceptTheOffer(id).then(res => {
+        if (res) {
+          this.alerts.showAlert('Oferta Aceptada', 'En viajes en curso encontrarás más información')
+          // this.socket.emit('steps', { channel: 'offer_reload' })
+          // this.getMyOffers()
+        }
+
+      }).catch(e => {
+        console.error(e)
+        this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')
+      })
     }
 
 }

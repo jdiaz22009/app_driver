@@ -76,9 +76,11 @@ export class AppData{
     return new Promise(resolve=>{
       this.http.get(url).subscribe(data =>{
         const root = parse(data['_body'])
-        const childgb = root.querySelectorAll(".htlgb")[3].childNodes[0].text
+        // const childgb = root.
+        // const childgb = root.querySelectorAll(".htlgb")[3].childNodes[0].text
         // console.log('version code from google play ' +  childgb)
-        resolve(childgb)
+        // resolve(childgb)
+        resolve(null)
       })
     })
   }
