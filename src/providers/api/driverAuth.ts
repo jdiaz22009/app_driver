@@ -64,7 +64,7 @@ export class DriverAuthProvider {
      return await this.fcm.getToken()
 
     } catch (e) {
-      throw e
+      return e
     }
   }
 
@@ -104,6 +104,7 @@ export class DriverAuthProvider {
   async login(user: User) {
 
     const firetoken = await this.getFireToken()
+    // console.log('FireToken ' + firetoken)
     const osType = await this.getOSType()
 
     const url = this.api_url + this.login_path
