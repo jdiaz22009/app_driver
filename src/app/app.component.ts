@@ -7,6 +7,8 @@ import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 import { AndroidPermissions } from '@ionic-native/android-permissions'
 import { Badge } from '@ionic-native/badge'
+import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
+
 
 import { FIREBASE_CONFIG } from './app.firebase.config'
 import * as firebase from 'firebase/app'
@@ -47,13 +49,15 @@ export class MyApp {
     public events: Events,
     public offer: FreightProvider,
     public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public backgroundGeolocation: BackgroundGeolocation) {
 
     this.loadApp()
   }
 
   ionViewWillLeave(){
    this.networkProvider.stopNetWorkMonitor()
+   this.backgroundGeolocation.stop()
   }
 
   async loadApp() {
@@ -99,7 +103,7 @@ export class MyApp {
         }
         this.netwokSubscribe()
 
-
+        this.getGeolocation()
       }
 
       firebase.initializeApp(FIREBASE_CONFIG)
@@ -361,6 +365,27 @@ export class MyApp {
         console.error(e)
         this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')
       })
+    }
+
+    async getGeolocation(){
+      const config: BackgroundGeolocationConfig = {
+        desiredAccuracy: 10,
+        stationaryRadius: 20,
+        distanceFilter: 30,
+        debug: true, //  enable this hear sounds for background-geolocation life-cycle.
+        stopOnTerminate: false, // enable this to clear background location settings when the app terminates
+      }
+
+      this.backgroundGeolocation.configure(config)
+      .then((location: BackgroundGeolocationResponse) => {
+        console.log('geolocation ' + location)
+        this.backgroundGeolocation.finish()
+      }).catch(e =>{
+        console.error('error to get geolocation ' + e)
+      })
+
+      this.backgroundGeolocation.start()
+
     }
 
 }

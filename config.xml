@@ -22,6 +22,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="orientation" value="portrait" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="android">
         <allow-intent href="market:*" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
@@ -65,6 +66,7 @@
         <resource-file src="resources/android/res/drawable-xhdpi/ic_stat_trans2.png" target="app/src/main/res/drawable-xhdpi/ic_stat_trans2.png" />
         <resource-file src="resources/android/res/drawable-xxhdpi/ic_stat_trans2.png" target="app/src/main/res/drawable-xxhdpi/ic_stat_trans2.png" />
         <resource-file src="resources/android/res/drawable-xxxhdpi/ic_stat_trans2.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_trans2.png" />
+        <resource-file src="resources/android/res/mipmap-hdpi/ic_launcher_round.png" target="app/src/main/res/mipmap/icon.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -117,6 +119,19 @@
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
     <plugin name="cordova-plugin-app-version" spec="0.1.9" />
     <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
-    <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.4.0" />
     <plugin name="cordova-plugin-file" spec="6.0.1" />
+    <plugin name="cordova-plugin-mauron85-background-geolocation" spec="@mauron85/cordova-plugin-background-geolocation@~3.0.3">
+        <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="17.0.0" />
+        <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="26+" />
+        <variable name="ICON" value="@mipmap/ic_launcher" />
+        <variable name="SMALL_ICON" value="@mipmap/ic_launcher" />
+        <variable name="ALWAYS_USAGE_DESCRIPTION" value="App requires background tracking " />
+        <variable name="MOTION_USAGE_DESCRIPTION" value="App requires motion detection" />
+    </plugin>
+    <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="3.0.0">
+        <variable name="FCM_CORE_VERSION" version="17.0.0" />
+        <variable name="FCM_VERSION" version="18.0.0" />
+        <variable name="GRADLE_TOOLS_VERSION" version="2.3.+" />
+        <variable name="GOOGLE_SERVICES_VERSION" version="3.0.0" />
+    </plugin>
 </widget>
