@@ -4,7 +4,8 @@
       <img class="h-actions" src="./assets/imgs/phone-icon.png">
     </ion-col>
     <ion-col (click)="email()">
-      <img class="h-actions" src="./assets/imgs/cargaya-contact-icon.png">
+      <img *ngIf="offer === undefined" class="h-actions" src="./assets/imgs/cargaya-contact-icon.png">
+      <ion-icon *ngIf="offer !== undefined" class="email-contact" name="mail"></ion-icon>
     </ion-col>
     <ion-col (click)="whatsapp()">
       <img class="h-actions" src="./assets/imgs/whatsapp-square-icon.png">

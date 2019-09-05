@@ -246,8 +246,10 @@ export class MyFreightDriverPage {
     const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
     const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
     const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+    const origin = item.ciudad_origen.toUpperCase()
+    const destination = item.ciudad_destino.toUpperCase()
 
-    const msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, favor contactarme al celular ${obj.celular}  `
+    const msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
 
 
     console.log('msg ..... ' + msg)

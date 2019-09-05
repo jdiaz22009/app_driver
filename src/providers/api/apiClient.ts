@@ -23,9 +23,9 @@ export class ApiClientProvider{
   }
 
   async request(method, url, params, headers){
-    // console.log(url + ' method: ' + method + ' params: ' + params)
+    console.log(url + ' method: ' + method + ' params: ' + params)
     // console.log(url + ' method: ' + method + ' params: ' + params + ' headers ' + headers)
-    console.log(url + ' method: ' + method + ' params: ' + params + ' headers ' + JSON.stringify(headers))
+    // console.log(url + ' method: ' + method + ' params: ' + params + ' headers ' + JSON.stringify(headers))
     const options = {
       method: method,
       headers: headers,

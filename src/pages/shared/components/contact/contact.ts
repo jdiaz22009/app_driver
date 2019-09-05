@@ -5,6 +5,7 @@ import { SocialSharing } from '@ionic-native/social-sharing'
 
 import { CONFIG } from '@providers/config'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { StorageDb } from '@providers/storageDb'
 
 @Component({
   selector: 'contact-shared',
@@ -27,6 +28,7 @@ export class ContactSharedComponent {
     private socialSharing: SocialSharing,
     private callNumber: CallNumber,
     public auth: DriverAuthProvider,
+    public db: StorageDb,
   ){}
 
   async ngAfterViewInit(){
@@ -76,16 +78,43 @@ export class ContactSharedComponent {
     .catch(err => console.log('Error launching dialer', err))
   }
 
-  email(){
+  async email(){
     let emailContact
+    let msg
     if(this.offer !== undefined){
       // emailContact = this.offer['author'].email_cooporativo
+      const item = this.offer
       emailContact = this.offer['coordinador'].email
+
+      const email = item['coordinador'].email
+    console.log('email coordinator ' + email )
+
+    const userId = await this.getUserId()
+
+    const obj = item['postulantes'].find(item =>{
+      return item._id === userId
+    })
+
+
+    const vehicleSelected = obj.vehiculos.map(item =>{
+      if(item['select'] && item['state']) return item
+    })
+
+    const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
+    const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
+    const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
+    const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+    const origin = item.ciudad_origen.toUpperCase()
+    const destination = item.ciudad_destino.toUpperCase()
+
+    msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
+
     }else{
       emailContact = CONFIG.support.email
+      msg = 'Soporte app móvil'
     }
-    console.log('email ' + emailContact)
-    this.socialSharing.shareViaEmail(this.emailTxt, 'Soporte app móvil', [emailContact]).then(() => {
+    console.log('email ' + emailContact  + ' message ' + msg)
+    this.socialSharing.shareViaEmail(this.emailTxt, msg, [emailContact]).then(() => {
       console.log('Success!')
     }).catch((e) => {
       console.error('Error! ' + e)
@@ -104,6 +133,12 @@ export class ContactSharedComponent {
       whatsappNumber,
       this.whatsappTxt
     )
+  }
+
+  async getUserId() {
+    return await this.db.getItem(CONFIG.localdb.USER_KEY).then(res => {
+      return res.userId
+    })
   }
 
 }
