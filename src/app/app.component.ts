@@ -68,8 +68,6 @@ export class MyApp {
   ionViewWillLeave(){
    this.networkProvider.stopNetWorkMonitor()
    clearInterval(this.positionInterval)
-  //  this.geoSubscription.unsubscribe()
-  //  this.backgroundGeolocation.stop()
   }
 
   async loadApp() {
@@ -119,18 +117,15 @@ export class MyApp {
 
         setTimeout(() =>{
           this.watchPosition()
+          // this.getGeolocation()
         }, 10000)
-        // this.getGeolocation()
       }
-
-      // firebase.initializeApp(FIREBASE_CONFIG)
 
       this.statusBar.backgroundColorByHexString('#0154a0')
       this.splashScreen.hide()
 
       setTimeout(() =>{
         this.getMyOffers() // valdidate to show assign popup
-        // this.getOfferTracking()
       }, 2000)
 
     })
@@ -414,8 +409,6 @@ export class MyApp {
                     timestamp: new Date().getTime()
                   }
 
-                  // console.log('to save into firebase ' + location)
-
                   await this.saveTracking(userId, location)
                 }
 
@@ -423,104 +416,24 @@ export class MyApp {
             }
 
           }
-          // resp.coords.latitude
-          // resp.coords.longitude
+
          }).catch((error) => {
            console.log('Error getting location', error)
          })
       }, 240000)
-
-      // this.positionInterval.
-
-
-      // let watch = this.geolocation.watchPosition();
-
-      // const geoOptions = {
-      //   timeout: 240000,
-      //   maximumAge: 240000,
-      //   // timeout: 5000,
-      //   enableHighAccuracy: true
-      // }
-
-      // this.geoSubscription = this.geolocation.watchPosition(geoOptions)
-      //   .subscribe(async position => {
-      //     console.log(JSON.stringify(position))
-      //     if(position){
-      //       console.log('Driver position '+  position.coords.longitude + ' ' + position.coords.latitude)
-
-      //       const offer = await this.getOfferTracking()
-      //       // console.log('offert tracking ' + JSON.stringify(offer))
-      //       console.log('offert tracking ' + offer)
-
-      //       if(offer !== undefined && offer !== null){
-      //         const code = offer['data'].code
-      //         const obj = offer['data'].data
-      //         if(code === 100){
-
-      //           if(this.validateArray(obj)){
-      //             const userId = await this.getUserId()
-
-      //             const location = {
-      //               offer: obj[0],
-      //               latitude: position.coords.latitude,
-      //               longitude: position.coords.longitude,
-      //               userId,
-      //               timestamp: new Date().getTime()
-      //             }
-
-      //             // console.log('to save into firebase ' + location)
-
-      //             await this.saveTracking(userId, location)
-      //           }
-
-      //         }
-      //       }
-
-      //     }
-      // });
     }
 
     async getOfferTracking(){
       return await this.offer.getOfferTracking()
-      // const offert = await this.offer.getOfferTracking()
-      // console.log('Offert tracking ' + JSON.stringify(offert))
     }
 
     async saveTracking(userId, data){
-
       if(this.fireHelper === null){
         this.fireHelper = new FirebaseProvider()
       }
-
-      // console.log('save to firebase tracking '+ userId + ' ' + JSON.stringify(data))
-
       await this.fireHelper.saveTracking(userId, data)
-      // await this.fire.saveTracking(userId, data)
-      // const fire = new FirebaseProvider()
-      // await fire.saveTracking(userId, data)
+
     }
-
-    // async getGeolocation(){
-    //   const config: BackgroundGeolocationConfig = {
-    //     desiredAccuracy: 10,
-    //     stationaryRadius: 20,
-    //     distanceFilter: 30,
-    //     debug: true, //  enable this hear sounds for background-geolocation life-cycle.
-    //     stopOnTerminate: false, // enable this to clear background location settings when the app terminates
-    //   }
-
-    //   this.backgroundGeolocation.configure(config)
-    //   .then((location: BackgroundGeolocationResponse) => {
-    //     console.log('geolocation ' + location)
-    //     this.backgroundGeolocation.finish()
-    //   }).catch(e =>{
-    //     console.error('error to get geolocation ' + e)
-    //   })
-
-    //   this.backgroundGeolocation.start()
-
-    // }
-
 }
 
 
