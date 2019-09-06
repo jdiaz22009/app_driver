@@ -39,6 +39,7 @@ export class MyApp {
   geoSubscription: any
 
   fireHelper: FirebaseProvider = null
+  positionInterval: any
 
   constructor(
     public platform: Platform,
@@ -66,7 +67,8 @@ export class MyApp {
 
   ionViewWillLeave(){
    this.networkProvider.stopNetWorkMonitor()
-   this.geoSubscription.unsubscribe()
+   clearInterval(this.positionInterval)
+  //  this.geoSubscription.unsubscribe()
   //  this.backgroundGeolocation.stop()
   }
 
@@ -386,24 +388,11 @@ export class MyApp {
 
     async watchPosition(){
 
-      // let watch = this.geolocation.watchPosition();
-      // watch.subscribe((data) => {
-      // // data can be a set of coordinates, or an error (if an error occurred).
-      // // data.coords.latitude
-      // // data.coords.longitude
-      // });
-      const geoOptions = {
-        timeout: 240000,
-        maximumAge: 240000,
-        // timeout: 5000,
-        enableHighAccuracy: true
-      }
+      this.positionInterval = setInterval(async() =>{
+        this.geolocation.getCurrentPosition().then(async (resp) => {
+          if(resp){
 
-      this.geoSubscription = this.geolocation.watchPosition(geoOptions)
-        .subscribe(async position => {
-          console.log(JSON.stringify(position))
-          if(position){
-            console.log('Driver position '+  position.coords.longitude + ' ' + position.coords.latitude)
+            console.log('Driver position '+  resp.coords.longitude + ' ' + resp.coords.latitude)
 
             const offer = await this.getOfferTracking()
             // console.log('offert tracking ' + JSON.stringify(offer))
@@ -419,8 +408,8 @@ export class MyApp {
 
                   const location = {
                     offer: obj[0],
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
+                    latitude: resp.coords.latitude,
+                    longitude: resp.coords.longitude,
                     userId,
                     timestamp: new Date().getTime()
                   }
@@ -434,7 +423,61 @@ export class MyApp {
             }
 
           }
-      });
+          // resp.coords.latitude
+          // resp.coords.longitude
+         }).catch((error) => {
+           console.log('Error getting location', error)
+         })
+      }, 240000)
+
+      // this.positionInterval.
+
+
+      // let watch = this.geolocation.watchPosition();
+
+      // const geoOptions = {
+      //   timeout: 240000,
+      //   maximumAge: 240000,
+      //   // timeout: 5000,
+      //   enableHighAccuracy: true
+      // }
+
+      // this.geoSubscription = this.geolocation.watchPosition(geoOptions)
+      //   .subscribe(async position => {
+      //     console.log(JSON.stringify(position))
+      //     if(position){
+      //       console.log('Driver position '+  position.coords.longitude + ' ' + position.coords.latitude)
+
+      //       const offer = await this.getOfferTracking()
+      //       // console.log('offert tracking ' + JSON.stringify(offer))
+      //       console.log('offert tracking ' + offer)
+
+      //       if(offer !== undefined && offer !== null){
+      //         const code = offer['data'].code
+      //         const obj = offer['data'].data
+      //         if(code === 100){
+
+      //           if(this.validateArray(obj)){
+      //             const userId = await this.getUserId()
+
+      //             const location = {
+      //               offer: obj[0],
+      //               latitude: position.coords.latitude,
+      //               longitude: position.coords.longitude,
+      //               userId,
+      //               timestamp: new Date().getTime()
+      //             }
+
+      //             // console.log('to save into firebase ' + location)
+
+      //             await this.saveTracking(userId, location)
+      //           }
+
+      //         }
+      //       }
+
+      //     }
+      // });
     }
 
     async getOfferTracking(){
