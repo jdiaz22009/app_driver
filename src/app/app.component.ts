@@ -7,6 +7,7 @@ import { FCM } from "@ionic-native/fcm"
 import { LocalNotifications } from '@ionic-native/local-notifications'
 import { AndroidPermissions } from '@ionic-native/android-permissions'
 import { Badge } from '@ionic-native/badge'
+import { Geolocation } from '@ionic-native/geolocation'
 // import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 
 
@@ -19,6 +20,7 @@ import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
 import { NetworkProvider } from '@providers/network'
 import { FreightProvider } from '@providers/api/freight'
+import { FirebaseProvider } from '@providers/firebase'
 
 @Component({
   templateUrl: 'app.html'
@@ -33,6 +35,10 @@ export class MyApp {
   loader: any
 
   showNotification: boolean = true
+
+  geoSubscription: any
+
+  fireHelper: FirebaseProvider = null
 
   constructor(
     public platform: Platform,
@@ -50,6 +56,8 @@ export class MyApp {
     public offer: FreightProvider,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
+    private geolocation: Geolocation,
+    // private fire: FirebaseProvider
     // public backgroundGeolocation: BackgroundGeolocation
     ) {
 
@@ -58,11 +66,14 @@ export class MyApp {
 
   ionViewWillLeave(){
    this.networkProvider.stopNetWorkMonitor()
+   this.geoSubscription.unsubscribe()
   //  this.backgroundGeolocation.stop()
   }
 
   async loadApp() {
     this.platform.ready().then(() => {
+
+      firebase.initializeApp(FIREBASE_CONFIG)
 
       if (this.platform.is('cordova')) {
 
@@ -104,16 +115,20 @@ export class MyApp {
         }
         this.netwokSubscribe()
 
+        setTimeout(() =>{
+          this.watchPosition()
+        }, 10000)
         // this.getGeolocation()
       }
 
-      firebase.initializeApp(FIREBASE_CONFIG)
+      // firebase.initializeApp(FIREBASE_CONFIG)
 
       this.statusBar.backgroundColorByHexString('#0154a0')
       this.splashScreen.hide()
 
       setTimeout(() =>{
         this.getMyOffers() // valdidate to show assign popup
+        // this.getOfferTracking()
       }, 2000)
 
     })
@@ -135,6 +150,7 @@ export class MyApp {
             icon: 'res://drawable-hdpi/ic_stat_trans2.png'
             // smallIcon: 'file://assets/imgs/action_carts'
           })
+
         }else {
 
           if(this.showNotification){
@@ -366,6 +382,79 @@ export class MyApp {
         console.error(e)
         this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')
       })
+    }
+
+    async watchPosition(){
+
+      // let watch = this.geolocation.watchPosition();
+      // watch.subscribe((data) => {
+      // // data can be a set of coordinates, or an error (if an error occurred).
+      // // data.coords.latitude
+      // // data.coords.longitude
+      // });
+      const geoOptions = {
+        timeout: 240000,
+        maximumAge: 240000,
+        // timeout: 5000,
+        enableHighAccuracy: true
+      }
+
+      this.geoSubscription = this.geolocation.watchPosition(geoOptions)
+        .subscribe(async position => {
+          console.log(JSON.stringify(position))
+          if(position){
+            console.log('Driver position '+  position.coords.longitude + ' ' + position.coords.latitude)
+
+            const offer = await this.getOfferTracking()
+            // console.log('offert tracking ' + JSON.stringify(offer))
+            console.log('offert tracking ' + offer)
+
+            if(offer !== undefined && offer !== null){
+              const code = offer['data'].code
+              const obj = offer['data'].data
+              if(code === 100){
+
+                if(this.validateArray(obj)){
+                  const userId = await this.getUserId()
+
+                  const location = {
+                    offer: obj[0],
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    userId,
+                    timestamp: new Date().getTime()
+                  }
+
+                  // console.log('to save into firebase ' + location)
+
+                  await this.saveTracking(userId, location)
+                }
+
+              }
+            }
+
+          }
+      });
+    }
+
+    async getOfferTracking(){
+      return await this.offer.getOfferTracking()
+      // const offert = await this.offer.getOfferTracking()
+      // console.log('Offert tracking ' + JSON.stringify(offert))
+    }
+
+    async saveTracking(userId, data){
+
+      if(this.fireHelper === null){
+        this.fireHelper = new FirebaseProvider()
+      }
+
+      // console.log('save to firebase tracking '+ userId + ' ' + JSON.stringify(data))
+
+      await this.fireHelper.saveTracking(userId, data)
+      // await this.fire.saveTracking(userId, data)
+      // const fire = new FirebaseProvider()
+      // await fire.saveTracking(userId, data)
     }
 
     // async getGeolocation(){

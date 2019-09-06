@@ -14,8 +14,6 @@ const prod = {
     email: 'info@cargaya.com'
   },
   api:{
-    // url: 'https://cargaya.live',
-    // url_sockets: 'https://cargaya.live',
     url: 'https://prodcargaya.com',
     url_sockets: 'https://prodcargaya.com',
     drivers:{
@@ -56,7 +54,8 @@ const prod = {
       offerLoad: '/api/v1/offers/uploadphotoscargue',
       canceltOffer: '/api/v1/offers/cancelarOffers',
       offerCumplido: '/api/v1/offers/uploadcumplido',
-      qualifyCompany: '/api/v1/auth/calificar/entidad'
+      qualifyCompany: '/api/v1/auth/calificar/entidad',
+      offerTracking: '/api/v1/offers/ofertatracking'
     },
     push:{
       postPush: '/api/v1/auth/push'
@@ -117,7 +116,8 @@ const dev = {
       offerLoad: '/api/v1/offers/uploadphotoscargue',
       canceltOffer: '/api/v1/offers/cancelarOffers',
       offerCumplido: '/api/v1/offers/uploadcumplido',
-      qualifyCompany: '/api/v1/auth/calificar/entidad'
+      qualifyCompany: '/api/v1/auth/calificar/entidad',
+      offerTracking: '/api/v1/offers/ofertatracking'
     },
     push:{
       postPush: '/api/v1/auth/push'

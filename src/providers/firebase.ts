@@ -120,4 +120,9 @@ export class FirebaseProvider{
     })
    }
 
+   async saveTracking(userId, data){
+    const reference = this.database.ref(`tracking/${userId}`)
+    return await this.database.ref(reference).push(data)
+   }
+
 }
