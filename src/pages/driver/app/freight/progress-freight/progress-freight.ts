@@ -14,6 +14,7 @@ import { MediaProvider } from '@providers/media'
 import { FreightProvider } from '@providers/api/freight'
 import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
+
 @IonicPage()
 @Component({
   selector: 'progress-freight-driver',
@@ -130,15 +131,18 @@ export class ProgressFreightDriverPage {
     this.fire.getOfferLoad(userId, this.offer._id).then(res =>{
       this.photoCargue = []
       this.photoCumplido = []
-      const key = Object.keys(res)
-      for(let i of key){
-        if(i.includes('Cargue_')){
-          this.photoCargue.push({img: res[i], date})
-        }
-        if(i.includes('Cumplido_')){
-          this.photoCumplido.push({img: res[i], date})
+      if(res !== undefined && res !== null){
+        const key = Object.keys(res)
+        for(let i of key){
+          if(i.includes('Cargue_')){
+            this.photoCargue.push({img: res[i], date})
+          }
+          if(i.includes('Cumplido_')){
+            this.photoCumplido.push({img: res[i], date})
+          }
         }
       }
+
     })
   }
 
