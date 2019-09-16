@@ -32,7 +32,7 @@ export class ContactSharedComponent {
   ){}
 
   async ngAfterViewInit(){
-    this.emailTxt = this.textDefault[this.mode].email
+    // this.emailTxt = this.textDefault[this.mode].email
     console.log('offert to modal ' + JSON.stringify(this.offer))
     if(this.offer !== undefined){
       const profile = await this.getDriverProfile()
@@ -114,7 +114,8 @@ export class ContactSharedComponent {
       msg = 'Soporte app móvil'
     }
     console.log('email ' + emailContact  + ' message ' + msg)
-    this.socialSharing.shareViaEmail(this.emailTxt, msg, [emailContact]).then(() => {
+
+    this.socialSharing.shareViaEmail(msg, 'Soporte app móvil', [emailContact]).then(() => {
       console.log('Success!')
     }).catch((e) => {
       console.error('Error! ' + e)
