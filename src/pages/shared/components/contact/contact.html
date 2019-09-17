@@ -1,14 +1,17 @@
 <ion-grid>
   <ion-row>
     <ion-col (click)="call()">
-      <img class="h-actions" src="./assets/imgs/phone-icon.png">
+      <!-- <img class="h-actions" src="./assets/imgs/phone-icon.png"> -->
+      <img class="h-actions" src="./assets/imgs/contact/call.png">
     </ion-col>
     <ion-col (click)="email()">
       <img *ngIf="offer === undefined" class="h-actions" src="./assets/imgs/cargaya-contact-icon.png">
-      <ion-icon *ngIf="offer !== undefined" class="email-contact" name="mail"></ion-icon>
+      <!-- <ion-icon *ngIf="offer !== undefined" class="email-contact" name="mail"></ion-icon> -->
+      <img *ngIf="offer !== undefined" class="h-actions" src="./assets/imgs/contact/email.png">
     </ion-col>
     <ion-col (click)="whatsapp()">
-      <img class="h-actions" src="./assets/imgs/whatsapp-square-icon.png">
+      <!-- <img class="h-actions" src="./assets/imgs/whatsapp-square-icon.png"> -->
+      <img class="h-actions" src="./assets/imgs/contact/whatsapp.png">
     </ion-col>
   </ion-row>
 </ion-grid>
