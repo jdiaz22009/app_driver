@@ -5,6 +5,7 @@ import { SocialSharing } from '@ionic-native/social-sharing'
 
 import { CONFIG } from '@providers/config'
 import { DriverAuthProvider } from '@providers/api/driverAuth'
+import { FreightProvider } from '@providers/api/freight'
 import { StorageDb } from '@providers/storageDb'
 
 @Component({
@@ -29,6 +30,7 @@ export class ContactSharedComponent {
     private callNumber: CallNumber,
     public auth: DriverAuthProvider,
     public db: StorageDb,
+    public freight: FreightProvider
   ){}
 
   async ngAfterViewInit(){
@@ -87,27 +89,60 @@ export class ContactSharedComponent {
       emailContact = this.offer['coordinador'].email
 
       const email = item['coordinador'].email
-    console.log('email coordinator ' + email )
+      console.log('email coordinator ' + email )
 
-    const userId = await this.getUserId()
+      const userId = await this.getUserId()
 
-    const obj = item['postulantes'].find(item =>{
-      return item._id === userId
-    })
+      const obj = item['postulantes'].find(item =>{
+        return item._id === userId
+      })
+
+    // console.log('offert XXXXX ' + JSON.stringify(this.offer))
+    console.log('OBJ (((( ' + JSON.stringify(obj))
 
 
-    const vehicleSelected = obj.vehiculos.map(item =>{
-      if(item['select'] && item['state']) return item
-    })
+    if(obj !== undefined && obj !== null){
 
-    const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
-    const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
-    const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
-    const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
-    const origin = item.ciudad_origen.toUpperCase()
-    const destination = item.ciudad_destino.toUpperCase()
+      const vehicleSelected = obj.vehiculos.map(item =>{
+        if(item['select'] && item['state']) return item
+      })
 
-    msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
+      const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
+      const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
+      const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
+      const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+      const origin = item.ciudad_origen.toUpperCase()
+      const destination = item.ciudad_destino.toUpperCase()
+
+      msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
+
+    }else{
+      const offerPost = await this.freight.getOfferById(item._id)
+      console.log('offertPost ' + JSON.stringify(offerPost))
+
+      emailContact = offerPost['coordinador'].email
+
+      const obj = offerPost['postulantes'].find(item =>{
+        return item._id === userId
+      })
+
+      if(obj !== undefined && obj !== null){
+        const vehicleSelected = obj.vehiculos.map(item =>{
+          if(item['select'] && item['state']) return item
+        })
+
+        const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
+        const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
+        const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
+        const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+        const origin = item.ciudad_origen.toUpperCase()
+        const destination = item.ciudad_destino.toUpperCase()
+
+        msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
+
+      }
+
+    }
 
     }else{
       emailContact = CONFIG.support.email
