@@ -97,36 +97,10 @@ export class ContactSharedComponent {
         return item._id === userId
       })
 
-    // console.log('offert XXXXX ' + JSON.stringify(this.offer))
-    console.log('OBJ (((( ' + JSON.stringify(obj))
-
-
-    if(obj !== undefined && obj !== null){
-
-      const vehicleSelected = obj.vehiculos.map(item =>{
-        if(item['select'] && item['state']) return item
-      })
-
-      const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
-      const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
-      const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
-      const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
-      const origin = item.ciudad_origen.toUpperCase()
-      const destination = item.ciudad_destino.toUpperCase()
-
-      msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
-
-    }else{
-      const offerPost = await this.freight.getOfferById(item._id)
-      console.log('offertPost ' + JSON.stringify(offerPost))
-
-      emailContact = offerPost['coordinador'].email
-
-      const obj = offerPost['postulantes'].find(item =>{
-        return item._id === userId
-      })
+      // console.log('OBJ (((( ' + JSON.stringify(obj))
 
       if(obj !== undefined && obj !== null){
+
         const vehicleSelected = obj.vehiculos.map(item =>{
           if(item['select'] && item['state']) return item
         })
@@ -140,14 +114,40 @@ export class ContactSharedComponent {
 
         msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
 
-      }
+      }else{
+        const dataPost = await this.freight.getOfferById(item._id)
+        const offerPost = dataPost['data'].data
+        console.log('offertPost ' + JSON.stringify(offerPost))
 
-    }
+        emailContact = offerPost['coordinador'].email
+
+        const obj = offerPost['postulantes'].find(item =>{
+          return item._id === userId
+        })
+
+        if(obj !== undefined && obj !== null){
+          const vehicleSelected = obj.vehiculos.map(item =>{
+            if(item['select'] && item['state']) return item
+          })
+
+          const name = this.validateProperty(obj.primer_nombre ) ?  obj.primer_nombre.toUpperCase() : ''
+          const last_name = this.validateProperty(obj.primer_apellido) ? obj.primer_apellido.toUpperCase() : ''
+          const vehicle_class = this.validateProperty(vehicleSelected[0]['clase_vehiculo']) ? vehicleSelected[0]['clase_vehiculo'].toUpperCase() : ''
+          const vehicle_plate =  this.validateProperty(vehicleSelected[0]['placa']) ? vehicleSelected[0]['placa'].toUpperCase() : ''
+          const origin = item.ciudad_origen.toUpperCase()
+          const destination = item.ciudad_destino.toUpperCase()
+
+          msg = `${name} ${last_name} con tipo de vehículo ${vehicle_class} y placa número ${vehicle_plate}, postulado a la oferta ${item.pedido}, ${origin} - ${destination}, favor contactarme al celular ${obj.celular}  `
+
+        }
+
+      }
 
     }else{
       emailContact = CONFIG.support.email
       msg = 'Soporte app móvil'
     }
+
     console.log('email ' + emailContact  + ' message ' + msg)
 
     this.socialSharing.shareViaEmail(msg, 'Soporte app móvil', [emailContact]).then(() => {

@@ -26,6 +26,7 @@ export class FreightProvider{
   offerCumplido_path: String = CONFIG.api.offer.offerCumplido
   qualifyCompany_path: String = CONFIG.api.offer.qualifyCompany
   offerTracking_path: String = CONFIG.api.offer.offerTracking
+  rejectOffer_path: String = CONFIG.api.offer.rejectOffer
 
   constructor(
     public apiClient: ApiClientProvider,
@@ -272,6 +273,20 @@ export class FreightProvider{
     const headers = {'Authorization' : token, 'content-type': 'application/json' }
     try{
       return await this.apiClient.request('GET', url, null, headers)
+    }catch(e){
+      return e
+    }
+  }
+
+  async rejectOffer(id){
+    const url = this.api_url + this.rejectOffer_path
+    const token = await this.getToken()
+    const headers = {'Authorization' : token, 'content-type': 'application/json' }
+    const params = {
+      id
+    }
+    try{
+      return await this.apiClient.request('POST', url, params, headers)
     }catch(e){
       return e
     }

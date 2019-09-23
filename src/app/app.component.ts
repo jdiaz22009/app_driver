@@ -173,6 +173,9 @@ export class MyApp {
                     console.error(e)
                     this.alerts.showAlert('Error', 'No se ha podido realizar la operación.')
                   })
+                }else if(res === 0){
+                  //reject offert
+                  this.rejectOffer(data._id)
                 }
               })
             }
@@ -258,6 +261,9 @@ export class MyApp {
         this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
           if (res === 1) {
             this.acceptOffer(i._id)
+          }else if(res === 0){
+            //reject offert
+            this.rejectOffer(i._id)
           }
         })
       }
@@ -434,6 +440,12 @@ export class MyApp {
       await this.fireHelper.saveTracking(userId, data)
 
     }
+
+    async rejectOffer(id){
+      return await this.offer.rejectOffer(id)
+    }
+
+
 }
 
 
