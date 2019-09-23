@@ -175,7 +175,7 @@ export class MyApp {
                   })
                 }else if(res === 0){
                   //reject offert
-                  this.rejectOffer(data._id)
+                  // this.rejectOffer(data._id)
                 }
               })
             }
@@ -263,7 +263,7 @@ export class MyApp {
             this.acceptOffer(i._id)
           }else if(res === 0){
             //reject offert
-            this.rejectOffer(i._id)
+            // this.rejectOffer(i._id)
           }
         })
       }
@@ -442,7 +442,15 @@ export class MyApp {
     }
 
     async rejectOffer(id){
-      return await this.offer.rejectOffer(id)
+      this.offer.rejectOffer(id).then(res => {
+        console.log('offert rejected ' + JSON.stringify(res))
+        if(res){
+          this.alerts.showAlert('Oferta Rechazada', 'La oferta ha sido rechazada con éxito')
+        }
+      }).catch(e =>{
+        console.error('error o reject offer ' + e)
+        this.alerts.showAlert('Error', 'Ocurrió un error al rechazar la oferta')
+      })
     }
 
 

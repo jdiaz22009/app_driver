@@ -213,6 +213,18 @@ export class MyFreightDriverPage {
 
   cancerlOffer(id) {
     console.log('cancelar offer ' + id)
+
+    this.offer.rejectOffer(id).then(res => {
+      console.log('offert rejected ' + JSON.stringify(res))
+      if(res){
+        this.alerts.showAlert('Oferta Rechazada', 'La oferta ha sido rechazada con éxito')
+        this.allOffers = []
+        this.getMyOffers()
+      }
+    }).catch(e =>{
+      console.error('error o reject offer ' + e)
+      this.alerts.showAlert('Error', 'Ocurrió un error al rechazar la oferta')
+    })
     // this.driverAuth.cancelTheOffer(id).then(res =>{
     //   console.log(JSON.stringify(res))
     //   if(res){

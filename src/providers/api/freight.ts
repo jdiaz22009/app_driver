@@ -279,11 +279,12 @@ export class FreightProvider{
   }
 
   async rejectOffer(id){
-    const url = this.api_url + this.rejectOffer_path
+    const url = this.api_url + this.rejectOffer_path + '/' + id
     const token = await this.getToken()
+    const userId = await this.getUserId()
     const headers = {'Authorization' : token, 'content-type': 'application/json' }
     const params = {
-      id
+      idConductor: userId
     }
     try{
       return await this.apiClient.request('POST', url, params, headers)

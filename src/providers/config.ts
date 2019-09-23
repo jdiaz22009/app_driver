@@ -118,7 +118,7 @@ const dev = {
       offerCumplido: '/api/v1/offers/uploadcumplido',
       qualifyCompany: '/api/v1/auth/calificar/entidad',
       offerTracking: '/api/v1/offers/ofertatracking',
-      rejectOffer: '/api/v1/'
+      rejectOffer: '/api/v1/cancelarAsignacion'
     },
     push:{
       postPush: '/api/v1/auth/push'
