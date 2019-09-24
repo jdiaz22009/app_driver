@@ -43,8 +43,10 @@ export class MyFreightDriverPage {
   }
 
   ionViewDidLoad() {
+    this.showAlert = true
     this.listType = 'all'
     this.getMyOffers()
+
 
     this.getOfferState().subscribe(state => {
       if (state) {
@@ -76,9 +78,11 @@ export class MyFreightDriverPage {
     if (i['estado_flete'] === 'Asignado' && this.showAlert) {
       this.showAlert = false
       const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-      this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+      this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Rechazar').then(res => {
         if (res === 1) {
           this.acceptOffer(i._id)
+        }else if(res === 0){
+          this.cancerlOffer(i._id)
         }
       })
     }
@@ -225,17 +229,6 @@ export class MyFreightDriverPage {
       console.error('error o reject offer ' + e)
       this.alerts.showAlert('Error', 'Ocurrió un error al rechazar la oferta')
     })
-    // this.driverAuth.cancelTheOffer(id).then(res =>{
-    //   console.log(JSON.stringify(res))
-    //   if(res){
-    //     this.alerts.showAlert('Oferta Rechazada', 'Haz rechazado la oferta.')
-    //     this.getMyOffers()
-    //     this.allOffers = []
-    //   }
-    // }).catch(e =>{
-    //   console.error(e)
-    //   this.alerts.showAlert('Error', 'Ocurrió un error al aceptar la oferta')
-    // })
   }
 
   async emailContact(item){

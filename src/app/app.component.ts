@@ -162,7 +162,7 @@ export class MyApp {
                 }
               })
             }else if(type === 'notification_asign'){
-              this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'cancelar').then(res => {
+              this.alerts.showConfirm(data.title, data.body, 'Aceptar', 'Rechazar').then(res => {
                 this.showNotification = true
                 if (res === 1) {
                   this.driverAuth.acceptTheOffer(data.id).then(res =>{
@@ -175,7 +175,7 @@ export class MyApp {
                   })
                 }else if(res === 0){
                   //reject offert
-                  // this.rejectOffer(data._id)
+                  this.rejectOffer(data._id)
                 }
               })
             }
@@ -258,12 +258,12 @@ export class MyApp {
       if (i['estado_flete'] === 'Asignado' && this.showNotification) {
         this.showNotification = false
         const msd = `${i['coordinador'].primer_nombre} de ${i['coordinador']['entidad'].razon} te ha asignado para un viaje de ${i.ciudad_origen} a ${i.ciudad_destino}, ¿Aún deseas tomarlo?`
-        this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Cancelar').then(res => {
+        this.alerts.showConfirm('Felicitaciones!!!', msd, 'Aceptar', 'Rechazar').then(res => {
           if (res === 1) {
             this.acceptOffer(i._id)
           }else if(res === 0){
             //reject offert
-            // this.rejectOffer(i._id)
+            this.rejectOffer(i._id)
           }
         })
       }
