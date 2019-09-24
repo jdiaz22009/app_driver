@@ -55,7 +55,8 @@ const prod = {
       canceltOffer: '/api/v1/offers/cancelarOffers',
       offerCumplido: '/api/v1/offers/uploadcumplido',
       qualifyCompany: '/api/v1/auth/calificar/entidad',
-      offerTracking: '/api/v1/offers/ofertatracking'
+      offerTracking: '/api/v1/offers/ofertatracking',
+      rejectOffer: '/api/v1/offers/cancelarAsignacion'
     },
     push:{
       postPush: '/api/v1/auth/push'
@@ -118,7 +119,7 @@ const dev = {
       offerCumplido: '/api/v1/offers/uploadcumplido',
       qualifyCompany: '/api/v1/auth/calificar/entidad',
       offerTracking: '/api/v1/offers/ofertatracking',
-      rejectOffer: '/api/v1/cancelarAsignacion'
+      rejectOffer: '/api/v1/offers/cancelarAsignacion'
     },
     push:{
       postPush: '/api/v1/auth/push'

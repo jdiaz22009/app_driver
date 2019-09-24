@@ -216,7 +216,7 @@ export class MyFreightDriverPage {
 
     this.offer.rejectOffer(id).then(res => {
       console.log('offert rejected ' + JSON.stringify(res))
-      if(res){
+      if(res && res['data'].code === 100){
         this.alerts.showAlert('Oferta Rechazada', 'La oferta ha sido rechazada con éxito')
         this.allOffers = []
         this.getMyOffers()
