@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 
+import { InAppBrowser } from '@ionic-native/in-app-browser'
+
 import { AlertsProvider } from '@providers/alerts'
 import { StorageDb } from '@providers/storageDb'
 import { CONFIG } from '@providers/config'
@@ -19,7 +21,8 @@ export class MainSharedPage {
     public navParams: NavParams,
     public alert: AlertsProvider,
     public loadingCtrl: LoadingController,
-    public db: StorageDb
+    public db: StorageDb,
+    private iab: InAppBrowser
     ) {
 
 
@@ -44,6 +47,14 @@ export class MainSharedPage {
 
   openPage(page){
     this.navCtrl.push('LoginSharedPage', {mode: page})
+  }
+
+  openWebPage(){
+    const browser = this.iab.create('http://mipagaya.com/auth/login', '_self', {
+      zoom: 'no',
+      hideurlbar: 'yes'
+    })
+    browser.show()
   }
 
 }

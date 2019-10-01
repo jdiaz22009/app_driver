@@ -19,6 +19,8 @@ import { FileTransfer } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
 import { Badge } from '@ionic-native/badge'
 import { Geolocation } from '@ionic-native/geolocation'
+import { InAppBrowser } from '@ionic-native/in-app-browser'
+
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation'
 
 import { HttpClientModule } from '@angular/common/http'
@@ -70,6 +72,7 @@ import { MyApp } from './app.component'
     File,
     Badge,
     Geolocation,
+    InAppBrowser,
     // BackgroundGeolocation,
     API_MODULE,
     PROVIDERS_MODULE,
