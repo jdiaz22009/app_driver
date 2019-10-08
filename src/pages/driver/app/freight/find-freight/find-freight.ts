@@ -1,4 +1,3 @@
-import { CitiesProvider } from '@providers/cities';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular'
 import { FormBuilder, FormGroup } from '@angular/forms'
@@ -9,6 +8,7 @@ import { Observable } from 'rxjs/Observable'
 
 import { SocialSharing } from '@ionic-native/social-sharing'
 
+import { CitiesProvider } from '@providers/cities'
 import { CONFIG } from '@providers/config'
 import { StorageDb } from '@providers/storageDb'
 import { FreightProvider } from '@providers/api/freight'
@@ -143,7 +143,7 @@ export class FindFreightDriverPage {
 
     this.apiFreight.getOffert().then(res =>{
       this.offers = []
-      console.log(JSON.stringify(res))
+      console.log('offers find ' + JSON.stringify(res))
       const data = res['data']
       const array = []
 
