@@ -50,7 +50,7 @@
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-badge": "^0.8.8",
-    "cordova-plugin-camera": "^4.0.3",
+    "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-fcm-with-dependecy-updated": "^3.1.0",
@@ -104,9 +104,6 @@
       "call-number": {},
       "cordova-plugin-console": {},
       "cordova-plugin-local-notification": {},
-      "cordova-plugin-camera": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-app-version": {},
       "cordova-plugin-file-opener2": {
@@ -124,7 +121,10 @@
         "GRADLE_TOOLS_VERSION": "3.5.0",
         "GOOGLE_SERVICES_VERSION": "4.2.0"
       },
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     },
     "platforms": [
       "android"
