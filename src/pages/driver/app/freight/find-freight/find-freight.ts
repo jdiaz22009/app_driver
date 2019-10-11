@@ -195,14 +195,34 @@ export class FindFreightDriverPage {
   }
 
   shared(freight){
-    const message = `No DE PEDIDO: ${freight.pedido}. Ruta: ${freight.ciudad_origen.toUpperCase()}-${freight.ciudad_destino.toUpperCase()}. Vehículo: ${freight.clase_vehiculo.toUpperCase()}-${freight.tipo_carroceria.toUpperCase()}. Peso: ${freight.peso_carga_max} TON. CONTACTO: ${freight.coordinador.primer_nombre.toUpperCase()} ${freight.coordinador.primer_apellido.toUpperCase()}, ${freight.coordinador.celular}, Si quieres pago contra entrega, pregunta por PagaYa!!! http://tiny.cc/u09z5y`
+
+    // console.log('freight ' + JSON.stringify(freight))
+    const no = this.validateProperty(freight.pedido) ? freight.pedido : ''
+    const origin = this.validateProperty(freight.ciudad_origen) ? freight.ciudad_origen.toUpperCase() : ''
+    const destination = this.validateProperty(freight.ciudad_destino) ? freight.ciudad_destino.toUpperCase() : ''
+    const vehicle_class = this.validateProperty(freight.clase_vehiculo) ? freight.clase_vehiculo.toUpperCase() : ''
+    const bodywork = this.validateProperty(freight.tipo_carroceria) ? freight.tipo_carroceria.toUpperCase() : ''
+    const weight = this.validateProperty(freight.peso_carga_max) ? freight.peso_carga_max : ''
+    const name = this.validateProperty(freight.coordinador.primer_nombre) ? freight.coordinador.primer_nombre.toUpperCase() : ''
+    const lastname = this.validateProperty(freight.coordinador.primer_apellido) ? freight.coordinador.primer_apellido.toUpperCase() : ''
+    const phone = this.validateProperty(freight.coordinador.celular) ? freight.coordinador.celular : ''
+
+    const message = `No DE PEDIDO: ${no}. Ruta: ${origin}-${destination}. Vehículo: ${vehicle_class}-${bodywork}. Peso: ${freight.peso_carga_max} TON. CONTACTO: ${name} ${lastname}, ${phone}, Si quieres pago contra entrega, pregunta por PagaYa!!! http://tiny.cc/u09z5y`
     const subject  = 'Carga Disponible, postulate'
     const file = null
     const url = null
 
+    // console.log('share ' + message)
+
     this.socialSharing.share(message, subject, file, url)
   }
 
+  validateProperty(property){
+    if(property !== undefined && property !== null && property !== ''){
+      return true
+    }
+    return false
+  }
 
   showModal(mode){
     console.log('showModal ' + mode)
