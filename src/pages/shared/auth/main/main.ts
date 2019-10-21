@@ -50,7 +50,7 @@ export class MainSharedPage {
   }
 
   openWebPage(){
-    const browser = this.iab.create('http://mipagaya.com/auth/login', '_self', {
+    const browser = this.iab.create(CONFIG.support.urlpagaya, '_self', {
       zoom: 'no',
       hideurlbar: 'yes'
     })
