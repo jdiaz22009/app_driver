@@ -1,5 +1,5 @@
-// const env = 'dev'
-const env = 'prod'
+const env = 'dev'
+// const env = 'prod'
 
 const prod = {
   environment: "prod",
@@ -12,7 +12,7 @@ const prod = {
     whatsapp: "+573205801985",
     phone: "+573205801985",
     email: "info@cargaya.com",
-    urlpagaya: "http://mipagaya.com/auth/login"
+    urlpagaya: "https://mipagaya.com/auth/login"
   },
   api: {
     url: "https://prodcargaya.com",
@@ -75,7 +75,8 @@ const dev = {
   support: {
     whatsapp: "+573205801985",
     phone: "+573205801985",
-    email: "info@cargaya.com"
+    email: "info@cargaya.com",
+    urlpagaya: "https://mipagaya.com/auth/login"
   },
   api: {
     url: "https://devcargaya.com",
