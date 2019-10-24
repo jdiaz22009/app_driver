@@ -272,4 +272,15 @@ export class MyFreightDriverPage {
     }
     return false
   }
+
+  getCurrency(value){
+    if(value !== undefined && value !== null && value !== ''){
+      const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+      })
+      return formatter.format(value).replace(/\D00$/, '')
+    }
+    return '$'
+  }
 }

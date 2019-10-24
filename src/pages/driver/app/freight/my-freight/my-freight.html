@@ -107,7 +107,7 @@
                                 <p class="tx-summary">{{item.peso_carga_max}} TON</p>
 
                                 <p class="tx-title">Flete</p>
-                                <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
+                                <p class="tx-summary">{{getCurrency(item.flete)}}</p>
                               </ion-col>
                               <ion-col col-5 class="no-padding">
                                 <p class="tx-title">Carrocería</p>
@@ -201,7 +201,7 @@
                                   <p class="tx-summary">{{item.peso_carga_max}} TON</p>
 
                                   <p class="tx-title">Flete</p>
-                                  <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
+                                  <p class="tx-summary">{{getCurrency(item.flete)}}</p>
                                 </ion-col>
                                 <ion-col col-5 class="no-padding">
                                   <p class="tx-title">Carrocería</p>
@@ -294,7 +294,7 @@
                                     <p class="tx-summary">{{item.peso_carga_max}} TON</p>
 
                                     <p class="tx-title">Flete</p>
-                                    <p class="tx-summary">{{item.flete | currency:'USD':'symbol':'4.0-0' }}</p>
+                                    <p class="tx-summary">{{getCurrency(item.flete)}}</p>
                                   </ion-col>
                                   <ion-col col-5 class="no-padding">
                                     <p class="tx-title">Carrocería</p>
