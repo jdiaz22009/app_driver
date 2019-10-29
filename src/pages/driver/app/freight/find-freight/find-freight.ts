@@ -25,6 +25,8 @@ export class FindFreightDriverPage {
   regions: any = []
   user_id: string
 
+  firstLoad: boolean = true
+
   offerCount: number = 0
 
   iconBtnFilters =[
@@ -147,6 +149,10 @@ export class FindFreightDriverPage {
       const data = res['data']
       const array = []
 
+      if(this.firstLoad){
+        this.firstLoad = false
+      }
+
       data.forEach(e => {
         if(e['state'].sequence < 5){
           const drivers = e['postulantes']
@@ -202,7 +208,7 @@ export class FindFreightDriverPage {
     const destination = this.validateProperty(freight.ciudad_destino) ? freight.ciudad_destino.toUpperCase() : ''
     const vehicle_class = this.validateProperty(freight.clase_vehiculo) ? freight.clase_vehiculo.toUpperCase() : ''
     const bodywork = this.validateProperty(freight.tipo_carroceria) ? freight.tipo_carroceria.toUpperCase() : ''
-    const weight = this.validateProperty(freight.peso_carga_max) ? freight.peso_carga_max : ''
+    // const weight = this.validateProperty(freight.peso_carga_max) ? freight.peso_carga_max : ''
     const name = this.validateProperty(freight.coordinador.primer_nombre) ? freight.coordinador.primer_nombre.toUpperCase() : ''
     const lastname = this.validateProperty(freight.coordinador.primer_apellido) ? freight.coordinador.primer_apellido.toUpperCase() : ''
     const phone = this.validateProperty(freight.coordinador.celular) ? freight.coordinador.celular : ''
@@ -278,12 +284,48 @@ export class FindFreightDriverPage {
     })
   }
 
-  search(){
+  async search(){
     console.log(JSON.stringify(this.findForm.value))
+    const userId = await this.getUserId()
     this.apiFreight.getOffertByFilters(this.findForm.value).then(res =>{
       console.log(res)
       if(res){
-        this.offers = res['data'].searchOffers
+        // this.offers = res['data'].searchOffers
+        this.offers = []
+      console.log('offers find ' + JSON.stringify(res))
+      const data = res['data'].searchOffers
+      const array = []
+
+      if(Array.isArray(data) && data.length > 0){
+          data.forEach(e => {
+            if(e['state'].sequence < 5){
+              const drivers = e['postulantes']
+              if(drivers.length > 0){
+                let isDriver = false
+                for(let i of drivers){
+                    if(i._id === userId){
+                      isDriver = true
+                  }
+                }
+                if(!isDriver){
+                  array.push(e)
+                }
+              }else{
+                array.push(e)
+              }
+            }
+          })
+
+          if(array.length > 0){
+            array.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+          }
+          // console.log(JSON.stringify(array))
+          // console.log(JSON.stringify(data))
+          this.offers = array
+        }else{
+          this.offers = array
+        }
+
       }
     })
   }

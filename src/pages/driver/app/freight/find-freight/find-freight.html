@@ -115,6 +115,12 @@
       </ion-col>
     </ion-row>
 
+    <ion-row justify-content-center *ngIf="offers.length === 0 && !firstLoad">
+      <ion-col col-6>
+        <p text-center>No hay ofertas</p>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
 
   <div class="card-content" *ngFor="let item of offers; let i = index">
