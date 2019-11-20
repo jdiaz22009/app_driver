@@ -292,40 +292,39 @@ export class FindFreightDriverPage {
       if(res){
         // this.offers = res['data'].searchOffers
         this.offers = []
-      console.log('offers find ' + JSON.stringify(res))
-      const data = res['data'].searchOffers
-      const array = []
+        console.log('offers find ' + JSON.stringify(res))
+        const data = res['data'].searchOffers
+        const array = []
 
-      if(Array.isArray(data) && data.length > 0){
-          data.forEach(e => {
-            if(e['state'].sequence < 5){
-              const drivers = e['postulantes']
-              if(drivers.length > 0){
-                let isDriver = false
-                for(let i of drivers){
-                    if(i._id === userId){
-                      isDriver = true
+        if(Array.isArray(data) && data.length > 0){
+            data.forEach(e => {
+              if(e['state'].sequence < 5){
+                const drivers = e['postulantes']
+                if(drivers.length > 0){
+                  let isDriver = false
+                  for(let i of drivers){
+                      if(i._id === userId){
+                        isDriver = true
+                    }
                   }
-                }
-                if(!isDriver){
+                  if(!isDriver){
+                    array.push(e)
+                  }
+                }else{
                   array.push(e)
                 }
-              }else{
-                array.push(e)
               }
+            })
+
+            if(array.length > 0){
+              array.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
             }
-          })
-
-          if(array.length > 0){
-            array.sort((a, b) => new Date(b.fecha_creacion).getTime() - new Date(a.fecha_creacion).getTime())
+            // console.log(JSON.stringify(array))
+            // console.log(JSON.stringify(data))
+            this.offers = array
+          }else{
+            this.offers = array
           }
-          // console.log(JSON.stringify(array))
-          // console.log(JSON.stringify(data))
-          this.offers = array
-        }else{
-          this.offers = array
-        }
-
       }
     })
   }
