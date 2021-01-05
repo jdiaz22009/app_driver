@@ -42,7 +42,7 @@
     "@ionic-native/splash-screen": "~4.20.0",
     "@ionic-native/status-bar": "~4.20.0",
     "@ionic/storage": "2.2.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "call-number": "1.0.1",
     "compare-versions": "^3.5.1",
     "cordova": "9.0.0",
